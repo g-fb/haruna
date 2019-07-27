@@ -1,3 +1,5 @@
+#include "_debug.h"
+
 #include <QObject>
 #include <QtGlobal>
 #include <QOpenGLContext>
@@ -10,6 +12,9 @@
 #include <QDateTime>
 
 #include "mpvobject.h"
+#include "track.h"
+#include "tracksmodel.h"
+
 
 namespace
 {
@@ -99,13 +104,13 @@ public:
 };
 
 MpvObject::MpvObject(QQuickItem * parent)
-    : QQuickFramebufferObject(parent), mpv{mpv_create()}, mpv_gl(nullptr)
+    : QQuickFramebufferObject(parent)
+    , mpv{mpv_create()}, mpv_gl(nullptr)
+    , m_subtitleTracksModel(new TracksModel)
+    , m_audioTracksModel(new TracksModel)
 {
     if (!mpv)
         throw std::runtime_error("could not create mpv context");
-
-//    mpv_set_option_string(mpv, "terminal", "yes");
-//    mpv_set_option_string(mpv, "msg-level", "all=v");
 
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
@@ -113,11 +118,9 @@ MpvObject::MpvObject(QQuickItem * parent)
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("could not initialize mpv context");
 
-    // Request hw decoding, just for testing.
-    mpv::qt::set_option_variant(mpv, "hwdec", "auto");
-
     connect(this, &MpvObject::onUpdate, this, &MpvObject::doUpdate,
             Qt::QueuedConnection);
+
 }
 
 MpvObject::~MpvObject()
@@ -157,9 +160,14 @@ void MpvObject::doUpdate()
                 if (prop->format == MPV_FORMAT_DOUBLE) {
                     double duration = *(double *)prop->data;
                     m_duration = duration;
+
                     emit onDurationChanged(duration);
                 }
             }
+            break;
+        }
+        case MPV_EVENT_FILE_LOADED: {
+            loadTracks();
             break;
         }
         case MPV_EVENT_END_FILE: {
@@ -175,14 +183,67 @@ void MpvObject::doUpdate()
     }
 }
 
+void MpvObject::loadTracks()
+{
+    m_subtitleTracks.clear();
+    m_audioTracks.clear();
+    QVariant tracks = getProperty("track-list");
+    for (auto track : tracks.toList()) {
+        if (track.toMap()["type"] == "sub") {
+            const auto t = track.toMap();
+            auto *track = new Track();
+            track->setCodec(t["codec"].toString());
+            track->setDefaut(t["default"].toBool());
+            track->setDependent(t["dependent"].toBool());
+            track->setForced(t["forced"].toBool());
+            track->setSelected(t["selected"].toBool());
+            track->setId(t["id"].toLongLong());
+            track->setSrcId(t["src-id"].toLongLong());
+            track->setFfIndex(t["ff-index"].toLongLong());
+            track->setLang(t["lang"].toString());
+            track->setTitle(t["title"].toString());
+
+            m_subtitleTracks << track;
+        }
+        if (track.toMap()["type"] == "audio") {
+            const auto t = track.toMap();
+            auto *track = new Track();
+            track->setCodec(t["codec"].toString());
+            track->setDefaut(t["default"].toBool());
+            track->setDependent(t["dependent"].toBool());
+            track->setForced(t["forced"].toBool());
+            track->setSelected(t["selected"].toBool());
+            track->setId(t["id"].toLongLong());
+            track->setSrcId(t["src-id"].toLongLong());
+            track->setFfIndex(t["ff-index"].toLongLong());
+            track->setLang(t["lang"].toString());
+            track->setTitle(t["title"].toString());
+
+            m_audioTracks << track;
+        }
+    }
+    m_subtitleTracksModel->setTracks(m_subtitleTracks);
+    m_audioTracksModel->setTracks(m_audioTracks);
+}
+
+TracksModel *MpvObject::subtitleTracksModel() const
+{
+    return m_subtitleTracksModel;
+}
+
+TracksModel *MpvObject::audioTracksModel() const
+{
+    return m_audioTracksModel;
+}
+
 void MpvObject::command(const QVariant& params)
 {
-    mpv::qt::command_variant(mpv, params);
+    mpv::qt::command(mpv, params);
 }
 
 void MpvObject::setProperty(const QString& name, const QVariant& value)
 {
-    mpv::qt::set_property_variant(mpv, name, value);
+    mpv::qt::set_property(mpv, name, value);
 }
 
 QVariant MpvObject::getProperty(const QString& name)

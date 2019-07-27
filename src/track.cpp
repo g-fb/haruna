@@ -1,0 +1,116 @@
+#include "track.h"
+
+Track::Track(QObject *parent) : QObject(parent)
+{
+
+}
+
+QString Track::lang() const
+{
+    return m_lang;
+}
+
+void Track::setLang(const QString &lang)
+{
+    m_lang = lang;
+}
+
+QString Track::title() const
+{
+    return m_title;
+}
+
+void Track::setTitle(const QString &title)
+{
+    m_title = title;
+}
+
+QString Track::codec() const
+{
+    return m_codec;
+}
+
+void Track::setCodec(const QString &codec)
+{
+    m_codec = codec;
+}
+
+qlonglong Track::id() const
+{
+    return m_id;
+}
+
+void Track::setId(const qlonglong &id)
+{
+    m_id = id;
+}
+
+qlonglong Track::ffIndex() const
+{
+    return m_ffIndex;
+}
+
+void Track::setFfIndex(const qlonglong &ffIndex)
+{
+    m_ffIndex = ffIndex;
+}
+
+qlonglong Track::srcId() const
+{
+    return m_srcId;
+}
+
+void Track::setSrcId(const qlonglong &srcId)
+{
+    m_srcId = srcId;
+}
+
+bool Track::dependent() const
+{
+    return m_dependent;
+}
+
+void Track::setDependent(bool dependent)
+{
+    m_dependent = dependent;
+}
+
+bool Track::external() const
+{
+    return m_external;
+}
+
+void Track::setExternal(bool external)
+{
+    m_external = external;
+}
+
+bool Track::selected() const
+{
+    return m_selected;
+}
+
+void Track::setSelected(bool selected)
+{
+    m_selected = selected;
+}
+
+bool Track::forced() const
+{
+    return m_forced;
+}
+
+void Track::setForced(bool forced)
+{
+    m_forced = forced;
+}
+
+bool Track::defaut() const
+{
+    return m_defaut;
+}
+
+void Track::setDefaut(bool defaut)
+{
+    m_defaut = defaut;
+}

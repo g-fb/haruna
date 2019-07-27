@@ -8,6 +8,8 @@
 #include <mpv/qthelper.hpp>
 
 class MpvRenderer;
+class Track;
+class TracksModel;
 
 class MpvObject : public QQuickFramebufferObject
 {
@@ -17,9 +19,6 @@ class MpvObject : public QQuickFramebufferObject
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
-
-    double m_position;
-    double m_duration;
 
     friend class MpvRenderer;
     void handle_mpv_event(mpv_event *event);
@@ -37,6 +36,8 @@ public slots:
     void setProperty(const QString& name, const QVariant& value);
     QVariant getProperty(const QString &name);
     QString formatTime(double time);
+    TracksModel *audioTracksModel() const;
+    TracksModel *subtitleTracksModel() const;
 
 signals:
     void onUpdate();
@@ -47,6 +48,15 @@ signals:
 
 private slots:
     void doUpdate();
+private:
+    TracksModel *m_audioTracksModel;
+    TracksModel *m_subtitleTracksModel;
+    QList<Track*> m_subtitleTracks;
+    QList<Track*> m_audioTracks;
+    double m_position;
+    double m_duration;
+
+    void loadTracks();
 };
 
 #endif // MPVOBJECT_H

@@ -10,6 +10,16 @@ MpvObject {
     property int my
     property string videoDuration
     property alias scrollPositionTimer: scrollPositionTimer
+    signal setSubtitle(int id)
+    signal setAudio(int id)
+
+    onSetSubtitle: {
+        mpv.setProperty("sid", id)
+    }
+
+    onSetAudio: {
+        mpv.setProperty("aid", id)
+    }
 
     function toggleFullScreen() {
         if (window.visibility !== Window.FullScreen) {

@@ -1,20 +1,21 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQuickStyle>
-#include <QQmlContext>
-#include <QThread>
-#include <QApplication>
-
 #include "_debug.h"
-#include "worker.h"
+#include "application.h"
 #include "mpvobject.h"
+#include "tracksmodel.h"
 #include "videoitem.h"
 #include "videolist.h"
 #include "videolistmodel.h"
-#include "application.h"
+#include "worker.h"
 
+#include <QApplication>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QQuickStyle>
 #include <QQuickView>
 #include <QQuickItem>
+#include <QThread>
+
 #include <memory>
 
 int main(int argc, char *argv[])
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
     qmlRegisterInterface<QAction>("QAction");
+    qmlRegisterInterface<TracksModel>("TracksModel");
 
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
