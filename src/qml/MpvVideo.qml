@@ -142,9 +142,10 @@ MpvObject {
         onExited: hideCursorTimer.running = false
 
         onMouseXChanged: {
+            mpv.focus = true
             mx = mouseX
             if (mouseX > mpv.width - 50
-                    && (mouseY < mpv.height * 0.8 && mouseY > mpv.height * 0.2) /* && videoListModel.rows() > 0*/) {
+                    && (mouseY < mpv.height * 0.8 && mouseY > mpv.height * 0.2) && playList.tableView.rows > 0) {
                 playList.state = "visible"
             }
             if (mouseX < mpv.width - playList.width) {
@@ -153,6 +154,7 @@ MpvObject {
         }
 
         onMouseYChanged: {
+            mpv.focus = true
             my = mouseY
             if (mouseY > window.height - footer.height && window.visibility === Window.FullScreen) {
                 fullscreenFooter.visible = true
@@ -162,6 +164,7 @@ MpvObject {
         }
 
         onClicked: {
+            focus = true
             if (mouse.button === Qt.RightButton) {
                 mpv.play_pause()
             }

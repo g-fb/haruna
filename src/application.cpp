@@ -69,13 +69,19 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_S);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("openUrl")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Open Url"));
+        action->setIcon(QIcon::fromTheme("internet-services"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_O);
+        m_collection.addAction(actionName, action);
+    }
 
     // mpv actions
     if (actionName == QStringLiteral("seekForward")) {
         QAction *action = new QAction();
         action->setText(i18n("Seek Forward"));
         action->setIcon(QIcon::fromTheme("media-seek-forward"));
-        action->setShortcut(QKeySequence(Qt::Key_Right));
         m_collection.setDefaultShortcut(action, Qt::Key_Right);
         m_collection.addAction(actionName, action);
     }

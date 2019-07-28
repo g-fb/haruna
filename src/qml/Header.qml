@@ -14,8 +14,28 @@ ToolBar {
         RowLayout {
             id: headerRowLeft
             Layout.alignment: Qt.AlignLeft
+
             ToolButton {
-                action: openAction
+                icon.name: "document-open"
+                text: qsTr("Open")
+
+                onReleased: {
+                    openMenu.open()
+                    mpv.focus = true
+                }
+
+                Menu {
+                    id: openMenu
+                    y: parent.height
+
+                    MenuItem {
+                        action: openAction
+                    }
+
+                    MenuItem {
+                        action: openUrlAction
+                    }
+                }
             }
 
             ToolButton {
@@ -23,6 +43,11 @@ ToolBar {
                 text: qsTr("Subtitles")
                 onClicked: {
                     subtitleMenuInstantiator.model = mpv.subtitleTracksModel()
+                }
+
+                onReleased: {
+                    subtitleMenu.open()
+                    mpv.focus = true
                 }
 
                 Menu {
@@ -46,8 +71,6 @@ ToolBar {
                         }
                     }
                 }
-
-                onReleased: subtitleMenu.open()
             }
 
             ToolButton {
@@ -55,6 +78,11 @@ ToolBar {
                 text: qsTr("Audio")
                 onClicked: {
                     audioMenuInstantiator.model = mpv.audioTracksModel()
+                }
+
+                onReleased: {
+                    audioMenu.open()
+                    mpv.focus = true
                 }
 
                 Menu {
@@ -78,8 +106,6 @@ ToolBar {
                         }
                     }
                 }
-
-                onReleased: audioMenu.open()
             }
         }
 
@@ -91,6 +117,7 @@ ToolBar {
                 icon.name: "view-media-playlist"
                 text: qsTr("Playlist")
                 onClicked: (playList.state === "hidden") ? playList.state = "visible" : playList.state = "hidden"
+                onReleased: mpv.focus = true
             }
 
             ToolButton {

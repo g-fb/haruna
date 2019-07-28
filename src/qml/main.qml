@@ -15,6 +15,7 @@ ApplicationWindow {
 
     property var quitApplication: app.action("file_quit")
     property var configureShortcuts: app.action("options_configure_keybinding")
+    property var openUrl: app.action("openUrl")
     property var seekForward: app.action("seekForward")
     property var seekBackward: app.action("seekBackward")
     property var seekNextSubtitle: app.action("seekNextSubtitle")
@@ -59,6 +60,7 @@ ApplicationWindow {
         property double lastPlayedPosition
         property double lastPlayedDuration
         property int playingFileYPosition
+        property alias lastUrl: openUrlTextField.text
         property alias x: window.x
         property alias y: window.y
         property alias width: window.width
@@ -96,7 +98,6 @@ ApplicationWindow {
         }
     }
 
-
     FileDialog {
         id: fileDialog
         folder: shortcuts.movies
@@ -108,6 +109,47 @@ ApplicationWindow {
             // the timer scrolls the playlist to the playing file
             // once the table view rows are loaded
             mpv.scrollPositionTimer.start()
+            mpv.focus = true
+        }
+        onRejected: mpv.focus = true
+    }
+
+    Popup {
+        id: openUrlPopup
+        anchors.centerIn: Overlay.overlay
+        width: mpv.width * 0.7
+
+        onOpened: {
+            openUrlPopup.focus = true
+            openUrlTextField.focus = true
+            openUrlTextField.selectAll()
+        }
+
+        RowLayout {
+            anchors.fill: parent
+            TextField {
+                id: openUrlTextField
+                Layout.fillWidth: true
+
+                Keys.onPressed: {
+                    if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
+                        openFile(openUrlTextField.text, true, false)
+                        openUrlPopup.close()
+                    }
+                    if (event.key === Qt.Key_Escape) {
+                        openUrlPopup.close()
+                    }
+                }
+            }
+            Button {
+                id: openUrlButton
+                text: qsTr("Open")
+
+                onClicked: {
+                    openFile(openUrlTextField.text, true, false)
+                    openUrlPopup.close()
+                }
+            }
         }
     }
 
@@ -117,6 +159,14 @@ ApplicationWindow {
         icon.name: "document-open"
         shortcut: StandardKey.Open
         onTriggered: fileDialog.open()
+    }
+
+    Action {
+        id: openUrlAction
+        text: openUrl.text
+        shortcut: openUrl.shortcut
+        icon.name: app.iconName(openUrl.icon)
+        onTriggered: openUrlPopup.open()
     }
 
     Action {
@@ -159,7 +209,7 @@ ApplicationWindow {
     }
 
     Action {
-        id: qqq
+        id: configureShortcutsAction
         text: configureShortcuts.text
         icon.name: app.iconName(configureShortcuts.icon)
         shortcut: configureShortcuts.shortcut
