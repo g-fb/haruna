@@ -114,3 +114,13 @@ void Track::setDefaut(bool defaut)
 {
     m_defaut = defaut;
 }
+
+QString Track::type() const
+{
+    return m_type;
+}
+
+void Track::setType(const QString &type)
+{
+    m_type = type;
+}

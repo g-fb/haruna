@@ -42,7 +42,6 @@ void Application::configureShortcuts()
     connect(&dlg, &KShortcutsDialog::accepted, this, [ = ](){
         m_collection.writeSettings(m_shortcuts);
         m_config->sync();
-        DEBUG << "saved";
     });
     dlg.setModal(true);
     dlg.addCollection(&m_collection);

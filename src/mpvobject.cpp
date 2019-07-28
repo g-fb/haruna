@@ -193,6 +193,7 @@ void MpvObject::loadTracks()
             const auto t = track.toMap();
             auto *track = new Track();
             track->setCodec(t["codec"].toString());
+            track->setType(t["type"].toString());
             track->setDefaut(t["default"].toBool());
             track->setDependent(t["dependent"].toBool());
             track->setForced(t["forced"].toBool());
@@ -209,6 +210,7 @@ void MpvObject::loadTracks()
             const auto t = track.toMap();
             auto *track = new Track();
             track->setCodec(t["codec"].toString());
+            track->setType(t["type"].toString());
             track->setDefaut(t["default"].toBool());
             track->setDependent(t["dependent"].toBool());
             track->setForced(t["forced"].toBool());

@@ -59,18 +59,19 @@ void TracksModel::updateSelectedTrack(int id)
     int i = 0;
     for (auto track : m_tracks) {
         if (track->selected() == true && track->id() == id) {
-            track->setSelected(true);
+            if (track->type() == "sub") {
+                track->setSelected(false);
+            } else {
+                track->setSelected(true);
+            }
             dataChanged(index(i), index(i));
-        }
-        if (track->selected() == true && track->id() != id) {
+        } else if (track->selected() == true && track->id() != id) {
             track->setSelected(false);
             dataChanged(index(i), index(i));
-        }
-        if (track->selected() == false && track->id() == id) {
+        } else if (track->selected() == false && track->id() == id) {
             track->setSelected(true);
             dataChanged(index(i), index(i));
-        }
-        if (track->selected() == false && track->id() != id) {
+        } else if (track->selected() == false && track->id() != id) {
             track->setSelected(false);
             dataChanged(index(i), index(i));
         }

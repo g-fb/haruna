@@ -42,6 +42,9 @@ public:
     bool defaut() const;
     void setDefaut(bool defaut);
 
+    QString type() const;
+    void setType(const QString &type);
+
 signals:
 
 public slots:
@@ -50,6 +53,7 @@ private:
     QString m_lang;
     QString m_title;
     QString m_codec;
+    QString m_type;
     qlonglong m_id;
     qlonglong m_ffIndex;
     qlonglong m_srcId;

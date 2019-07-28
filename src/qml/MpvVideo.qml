@@ -10,16 +10,8 @@ MpvObject {
     property int my
     property string videoDuration
     property alias scrollPositionTimer: scrollPositionTimer
-    signal setSubtitle(int id)
+    signal setSubtitle(int id, bool checked)
     signal setAudio(int id)
-
-    onSetSubtitle: {
-        mpv.setProperty("sid", id)
-    }
-
-    onSetAudio: {
-        mpv.setProperty("aid", id)
-    }
 
     function toggleFullScreen() {
         if (window.visibility !== Window.FullScreen) {
@@ -38,6 +30,18 @@ MpvObject {
     }
 
     anchors.fill: parent
+
+    onSetSubtitle: {
+        if (checked) {
+            mpv.setProperty("sid", id)
+        } else {
+            mpv.setProperty("sid", "no")
+        }
+    }
+
+    onSetAudio: {
+        mpv.setProperty("aid", id)
+    }
 
     onReady: {
         // open last played file, paused and
