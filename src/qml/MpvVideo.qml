@@ -68,6 +68,9 @@ MpvObject {
             window.positionChanged(position)
         }
     }
+    onRemainingChanged: {
+        window.remainingChanged(remaining)
+    }
 
     onEndOfFile: {
         var nextFileRow = videoList.getPlayingVideo() + 1
@@ -76,6 +79,10 @@ MpvObject {
             window.openFile(nextFile, true, false)
             videoList.setPlayingVideo(nextFileRow)
         }
+    }
+
+    onChaptersChanged: {
+        footer.progressBar.chapters = chapters
     }
 
     Timer {

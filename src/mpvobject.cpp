@@ -113,7 +113,9 @@ MpvObject::MpvObject(QQuickItem * parent)
         throw std::runtime_error("could not create mpv context");
 
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv, 0, "time-remaining", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv, 0, "chapter-list", MPV_FORMAT_NODE);
 
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("could not initialize mpv context");
@@ -154,7 +156,15 @@ void MpvObject::doUpdate()
                 if (prop->format == MPV_FORMAT_DOUBLE) {
                     double position = *(double *)prop->data;
                     m_position = position;
+
                     emit onPositionChanged(position);
+                }
+            } else if (strcmp(prop->name, "time-remaining") == 0) {
+                if (prop->format == MPV_FORMAT_DOUBLE) {
+                    double remaining = *(double *)prop->data;
+                    m_remaining = remaining;
+
+                    emit onRemainingChanged(remaining);
                 }
             } else if (strcmp(prop->name, "duration") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
@@ -162,6 +172,12 @@ void MpvObject::doUpdate()
                     m_duration = duration;
 
                     emit onDurationChanged(duration);
+                }
+            } else if (strcmp(prop->name, "chapter-list") == 0) {
+                if (prop->format == MPV_FORMAT_NODE) {
+                    QVariant v = mpv::qt::node_to_variant((mpv_node *)prop->data);
+                    m_chapters = v.toList();
+                    emit onChaptersChanged();
                 }
             }
             break;
