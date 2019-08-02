@@ -36,7 +36,7 @@ Item {
             layer.enabled: true
             layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
             padding: 10
-            text: model.display
+            text: model.name
             width: {if (column === 1) {tableView.columnWidths[column]}}
 
             ToolTip {

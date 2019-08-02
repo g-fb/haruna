@@ -88,6 +88,5 @@ ToolBar {
                 onExited: timeToolTip.visible = false
             }
         }
-
     }
 }

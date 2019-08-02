@@ -88,6 +88,11 @@ int VideoList::getPlayingVideo() const
     return m_playingVideo;
 }
 
+QString VideoList::getPath(int i)
+{
+    return m_videoList[i]->filePath();
+}
+
 void VideoList::setPlayingVideo(int playingVideo)
 {
     if (m_playingVideo != -1) {
@@ -102,6 +107,5 @@ void VideoList::setPlayingVideo(int playingVideo)
     } else {
         m_videoList[playingVideo]->setIsPlaying(true);
     }
-
     m_playingVideo = playingVideo;
 }

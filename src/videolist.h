@@ -24,6 +24,7 @@ public slots:
     void removeHovered(int row);
     void setPlayingVideo(int playingVideo);
     int getPlayingVideo() const;
+    QString getPath(int i);
     QMap<int, VideoItem *> items() const;
 private:
     QMap<int, VideoItem*> m_videoList;

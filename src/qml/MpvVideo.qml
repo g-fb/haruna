@@ -29,6 +29,28 @@ MpvObject {
         }
     }
 
+    function setPlayListScrollPosition() {
+        if (playList.tableView.rows <= 0) {
+            return;
+        }
+        playList.tableView.contentY = 0
+        // scroll playlist to loaded file
+        var rowsAbove = videoList.getPlayingVideo()
+        // 50 is row height, 1 is space between rows
+        var scrollDistance = (rowsAbove * 50) + (rowsAbove * 1)
+        var scrollAvailableDistance =
+                ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - mpv.height
+        if (scrollDistance > scrollAvailableDistance) {
+            if (scrollAvailableDistance < mpv.height) {
+                playList.tableView.contentY = 0
+            } else {
+                playList.tableView.contentY = scrollAvailableDistance
+            }
+        } else {
+            playList.tableView.contentY = scrollDistance
+        }
+    }
+
     anchors.fill: parent
 
     onSetSubtitle: {
@@ -52,6 +74,14 @@ MpvObject {
         footer.progressBar.from = 0;
         footer.progressBar.to = settings.lastPlayedDuration
         footer.progressBar.value = settings.lastPlayedPosition
+        window.positionChanged(settings.lastPlayedPosition)
+        window.durationChanged(settings.lastPlayedDuration)
+    }
+
+    onFileLoaded: {
+        footer.progressBar.chapters = mpv.getProperty("chapter-list")
+        header.audioTracks = mpv.getProperty("track-list").filter(track => track["type"] === "audio")
+        header.subtitleTracks = mpv.getProperty("track-list").filter(track => track["type"] === "sub")
     }
 
     onDurationChanged: {
@@ -68,6 +98,7 @@ MpvObject {
             window.positionChanged(position)
         }
     }
+
     onRemainingChanged: {
         window.remainingChanged(remaining)
     }
@@ -75,14 +106,10 @@ MpvObject {
     onEndOfFile: {
         var nextFileRow = videoList.getPlayingVideo() + 1
         if (nextFileRow < playList.tableView.rows) {
-            var nextFile = playList.tableView.contentItem.children[nextFileRow].path
+            var nextFile = videoList.getPath(nextFileRow)
             window.openFile(nextFile, true, false)
             videoList.setPlayingVideo(nextFileRow)
         }
-    }
-
-    onChaptersChanged: {
-        footer.progressBar.chapters = chapters
     }
 
     Timer {
@@ -90,24 +117,7 @@ MpvObject {
         interval: 50; running: true; repeat: true
 
         onTriggered: {
-            if (playList.tableView.rows <= 0) {
-                return;
-            }
-            // scroll playlist to loaded file
-            var rowsAbove = videoList.getPlayingVideo()
-            // 50 is row height, 1 is space between rows
-            var scrollDistance = (rowsAbove * 50) + (rowsAbove * 1)
-            var scrollAvailableDistance =
-                    ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - mpv.height
-            if (scrollDistance > scrollAvailableDistance) {
-                if (scrollAvailableDistance < mpv.height) {
-                    playList.tableView.contentY = 0
-                } else {
-                    playList.tableView.contentY = scrollAvailableDistance
-                }
-            } else {
-                playList.tableView.contentY = scrollDistance
-            }
+            setPlayListScrollPosition()
             scrollPositionTimer.stop()
         }
 
@@ -180,6 +190,8 @@ MpvObject {
         onDoubleClicked: {
             if (mouse.button === Qt.LeftButton) {
                 toggleFullScreen()
+                setPlayListScrollPosition()
+                app.showCursor()
             }
         }
     }
@@ -187,7 +199,7 @@ MpvObject {
     DropArea {
         id: dropArea
         anchors.fill: parent
-        keys: ["text/uri"]
+        keys: ["text/uri-list"]
 
         onDropped: {
             window.openFile(drop.urls[0], true, true)

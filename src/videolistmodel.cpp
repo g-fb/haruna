@@ -71,7 +71,7 @@ QVariant VideoListModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> VideoListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[DisplayRole] = "display";
+    roles[DisplayRole] = "name";
     roles[PathRole] = "path";
     roles[FolderPathRole] = "folderPath";
     roles[HoverRole] = "isHovered";

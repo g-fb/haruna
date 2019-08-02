@@ -17,7 +17,6 @@ class MpvObject : public QQuickFramebufferObject
     Q_PROPERTY(double position MEMBER m_position NOTIFY onPositionChanged)
     Q_PROPERTY(double duration MEMBER m_duration NOTIFY onDurationChanged)
     Q_PROPERTY(double remaining MEMBER m_remaining NOTIFY onRemainingChanged)
-    Q_PROPERTY(QVariant chapters MEMBER m_chapters NOTIFY onChaptersChanged)
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
@@ -46,7 +45,7 @@ signals:
     void onPositionChanged(double);
     void onDurationChanged(double);
     void onRemainingChanged(double);
-    void onChaptersChanged();
+    void fileLoaded();
     void endOfFile();
     void ready();
 
