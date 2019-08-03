@@ -122,6 +122,7 @@ MpvObject {
         }
 
     }
+
     Timer {
         id: hideCursorTimer
 

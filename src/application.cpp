@@ -106,5 +106,35 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_Left);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("frameStep")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Move one frame forward, then pause"));
+        m_collection.setDefaultShortcut(action, Qt::Key_Period);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("frameBackStep")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Move one frame backward, then pause"));
+        m_collection.setDefaultShortcut(action, Qt::Key_Comma);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("increasePlayBackSpeed")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Playback speed increase"));
+        m_collection.setDefaultShortcut(action, Qt::Key_BracketRight);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("decreasePlayBackSpeed")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Playback speed decrease"));
+        m_collection.setDefaultShortcut(action, Qt::Key_BracketLeft);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("resetPlayBackSpeed")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Playback speed reset"));
+        m_collection.setDefaultShortcut(action, Qt::Key_Backspace);
+        m_collection.addAction(actionName, action);
+    }
     m_collection.readSettings(m_shortcuts);
 }

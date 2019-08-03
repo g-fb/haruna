@@ -20,6 +20,12 @@ ApplicationWindow {
     property var seekBackward: app.action("seekBackward")
     property var seekNextSubtitle: app.action("seekNextSubtitle")
     property var seekPreviousSubtitle: app.action("seekPreviousSubtitle")
+    property var frameStep: app.action("frameStep")
+    property var frameBackStep: app.action("frameBackStep")
+    property var increasePlayBackSpeed: app.action("increasePlayBackSpeed")
+    property var decreasePlayBackSpeed: app.action("decreasePlayBackSpeed")
+    property var resetPlayBackSpeed: app.action("resetPlayBackSpeed")
+
     property int preFullScreenVisibility
 
     signal setHovered(int row)
@@ -194,12 +200,53 @@ ApplicationWindow {
         icon.name: app.iconName(seekNextSubtitle.icon)
         onTriggered: mpv.command(["sub-seek", "1"])
     }
+
     Action {
         id: seekPrevSubtitleAction
         text: seekPreviousSubtitle.text
         shortcut: seekPreviousSubtitle.shortcut
         icon.name: app.iconName(seekPreviousSubtitle.icon)
         onTriggered: mpv.command(["sub-seek", "-1"])
+    }
+
+    Action {
+        id: frameStepAction
+        text: frameStep.text
+        shortcut: frameStep.shortcut
+        icon.name: app.iconName(frameStep.icon)
+        onTriggered: mpv.command(["frame-step"])
+    }
+
+    Action {
+        id: frameBackStepAction
+        text: frameBackStep.text
+        shortcut: frameBackStep.shortcut
+        icon.name: app.iconName(frameBackStep.icon)
+        onTriggered: mpv.command(["frame-back-step"])
+    }
+
+    Action {
+        id: increasePlayBackSpeedAction
+        text: increasePlayBackSpeed.text
+        shortcut: increasePlayBackSpeed.shortcut
+        icon.name: app.iconName(increasePlayBackSpeed.icon)
+        onTriggered: mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
+    }
+
+    Action {
+        id: decreasePlayBackSpeedAction
+        text: decreasePlayBackSpeed.text
+        shortcut: decreasePlayBackSpeed.shortcut
+        icon.name: app.iconName(decreasePlayBackSpeed.icon)
+        onTriggered: mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
+    }
+
+    Action {
+        id: resetPlayBackSpeedAction
+        text: resetPlayBackSpeed.text
+        shortcut: resetPlayBackSpeed.shortcut
+        icon.name: app.iconName(resetPlayBackSpeed.icon)
+        onTriggered: mpv.setProperty("speed", 1.0)
     }
 
     Action {
