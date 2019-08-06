@@ -14,7 +14,7 @@ Slider {
     SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
     background: Rectangle {
-        id: slider
+        id: progressBarSlider
         color: systemPalette.base
         implicitWidth: 200
         implicitHeight: 25
@@ -30,26 +30,54 @@ Slider {
             height: parent.height
             width: visualPosition * parent.width
         }
+
+        ToolTip {
+            id: progressBarToolTip
+
+            visible: false
+            timeout: -1
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+
+            onMouseXChanged: {
+                mouse.accepted = false
+                progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
+
+                var time = mouseX * 100 / progressBarSlider.width * root.to / 100
+                progressBarToolTip.text = mpv.formatTime(time)
+            }
+
+            onEntered: {
+                progressBarToolTip.visible = true
+                progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
+                progressBarToolTip.y = root.height
+            }
+
+            onExited: progressBarToolTip.visible = false
+        }
     }
 
     Instantiator {
         id: chaptersInstantiator
         model: chapters
         delegate: Shape {
-            id: shape
-            property int h: ((((modelData.time * 100) / root.to) * slider.width) / 100)
+            id: chapterMarkerShape
+            property int position: modelData.time * 100 / root.to * progressBarSlider.width / 100
             antialiasing: true
-            parent: slider
+            parent: progressBarSlider
             ShapePath {
                 strokeWidth: 1
                 strokeColor: systemPalette.text
-                startX: shape.h
+                startX: chapterMarkerShape.position
                 startY: root.height
                 fillColor: systemPalette.text
-                PathLine { x: shape.h; y: -1 }
-                PathLine { x: shape.h + 6; y: -7 }
-                PathLine { x: shape.h - 7; y: -7 }
-                PathLine { x: shape.h-1; y: -1 }
+                PathLine { x: chapterMarkerShape.position; y: -1 }
+                PathLine { x: chapterMarkerShape.position + 6; y: -7 }
+                PathLine { x: chapterMarkerShape.position - 7; y: -7 }
+                PathLine { x: chapterMarkerShape.position - 1; y: -1 }
             }
         }
     }
