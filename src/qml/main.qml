@@ -28,8 +28,6 @@ ApplicationWindow {
 
     property int preFullScreenVisibility
 
-    signal setHovered(int row)
-    signal removeHovered(int row)
     signal durationChanged(double duration)
     signal positionChanged(double position)
     signal remainingChanged(double remaining)

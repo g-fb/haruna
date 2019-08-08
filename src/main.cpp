@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
                      thread, &QThread::deleteLater);
     thread->start();
 
-
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -71,13 +70,6 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
                                                QStringLiteral("Application should not be created in QML"));
     engine.load(url);
-
-    QObject *item = engine.rootObjects().first();
-    QObject::connect(item, SIGNAL(setHovered(int)),
-                     videoList, SLOT(setHovered(int)));
-    QObject::connect(item, SIGNAL(removeHovered(int)),
-                     videoList, SLOT(removeHovered(int)));
-
     return app.exec();
 }
 

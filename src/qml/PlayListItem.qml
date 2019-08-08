@@ -40,8 +40,9 @@ Item {
             width: {if (column === 1) {tableView.columnWidths[column]}}
 
             ToolTip {
+                id: toolTip
                 delay: 250
-                visible: column === 1 && label.truncated ? model.isHovered : false
+                visible: model.isHovered
                 text: label.text
             }
         }
@@ -53,11 +54,13 @@ Item {
         hoverEnabled: true
 
         onEntered: {
-            window.setHovered(row)
+            if (column === 1 && label.truncated) {
+                toolTip.visible = true
+            }
         }
 
         onExited: {
-            window.removeHovered(row)
+            toolTip.visible = false
         }
 
         onDoubleClicked: {

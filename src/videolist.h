@@ -20,8 +20,6 @@ signals:
 
 public slots:
     void getVideos(QString path);
-    void setHovered(int row);
-    void removeHovered(int row);
     void setPlayingVideo(int playingVideo);
     int getPlayingVideo() const;
     QString getPath(int i);

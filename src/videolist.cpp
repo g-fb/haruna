@@ -67,22 +67,6 @@ QMap<int, VideoItem *> VideoList::items() const
     return m_videoList;
 }
 
-void VideoList::setHovered(int row)
-{
-    m_videoList[row]->setIsHovered(true);
-    emit dataChanged(row, 0);
-    emit dataChanged(row, 1);
-    emit dataChanged(row, 2);
-}
-
-void VideoList::removeHovered(int row)
-{
-    m_videoList[row]->setIsHovered(false);
-    emit dataChanged(row, 0);
-    emit dataChanged(row, 1);
-    emit dataChanged(row, 2);
-}
-
 int VideoList::getPlayingVideo() const
 {
     return m_playingVideo;
