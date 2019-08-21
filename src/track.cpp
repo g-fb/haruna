@@ -124,3 +124,13 @@ void Track::setType(const QString &type)
 {
     m_type = type;
 }
+
+int Track::index() const
+{
+    return m_index;
+}
+
+void Track::setIndex(int index)
+{
+    m_index = index;
+}

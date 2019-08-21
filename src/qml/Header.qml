@@ -44,9 +44,10 @@ ToolBar {
                 icon.name: "media-view-subtitles-symbolic"
                 text: qsTr("Subtitles")
 
-                onReleased: {
-                    subtitleMenu.open()
-                    mpv.focus = true
+                onReleased: subtitleMenu.open()
+
+                onClicked: {
+                    subtitleMenuInstantiator.model = mpv.subtitleTracksModel()
                 }
 
                 Menu {
@@ -55,17 +56,17 @@ ToolBar {
 
                     Instantiator {
                         id: subtitleMenuInstantiator
-                        model: subtitleTracks
+                        model: 0
                         onObjectAdded: subtitleMenu.insertItem( index, object )
                         onObjectRemoved: subtitleMenu.removeItem( object )
                         delegate: MenuItem {
                             id: subtitleMenuItem
                             checkable: true
-                            checked: modelData.selected
-                            text: `${modelData.lang}: ${modelData.title} ${modelData.codec}`
+                            checked: model.selected
+                            text: `${model.language}: ${model.title} ${model.codec}`
                             onTriggered: {
-                                mpv.setSubtitle(modelData.id, checked)
-                                subtitleTracks = mpv.getProperty("track-list").filter(t => t["type"] === "sub")
+                                mpv.setSubtitle(model.id)
+                                mpv.subtitleTracksModel().updateSelectedTrack(model.index)
                             }
                         }
                     }
@@ -76,9 +77,10 @@ ToolBar {
                 icon.name: "audio-volume-high"
                 text: qsTr("Audio")
 
-                onReleased: {
-                    audioMenu.open()
-                    mpv.focus = true
+                onReleased: audioMenu.open()
+
+                onClicked: {
+                    audioMenuInstantiator.model = mpv.audioTracksModel()
                 }
 
                 Menu {
@@ -87,17 +89,17 @@ ToolBar {
 
                     Instantiator {
                         id: audioMenuInstantiator
-                        model: audioTracks
+                        model: 0
                         onObjectAdded: audioMenu.insertItem( index, object )
                         onObjectRemoved: audioMenu.removeItem( object )
                         delegate: MenuItem {
                             id: audioMenuItem
                             checkable: true
-                            checked: modelData.selected
-                            text: `${modelData.lang}: ${modelData.title} ${modelData.codec}`
+                            checked: model.selected
+                            text: `${model.language}: ${model.title} ${model.codec}`
                             onTriggered: {
-                                mpv.setAudio(modelData.id)
-                                audioTracks = mpv.getProperty("track-list").filter(t => t["type"] === "audio")
+                                mpv.setAudio(model.id)
+                                mpv.audioTracksModel().updateSelectedTrack(model.index)
                             }
                         }
                     }

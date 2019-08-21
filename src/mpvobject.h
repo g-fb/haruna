@@ -54,8 +54,8 @@ private slots:
 private:
     TracksModel *m_audioTracksModel;
     TracksModel *m_subtitleTracksModel;
-    QList<Track*> m_subtitleTracks;
-    QList<Track*> m_audioTracks;
+    QMap<int, Track*> m_subtitleTracks;
+    QMap<int, Track*> m_audioTracks;
     double m_position;
     double m_duration;
     double m_remaining;

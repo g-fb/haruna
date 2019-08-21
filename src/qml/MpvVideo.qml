@@ -10,7 +10,7 @@ MpvObject {
     property int my
     property string videoDuration
     property alias scrollPositionTimer: scrollPositionTimer
-    signal setSubtitle(int id, bool checked)
+    signal setSubtitle(int id)
     signal setAudio(int id)
 
     function toggleFullScreen() {
@@ -54,7 +54,7 @@ MpvObject {
     anchors.fill: parent
 
     onSetSubtitle: {
-        if (checked) {
+        if (id !== -1) {
             mpv.setProperty("sid", id)
         } else {
             mpv.setProperty("sid", "no")

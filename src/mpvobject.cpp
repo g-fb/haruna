@@ -198,7 +198,17 @@ void MpvObject::loadTracks()
 {
     m_subtitleTracks.clear();
     m_audioTracks.clear();
+
+    auto *none = new Track();
+    none->setSelected(false);
+    none->setId(-1);
+    none->setTitle("None");
+    m_subtitleTracks.insert(0, none);
+    m_subtitleTracksModel->setSelectedTrack(0);
+
     QVariant tracks = getProperty("track-list");
+    int subIndex = 1;
+    int audioIndex = 0;
     for (auto track : tracks.toList()) {
         if (track.toMap()["type"] == "sub") {
             const auto t = track.toMap();
@@ -214,8 +224,13 @@ void MpvObject::loadTracks()
             track->setFfIndex(t["ff-index"].toLongLong());
             track->setLang(t["lang"].toString());
             track->setTitle(t["title"].toString());
+            track->setIndex(subIndex);
+            if (t["selected"].toBool()) {
+                m_subtitleTracksModel->setSelectedTrack(subIndex);
+            }
 
-            m_subtitleTracks << track;
+            m_subtitleTracks.insert(subIndex, track);
+            subIndex++;
         }
         if (track.toMap()["type"] == "audio") {
             const auto t = track.toMap();
@@ -231,8 +246,13 @@ void MpvObject::loadTracks()
             track->setFfIndex(t["ff-index"].toLongLong());
             track->setLang(t["lang"].toString());
             track->setTitle(t["title"].toString());
+            track->setIndex(audioIndex);
+            if (t["selected"].toBool()) {
+                m_audioTracksModel->setSelectedTrack(audioIndex);
+            }
 
-            m_audioTracks << track;
+            m_audioTracks.insert(audioIndex, track);
+            audioIndex++;
         }
     }
     m_subtitleTracksModel->setTracks(m_subtitleTracks);

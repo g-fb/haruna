@@ -18,7 +18,7 @@ QVariant TracksModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || m_tracks.isEmpty())
         return QVariant();
 
-    Track *track = m_tracks.at(index.row());
+    Track *track = m_tracks[index.row()];
 
     switch (role) {
     case LanguageRole:
@@ -47,34 +47,29 @@ QHash<int, QByteArray> TracksModel::roleNames() const
     return roles;
 }
 
-void TracksModel::setTracks(QList<Track *> tracks)
+void TracksModel::setTracks(QMap<int, Track *> tracks)
 {
     beginResetModel();
     m_tracks = tracks;
     endResetModel();
 }
 
-void TracksModel::updateSelectedTrack(int id)
+void TracksModel::updateSelectedTrack(int i)
 {
-    int i = 0;
-    for (auto track : m_tracks) {
-        if (track->selected() == true && track->id() == id) {
-            if (track->type() == "sub") {
-                track->setSelected(false);
-            } else {
-                track->setSelected(true);
-            }
-            dataChanged(index(i), index(i));
-        } else if (track->selected() == true && track->id() != id) {
-            track->setSelected(false);
-            dataChanged(index(i), index(i));
-        } else if (track->selected() == false && track->id() == id) {
-            track->setSelected(true);
-            dataChanged(index(i), index(i));
-        } else if (track->selected() == false && track->id() != id) {
-            track->setSelected(false);
-            dataChanged(index(i), index(i));
-        }
-        i++;
-    }
+    m_tracks[selectedTrack()]->setSelected(false);
+    dataChanged(index(selectedTrack()), index(selectedTrack()));
+
+    m_tracks[i]->setSelected(true);
+    dataChanged(index(i), index(i));
+    setSelectedTrack(i);
+}
+
+int TracksModel::selectedTrack() const
+{
+    return m_selectedTrack;
+}
+
+void TracksModel::setSelectedTrack(int selectedTrack)
+{
+    m_selectedTrack = selectedTrack;
 }

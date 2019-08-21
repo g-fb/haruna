@@ -21,13 +21,17 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
+    int selectedTrack() const;
+    void setSelectedTrack(int selectedTrack);
+
 signals:
 
 public slots:
-    void setTracks(QList<Track *> tracks);
-    Q_INVOKABLE void updateSelectedTrack(int id);
+    void setTracks(QMap<int, Track *> tracks);
+    Q_INVOKABLE void updateSelectedTrack(int i);
 private:
-    QList<Track *> m_tracks;
+    QMap<int, Track *> m_tracks;
+    int m_selectedTrack;
 };
 
 #endif // TRACKSMODEL_H

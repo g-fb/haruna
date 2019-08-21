@@ -45,6 +45,9 @@ public:
     QString type() const;
     void setType(const QString &type);
 
+    int index() const;
+    void setIndex(int index);
+
 signals:
 
 public slots:
@@ -62,6 +65,7 @@ private:
     bool m_external;
     bool m_selected;
     bool m_forced;
+    int m_index;
 };
 
 #endif // TRACK_H
