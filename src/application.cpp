@@ -7,6 +7,7 @@
 #include <QCoreApplication>
 #include <QStandardPaths>
 #include <KConfig>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KShortcutsDialog>
 
@@ -17,6 +18,17 @@ Application::Application(QObject *parent)
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
+}
+
+QString Application::setting(const QString group, const QString key)
+{
+    return m_config->group("General").readEntry(key);
+}
+
+void Application::setSetting(const QString group, const QString key, const QString value)
+{
+    m_config->group(group).writeEntry(key, value);
+    m_config->sync();
 }
 
 QAction *Application::action(const QString &name)

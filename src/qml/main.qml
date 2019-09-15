@@ -2,12 +2,10 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Dialogs 1.2
 import QtGraphicalEffects 1.13
-import Qt.labs.settings 1.0
+import Qt.labs.platform 1.0 as PlatformDialog
 
 import mpv 1.0
-import Application 1.0
 import VideoPlayList 1.0
 
 ApplicationWindow {
@@ -46,7 +44,7 @@ ApplicationWindow {
             videoList.getVideos(path)
         }
 
-        settings.lastPlayedFile = path
+        app.setSetting("General", "lastPlayedFile", path)
     }
 
     visible: true
@@ -58,19 +56,6 @@ ApplicationWindow {
         if (visibility !== Window.FullScreen) {
             preFullScreenVisibility = visibility
         }
-    }
-
-    Settings {
-        id: settings
-        property string lastPlayedFile
-        property double lastPlayedPosition
-        property double lastPlayedDuration
-        property int playingFileYPosition
-        property alias lastUrl: openUrlTextField.text
-        property alias x: window.x
-        property alias y: window.y
-        property alias width: window.width
-        property alias height: window.height
     }
 
     header: Header { id: header }
@@ -104,14 +89,14 @@ ApplicationWindow {
         }
     }
 
-    FileDialog {
+    PlatformDialog.FileDialog {
         id: fileDialog
-        folder: shortcuts.movies
+        folder: PlatformDialog.StandardPaths.writableLocation(PlatformDialog.StandardPaths.MoviesLocation)
         title: "Select file"
-        selectMultiple: false
+        fileMode: PlatformDialog.FileDialog.OpenFile
 
         onAccepted: {
-            openFile(fileDialog.fileUrl, true, true)
+            openFile(fileDialog.file, true, true)
             // the timer scrolls the playlist to the playing file
             // once the table view rows are loaded
             mpv.scrollPositionTimer.start()
@@ -136,11 +121,14 @@ ApplicationWindow {
             TextField {
                 id: openUrlTextField
                 Layout.fillWidth: true
+                text: app.setting("General", "lastUrl")
 
                 Keys.onPressed: {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                         openFile(openUrlTextField.text, true, false)
                         openUrlPopup.close()
+                        app.setSetting("General", "lastUrl", openUrlTextField.text)
+                        openUrlTextField.text = ""
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -154,6 +142,8 @@ ApplicationWindow {
                 onClicked: {
                     openFile(openUrlTextField.text, true, false)
                     openUrlPopup.close()
+                    app.setSetting("General", "lastUrl", openUrlTextField.text)
+                    openUrlTextField.text = ""
                 }
             }
         }

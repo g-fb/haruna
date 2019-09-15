@@ -24,6 +24,8 @@ public slots:
     void showCursor();
     QAction* action(const QString& name);
     QString iconName(const QIcon& icon);
+    QString setting(const QString group, const QString key);
+    void setSetting(const QString group, const QString key, const QString value);
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;

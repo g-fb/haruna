@@ -96,7 +96,7 @@ Slider {
         if (seekStarted) {
             seekValue = value
         }
-        settings.lastPlayedPosition = value
+        app.setSetting("General", "lastPlayedPosition", value)
     }
 
     onPressedChanged: {
