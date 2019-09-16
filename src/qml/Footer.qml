@@ -24,15 +24,37 @@ ToolBar {
         }
 
         ToolButton {
-            id: seekBackwardButton
-            action: seekBackwardAction
-            text: ""
+            id: playPreviousFile
+            icon.name: "media-skip-backward"
+            onClicked: {
+                if (videoList.getPlayingVideo() !== 0) {
+                    var previousFileRow = videoList.getPlayingVideo() - 1
+                    var nextFile = videoList.getPath(previousFileRow)
+                    window.openFile(nextFile, true, false)
+                    videoList.setPlayingVideo(previousFileRow)
+                }
+            }
+
+            ToolTip {
+                text: qsTr("Play Previous File")
+            }
         }
 
         ToolButton {
-            id: seekForwardButton
-            action: seekForwardAction
-            text: ""
+            id: playNextFile
+            icon.name: "media-skip-forward"
+            onClicked: {
+                var nextFileRow = videoList.getPlayingVideo() + 1
+                if (nextFileRow < playList.tableView.rows) {
+                    var nextFile = videoList.getPath(nextFileRow)
+                    window.openFile(nextFile, true, false)
+                    videoList.setPlayingVideo(nextFileRow)
+                }
+            }
+
+            ToolTip {
+                text: qsTr("Play Next File")
+            }
         }
 
         VideoProgressBar {
