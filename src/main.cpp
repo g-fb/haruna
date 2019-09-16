@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
-
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
 
     auto worker = Worker::instance();

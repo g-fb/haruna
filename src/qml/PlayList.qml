@@ -2,17 +2,15 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Dialogs 1.3
 import QtGraphicalEffects 1.13
 
 Rectangle {
     id: root
 
-    property int minWidth: 500
     property alias tableView: tableView
 
     height: parent.height
-    width: (parent.width * 0.33) < minWidth ? minWidth : parent.width * 0.33
+    width: (parent.width * 0.33) < 500 ? 500 : parent.width * 0.33
     x: parent.width
 
     onWidthChanged: {

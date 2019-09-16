@@ -6,7 +6,6 @@ import QtGraphicalEffects 1.13
 import Qt.labs.platform 1.0 as PlatformDialog
 
 import mpv 1.0
-import VideoPlayList 1.0
 
 ApplicationWindow {
     id: window
@@ -72,21 +71,7 @@ ApplicationWindow {
         width: window.width
         height: footer.height
         visible: false
-        color: Qt.rgba(0.14, 0.15, 0.16, 0.8)
-
-        ShaderEffectSource {
-            id: effectSource
-            sourceItem: mpv
-            anchors.fill: parent
-            sourceRect: Qt.rect(footer.x, footer.y, footer.width, footer.height)
-        }
-
-        FastBlur {
-            id: blur
-            anchors.fill: effectSource
-            source: effectSource
-            radius: 100
-        }
+        color: "#31363B"
     }
 
     PlatformDialog.FileDialog {

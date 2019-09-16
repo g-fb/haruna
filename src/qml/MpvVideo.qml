@@ -1,7 +1,6 @@
 import QtQuick 2.13
 import QtQuick.Window 2.13
 import mpv 1.0
-import Application 1.0
 
 MpvObject {
     id: root
@@ -15,13 +14,19 @@ MpvObject {
 
     function toggleFullScreen() {
         if (window.visibility !== Window.FullScreen) {
-            window.visibility = Window.FullScreen
+            window.showFullScreen()
             header.visible = false
             footer.visible = false
             fullscreenFooter.visible = false
             footer.footerRow.parent = fullscreenFooter
         } else {
-            window.visibility = window.preFullScreenVisibility
+            if (window.preFullScreenVisibility === Window.Windowed) {
+                window.showNormal()
+            }
+            if (window.preFullScreenVisibility == Window.Maximized) {
+                window.show()
+                window.showMaximized()
+            }
             header.visible = true
             footer.visible = true
             fullscreenFooter.visible = false
