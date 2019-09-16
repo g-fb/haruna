@@ -44,9 +44,9 @@ MpvObject {
         // 50 is row height, 1 is space between rows
         var scrollDistance = (rowsAbove * 50) + (rowsAbove * 1)
         var scrollAvailableDistance =
-                ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - mpv.height
+                ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - root.height
         if (scrollDistance > scrollAvailableDistance) {
-            if (scrollAvailableDistance < mpv.height) {
+            if (scrollAvailableDistance < root.height) {
                 playList.tableView.contentY = 0
             } else {
                 playList.tableView.contentY = scrollAvailableDistance
@@ -60,14 +60,14 @@ MpvObject {
 
     onSetSubtitle: {
         if (id !== -1) {
-            mpv.setProperty("sid", id)
+            root.setProperty("sid", id)
         } else {
-            mpv.setProperty("sid", "no")
+            root.setProperty("sid", "no")
         }
     }
 
     onSetAudio: {
-        mpv.setProperty("aid", id)
+        root.setProperty("aid", id)
     }
 
     onReady: {
@@ -79,14 +79,15 @@ MpvObject {
         footer.progressBar.from = 0;
         footer.progressBar.to = app.setting("General", "lastPlayedDuration")
         footer.progressBar.value = app.setting("General", "lastPlayedPosition")
-        window.positionChanged(app.setting("General", "lastPlayedPosition"))
-        window.durationChanged(app.setting("General", "lastPlayedDuration"))
+
+        footer.timeInfo.currentTime = mpv.formatTime(app.setting("General", "lastPlayedPosition"))
+        footer.timeInfo.totalTime = mpv.formatTime(app.setting("General", "lastPlayedDuration"))
     }
 
     onFileLoaded: {
-        footer.progressBar.chapters = mpv.getProperty("chapter-list")
-        header.audioTracks = mpv.getProperty("track-list").filter(track => track["type"] === "audio")
-        header.subtitleTracks = mpv.getProperty("track-list").filter(track => track["type"] === "sub")
+        footer.progressBar.chapters = root.getProperty("chapter-list")
+        header.audioTracks = root.getProperty("track-list").filter(track => track["type"] === "audio")
+        header.subtitleTracks = root.getProperty("track-list").filter(track => track["type"] === "sub")
     }
 
     onDurationChanged: {
@@ -94,18 +95,18 @@ MpvObject {
         footer.progressBar.to = duration
         app.setSetting("General", "lastPlayedDuration", duration)
 
-        window.durationChanged(duration)
+        footer.timeInfo.totalTime = mpv.formatTime(duration)
     }
 
     onPositionChanged: {
         if (!footer.progressBar.seekStarted) {
             footer.progressBar.value = position
-            window.positionChanged(position)
         }
+        footer.timeInfo.currentTime = mpv.formatTime(position)
     }
 
     onRemainingChanged: {
-        window.remainingChanged(remaining)
+        footer.timeInfo.remainingTime = mpv.formatTime(remaining)
     }
 
     onEndOfFile: {
@@ -165,19 +166,19 @@ MpvObject {
         onExited: hideCursorTimer.running = false
 
         onMouseXChanged: {
-            mpv.focus = true
+            root.focus = true
             mx = mouseX
-            if (mouseX > mpv.width - 50
-                    && (mouseY < mpv.height * 0.8 && mouseY > mpv.height * 0.2) && playList.tableView.rows > 0) {
+            if (mouseX > root.width - 50
+                    && (mouseY < root.height * 0.8 && mouseY > root.height * 0.2) && playList.tableView.rows > 0) {
                 playList.state = "visible"
             }
-            if (mouseX < mpv.width - playList.width) {
+            if (mouseX < root.width - playList.width) {
                 playList.state = "hidden"
             }
         }
 
         onMouseYChanged: {
-            mpv.focus = true
+            root.focus = true
             my = mouseY
             if (mouseY > window.height - footer.height && window.visibility === Window.FullScreen) {
                 fullscreenFooter.visible = true
@@ -189,7 +190,7 @@ MpvObject {
         onClicked: {
             focus = true
             if (mouse.button === Qt.RightButton) {
-                mpv.play_pause()
+                root.play_pause()
             }
         }
 

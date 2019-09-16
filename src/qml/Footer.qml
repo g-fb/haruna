@@ -7,6 +7,7 @@ ToolBar {
 
     property alias progressBar: progressBar
     property alias footerRow: footerRow
+    property alias timeInfo: timeInfo
 
     contentHeight: 40
     contentWidth: window.width
@@ -40,44 +41,19 @@ ToolBar {
             rightPadding: 10
         }
 
-        Text {
-            id: time
-            property string formattedDuration
-            property string formattedPosition
-            property string toolTipText
+        Label {
+            id: timeInfo
+            property string totalTime
+            property string currentTime
+            property string remainingTime
 
-            Layout.preferredWidth: 120
-            color: "#fff"
-            text: formattedPosition + " / " + formattedDuration
+            text: currentTime + " / " + totalTime
 
             ToolTip {
                 id: timeToolTip
                 visible: false
-                text: qsTr("Remaining: ") + time.toolTipText
-            }
-
-            Connections {
-                target: window
-                onPositionChanged: {
-                    var p = mpv.formatTime(position)
-                    time.formattedPosition = p
-                }
-            }
-
-            Connections {
-                target: window
-                onRemainingChanged: {
-                    var r = mpv.formatTime(remaining)
-                    time.toolTipText = r
-                }
-            }
-
-            Connections {
-                target: window
-                onDurationChanged: {
-                    var d = mpv.formatTime(duration)
-                    time.formattedDuration = d
-                }
+                timeout: -1
+                text: qsTr("Remaining: ") + timeInfo.remainingTime
             }
 
             MouseArea {

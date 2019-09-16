@@ -9,7 +9,6 @@ Slider {
 
     property var chapters
     property bool seekStarted: false
-    property int seekValue: 0
 
     SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
@@ -93,19 +92,15 @@ Slider {
     }
 
     onValueChanged: {
-        if (seekStarted) {
-            seekValue = value
-        }
         app.setSetting("General", "lastPlayedPosition", value)
     }
 
     onPressedChanged: {
         if (pressed) {
-            seekStarted = true;
-            seekValue = value
+            seekStarted = true
         } else {
             mpv.command(["seek", value, "absolute"])
-            seekStarted = false;
+            seekStarted = false
         }
     }
 }

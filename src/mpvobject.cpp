@@ -294,7 +294,7 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 
 QString MpvObject::formatTime(double time)
 {
-    QDateTime d = QDateTime::fromTime_t(time).toUTC();
+    QDateTime d = QDateTime::fromSecsSinceEpoch(time).toUTC();
     QString formattedTime = d.toString("hh:mm:ss");
     return formattedTime;
 
