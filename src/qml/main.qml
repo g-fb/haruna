@@ -155,7 +155,7 @@ ApplicationWindow {
         text: seekForward.text
         shortcut: seekForward.shortcut
         icon.name: app.iconName(seekForward.icon)
-        onTriggered: mpv.command(["seek", "+5"])
+        onTriggered: mpv.command(["seek", "+5", "exact"])
     }
 
     Action {
@@ -163,7 +163,7 @@ ApplicationWindow {
         text: seekBackward.text
         shortcut: seekBackward.shortcut
         icon.name: app.iconName(seekBackward.icon)
-        onTriggered: mpv.command(["seek", "-5"])
+        onTriggered: mpv.command(["seek", "-5", "exact"])
     }
 
     Action {
@@ -171,7 +171,13 @@ ApplicationWindow {
         text: seekNextSubtitle.text
         shortcut: seekNextSubtitle.shortcut
         icon.name: app.iconName(seekNextSubtitle.icon)
-        onTriggered: mpv.command(["sub-seek", "1"])
+        onTriggered: {
+            if (mpv.getProperty("sid") !== false) {
+                mpv.command(["sub-seek", "1"])
+            } else {
+                seekForwardAction.trigger()
+            }
+        }
     }
 
     Action {
@@ -179,7 +185,13 @@ ApplicationWindow {
         text: seekPreviousSubtitle.text
         shortcut: seekPreviousSubtitle.shortcut
         icon.name: app.iconName(seekPreviousSubtitle.icon)
-        onTriggered: mpv.command(["sub-seek", "-1"])
+        onTriggered: {
+             if (mpv.getProperty("sid") !== false) {
+                 mpv.command(["sub-seek", "-1"])
+             } else {
+                 seekBackwardAction.trigger()
+             }
+         }
     }
 
     Action {
