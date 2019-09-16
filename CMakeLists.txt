@@ -36,6 +36,10 @@ set(${PROJECT_NAME}_SRC
     src/qml.qrc
 )
 
+ki18n_wrap_ui(${PROJECT_NAME}_SRC
+   settings.ui
+)
+
 kconfig_add_kcfg_files(${PROJECT_NAME}_SRC GENERATE_MOC settings.kcfgc)
 
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})

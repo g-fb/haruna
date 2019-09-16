@@ -22,6 +22,7 @@ ApplicationWindow {
     property var increasePlayBackSpeed: app.action("increasePlayBackSpeed")
     property var decreasePlayBackSpeed: app.action("decreasePlayBackSpeed")
     property var resetPlayBackSpeed: app.action("resetPlayBackSpeed")
+    property var configure: app.action("configure")
 
     property int preFullScreenVisibility
 
@@ -251,6 +252,14 @@ ApplicationWindow {
         icon.name: app.iconName(quitApplication.icon)
         shortcut: quitApplication.shortcut
         onTriggered: quitApplication.trigger()
+    }
+
+    Action {
+        id: configureAction
+        text: configure.text
+        icon.name: app.iconName(configure.icon)
+        shortcut: configure.shortcut
+        onTriggered: configure.trigger()
     }
 
 }

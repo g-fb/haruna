@@ -7,7 +7,6 @@ MpvObject {
 
     property int mx
     property int my
-    property string videoDuration
     property alias scrollPositionTimer: scrollPositionTimer
     signal setSubtitle(int id)
     signal setAudio(int id)
@@ -71,6 +70,8 @@ MpvObject {
     }
 
     onReady: {
+        root.setProperty("sub-file-paths", app.pathSetting("General", "SubtitlesFolders").join(":"))
+
         // open last played file, paused and
         // at the position when player was closed or last saved
         window.openFile(app.setting("General", "lastPlayedFile"), false, true)
@@ -115,6 +116,14 @@ MpvObject {
             var nextFile = videoList.getPath(nextFileRow)
             window.openFile(nextFile, true, false)
             videoList.setPlayingVideo(nextFileRow)
+        }
+    }
+
+    onPauseChanged: {
+        if (pause) {
+            footer.playPauseButton.icon.name = "media-playback-start"
+        } else {
+            footer.playPauseButton.icon.name = "media-playback-pause"
         }
     }
 

@@ -6,8 +6,21 @@
 #include <KActionCollection>
 #include <KSharedConfig>
 
+#include "ui_settings.h"
+
 class QAction;
 class KActionCollection;
+class HarunaSettings;
+class KConfigDialog;
+
+class SettingsWidget: public QWidget, public Ui::SettingsWidget
+{
+    Q_OBJECT
+public:
+    explicit SettingsWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 class Application : public QObject
 {
@@ -24,13 +37,18 @@ public slots:
     void showCursor();
     QAction* action(const QString& name);
     QString iconName(const QIcon& icon);
-    QString setting(const QString group, const QString key);
+    QVariant setting(const QString group, const QString key);
     void setSetting(const QString group, const QString key, const QString value);
+    QVariant pathSetting(const QString group, const QString key);
+    void setPathSetting(const QString group, const QString key, const QString value);
+    void openSettingsDialog();
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
     KConfigGroup *m_shortcuts;
+    KConfigDialog *m_settingsDialog;
+    SettingsWidget *m_settingsWidget = nullptr;
 };
 
 #endif // APPLICATION_H

@@ -4,9 +4,9 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
     <kcfgfile name="georgefb/haruna.conf" />
     <group name="General">
-        <entry name="number" type="Int">
-            <label>Number.</label>
-            <default>1200</default>
+        <entry name="SubtitlesFolders" type="PathList">
+            <label>Folders to search subtitles in.</label>
+            <default>subs</default>
         </entry>
     </group>
 </kcfg>

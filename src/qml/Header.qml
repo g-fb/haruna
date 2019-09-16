@@ -105,6 +105,9 @@ ToolBar {
                     }
                 }
             }
+            ToolButton {
+                action: configureAction
+            }
         }
 
         RowLayout {
