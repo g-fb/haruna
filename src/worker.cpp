@@ -19,11 +19,11 @@ void Worker::getVideoDuration(int index, QString path)
 {
     MediaInfoLib::MediaInfo MI;
     MI.Open(path.toStdWString());
-    int miliseconds = std::stoi(MI.Get(
-        MediaInfoLib::Stream_General, 0, L"Duration")
-    );
+    QString duration = QString::fromStdWString(MI.Get(MediaInfoLib::Stream_General, 0, L"Duration"));
+    if (duration.isEmpty()) {
+        return;
+    }
     MI.Close();
-    double seconds = miliseconds/1000;
-    QDateTime duration = QDateTime::fromTime_t(seconds).toUTC();
-    emit videoDuration(index, duration.toString("hh:mm:ss"));
+    QDateTime UTCDuration = QDateTime::fromMSecsSinceEpoch(duration.toInt()).toUTC();
+    emit videoDuration(index, UTCDuration.toString("hh:mm:ss"));
 }
