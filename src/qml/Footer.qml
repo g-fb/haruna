@@ -9,6 +9,8 @@ ToolBar {
     property alias footerRow: footerRow
     property alias timeInfo: timeInfo
     property alias playPauseButton: playPauseButton
+    property var playNext: app.action("playNext")
+    property var playPrevious: app.action("playPrevious")
 
     contentHeight: 40
     contentWidth: window.width
@@ -27,15 +29,8 @@ ToolBar {
 
         ToolButton {
             id: playPreviousFile
-            icon.name: "media-skip-backward"
-            onClicked: {
-                if (videoList.getPlayingVideo() !== 0) {
-                    var previousFileRow = videoList.getPlayingVideo() - 1
-                    var nextFile = videoList.getPath(previousFileRow)
-                    window.openFile(nextFile, true, false)
-                    videoList.setPlayingVideo(previousFileRow)
-                }
-            }
+            action: playPreviousAction
+            text: ""
 
             ToolTip {
                 text: qsTr("Play Previous File")
@@ -44,15 +39,8 @@ ToolBar {
 
         ToolButton {
             id: playNextFile
-            icon.name: "media-skip-forward"
-            onClicked: {
-                var nextFileRow = videoList.getPlayingVideo() + 1
-                if (nextFileRow < playList.tableView.rows) {
-                    var nextFile = videoList.getPath(nextFileRow)
-                    window.openFile(nextFile, true, false)
-                    videoList.setPlayingVideo(nextFileRow)
-                }
-            }
+            action: playNextAction
+            text: ""
 
             ToolTip {
                 text: qsTr("Play Next File")
@@ -86,6 +74,37 @@ ToolBar {
 
                 onEntered: timeToolTip.visible = true
                 onExited: timeToolTip.visible = false
+            }
+        }
+
+
+        Action {
+            id: playNextAction
+            text: playNext.text
+            shortcut: playNext.shortcut
+            icon.name: app.iconName(playNext.icon)
+            onTriggered: {
+                var nextFileRow = videoList.getPlayingVideo() + 1
+                if (nextFileRow < playList.tableView.rows) {
+                    var nextFile = videoList.getPath(nextFileRow)
+                    window.openFile(nextFile, true, false)
+                    videoList.setPlayingVideo(nextFileRow)
+                }
+            }
+        }
+
+        Action {
+            id: playPreviousAction
+            text: playPrevious.text
+            shortcut: playPrevious.shortcut
+            icon.name: app.iconName(playPrevious.icon)
+            onTriggered: {
+                if (videoList.getPlayingVideo() !== 0) {
+                    var previousFileRow = videoList.getPlayingVideo() - 1
+                    var nextFile = videoList.getPath(previousFileRow)
+                    window.openFile(nextFile, true, false)
+                    videoList.setPlayingVideo(previousFileRow)
+                }
             }
         }
     }

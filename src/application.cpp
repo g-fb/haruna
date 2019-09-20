@@ -120,6 +120,20 @@ void Application::setupActions(const QString &actionName)
     }
 
     // mpv actions
+    if (actionName == QStringLiteral("playNext")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Play Next"));
+        action->setIcon(QIcon::fromTheme("media-skip-forward"));
+        m_collection.setDefaultShortcut(action, Qt::ALT + Qt::Key_Right);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("playPrevious")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Play Previous"));
+        action->setIcon(QIcon::fromTheme("media-skip-backward"));
+        m_collection.setDefaultShortcut(action, Qt::ALT + Qt::Key_Left);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("seekForward")) {
         QAction *action = new QAction();
         action->setText(i18n("Seek Forward"));
