@@ -70,6 +70,10 @@ ApplicationWindow {
         color: "#31363B"
     }
 
+    Osd { id: osd }
+
+    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
+
     PlatformDialog.FileDialog {
         id: fileDialog
         folder: PlatformDialog.StandardPaths.writableLocation(PlatformDialog.StandardPaths.MoviesLocation)
@@ -211,7 +215,16 @@ ApplicationWindow {
         text: increasePlayBackSpeed.text
         shortcut: increasePlayBackSpeed.shortcut
         icon.name: app.iconName(increasePlayBackSpeed.icon)
-        onTriggered: mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
+        onTriggered: {
+            mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
+            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
+            if(osd.label.visible) {
+                osd.timer.restart()
+            } else {
+                osd.timer.start()
+            }
+            osd.label.visible = true
+        }
     }
 
     Action {
@@ -219,7 +232,16 @@ ApplicationWindow {
         text: decreasePlayBackSpeed.text
         shortcut: decreasePlayBackSpeed.shortcut
         icon.name: app.iconName(decreasePlayBackSpeed.icon)
-        onTriggered: mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
+        onTriggered: {
+            mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
+            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
+            if(osd.label.visible) {
+                osd.timer.restart()
+            } else {
+                osd.timer.start()
+            }
+            osd.label.visible = true
+        }
     }
 
     Action {
@@ -227,7 +249,16 @@ ApplicationWindow {
         text: resetPlayBackSpeed.text
         shortcut: resetPlayBackSpeed.shortcut
         icon.name: app.iconName(resetPlayBackSpeed.icon)
-        onTriggered: mpv.setProperty("speed", 1.0)
+        onTriggered: {
+            mpv.setProperty("speed", 1.0)
+            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
+            if(osd.label.visible) {
+                osd.timer.restart()
+            } else {
+                osd.timer.start()
+            }
+            osd.label.visible = true
+         }
     }
 
     Action {
