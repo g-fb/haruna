@@ -135,7 +135,6 @@ MpvObject {
             setPlayListScrollPosition()
             scrollPositionTimer.stop()
         }
-
     }
 
     Timer {
@@ -177,8 +176,7 @@ MpvObject {
         onMouseXChanged: {
             root.focus = true
             mx = mouseX
-            if (mouseX > root.width - 50
-                    && (mouseY < root.height * 0.8 && mouseY > root.height * 0.2) && playList.tableView.rows > 0) {
+            if (mouseX > root.width - 50 && playList.tableView.rows > 1) {
                 playList.state = "visible"
             }
             if (mouseX < root.width - playList.width) {
