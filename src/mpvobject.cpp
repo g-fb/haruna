@@ -155,24 +155,21 @@ void MpvObject::doUpdate()
             mpv_event_property *prop = (mpv_event_property *)event->data;
             if (strcmp(prop->name, "time-pos") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    double position = *(double *)prop->data;
-                    m_position = position;
+                    m_position = *(double *)prop->data;
 
-                    emit onPositionChanged(position);
+                    emit onPositionChanged(m_position);
                 }
             } else if (strcmp(prop->name, "time-remaining") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    double remaining = *(double *)prop->data;
-                    m_remaining = remaining;
+                    m_remaining = *(double *)prop->data;
 
-                    emit onRemainingChanged(remaining);
+                    emit onRemainingChanged(m_remaining);
                 }
             } else if (strcmp(prop->name, "duration") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    double duration = *(double *)prop->data;
-                    m_duration = duration;
+                    m_duration = *(double *)prop->data;
 
-                    emit onDurationChanged(duration);
+                    emit onDurationChanged(m_duration);
                 }
             } else if (strcmp(prop->name, "pause") == 0) {
                 if (prop->format == MPV_FORMAT_FLAG) {

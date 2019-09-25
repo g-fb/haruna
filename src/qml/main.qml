@@ -42,6 +42,7 @@ ApplicationWindow {
     }
 
     Actions { id: actions }
+    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
     header: Header { id: header }
 
@@ -61,8 +62,6 @@ ApplicationWindow {
     }
 
     Osd { id: osd }
-
-    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
     PlatformDialog.FileDialog {
         id: fileDialog

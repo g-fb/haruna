@@ -9,5 +9,6 @@
         <file>qml/Footer.qml</file>
         <file>qml/Osd.qml</file>
         <file>qml/Actions.qml</file>
+        <file>qml/VolumeSlider.qml</file>
     </qresource>
 </RCC>
