@@ -9,6 +9,7 @@ ToolBar {
     property alias footerRow: footerRow
     property alias timeInfo: timeInfo
     property alias playPauseButton: playPauseButton
+    property var muteVolume: app.action("mute")
     property var playNext: app.action("playNext")
     property var playPrevious: app.action("playPrevious")
 
@@ -47,12 +48,6 @@ ToolBar {
             }
         }
 
-        VideoProgressBar {
-            id: progressBar
-            Layout.fillWidth: true
-            rightPadding: 10
-        }
-
         Label {
             id: timeInfo
             property string totalTime
@@ -77,6 +72,37 @@ ToolBar {
             }
         }
 
+        VideoProgressBar {
+            id: progressBar
+            Layout.fillWidth: true
+        }
+
+        ToolButton {
+            id: mute
+            action: muteAction
+            text: ""
+
+            ToolTip {
+                text: muteAction.text
+            }
+        }
+
+        Action {
+            id: muteAction
+            text: muteVolume.text
+            shortcut: muteVolume.shortcut
+            icon.name: app.iconName(muteVolume.icon)
+            onTriggered: {
+                mpv.setProperty("mute", !mpv.getProperty("mute"))
+                if (mpv.getProperty("mute")) {
+                    text = qsTr("Unmute")
+                    icon.name = "player-volume-muted"
+                } else {
+                    text = muteVolume.text
+                    icon.name = app.iconName(muteVolume.icon)
+                }
+            }
+        }
 
         Action {
             id: playNextAction

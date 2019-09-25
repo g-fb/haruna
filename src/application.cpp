@@ -134,6 +134,13 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::ALT + Qt::Key_Left);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("mute")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Mute"));
+        action->setIcon(QIcon::fromTheme("player-volume"));
+        m_collection.setDefaultShortcut(action, Qt::Key_M);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("seekForward")) {
         QAction *action = new QAction();
         action->setText(i18n("Seek Forward"));
