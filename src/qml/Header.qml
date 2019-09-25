@@ -31,11 +31,11 @@ ToolBar {
                     y: parent.height
 
                     MenuItem {
-                        action: openAction
+                        action: actions.openAction
                     }
 
                     MenuItem {
-                        action: openUrlAction
+                        action: actions.openUrlAction
                     }
                 }
             }
@@ -106,7 +106,7 @@ ToolBar {
                 }
             }
             ToolButton {
-                action: configureAction
+                action: actions.configureAction
             }
         }
 
@@ -122,7 +122,7 @@ ToolBar {
             }
 
             ToolButton {
-                action: appQuitAction
+                action: actions.quitApplicationAction
             }
         }
     }

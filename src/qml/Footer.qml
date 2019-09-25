@@ -9,9 +9,6 @@ ToolBar {
     property alias footerRow: footerRow
     property alias timeInfo: timeInfo
     property alias playPauseButton: playPauseButton
-    property var muteVolume: app.action("mute")
-    property var playNext: app.action("playNext")
-    property var playPrevious: app.action("playPrevious")
 
     contentHeight: 40
     contentWidth: window.width
@@ -23,14 +20,14 @@ ToolBar {
 
         ToolButton {
             id: playPauseButton
-            action: playPauseAction
+            action: actions.playPauseAction
             text: ""
             icon.name: "media-playback-start"
         }
 
         ToolButton {
             id: playPreviousFile
-            action: playPreviousAction
+            action: actions.playPreviousAction
             text: ""
 
             ToolTip {
@@ -40,7 +37,7 @@ ToolBar {
 
         ToolButton {
             id: playNextFile
-            action: playNextAction
+            action: actions.playNextAction
             text: ""
 
             ToolTip {
@@ -79,58 +76,11 @@ ToolBar {
 
         ToolButton {
             id: mute
-            action: muteAction
+            action: actions.muteAction
             text: ""
 
             ToolTip {
-                text: muteAction.text
-            }
-        }
-
-        Action {
-            id: muteAction
-            text: muteVolume.text
-            shortcut: muteVolume.shortcut
-            icon.name: app.iconName(muteVolume.icon)
-            onTriggered: {
-                mpv.setProperty("mute", !mpv.getProperty("mute"))
-                if (mpv.getProperty("mute")) {
-                    text = qsTr("Unmute")
-                    icon.name = "player-volume-muted"
-                } else {
-                    text = muteVolume.text
-                    icon.name = app.iconName(muteVolume.icon)
-                }
-            }
-        }
-
-        Action {
-            id: playNextAction
-            text: playNext.text
-            shortcut: playNext.shortcut
-            icon.name: app.iconName(playNext.icon)
-            onTriggered: {
-                var nextFileRow = videoList.getPlayingVideo() + 1
-                if (nextFileRow < playList.tableView.rows) {
-                    var nextFile = videoList.getPath(nextFileRow)
-                    window.openFile(nextFile, true, false)
-                    videoList.setPlayingVideo(nextFileRow)
-                }
-            }
-        }
-
-        Action {
-            id: playPreviousAction
-            text: playPrevious.text
-            shortcut: playPrevious.shortcut
-            icon.name: app.iconName(playPrevious.icon)
-            onTriggered: {
-                if (videoList.getPlayingVideo() !== 0) {
-                    var previousFileRow = videoList.getPlayingVideo() - 1
-                    var nextFile = videoList.getPath(previousFileRow)
-                    window.openFile(nextFile, true, false)
-                    videoList.setPlayingVideo(previousFileRow)
-                }
+                text: actions.muteAction.text
             }
         }
     }

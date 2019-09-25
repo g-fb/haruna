@@ -10,18 +10,6 @@ import mpv 1.0
 ApplicationWindow {
     id: window
 
-    property var quitApplication: app.action("file_quit")
-    property var configureShortcuts: app.action("options_configure_keybinding")
-    property var openUrl: app.action("openUrl")
-    property var seekForward: app.action("seekForward")
-    property var seekBackward: app.action("seekBackward")
-    property var seekNextSubtitle: app.action("seekNextSubtitle")
-    property var seekPreviousSubtitle: app.action("seekPreviousSubtitle")
-    property var frameStep: app.action("frameStep")
-    property var frameBackStep: app.action("frameBackStep")
-    property var increasePlayBackSpeed: app.action("increasePlayBackSpeed")
-    property var decreasePlayBackSpeed: app.action("decreasePlayBackSpeed")
-    property var resetPlayBackSpeed: app.action("resetPlayBackSpeed")
     property var configure: app.action("configure")
 
     property int preFullScreenVisibility
@@ -52,6 +40,8 @@ ApplicationWindow {
             preFullScreenVisibility = visibility
         }
     }
+
+    Actions { id: actions }
 
     header: Header { id: header }
 
@@ -133,164 +123,4 @@ ApplicationWindow {
             }
         }
     }
-
-    Action {
-        id: openAction
-        text: qsTr("Open File")
-        icon.name: "document-open"
-        shortcut: StandardKey.Open
-        onTriggered: fileDialog.open()
-    }
-
-    Action {
-        id: openUrlAction
-        text: openUrl.text
-        shortcut: openUrl.shortcut
-        icon.name: app.iconName(openUrl.icon)
-        onTriggered: openUrlPopup.open()
-    }
-
-    Action {
-        id: seekForwardAction
-        text: seekForward.text
-        shortcut: seekForward.shortcut
-        icon.name: app.iconName(seekForward.icon)
-        onTriggered: mpv.command(["seek", "+5", "exact"])
-    }
-
-    Action {
-        id: seekBackwardAction
-        text: seekBackward.text
-        shortcut: seekBackward.shortcut
-        icon.name: app.iconName(seekBackward.icon)
-        onTriggered: mpv.command(["seek", "-5", "exact"])
-    }
-
-    Action {
-        id: seekNextSubtitleAction
-        text: seekNextSubtitle.text
-        shortcut: seekNextSubtitle.shortcut
-        icon.name: app.iconName(seekNextSubtitle.icon)
-        onTriggered: {
-            if (mpv.getProperty("sid") !== false) {
-                mpv.command(["sub-seek", "1"])
-            } else {
-                seekForwardAction.trigger()
-            }
-        }
-    }
-
-    Action {
-        id: seekPrevSubtitleAction
-        text: seekPreviousSubtitle.text
-        shortcut: seekPreviousSubtitle.shortcut
-        icon.name: app.iconName(seekPreviousSubtitle.icon)
-        onTriggered: {
-             if (mpv.getProperty("sid") !== false) {
-                 mpv.command(["sub-seek", "-1"])
-             } else {
-                 seekBackwardAction.trigger()
-             }
-         }
-    }
-
-    Action {
-        id: frameStepAction
-        text: frameStep.text
-        shortcut: frameStep.shortcut
-        icon.name: app.iconName(frameStep.icon)
-        onTriggered: mpv.command(["frame-step"])
-    }
-
-    Action {
-        id: frameBackStepAction
-        text: frameBackStep.text
-        shortcut: frameBackStep.shortcut
-        icon.name: app.iconName(frameBackStep.icon)
-        onTriggered: mpv.command(["frame-back-step"])
-    }
-
-    Action {
-        id: increasePlayBackSpeedAction
-        text: increasePlayBackSpeed.text
-        shortcut: increasePlayBackSpeed.shortcut
-        icon.name: app.iconName(increasePlayBackSpeed.icon)
-        onTriggered: {
-            mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
-            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
-            if(osd.label.visible) {
-                osd.timer.restart()
-            } else {
-                osd.timer.start()
-            }
-            osd.label.visible = true
-        }
-    }
-
-    Action {
-        id: decreasePlayBackSpeedAction
-        text: decreasePlayBackSpeed.text
-        shortcut: decreasePlayBackSpeed.shortcut
-        icon.name: app.iconName(decreasePlayBackSpeed.icon)
-        onTriggered: {
-            mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
-            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
-            if(osd.label.visible) {
-                osd.timer.restart()
-            } else {
-                osd.timer.start()
-            }
-            osd.label.visible = true
-        }
-    }
-
-    Action {
-        id: resetPlayBackSpeedAction
-        text: resetPlayBackSpeed.text
-        shortcut: resetPlayBackSpeed.shortcut
-        icon.name: app.iconName(resetPlayBackSpeed.icon)
-        onTriggered: {
-            mpv.setProperty("speed", 1.0)
-            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
-            if(osd.label.visible) {
-                osd.timer.restart()
-            } else {
-                osd.timer.start()
-            }
-            osd.label.visible = true
-         }
-    }
-
-    Action {
-        id: playPauseAction
-        text: qsTr("Play/Pause")
-        icon.name: "media-playback-pause"
-        shortcut: "Space"
-        onTriggered: mpv.play_pause()
-    }
-
-    Action {
-        id: configureShortcutsAction
-        text: configureShortcuts.text
-        icon.name: app.iconName(configureShortcuts.icon)
-        shortcut: configureShortcuts.shortcut
-        onTriggered: configureShortcuts.trigger()
-    }
-
-    Action {
-        id: appQuitAction
-        text: quitApplication.text
-        icon.name: app.iconName(quitApplication.icon)
-        shortcut: quitApplication.shortcut
-        onTriggered: quitApplication.trigger()
-    }
-
-    Action {
-        id: configureAction
-        text: configure.text
-        icon.name: app.iconName(configure.icon)
-        shortcut: configure.shortcut
-        onTriggered: configure.trigger()
-    }
-
 }
