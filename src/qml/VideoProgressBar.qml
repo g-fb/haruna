@@ -78,6 +78,25 @@ Slider {
                 PathLine { x: chapterMarkerShape.position - 7; y: -7 }
                 PathLine { x: chapterMarkerShape.position - 1; y: -1 }
             }
+            Rectangle {
+                x: chapterMarkerShape.position - 8
+                y: -11
+                width: 15
+                height: 11
+                color: "transparent"
+                ToolTip {
+                    id: chapterTitleToolTip
+                    text: modelData.title
+                    visible: false
+                    delay: 0
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: chapterTitleToolTip.visible = true
+                    onExited: chapterTitleToolTip.visible = false
+                }
+            }
         }
     }
 
