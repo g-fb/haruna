@@ -126,8 +126,10 @@ MpvObject {
     onPauseChanged: {
         if (pause) {
             footer.playPauseButton.icon.name = "media-playback-start"
+            lockManager.setInhibitionOff()
         } else {
             footer.playPauseButton.icon.name = "media-playback-pause"
+            lockManager.setInhibitionOn()
         }
     }
 

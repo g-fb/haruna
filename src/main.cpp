@@ -1,5 +1,6 @@
 #include "_debug.h"
 #include "application.h"
+#include "lockmanager.h"
 #include "mpvobject.h"
 #include "tracksmodel.h"
 #include "videoitem.h"
@@ -65,6 +66,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
+    std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
 
     for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
         myApp->addArgument(i, parser.positionalArguments().at(i));
@@ -99,6 +101,10 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("app"), myApp.release());
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
                                             QStringLiteral("Application should not be created in QML"));
+
+    engine.rootContext()->setContextProperty(QStringLiteral("lockManager"), lockManager.release());
+    qmlRegisterUncreatableType<LockManager>("LockManager", 1, 0, "LockManager",
+                                            QStringLiteral("LockManager should not be created in QML"));
     engine.load(url);
     return app.exec();
 }

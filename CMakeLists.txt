@@ -27,6 +27,7 @@ find_package(KF5 COMPONENTS
 set(${PROJECT_NAME}_SRC
     src/main.cpp
     src/application.cpp
+    src/lockmanager.cpp
     src/mpvobject.cpp
     src/track.cpp
     src/tracksmodel.cpp
@@ -42,7 +43,7 @@ ki18n_wrap_ui(${PROJECT_NAME}_SRC
 )
 
 kconfig_add_kcfg_files(${PROJECT_NAME}_SRC GENERATE_MOC settings.kcfgc)
-
+qt5_add_dbus_interface(${PROJECT_NAME}_SRC org.freedesktop.ScreenSaver.xml screensaverdbusinterface)
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME} PRIVATE
