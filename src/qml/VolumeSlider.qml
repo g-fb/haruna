@@ -11,7 +11,7 @@ Slider {
     from: 0
     to: 100
     implicitWidth: 100
-    implicitHeight: 15
+    implicitHeight: 25
     wheelEnabled: true
     stepSize: 2
 

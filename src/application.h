@@ -33,6 +33,9 @@ signals:
 
 public slots:
     void configureShortcuts();
+    QString argument(int key);
+    void addArgument(int key, QString value);
+    QString getPathFromArg(QString arg);
     void hideCursor();
     void showCursor();
     QAction* action(const QString& name);
@@ -49,6 +52,7 @@ private:
     KConfigGroup *m_shortcuts;
     KConfigDialog *m_settingsDialog;
     SettingsWidget *m_settingsWidget = nullptr;
+    QMap<int, QString> args;
 };
 
 #endif // APPLICATION_H

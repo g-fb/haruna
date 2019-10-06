@@ -81,12 +81,13 @@ ApplicationWindow {
 
     Popup {
         id: openUrlPopup
-        anchors.centerIn: Overlay.overlay
-        width: mpv.width * 0.7
+//        anchors.centerIn: Overlay.overlay
+        width: 500
+        x: 10
+        y: 10
 
         onOpened: {
-            openUrlPopup.focus = true
-            openUrlTextField.focus = true
+            openUrlTextField.forceActiveFocus(Qt.MouseFocusReason)
             openUrlTextField.selectAll()
         }
 
@@ -101,8 +102,8 @@ ApplicationWindow {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                         openFile(openUrlTextField.text, true, false)
                         openUrlPopup.close()
+                        openUrlTextField.clear()
                         app.setSetting("General", "lastUrl", openUrlTextField.text)
-                        openUrlTextField.text = ""
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -116,8 +117,8 @@ ApplicationWindow {
                 onClicked: {
                     openFile(openUrlTextField.text, true, false)
                     openUrlPopup.close()
+                    openUrlTextField.clear()
                     app.setSetting("General", "lastUrl", openUrlTextField.text)
-                    openUrlTextField.text = ""
                 }
             }
         }

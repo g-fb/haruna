@@ -14,6 +14,7 @@ ToolBar {
     contentHeight: 40
     contentWidth: window.width
     position: ToolBar.Footer
+    padding: 5
 
     RowLayout {
         id: footerRow

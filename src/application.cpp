@@ -5,6 +5,8 @@
 #include <QApplication>
 #include <QAction>
 #include <QCoreApplication>
+#include <QDir>
+#include <QFileInfo>
 #include <QStandardPaths>
 
 #include <KConfig>
@@ -27,6 +29,21 @@ Application::Application(QObject *parent)
     m_settingsDialog->setMinimumSize(700, 600);
     m_settingsDialog->setFaceType(KPageDialog::Plain);
     m_settingsDialog->addPage(m_settingsWidget, i18n("Settings"));
+}
+
+QString Application::argument(int key)
+{
+    return args[key];
+}
+
+void Application::addArgument(int key, QString value)
+{
+    args.insert(key, value);
+}
+
+QString Application::getPathFromArg(QString arg)
+{
+    return QUrl::fromUserInput(arg, QDir::currentPath()).toLocalFile();
 }
 
 QVariant Application::setting(const QString group, const QString key)

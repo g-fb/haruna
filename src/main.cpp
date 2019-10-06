@@ -8,13 +8,16 @@
 #include "worker.h"
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickItem>
 #include <QQuickStyle>
 #include <QQuickView>
-#include <QQuickItem>
 #include <QThread>
+
+#include <KAboutData>
 
 #include <memory>
 
@@ -25,6 +28,30 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setOrganizationName("georgefb");
     app.setOrganizationDomain("georgefb.com");
+
+    KAboutData aboutData(
+                QStringLiteral("haruna"),
+                i18n("Haruna Video Player"),
+                QStringLiteral("0.1.0"),
+                i18n("A simple video player."),
+                KAboutLicense::GPL_V3,
+                i18n("(c) 2019"),
+                i18n("TO DO..."),
+                QStringLiteral("http://georgefb.com/haruna"),
+                QStringLiteral("georgefb899@gmail.com"));
+
+    aboutData.addAuthor(i18n("George Florea Bănuș"),
+                        i18n("Developer"),
+                        QStringLiteral("georgefb899@gmail.com"),
+                        QStringLiteral("http://georgefb.com"));
+
+    KAboutData::setApplicationData(aboutData);
+
+    QCommandLineParser parser;
+    aboutData.setupCommandLine(&parser);
+    parser.addPositionalArgument(QStringLiteral("file"), i18n("Document to open"));
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
     // Qt sets the locale in the QGuiApplication constructor, but libmpv
     // requires the LC_NUMERIC category to be set to "C", so change it back.
@@ -38,6 +65,10 @@ int main(int argc, char *argv[])
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
+
+    for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
+        myApp->addArgument(i, parser.positionalArguments().at(i));
+    }
 
     auto worker = Worker::instance();
     auto thread = new QThread();
@@ -67,7 +98,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty(QStringLiteral("app"), myApp.release());
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
-                                               QStringLiteral("Application should not be created in QML"));
+                                            QStringLiteral("Application should not be created in QML"));
     engine.load(url);
     return app.exec();
 }

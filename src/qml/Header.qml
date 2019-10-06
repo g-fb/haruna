@@ -18,26 +18,19 @@ ToolBar {
             Layout.alignment: Qt.AlignLeft
 
             ToolButton {
-                icon.name: "document-open"
-                text: qsTr("Open")
-
-                onReleased: {
-                    openMenu.open()
-                    mpv.focus = true
-                }
-
-                Menu {
-                    id: openMenu
-                    y: parent.height
-
-                    MenuItem {
-                        action: actions.openAction
-                    }
-
-                    MenuItem {
-                        action: actions.openUrlAction
-                    }
-                }
+                action: actions.openAction
+            }
+            ToolButton {
+                action: actions.openUrlAction
+                MouseArea {
+                     anchors.fill: parent
+                     acceptedButtons: Qt.MiddleButton
+                     onClicked: {
+                         openUrlTextField.clear()
+                         openUrlTextField.paste()
+                         window.openFile(openUrlTextField.text, true, false)
+                     }
+                 }
             }
 
             ToolButton {
@@ -107,6 +100,7 @@ ToolBar {
             }
             ToolButton {
                 action: actions.configureAction
+                text: qsTr("Settings")
             }
         }
 

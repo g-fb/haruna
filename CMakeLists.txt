@@ -19,6 +19,7 @@ find_package(Qt5 COMPONENTS
 )
 find_package(KF5 COMPONENTS
     Config
+    CoreAddons
     XmlGui
     I18n
 )
@@ -49,6 +50,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Quick
     Qt5::QuickControls2
     KF5::ConfigCore
+    KF5::CoreAddons
     KF5::XmlGui
     KF5::I18n
     mpv
