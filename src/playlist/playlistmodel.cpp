@@ -1,7 +1,7 @@
-#include "videolistmodel.h"
-#include "videolist.h"
-#include "videoitem.h"
-#include "_debug.h"
+#include "playlistmodel.h"
+#include "playlist.h"
+#include "playlistitem.h"
+#include "../_debug.h"
 
 VideoListModel::VideoListModel(VideoList *videoList, QObject *parent)
     : QAbstractTableModel(parent)

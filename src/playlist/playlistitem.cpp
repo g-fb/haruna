@@ -1,5 +1,5 @@
-#include "_debug.h"
-#include "videoitem.h"
+#include "../_debug.h"
+#include "playlistitem.h"
 
 VideoItem::VideoItem(QObject *parent) : QObject(parent)
 {

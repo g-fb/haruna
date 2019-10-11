@@ -1,7 +1,7 @@
-#include "_debug.h"
-#include "worker.h"
-#include "videolist.h"
-#include "videoitem.h"
+#include "../_debug.h"
+#include "../worker.h"
+#include "playlist.h"
+#include "playlistitem.h"
 
 #include <QCollator>
 #include <QDirIterator>

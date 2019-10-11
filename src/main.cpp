@@ -3,9 +3,9 @@
 #include "lockmanager.h"
 #include "mpvobject.h"
 #include "tracksmodel.h"
-#include "videoitem.h"
-#include "videolist.h"
-#include "videolistmodel.h"
+#include "playlist/playlist.h"
+#include "playlist/playlistitem.h"
+#include "playlist/playlistmodel.h"
 #include "worker.h"
 
 #include <QApplication>

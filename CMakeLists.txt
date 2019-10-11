@@ -31,12 +31,11 @@ set(${PROJECT_NAME}_SRC
     src/mpvobject.cpp
     src/track.cpp
     src/tracksmodel.cpp
-    src/videolistmodel.cpp
-    src/videolist.cpp
-    src/videoitem.cpp
     src/worker.cpp
     src/qml.qrc
 )
+
+add_subdirectory(src/playlist)
 
 ki18n_wrap_ui(${PROJECT_NAME}_SRC
    settings.ui
