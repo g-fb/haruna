@@ -40,7 +40,7 @@ public slots:
     void showCursor();
     QAction* action(const QString& name);
     QString iconName(const QIcon& icon);
-    QVariant setting(const QString group, const QString key);
+    QVariant setting(const QString group, const QString key, const QString defaultValue = QStringLiteral());
     void setSetting(const QString group, const QString key, const QString value);
     QVariant pathSetting(const QString group, const QString key);
     void setPathSetting(const QString group, const QString key, const QString value);

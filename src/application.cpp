@@ -46,9 +46,9 @@ QString Application::getPathFromArg(QString arg)
     return QUrl::fromUserInput(arg, QDir::currentPath()).toLocalFile();
 }
 
-QVariant Application::setting(const QString group, const QString key)
+QVariant Application::setting(const QString group, const QString key, const QString defaultValue)
 {
-    return m_config->group("General").readEntry(key);
+    return m_config->group(group).readEntry(key, defaultValue);
 }
 
 void Application::setSetting(const QString group, const QString key, const QString value)
