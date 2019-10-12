@@ -85,7 +85,13 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: openUrlPopup.open()
+        onTriggered: {
+            if (openUrlPopup.visible) {
+                openUrlPopup.close()
+            } else {
+                openUrlPopup.open()
+            }
+        }
     }
 
     Action {

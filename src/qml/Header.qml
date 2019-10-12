@@ -20,6 +20,7 @@ ToolBar {
             ToolButton {
                 action: actions.openAction
             }
+
             ToolButton {
                 action: actions.openUrlAction
                 MouseArea {
@@ -33,19 +34,40 @@ ToolBar {
                  }
             }
 
+            ToolSeparator {
+                padding: vertical ? 10 : 2
+                topPadding: vertical ? 2 : 10
+                bottomPadding: vertical ? 2 : 10
+
+                contentItem: Rectangle {
+                    implicitWidth: parent.vertical ? 1 : 24
+                    implicitHeight: parent.vertical ? 24 : 1
+                    color: systemPalette.text
+                }
+            }
+
             ToolButton {
                 icon.name: "media-view-subtitles-symbolic"
                 text: qsTr("Subtitles")
 
-                onReleased: subtitleMenu.open()
-
                 onClicked: {
+                    if (subtitleMenu.isOpen) {
+                        subtitleMenu.close()
+                        subtitleMenu.isOpen = false
+                    } else {
+                        subtitleMenu.open()
+                        subtitleMenu.isOpen = true
+                    }
+
                     subtitleMenuInstantiator.model = mpv.subtitleTracksModel()
                 }
 
                 Menu {
                     id: subtitleMenu
+                    property bool isOpen: false
                     y: parent.height
+                    onOpened: isOpen = true
+                    onClosed: isOpen = false
 
                     Instantiator {
                         id: subtitleMenuInstantiator
@@ -70,15 +92,24 @@ ToolBar {
                 icon.name: "audio-volume-high"
                 text: qsTr("Audio")
 
-                onReleased: audioMenu.open()
-
                 onClicked: {
+                    if (audioMenu.isOpen) {
+                        audioMenu.close()
+                        audioMenu.isOpen = false
+                    } else {
+                        audioMenu.open()
+                        audioMenu.isOpen = true
+                    }
+
                     audioMenuInstantiator.model = mpv.audioTracksModel()
                 }
 
                 Menu {
                     id: audioMenu
+                    property bool isOpen: false
                     y: parent.height
+                    onOpened: isOpen = true
+                    onClosed: isOpen = false
 
                     Instantiator {
                         id: audioMenuInstantiator
@@ -98,10 +129,6 @@ ToolBar {
                     }
                 }
             }
-            ToolButton {
-                action: actions.configureAction
-                text: qsTr("Settings")
-            }
         }
 
         RowLayout {
@@ -109,12 +136,9 @@ ToolBar {
             Layout.alignment: Qt.AlignRight
 
             ToolButton {
-                icon.name: "view-media-playlist"
-                text: qsTr("Playlist")
-                onClicked: (playList.state === "hidden") ? playList.state = "visible" : playList.state = "hidden"
-                onReleased: mpv.focus = true
+                action: actions.configureAction
+                text: qsTr("Settings")
             }
-
             ToolButton {
                 action: actions.quitApplicationAction
             }
