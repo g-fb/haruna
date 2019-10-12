@@ -8,5 +8,17 @@
             <label>Folders to search subtitles in.</label>
             <default>subs</default>
         </entry>
+        <entry name="SeekStepSmall" type="int">
+            <label>Small seek step.</label>
+            <default>5</default>
+        </entry>
+        <entry name="SeekStepMedium" type="int">
+            <label>Medium seek step.</label>
+            <default>10</default>
+        </entry>
+        <entry name="SeekStepBig" type="int">
+            <label>Big seek step.</label>
+            <default>20</default>
+        </entry>
     </group>
 </kcfg>

@@ -8,10 +8,16 @@ Item {
     property alias quitApplicationAction: quitApplicationAction
     property alias configureShortcutsAction: configureShortcutsAction
     property alias openUrlAction: openUrlAction
-    property alias seekForwardAction: seekForwardAction
-    property alias seekBackwardAction: seekBackwardAction
+
+    property alias seekForwardSmallAction: seekForwardSmallAction
+    property alias seekBackwardSmallAction: seekBackwardSmallAction
+    property alias seekForwardMediumAction: seekForwardMediumAction
+    property alias seekBackwardMediumAction: seekBackwardMediumAction
+    property alias seekForwardBigAction: seekForwardBigAction
+    property alias seekBackwardBigAction: seekBackwardBigAction
     property alias seekNextSubtitleAction: seekNextSubtitleAction
     property alias seekPreviousSubtitleAction: seekPrevSubtitleAction
+
     property alias frameStepAction: frameStepAction
     property alias frameBackStepAction: frameBackStepAction
     property alias increasePlayBackSpeedAction: increasePlayBackSpeedAction
@@ -95,21 +101,57 @@ Item {
     }
 
     Action {
-        id: seekForwardAction
-        property var qaction: app.action("seekForward")
+        id: seekForwardSmallAction
+        property var qaction: app.action("seekForwardSmall")
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "+5", "exact"])
+        onTriggered: mpv.command(["seek", "+" + app.setting("General", "SeekStepSmall", "5"), "exact"])
     }
 
     Action {
-        id: seekBackwardAction
-        property var qaction: app.action("seekBackward")
+        id: seekBackwardSmallAction
+        property var qaction: app.action("seekBackwardSmall")
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "-5", "exact"])
+        onTriggered: mpv.command(["seek", "-" + app.setting("General", "SeekStepSmall", "5"), "exact"])
+    }
+
+    Action {
+        id: seekForwardMediumAction
+        property var qaction: app.action("seekForwardMedium")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+        onTriggered: mpv.command(["seek", "+" + app.setting("General", "SeekStepMedium", "10"), "exact"])
+    }
+
+    Action {
+        id: seekBackwardMediumAction
+        property var qaction: app.action("seekBackwardMedium")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+        onTriggered: mpv.command(["seek", "-" + app.setting("General", "SeekStepMedium", "10"), "exact"])
+    }
+
+    Action {
+        id: seekForwardBigAction
+        property var qaction: app.action("seekForwardBig")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+        onTriggered: mpv.command(["seek", "+" + app.setting("General", "SeekStepBig", "20"), "exact"])
+    }
+
+    Action {
+        id: seekBackwardBigAction
+        property var qaction: app.action("seekBackwardBig")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+        onTriggered: mpv.command(["seek", "-" + app.setting("General", "SeekStepBig", "20"), "exact"])
     }
 
     Action {
@@ -122,7 +164,7 @@ Item {
             if (mpv.getProperty("sid") !== false) {
                 mpv.command(["sub-seek", "1"])
             } else {
-                seekForwardAction.trigger()
+                seekForwardSmallAction.trigger()
             }
         }
     }
@@ -137,7 +179,7 @@ Item {
              if (mpv.getProperty("sid") !== false) {
                  mpv.command(["sub-seek", "-1"])
              } else {
-                 seekBackwardAction.trigger()
+                 seekBackwardSmallAction.trigger()
              }
          }
     }
