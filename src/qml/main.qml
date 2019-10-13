@@ -46,20 +46,11 @@ ApplicationWindow {
 
     header: Header { id: header }
 
-    footer: Footer { id: footer }
-
     MpvVideo { id: mpv }
+    Footer { id: footer }
 
     PlayList { id: playList }
 
-    Rectangle {
-        id: fullscreenFooter
-        anchors.bottom: mpv.bottom
-        width: window.width
-        height: footer.height
-        visible: false
-        color: "#31363B"
-    }
 
     Osd { id: osd }
 

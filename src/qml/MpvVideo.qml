@@ -16,8 +16,8 @@ MpvObject {
             window.showFullScreen()
             header.visible = false
             footer.visible = false
-            fullscreenFooter.visible = false
-            footer.footerRow.parent = fullscreenFooter
+            footer.anchors.bottom = root.bottom
+            root.anchors.fill = root.parent
         } else {
             if (window.preFullScreenVisibility === Window.Windowed) {
                 window.showNormal()
@@ -28,8 +28,8 @@ MpvObject {
             }
             header.visible = true
             footer.visible = true
-            fullscreenFooter.visible = false
-            footer.footerRow.parent = footer
+            footer.anchors.bottom = undefined
+            root.anchors.fill = undefined
         }
     }
 
@@ -55,7 +55,10 @@ MpvObject {
         }
     }
 
-    anchors.fill: parent
+    x: 0
+    y: 0
+    width: parent.width
+    height: parent.height - footer.height
 
     onSetSubtitle: {
         if (id !== -1) {
@@ -194,9 +197,9 @@ MpvObject {
             root.focus = true
             my = mouseY
             if (mouseY > window.height - footer.height && window.visibility === Window.FullScreen) {
-                fullscreenFooter.visible = true
+                footer.visible = true
             } else if (mouseY < window.height - footer.height && window.visibility === Window.FullScreen) {
-                fullscreenFooter.visible = false
+                footer.visible = false
             }
         }
 
