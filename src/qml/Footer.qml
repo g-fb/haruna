@@ -25,6 +25,20 @@ ToolBar {
             action: actions.playPauseAction
             text: ""
             icon.name: "media-playback-start"
+
+            ToolTip {
+                id: playPauseButtonToolTip
+                Connections {
+                    target: mpv
+                    onPauseChanged: {
+                        if (mpv.pause) {
+                            playPauseButtonToolTip.text = "Start Playback"
+                        } else {
+                            playPauseButtonToolTip.text = "Pause Playback"
+                        }
+                    }
+                }
+            }
         }
 
         ToolButton {

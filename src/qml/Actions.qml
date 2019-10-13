@@ -80,7 +80,7 @@ Item {
     Action {
         id: openAction
         text: qsTr("Open File")
-        icon.name: "document-open"
+        icon.name: "folder-videos-symbolic"
         shortcut: StandardKey.Open
         onTriggered: fileDialog.open()
     }
