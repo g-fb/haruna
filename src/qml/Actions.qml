@@ -210,13 +210,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         onTriggered: {
             mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
-            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
-            if(osd.label.visible) {
-                osd.timer.restart()
-            } else {
-                osd.timer.start()
-            }
-            osd.label.visible = true
+            osd.message(`Speed: ${mpv.getProperty("speed").toFixed(2)}`)
         }
     }
 
@@ -228,13 +222,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         onTriggered: {
             mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
-            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
-            if(osd.label.visible) {
-                osd.timer.restart()
-            } else {
-                osd.timer.start()
-            }
-            osd.label.visible = true
+            osd.message(`Speed: ${mpv.getProperty("speed").toFixed(2)}`)
         }
     }
 

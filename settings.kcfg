@@ -20,5 +20,9 @@
             <label>Big seek step.</label>
             <default>20</default>
         </entry>
+        <entry name="VolumeStep" type="int">
+            <label>Volume step.</label>
+            <default>5</default>
+        </entry>
     </group>
 </kcfg>

@@ -115,6 +115,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "time-remaining", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "pause", MPV_FORMAT_FLAG);
     setProperty("sub-auto", "exact");
 
@@ -123,7 +124,6 @@ MpvObject::MpvObject(QQuickItem * parent)
 
     connect(this, &MpvObject::onUpdate, this, &MpvObject::doUpdate,
             Qt::QueuedConnection);
-
 }
 
 MpvObject::~MpvObject()
@@ -170,6 +170,12 @@ void MpvObject::doUpdate()
                     m_duration = *(double *)prop->data;
 
                     emit onDurationChanged(m_duration);
+                }
+            } else if (strcmp(prop->name, "volume") == 0) {
+                if (prop->format == MPV_FORMAT_DOUBLE) {
+                    m_volume = *(double *)prop->data;
+
+                    emit onVolumeChanged(m_volume);
                 }
             } else if (strcmp(prop->name, "pause") == 0) {
                 if (prop->format == MPV_FORMAT_FLAG) {
@@ -285,6 +291,7 @@ void MpvObject::setProperty(const QString& name, const QVariant& value)
 QVariant MpvObject::getProperty(const QString& name)
 {
     auto value = mpv::qt::get_property(mpv, name);
+    emit onUpdate();
     return value;
 }
 

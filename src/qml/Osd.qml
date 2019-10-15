@@ -5,6 +5,16 @@ Item {
     property alias timer: osdTimer
     property alias label: root
 
+    function message(text) {
+        osd.label.text = text
+        if(osd.label.visible) {
+            osd.timer.restart()
+        } else {
+            osd.timer.start()
+        }
+        osd.label.visible = true
+    }
+
     Label {
         id: root
         x: 10

@@ -29,6 +29,8 @@ Application::Application(QObject *parent)
     m_settingsDialog->setMinimumSize(700, 600);
     m_settingsDialog->setFaceType(KPageDialog::Plain);
     m_settingsDialog->addPage(m_settingsWidget, i18n("Settings"));
+    connect(m_settingsDialog, &KConfigDialog::settingsChanged,
+            this, &Application::settingsChanged);
 }
 
 QString Application::argument(int key)

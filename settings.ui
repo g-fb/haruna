@@ -69,6 +69,20 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Volume Step</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QSpinBox" name="kcfg_VolumeStep">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>

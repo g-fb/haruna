@@ -30,6 +30,7 @@ public:
     ~Application() = default;
 
 signals:
+    void settingsChanged();
 
 public slots:
     void configureShortcuts();

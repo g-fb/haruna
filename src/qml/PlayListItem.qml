@@ -32,6 +32,7 @@ Item {
             font.bold: true
             font.pointSize: 12
             layer.enabled: true
+            color: "#fff"
             layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
             padding: 10
             text: model.name

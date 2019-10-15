@@ -203,6 +203,18 @@ MpvObject {
             }
         }
 
+        onWheel: {
+            var currentVolume = parseInt(mpv.getProperty("volume"))
+            var volumeStep = parseInt(app.setting("General", "VolumeStep", 5))
+            if (wheel.angleDelta.y > 0 && currentVolume < 100) {
+                mpv.setProperty("volume", currentVolume + volumeStep)
+            } else if (wheel.angleDelta.y < 0 && currentVolume >= 0) {
+                mpv.setProperty("volume", currentVolume - volumeStep)
+            }
+
+            osd.message(`Volume: ${mpv.getProperty("volume").toFixed(0)}`)
+        }
+
         onClicked: {
             focus = true
             if (mouse.button === Qt.RightButton) {
