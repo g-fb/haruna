@@ -246,5 +246,23 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::Key_Backspace);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("subtitleQuicken")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Subtitle Quicken"));
+        m_collection.setDefaultShortcut(action, Qt::Key_Z);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("subtitleDelay")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Subtitle Delay"));
+        m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_Z);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("subtitleToggle")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Subtitle Toggle"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_S);
+        m_collection.addAction(actionName, action);
+    }
     m_collection.readSettings(m_shortcuts);
 }

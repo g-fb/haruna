@@ -27,6 +27,8 @@ Item {
     property alias muteAction: muteAction
     property alias playNextAction: playNextAction
     property alias playPreviousAction: playPreviousAction
+    property alias subtitleQuickenAction: subtitleQuickenAction
+    property alias subtitleDelayAction: subtitleDelayAction
 
     Action {
         id: muteAction
@@ -279,4 +281,42 @@ Item {
         onTriggered: qaction.trigger()
     }
 
+    Action {
+        id: subtitleQuickenAction
+        property var qaction: app.action("subtitleQuicken")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") + 0.1)
+            osd.message(`Subtitle timing: +${mpv.getProperty("sub-delay").toFixed(2)}`)
+        }
+    }
+
+    Action {
+        id: subtitleDelayAction
+        property var qaction: app.action("subtitleDelay")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") - 0.1)
+            osd.message(`Subtitle timing: -${mpv.getProperty("sub-delay").toFixed(2)}`)
+        }
+    }
+
+    Action {
+        id: subtitleToggleAction
+        property var qaction: app.action("subtitleToggle")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var visible = mpv.getProperty("sub-visibility")
+            var message = visible ? "Subtitles off" : "Subtitles on"
+            mpv.setProperty("sub-visibility", !visible)
+            osd.message(message)
+            console.log(123)
+        }
+    }
 }

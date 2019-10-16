@@ -51,7 +51,6 @@ ApplicationWindow {
 
     PlayList { id: playList }
 
-
     Osd { id: osd }
 
     PlatformDialog.FileDialog {

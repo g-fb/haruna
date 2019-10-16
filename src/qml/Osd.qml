@@ -2,38 +2,36 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 Item {
-    property alias timer: osdTimer
-    property alias label: root
+    id: root
 
     function message(text) {
-        osd.label.text = text
-        if(osd.label.visible) {
-            osd.timer.restart()
+        label.text = text
+        if(label.visible) {
+            timer.restart()
         } else {
-            osd.timer.start()
+            timer.start()
         }
-        osd.label.visible = true
+        label.visible = true
     }
 
     Label {
-        id: root
+        id: label
         x: 10
         y: 10
         visible: false
         background: Rectangle {
             color: systemPalette.base
         }
-        text: ""
         padding: 5
     }
 
     Timer {
-        id: osdTimer
+        id: timer
         running: false
         repeat: false
 
         onTriggered: {
-            root.visible = false
+            label.visible = false
         }
     }
 
