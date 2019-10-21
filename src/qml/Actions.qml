@@ -30,6 +30,15 @@ Item {
     property alias subtitleQuickenAction: subtitleQuickenAction
     property alias subtitleDelayAction: subtitleDelayAction
 
+    property alias contrastUpAction: contrastUpAction
+    property alias contrastDownAction: contrastDownAction
+    property alias brightnessUpAction: brightnessUpAction
+    property alias brightnessDownAction: brightnessDownAction
+    property alias gammaUpAction: gammaUpAction
+    property alias gammaDownAction: gammaDownAction
+    property alias saturationUpAction: saturationUpAction
+    property alias saturationDownAction: saturationDownAction
+
     Action {
         id: muteAction
         property var qaction: app.action("mute")
@@ -316,7 +325,148 @@ Item {
             var message = visible ? "Subtitles off" : "Subtitles on"
             mpv.setProperty("sub-visibility", !visible)
             osd.message(message)
-            console.log(123)
+        }
+    }
+
+    Action {
+        id: contrastUpAction
+        property var qaction: app.action("contrastUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var contrast = parseInt(mpv.getProperty("contrast"))
+            mpv.setProperty("contrast", `${contrast + 1}`)
+            osd.message(`Contrast: ${contrast}`)
+        }
+    }
+    Action {
+        id: contrastDownAction
+        property var qaction: app.action("contrastDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var contrast = parseInt(mpv.getProperty("contrast"))
+            mpv.setProperty("contrast", `${contrast - 1}`)
+            osd.message(`Contrast: ${contrast}`)
+        }
+    }
+    Action {
+        id: contrastResetAction
+        property var qaction: app.action("contrastReset")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            mpv.setProperty("contrast", `0`)
+            osd.message(`Contrast: 0`)
+        }
+    }
+
+    Action {
+        id: brightnessUpAction
+        property var qaction: app.action("brightnessUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var brightness = parseInt(mpv.getProperty("brightness"))
+            mpv.setProperty("brightness", `${brightness + 1}`)
+            osd.message(`Brightness: ${brightness}`)
+        }
+    }
+    Action {
+        id: brightnessDownAction
+        property var qaction: app.action("brightnessDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var brightness = parseInt(mpv.getProperty("brightness"))
+            mpv.setProperty("brightness", `${brightness - 1}`)
+            osd.message(`Brightness: ${brightness}`)
+        }
+    }
+    Action {
+        id: brightnessResetAction
+        property var qaction: app.action("brightnessReset")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            mpv.setProperty("brightness", `0`)
+            osd.message(`Brightness: 0`)
+        }
+    }
+    Action {
+        id: gammaUpAction
+        property var qaction: app.action("gammaUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var gamma = parseInt(mpv.getProperty("gamma"))
+            mpv.setProperty("gamma", `${gamma + 1}`)
+            osd.message(`Gamma: ${gamma}`)
+        }
+    }
+    Action {
+        id: gammaDownAction
+        property var qaction: app.action("gammaDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var gamma = parseInt(mpv.getProperty("gamma"))
+            mpv.setProperty("gamma", `${gamma - 1}`)
+            osd.message(`Gamma: ${gamma}`)
+        }
+    }
+    Action {
+        id: gammaResetAction
+        property var qaction: app.action("gammaReset")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            mpv.setProperty("gamma", `0`)
+            osd.message(`Gamma: 0`)
+        }
+    }
+    Action {
+        id: saturationUpAction
+        property var qaction: app.action("saturationUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var saturation = parseInt(mpv.getProperty("saturation"))
+            mpv.setProperty("saturation", `${saturation + 1}`)
+            osd.message(`Saturation: ${saturation}`)
+        }
+    }
+    Action {
+        id: saturationDownAction
+        property var qaction: app.action("saturationDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            var saturation = parseInt(mpv.getProperty("saturation"))
+            mpv.setProperty("saturation", `${saturation - 1}`)
+            osd.message(`Saturation: ${saturation}`)
+        }
+    }
+    Action {
+        id: saturationResetAction
+        property var qaction: app.action("saturationReset")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+        onTriggered: {
+            mpv.setProperty("saturation", `0`)
+            osd.message(`Saturation: 0`)
         }
     }
 }

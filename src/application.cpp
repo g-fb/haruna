@@ -122,7 +122,7 @@ void Application::setupActions(const QString &actionName)
     }
     if (actionName == QStringLiteral("options_configure_keybinding")) {
         auto action = KStandardAction::keyBindings(this, &Application::configureShortcuts, &m_collection);
-        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_S);
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_S);
         m_collection.addAction(actionName, action);
     }
     if (actionName == QStringLiteral("configure")) {
@@ -139,6 +139,91 @@ void Application::setupActions(const QString &actionName)
     }
 
     // mpv actions
+    if (actionName == QStringLiteral("contrastUp")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Contrast Up"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_1);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("contrastDown")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Contrast Down"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_2);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("contrastReset")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Contrast Reset"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, QKeySequence("Ctrl+1,Ctrl+2"));
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("brightnessUp")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Brightness Up"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_3);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("brightnessDown")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Brightness Down"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_4);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("brightnessReset")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Brightness Reset"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_3);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("gammaUp")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Gamma Up"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_5);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("gammaDown")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Gamma Down"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_6);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("gammaReset")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Gamma Reset"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_5);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("saturationUp")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Saturation Up"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_7);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("saturationDown")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Saturation Down"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::Key_8);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("saturationReset")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Saturation Reset"));
+        action->setIcon(QIcon::fromTheme("contrast"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_7);
+        m_collection.addAction(actionName, action);
+    }
+
     if (actionName == QStringLiteral("playNext")) {
         QAction *action = new QAction();
         action->setText(i18n("Play Next"));
