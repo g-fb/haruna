@@ -34,5 +34,4 @@ Item {
             label.visible = false
         }
     }
-
 }

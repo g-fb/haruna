@@ -34,7 +34,9 @@ Item {
             layer.enabled: true
             color: "#fff"
             layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
-            padding: 10
+            leftPadding: 10
+            rightPadding: column === 2 ? 20 + scrollBar.width : 10
+
             text: model.name
             width: {if (column === 1) {tableView.columnWidths[column]}}
 
