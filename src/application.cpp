@@ -157,7 +157,7 @@ void Application::setupActions(const QString &actionName)
         QAction *action = new QAction();
         action->setText(i18n("Contrast Reset"));
         action->setIcon(QIcon::fromTheme("contrast"));
-        m_collection.setDefaultShortcut(action, QKeySequence("Ctrl+1,Ctrl+2"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_1);
         m_collection.addAction(actionName, action);
     }
     if (actionName == QStringLiteral("brightnessUp")) {
