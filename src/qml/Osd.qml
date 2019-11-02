@@ -5,7 +5,14 @@ Item {
     id: root
 
     function message(text) {
+        var osdFontSize = parseInt(app.setting("General", "OsdFontSize", 25))
         label.text = text
+        label.font.pixelSize = osdFontSize
+        console.log(osdFontSize)
+        if (osdFontSize === 0) {
+            return;
+        }
+
         if(label.visible) {
             timer.restart()
         } else {
@@ -23,6 +30,7 @@ Item {
             color: systemPalette.base
         }
         padding: 5
+        font.pixelSize: parseInt(app.setting("General", "OsdFontSize", 25))
     }
 
     Timer {
