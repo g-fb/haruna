@@ -54,11 +54,11 @@ Rectangle {
     states: [
         State {
             name: "hidden"
-            PropertyChanges { target: playList; x: parent.width }
+            PropertyChanges { target: playList; x: parent.width; visible: false }
         },
         State {
             name : "visible"
-            PropertyChanges { target: playList; x: parent.width - root.width }
+            PropertyChanges { target: playList; x: parent.width - root.width; visible: true }
         }
     ]
 
