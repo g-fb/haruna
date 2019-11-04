@@ -8,10 +8,10 @@
 
 #include "ui_settings.h"
 
-class QAction;
-class KActionCollection;
 class HarunaSettings;
+class KActionCollection;
 class KConfigDialog;
+class QAction;
 
 class SettingsWidget: public QWidget, public Ui::SettingsWidget
 {
@@ -41,18 +41,11 @@ public slots:
     void showCursor();
     QAction* action(const QString& name);
     QString iconName(const QIcon& icon);
-    QVariant setting(const QString group, const QString key, const QString defaultValue = QStringLiteral());
-    void setSetting(const QString group, const QString key, const QString value);
-    QVariant pathSetting(const QString group, const QString key);
-    void setPathSetting(const QString group, const QString key, const QString value);
-    void openSettingsDialog();
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
     KConfigGroup *m_shortcuts;
-    KConfigDialog *m_settingsDialog;
-    SettingsWidget *m_settingsWidget = nullptr;
     QMap<int, QString> args;
 };
 

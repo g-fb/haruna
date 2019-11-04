@@ -117,7 +117,7 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "+" + app.setting("General", "SeekStepSmall", "5"), "exact"])
+        onTriggered: mpv.command(["seek", "+" + settings.get("General", "SeekStepSmall"), "exact"])
     }
 
     Action {
@@ -126,7 +126,7 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "-" + app.setting("General", "SeekStepSmall", "5"), "exact"])
+        onTriggered: mpv.command(["seek", "-" + settings.get("General", "SeekStepSmall"), "exact"])
     }
 
     Action {
@@ -135,7 +135,7 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "+" + app.setting("General", "SeekStepMedium", "10"), "exact"])
+        onTriggered: mpv.command(["seek", "+" + settings.get("General", "SeekStepMedium"), "exact"])
     }
 
     Action {
@@ -144,7 +144,7 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "-" + app.setting("General", "SeekStepMedium", "10"), "exact"])
+        onTriggered: mpv.command(["seek", "-" + settings.get("General", "SeekStepMedium"), "exact"])
     }
 
     Action {
@@ -153,7 +153,7 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "+" + app.setting("General", "SeekStepBig", "20"), "exact"])
+        onTriggered: mpv.command(["seek", "+" + settings.get("General", "SeekStepBig"), "exact"])
     }
 
     Action {
@@ -162,7 +162,7 @@ Item {
         text: qaction.text
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
-        onTriggered: mpv.command(["seek", "-" + app.setting("General", "SeekStepBig", "20"), "exact"])
+        onTriggered: mpv.command(["seek", "-" + settings.get("General", "SeekStepBig"), "exact"])
     }
 
     Action {
@@ -287,7 +287,13 @@ Item {
         text: qaction.text
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
-        onTriggered: qaction.trigger()
+        onTriggered: {
+            if (hSettings.state === "visible") {
+                hSettings.state = "hidden"
+            } else {
+                hSettings.state = "visible"
+            }
+        }
     }
 
     Action {
@@ -298,7 +304,7 @@ Item {
         shortcut: qaction.shortcut
         onTriggered: {
             mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") + 0.1)
-            osd.message(`Subtitle timing: +${mpv.getProperty("sub-delay").toFixed(2)}`)
+            osd.message(`Subtitle timing (delay): ${mpv.getProperty("sub-delay").toFixed(2)}`)
         }
     }
 
@@ -310,7 +316,7 @@ Item {
         shortcut: qaction.shortcut
         onTriggered: {
             mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") - 0.1)
-            osd.message(`Subtitle timing: -${mpv.getProperty("sub-delay").toFixed(2)}`)
+            osd.message(`Subtitle timing (quicken): ${mpv.getProperty("sub-delay").toFixed(2)}`)
         }
     }
 

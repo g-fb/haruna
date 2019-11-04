@@ -111,7 +111,7 @@ Slider {
     }
 
     onValueChanged: {
-        app.setSetting("General", "lastPlayedPosition", value)
+        settings.set("General", "lastPlayedPosition", value)
     }
 
     onPressedChanged: {

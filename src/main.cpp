@@ -3,9 +3,11 @@
 #include "lockmanager.h"
 #include "mpvobject.h"
 #include "tracksmodel.h"
+#include "subtitlesfoldersmodel.h"
 #include "playlist/playlist.h"
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
+#include "settings.h"
 #include "worker.h"
 
 #include <QApplication>
@@ -68,6 +70,8 @@ int main(int argc, char *argv[])
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
+    std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
+    std::unique_ptr<Settings> settings = std::make_unique<Settings>();
 
     for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
         myApp->addArgument(i, parser.positionalArguments().at(i));
@@ -106,6 +110,9 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("lockManager"), lockManager.release());
     qmlRegisterUncreatableType<LockManager>("LockManager", 1, 0, "LockManager",
                                             QStringLiteral("LockManager should not be created in QML"));
+
+    engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
+    engine.rootContext()->setContextProperty(QStringLiteral("settings"), settings.release());
     engine.load(url);
     return app.exec();
 }

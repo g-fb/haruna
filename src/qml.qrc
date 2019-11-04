@@ -10,5 +10,7 @@
         <file>qml/Osd.qml</file>
         <file>qml/Actions.qml</file>
         <file>qml/VolumeSlider.qml</file>
+        <file>qml/Settings/HarunaSettings.qml</file>
+        <file>qml/Settings/SubtitlesFolders.qml</file>
     </qresource>
 </RCC>

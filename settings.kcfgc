@@ -1,5 +1,0 @@
-File=settings.kcfg
-ClassName=HarunaSettings
-Singleton=true
-Mutators=true
-SetUserTexts=true

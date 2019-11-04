@@ -1,6 +1,5 @@
 #include "_debug.h"
 #include "application.h"
-#include "settings.h"
 
 #include <QApplication>
 #include <QAction>
@@ -10,27 +9,17 @@
 #include <QStandardPaths>
 
 #include <KConfig>
-#include <KConfigDialog>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KShortcutsDialog>
 
 Application::Application(QObject *parent)
     : m_collection(parent)
-    , m_settingsWidget(new SettingsWidget(nullptr))
 {
     Q_UNUSED(parent)
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
-
-    m_settingsDialog = new KConfigDialog(
-             nullptr, "settings", HarunaSettings::self());
-    m_settingsDialog->setMinimumSize(700, 600);
-    m_settingsDialog->setFaceType(KPageDialog::Plain);
-    m_settingsDialog->addPage(m_settingsWidget, i18n("Settings"));
-    connect(m_settingsDialog, &KConfigDialog::settingsChanged,
-            this, &Application::settingsChanged);
 }
 
 QString Application::argument(int key)
@@ -46,33 +35,6 @@ void Application::addArgument(int key, QString value)
 QString Application::getPathFromArg(QString arg)
 {
     return QUrl::fromUserInput(arg, QDir::currentPath()).toLocalFile();
-}
-
-QVariant Application::setting(const QString group, const QString key, const QString defaultValue)
-{
-    return m_config->group(group).readEntry(key, defaultValue);
-}
-
-void Application::setSetting(const QString group, const QString key, const QString value)
-{
-    m_config->group(group).writeEntry(key, value);
-    m_config->sync();
-}
-
-QVariant Application::pathSetting(const QString group, const QString key)
-{
-    return m_config->group("General").readPathEntry(key, QStringList());
-}
-
-void Application::setPathSetting(const QString group, const QString key, const QString value)
-{
-    m_config->group(group).writePathEntry(key, value);
-    m_config->sync();
-}
-
-void Application::openSettingsDialog()
-{
-    m_settingsDialog->show();
 }
 
 QAction *Application::action(const QString &name)
@@ -126,7 +88,10 @@ void Application::setupActions(const QString &actionName)
         m_collection.addAction(actionName, action);
     }
     if (actionName == QStringLiteral("configure")) {
-        auto action = KStandardAction::preferences(this, &Application::openSettingsDialog, &m_collection);
+        QAction *action = new QAction();
+        action->setText(i18n("Configure"));
+        action->setIcon(QIcon::fromTheme("configure"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_Comma);
         m_collection.addAction(actionName, action);
     }
 

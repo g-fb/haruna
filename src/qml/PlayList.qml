@@ -41,7 +41,7 @@ Rectangle {
         id: shaderEffect
         anchors.fill: parent
         sourceItem: mpv
-        sourceRect: Qt.rect(parent.x, parent.y, parent.width, parent.height)
+        sourceRect: Qt.rect(mpv.width - width, mpv.height - height, parent.width, parent.height)
     }
 
     FastBlur {

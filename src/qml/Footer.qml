@@ -11,8 +11,8 @@ ToolBar {
     property alias playPauseButton: playPauseButton
     property alias volume: volume
 
-    anchors.left: mpv.left
-    anchors.right: mpv.right
+    anchors.left: parent.left
+    anchors.right: parent.right
     y: mpv.height
     padding: 5
     position: ToolBar.Footer
