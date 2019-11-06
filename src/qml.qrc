@@ -12,5 +12,8 @@
         <file>qml/VolumeSlider.qml</file>
         <file>qml/Settings/HarunaSettings.qml</file>
         <file>qml/Settings/SubtitlesFolders.qml</file>
+        <file>qml/Settings/GeneralSettings.qml</file>
+        <file>qml/Settings/ColorAdjustmentsSettings.qml</file>
+        <file>qml/Settings/Mouse.qml</file>
     </qresource>
 </RCC>
