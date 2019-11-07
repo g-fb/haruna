@@ -12,39 +12,7 @@ Pane {
     padding: 10
     state: "visible"
 
-    Item {
-        id: nav
-        width: root.width * 0.3 - root.padding
-        height: parent.height
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-
-        Rectangle {
-            width: 1
-            height: parent.height
-            anchors.right: parent.right
-            color: systemPalette.base
-        }
-
-        ColumnLayout {
-            width: parent.width - root.padding
-            Button {
-                text: "General"
-                Layout.fillWidth: true
-                onClicked: {
-                    settingsViewLoader.sourceComponent = generalSettings
-                }
-            }
-            Button {
-                text: "Color Adjustments"
-                Layout.fillWidth: true
-                onClicked: {
-                    settingsViewLoader.sourceComponent = colorAdjustmentsSettings
-                }
-            }
-        }
-    }
+    Navigation { id: nav }
 
     Loader {
         id: settingsViewLoader
@@ -59,13 +27,19 @@ Pane {
 
     Component {
         id: generalSettings
-        GeneralSettings {
+        General {
             width: root.width * 0.7 - root.padding
         }
     }
     Component {
         id: colorAdjustmentsSettings
-        ColorAdjustmentsSettings {
+        ColorAdjustments {
+            width: root.width * 0.7 - root.padding
+        }
+    }
+    Component {
+        id: mouseSettings
+        Mouse {
             width: root.width * 0.7 - root.padding
         }
     }

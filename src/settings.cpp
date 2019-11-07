@@ -7,17 +7,20 @@
 Settings::Settings(QObject *parent) : QObject(parent)
 {
     m_defaultSettings = {
-        {"SeekSmallStep",    QVariant(5)},
-        {"SeekMediumStep",   QVariant(15)},
-        {"SeekBigStep",      QVariant(30)},
-        {"VolumeStep",       QVariant(5)},
-        {"OsdFontSize",      QVariant(25)},
-        {"SubtitlesFolders", QVariant("subs")},
-        {"lastPlayedFile",   QVariant(QStringLiteral())},
-        {"lastPlayedDuration",   QVariant(QStringLiteral())},
-        {"lastPlayedPosition",   QVariant(QStringLiteral())},
-        {"lastUrl",          QVariant(QStringLiteral())},
-        {"volume",           QVariant(75)}
+        {"SeekSmallStep",         QVariant(5)},
+        {"SeekMediumStep",        QVariant(15)},
+        {"SeekBigStep",           QVariant(30)},
+        {"VolumeStep",            QVariant(5)},
+        {"OsdFontSize",           QVariant(25)},
+        {"SubtitlesFolders",      QVariant(QStringLiteral("subs"))},
+        {"lastPlayedFile",        QVariant(QStringLiteral())},
+        {"lastPlayedDuration",    QVariant(QStringLiteral())},
+        {"lastPlayedPosition",    QVariant(QStringLiteral())},
+        {"lastUrl",               QVariant(QStringLiteral())},
+        {"LeftButtonAction",      QVariant(QStringLiteral("none"))},
+        {"MiddleButtonAction",    QVariant(QStringLiteral("none"))},
+        {"RightButtonAction",     QVariant(QStringLiteral("playPauseAction"))},
+        {"volume",                QVariant(75)}
     };
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
 }

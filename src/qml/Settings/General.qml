@@ -11,7 +11,6 @@ Item {
 
         width: parent.width
         columns: 2
-        Component.onCompleted: console.log(width)
 
         // OSD Font Size
         Label {
