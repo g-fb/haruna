@@ -695,4 +695,18 @@ Item {
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
     }
+
+    Action {
+        id: fullscreenAction
+        property var qaction: app.action("fullscreen")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["fullscreenAction"] = fullscreenAction
+
+        onTriggered: {
+            mpv.toggleFullScreen()
+        }
+    }
 }

@@ -95,6 +95,14 @@ void Application::setupActions(const QString &actionName)
         m_collection.addAction(actionName, action);
     }
 
+    if (actionName == QStringLiteral("fullscreen")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Fullscreen"));
+        action->setIcon(QIcon::fromTheme("view-fullscreen"));
+        m_collection.setDefaultShortcut(action, Qt::Key_F);
+        m_collection.addAction(actionName, action);
+    }
+
     if (actionName == QStringLiteral("openUrl")) {
         QAction *action = new QAction();
         action->setText(i18n("Open Url"));
