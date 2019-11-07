@@ -420,8 +420,8 @@ Item {
         Component.onCompleted: actions["contrastUpAction"] = contrastUpAction
 
         onTriggered: {
-            var contrast = parseInt(mpv.getProperty("contrast"))
-            mpv.setProperty("contrast", `${contrast + 1}`)
+            var contrast = parseInt(mpv.getProperty("contrast")) + 1
+            mpv.setProperty("contrast", `${contrast}`)
             osd.message(`Contrast: ${contrast}`)
         }
     }
@@ -435,8 +435,8 @@ Item {
         Component.onCompleted: actions["contrastDownAction"] = contrastDownAction
 
         onTriggered: {
-            var contrast = parseInt(mpv.getProperty("contrast"))
-            mpv.setProperty("contrast", `${contrast - 1}`)
+            var contrast = parseInt(mpv.getProperty("contrast")) - 1
+            mpv.setProperty("contrast", `${contrast}`)
             osd.message(`Contrast: ${contrast}`)
         }
     }
@@ -465,8 +465,8 @@ Item {
         Component.onCompleted: actions["brightnessUpAction"] = brightnessUpAction
 
         onTriggered: {
-            var brightness = parseInt(mpv.getProperty("brightness"))
-            mpv.setProperty("brightness", `${brightness + 1}`)
+            var brightness = parseInt(mpv.getProperty("brightness")) + 1
+            mpv.setProperty("brightness", `${brightness}`)
             osd.message(`Brightness: ${brightness}`)
         }
     }
@@ -480,8 +480,8 @@ Item {
         Component.onCompleted: actions["brightnessDownAction"] = brightnessDownAction
 
         onTriggered: {
-            var brightness = parseInt(mpv.getProperty("brightness"))
-            mpv.setProperty("brightness", `${brightness - 1}`)
+            var brightness = parseInt(mpv.getProperty("brightness")) - 1
+            mpv.setProperty("brightness", `${brightness}`)
             osd.message(`Brightness: ${brightness}`)
         }
     }
@@ -509,8 +509,8 @@ Item {
         Component.onCompleted: actions["gammaUpAction"] = gammaUpAction
 
         onTriggered: {
-            var gamma = parseInt(mpv.getProperty("gamma"))
-            mpv.setProperty("gamma", `${gamma + 1}`)
+            var gamma = parseInt(mpv.getProperty("gamma")) + 1
+            mpv.setProperty("gamma", `${gamma}`)
             osd.message(`Gamma: ${gamma}`)
         }
     }
@@ -524,8 +524,8 @@ Item {
         Component.onCompleted: actions["gammaDownAction"] = gammaDownAction
 
         onTriggered: {
-            var gamma = parseInt(mpv.getProperty("gamma"))
-            mpv.setProperty("gamma", `${gamma - 1}`)
+            var gamma = parseInt(mpv.getProperty("gamma")) - 1
+            mpv.setProperty("gamma", `${gamma}`)
             osd.message(`Gamma: ${gamma}`)
         }
     }
@@ -553,8 +553,8 @@ Item {
         Component.onCompleted: actions["saturationUpAction"] = saturationUpAction
 
         onTriggered: {
-            var saturation = parseInt(mpv.getProperty("saturation"))
-            mpv.setProperty("saturation", `${saturation + 1}`)
+            var saturation = parseInt(mpv.getProperty("saturation")) + 1
+            mpv.setProperty("saturation", `${saturation}`)
             osd.message(`Saturation: ${saturation}`)
         }
     }
@@ -568,8 +568,8 @@ Item {
         Component.onCompleted: actions["saturationDownAction"] = saturationDownAction
 
         onTriggered: {
-            var saturation = parseInt(mpv.getProperty("saturation"))
-            mpv.setProperty("saturation", `${saturation - 1}`)
+            var saturation = parseInt(mpv.getProperty("saturation")) - 1
+            mpv.setProperty("saturation", `${saturation}`)
             osd.message(`Saturation: ${saturation}`)
         }
     }
@@ -585,6 +585,114 @@ Item {
         onTriggered: {
             mpv.setProperty("saturation", `0`)
             osd.message(`Saturation: 0`)
+        }
+    }
+
+    Action {
+        id: zoomInAction
+        property var qaction: app.action("zoomIn")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["zoomInAction"] = zoomInAction
+
+        onTriggered: {
+            var zoom = mpv.getProperty("video-zoom") + 0.1
+            mpv.setProperty("video-zoom", zoom)
+            osd.message(`Zoom: ${zoom.toFixed(2)}`)
+        }
+    }
+
+    Action {
+        id: zoomOutAction
+        property var qaction: app.action("zoomOut")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["zoomOutAction"] = zoomOutAction
+
+        onTriggered: {
+            var zoom = mpv.getProperty("video-zoom") - 0.1
+            mpv.setProperty("video-zoom", zoom)
+            osd.message(`Zoom: ${zoom.toFixed(2)}`)
+        }
+    }
+    Action {
+        id: zoomResetAction
+        property var qaction: app.action("zoomReset")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["zoomResetAction"] = zoomResetAction
+
+        onTriggered: {
+            mpv.setProperty("video-zoom", 0)
+            osd.message(`Zoom: 0`)
+        }
+    }
+
+
+    Action {
+        id: videoPanXLeftAction
+        property var qaction: app.action("videoPanXLeft")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["videoPanXLeftAction"] = videoPanXLeftAction
+
+        onTriggered: {
+            var pan = mpv.getProperty("video-pan-x") + 0.1
+            mpv.setProperty("video-pan-x", pan)
+            osd.message(`Video pan x: ${pan.toFixed(2)}`)
+        }
+    }
+    Action {
+        id: videoPanXRightAction
+        property var qaction: app.action("videoPanXRight")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["videoPanXRightAction"] = videoPanXRightAction
+
+        onTriggered: {
+            var pan = mpv.getProperty("video-pan-x") - 0.1
+            mpv.setProperty("video-pan-x", pan)
+            osd.message(`Video pan x: ${pan.toFixed(2)}`)
+        }
+    }
+    Action {
+        id: videoPanYUpAction
+        property var qaction: app.action("videoPanYUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["videoPanYUpAction"] = videoPanYUpAction
+
+        onTriggered: {
+            var pan = mpv.getProperty("video-pan-y") + 0.1
+            mpv.setProperty("video-pan-y", pan)
+            osd.message(`Video pan x: ${pan.toFixed(2)}`)
+        }
+    }
+    Action {
+        id: videoPanYDownAction
+        property var qaction: app.action("videoPanYDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["videoPanYDownAction"] = videoPanYDownAction
+
+        onTriggered: {
+            var pan = mpv.getProperty("video-pan-y") - 0.1
+            mpv.setProperty("video-pan-y", pan)
+            osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
     }
 }
