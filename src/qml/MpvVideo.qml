@@ -205,15 +205,15 @@ MpvObject {
         }
 
         onWheel: {
-            var currentVolume = parseInt(mpv.getProperty("volume"))
-            var volumeStep = parseInt(settings.get("General", "VolumeStep"))
-            if (wheel.angleDelta.y > 0 && currentVolume < 100) {
-                mpv.setProperty("volume", currentVolume + volumeStep)
-            } else if (wheel.angleDelta.y < 0 && currentVolume >= 0) {
-                mpv.setProperty("volume", currentVolume - volumeStep)
+            if (wheel.angleDelta.y > 0) {
+                if (settings.get("Mouse", "ScrollAction") !== "none") {
+                    actions.actions[settings.get("Mouse", "ScrollUpAction")].trigger()
+                }
+            } else if (wheel.angleDelta.y) {
+                if (settings.get("Mouse", "ScrollAction") !== "none") {
+                    actions.actions[settings.get("Mouse", "ScrollDownAction")].trigger()
+                }
             }
-
-            osd.message(`Volume: ${mpv.getProperty("volume").toFixed(0)}`)
         }
 
         onClicked: {

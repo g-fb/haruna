@@ -25,6 +25,8 @@ Item {
     property alias decreasePlayBackSpeedAction: decreasePlayBackSpeedAction
     property alias resetPlayBackSpeedAction: resetPlayBackSpeedAction
     property alias openAction: openAction
+    property alias volumeUpAction: volumeUpAction
+    property alias volumeDownAction: volumeDownAction
     property alias muteAction: muteAction
     property alias playNextAction: playNextAction
     property alias playPreviousAction: playPreviousAction
@@ -40,6 +42,52 @@ Item {
     property alias saturationUpAction: saturationUpAction
     property alias saturationDownAction: saturationDownAction
 
+    Action {
+        id: volumeUpAction
+        property var qaction: app.action("volumeUp")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+
+        Component.onCompleted: actions["volumeUpAction"] = volumeUpAction
+
+        onTriggered: {
+            var currentVolume = parseInt(mpv.getProperty("volume"))
+            var volumeStep = parseInt(settings.get("General", "VolumeStep"))
+            var newVolume = currentVolume + volumeStep
+            if (currentVolume < 100) {
+                if (newVolume > 100) {
+                    mpv.setProperty("volume", 100)
+                } else {
+                    mpv.setProperty("volume", newVolume)
+                }
+            }
+            osd.message(`Volume: ${parseInt(mpv.getProperty("volume"))}`)
+        }
+    }
+    Action {
+        id: volumeDownAction
+        property var qaction: app.action("volumeDown")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+
+        Component.onCompleted: actions["volumeDownAction"] = volumeDownAction
+
+        onTriggered: {
+            var currentVolume = parseInt(mpv.getProperty("volume"))
+            var volumeStep = parseInt(settings.get("General", "VolumeStep"))
+            var newVolume = currentVolume - volumeStep
+            if (currentVolume >= 0) {
+                if (newVolume < 0) {
+                    mpv.setProperty("volume", 0)
+                } else {
+                    mpv.setProperty("volume", newVolume)
+                }
+            }
+            osd.message(`Volume: ${parseInt(mpv.getProperty("volume"))}`)
+        }
+    }
     Action {
         id: muteAction
         property var qaction: app.action("mute")

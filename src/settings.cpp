@@ -20,6 +20,8 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"LeftButtonAction",      QVariant(QStringLiteral("none"))},
         {"MiddleButtonAction",    QVariant(QStringLiteral("none"))},
         {"RightButtonAction",     QVariant(QStringLiteral("playPauseAction"))},
+        {"ScrollUpAction",        QVariant(QStringLiteral("none"))},
+        {"ScrollDownAction",      QVariant(QStringLiteral("none"))},
         {"volume",                QVariant(75)}
     };
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");

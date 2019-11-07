@@ -211,6 +211,20 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_Comma);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("volumeUp")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Volume Up"));
+        action->setIcon(QIcon::fromTheme("audio-volume-high"));
+        m_collection.setDefaultShortcut(action, Qt::Key_9);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("volumeDown")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Volume Down"));
+        action->setIcon(QIcon::fromTheme("audio-volume-low"));
+        m_collection.setDefaultShortcut(action, Qt::Key_0);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("mute")) {
         QAction *action = new QAction();
         action->setText(i18n("Mute"));

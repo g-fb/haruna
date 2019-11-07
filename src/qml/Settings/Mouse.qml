@@ -11,24 +11,26 @@ Item {
 
         width: parent.width
         columns: 2
+        rowSpacing: 20
 
         ////////////////////////////////////////////////////////
         //
-        // Left mouse button
+        // Left Button
         //
         ////////////////////////////////////////////////////////
         Label {
             color: systemPalette.text
-            text: "Left mouse button"
+            text: "Left Button"
             Layout.alignment: Qt.AlignRight
         }
         Item {
-            height: leftMouseButton.height
+            height: leftButton.height
+            Layout.fillWidth: true
             ComboBox {
-                id: leftMouseButton
+                id: leftButton
                 textRole: "key"
                 model: ListModel {
-                    id: leftMouseButtonModel
+                    id: leftButtonModel
                     ListElement { key: "None"; value: "none" }
                     ListElement { key: "Play/Pause"; value: "playPauseAction" }
                 }
@@ -44,27 +46,26 @@ Item {
                     settings.set("Mouse", "LeftButtonAction", model.get(index).value)
                 }
             }
-            Layout.fillWidth: true
         }
 
         ////////////////////////////////////////////////////////
         //
-        // Right mouse button
+        // Right Button
         //
         ////////////////////////////////////////////////////////
-
         Label {
             color: systemPalette.text
-            text: "Left mouse button"
+            text: "Right Button"
             Layout.alignment: Qt.AlignRight
         }
         Item {
-            height: rightMouseButton.height
+            height: rightButton.height
+            Layout.fillWidth: true
             ComboBox {
-                id: rightMouseButton
+                id: rightButton
                 textRole: "key"
                 model: ListModel {
-                    id: rightMouseButtonModel
+                    id: rightButtonModel
                     ListElement { key: "None"; value: "none" }
                     ListElement { key: "Play/Pause"; value: "playPauseAction" }
                     ListElement { key: "Mute/Unmute"; value: "muteAction" }
@@ -82,27 +83,26 @@ Item {
                     settings.set("Mouse", "RightButtonAction", model.get(index).value)
                 }
             }
-            Layout.fillWidth: true
         }
 
         ////////////////////////////////////////////////////////
         //
-        // Middle mouse button
+        // Middle Button
         //
         ////////////////////////////////////////////////////////
-
         Label {
             color: systemPalette.text
-            text: "Middle mouse button"
+            text: "Middle Button"
             Layout.alignment: Qt.AlignRight
         }
         Item {
-            height: middleMouseButton.height
+            height: middleButton.height
+            Layout.fillWidth: true
             ComboBox {
-                id: middleMouseButton
+                id: middleButton
                 textRole: "key"
                 model: ListModel {
-                    id: middleMouseButtonModel
+                    id: middleButtonModel
                     ListElement { key: "None"; value: "none" }
                     ListElement { key: "Play/Pause"; value: "playPauseAction" }
                     ListElement { key: "Mute/Unmute"; value: "muteAction" }
@@ -120,7 +120,78 @@ Item {
                     settings.set("Mouse", "MiddleButtonAction", model.get(index).value)
                 }
             }
+        }
+
+        ////////////////////////////////////////////////////////
+        //
+        // Scroll Up
+        //
+        ////////////////////////////////////////////////////////
+        Label {
+            color: systemPalette.text
+            text: "Scroll Up"
+            Layout.alignment: Qt.AlignRight
+        }
+        Item {
+            height: scrollUp.height
             Layout.fillWidth: true
+            ComboBox {
+                id: scrollUp
+                textRole: "key"
+                model: ListModel {
+                    id: scrollUpModel
+                    ListElement { key: "None"; value: "none" }
+                    ListElement { key: "Volume Up"; value: "volumeUpAction" }
+                    ListElement { key: "Zoom In"; value: "zoomInAction" }
+                }
+                Component.onCompleted: {
+                    for (var i = 0; i < model.count; ++i) {
+                        if (model.get(i).value === settings.get("Mouse", "ScrollUpAction")) {
+                            currentIndex = i
+                            break
+                        }
+                    }
+                }
+                onActivated: {
+                    settings.set("Mouse", "ScrollUpAction", model.get(index).value)
+                }
+            }
+        }
+
+        ////////////////////////////////////////////////////////
+        //
+        // Scroll Down
+        //
+        ////////////////////////////////////////////////////////
+        Label {
+            color: systemPalette.text
+            text: "Scroll Down"
+            Layout.alignment: Qt.AlignRight
+        }
+        Item {
+            height: scrollDown.height
+            Layout.fillWidth: true
+            ComboBox {
+                id: scrollDown
+                textRole: "key"
+                model: ListModel {
+                    id: scrollDownDownModel
+                    ListElement { key: "None"; value: "none" }
+                    ListElement { key: "Volume Down"; value: "volumeDownAction" }
+                    ListElement { key: "Zoom Out"; value: "zoomOutAction" }
+                }
+                Component.onCompleted: {
+                    for (var i = 0; i < model.count; ++i) {
+                        if (model.get(i).value === settings.get("Mouse", "ScrollDownAction")) {
+                            currentIndex = i
+                            break
+                        }
+                    }
+                }
+                onActivated: {
+                    settings.set("Mouse", "ScrollDownAction", model.get(index).value)
+                }
+            }
         }
     }
 }
