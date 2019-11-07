@@ -19,6 +19,10 @@ class MpvObject : public QQuickFramebufferObject
     Q_PROPERTY(double remaining MEMBER m_remaining NOTIFY onRemainingChanged)
     Q_PROPERTY(double volume MEMBER m_volume NOTIFY onVolumeChanged)
     Q_PROPERTY(bool pause MEMBER m_pause NOTIFY onPauseChanged)
+    Q_PROPERTY(int contrast MEMBER m_contrast NOTIFY onContrastChanged)
+    Q_PROPERTY(int brightness MEMBER m_brightness NOTIFY onBrightnessChanged)
+    Q_PROPERTY(int gamma MEMBER m_gamma NOTIFY onGammaChanged)
+    Q_PROPERTY(int saturation MEMBER m_saturation NOTIFY onSaturationChanged)
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
@@ -49,6 +53,10 @@ signals:
     void onRemainingChanged(double);
     void onVolumeChanged(double);
     void onPauseChanged(bool);
+    void onContrastChanged(int);
+    void onBrightnessChanged(int);
+    void onGammaChanged(int);
+    void onSaturationChanged(int);
     void fileLoaded();
     void endOfFile();
     void ready();
@@ -66,6 +74,10 @@ private:
     double m_volume;
     QVariant m_chapters;
     bool m_pause;
+    int m_contrast = 0;
+    int m_brightness = 0;
+    int m_gamma = 0;
+    int m_saturation = 0;
 
     void loadTracks();
 };

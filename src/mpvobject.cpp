@@ -106,8 +106,8 @@ public:
 MpvObject::MpvObject(QQuickItem * parent)
     : QQuickFramebufferObject(parent)
     , mpv{mpv_create()}, mpv_gl(nullptr)
-    , m_subtitleTracksModel(new TracksModel)
     , m_audioTracksModel(new TracksModel)
+    , m_subtitleTracksModel(new TracksModel)
 {
     if (!mpv)
         throw std::runtime_error("could not create mpv context");
@@ -117,6 +117,10 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "pause", MPV_FORMAT_FLAG);
+    mpv_observe_property(mpv, 0, "contrast", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "saturation", MPV_FORMAT_INT64);
     setProperty("sub-auto", "exact");
 
     if (mpv_initialize(mpv) < 0)
@@ -181,6 +185,26 @@ void MpvObject::doUpdate()
                 if (prop->format == MPV_FORMAT_FLAG) {
                     m_pause = *(bool *)prop->data;
                     emit onPauseChanged(m_pause);
+                }
+            } else if (strcmp(prop->name, "contrast") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_contrast = *(int *)prop->data;
+                    emit onContrastChanged(m_contrast);
+                }
+            } else if (strcmp(prop->name, "brightness") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_brightness = *(int *)prop->data;
+                    emit onBrightnessChanged(m_brightness);
+                }
+            } else if (strcmp(prop->name, "gamma") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_gamma = *(int *)prop->data;
+                    emit onGammaChanged(m_gamma);
+                }
+            } else if (strcmp(prop->name, "saturation") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_saturation = *(int *)prop->data;
+                    emit onSaturationChanged(m_saturation);
                 }
             }
             break;
