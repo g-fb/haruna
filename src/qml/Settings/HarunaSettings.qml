@@ -10,7 +10,7 @@ Pane {
     width: 600
     height: mpv.height
     padding: 10
-    state: "visible"
+    state: "hidden"
 
     Navigation { id: nav }
 
