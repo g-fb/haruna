@@ -184,7 +184,7 @@ Item {
 
         Component.onCompleted: actions["seekForwardSmallAction"] = seekForwardSmallAction
 
-        onTriggered: mpv.command(["seek", "+" + settings.get("General", "SeekStepSmall"), "exact"])
+        onTriggered: mpv.command(["seek", settings.get("General", "SeekSmallStep"), "exact"])
     }
 
     Action {
@@ -196,7 +196,7 @@ Item {
 
         Component.onCompleted: actions["seekBackwardSmallAction"] = seekBackwardSmallAction
 
-        onTriggered: mpv.command(["seek", "-" + settings.get("General", "SeekStepSmall"), "exact"])
+        onTriggered: mpv.command(["seek", -settings.get("General", "SeekSmallStep"), "exact"])
     }
 
     Action {
@@ -208,7 +208,7 @@ Item {
 
         Component.onCompleted: actions["seekForwardMediumAction"] = seekForwardMediumAction
 
-        onTriggered: mpv.command(["seek", "+" + settings.get("General", "SeekStepMedium"), "exact"])
+        onTriggered: mpv.command(["seek", settings.get("General", "SeekMediumStep"), "exact"])
     }
 
     Action {
@@ -220,7 +220,7 @@ Item {
 
         Component.onCompleted: actions["seekBackwardMediumAction"] = seekBackwardMediumAction
 
-        onTriggered: mpv.command(["seek", "-" + settings.get("General", "SeekStepMedium"), "exact"])
+        onTriggered: mpv.command(["seek", -settings.get("General", "SeekMediumStep"), "exact"])
     }
 
     Action {
@@ -232,7 +232,7 @@ Item {
 
         Component.onCompleted: actions["seekForwardBigAction"] = seekForwardBigAction
 
-        onTriggered: mpv.command(["seek", "+" + settings.get("General", "SeekStepBig"), "exact"])
+        onTriggered: mpv.command(["seek", settings.get("General", "SeekBigStep"), "exact"])
     }
 
     Action {
@@ -244,7 +244,7 @@ Item {
 
         Component.onCompleted: actions["seekBackwardBigAction"] = seekBackwardBigAction
 
-        onTriggered: mpv.command(["seek", "-" + settings.get("General", "SeekStepBig"), "exact"])
+        onTriggered: mpv.command(["seek", -settings.get("General", "SeekBigStep"), "exact"])
     }
 
     Action {
@@ -348,13 +348,7 @@ Item {
 
         onTriggered: {
             mpv.setProperty("speed", 1.0)
-            osd.label.text = `Speed: ${mpv.getProperty("speed").toFixed(2)}`
-            if(osd.label.visible) {
-                osd.timer.restart()
-            } else {
-                osd.timer.start()
-            }
-            osd.label.visible = true
+            osd.message(`Speed: ${mpv.getProperty("speed").toFixed(2)}`)
          }
     }
 
