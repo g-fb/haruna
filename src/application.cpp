@@ -32,9 +32,9 @@ void Application::addArgument(int key, QString value)
     args.insert(key, value);
 }
 
-QString Application::getPathFromArg(QString arg)
+QUrl Application::getPathFromArg(QString arg)
 {
-    return QUrl::fromUserInput(arg, QDir::currentPath()).toLocalFile();
+    return QUrl::fromUserInput(arg, QDir::currentPath());
 }
 
 QAction *Application::action(const QString &name)

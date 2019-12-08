@@ -36,7 +36,7 @@ public slots:
     void configureShortcuts();
     QString argument(int key);
     void addArgument(int key, QString value);
-    QString getPathFromArg(QString arg);
+    QUrl getPathFromArg(QString arg);
     void hideCursor();
     void showCursor();
     QAction* action(const QString& name);

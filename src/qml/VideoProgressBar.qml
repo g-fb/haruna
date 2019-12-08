@@ -89,6 +89,7 @@ Slider {
                     text: modelData.title
                     visible: false
                     delay: 0
+                    timeout: 10000
                 }
                 MouseArea {
                     anchors.fill: parent
