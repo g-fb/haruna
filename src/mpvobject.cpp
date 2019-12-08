@@ -15,14 +15,6 @@
 #include "track.h"
 #include "tracksmodel.h"
 
-
-namespace
-{
-void on_mpv_events(void *ctx)
-{
-    Q_UNUSED(ctx)
-}
-
 void on_mpv_redraw(void *ctx)
 {
     MpvObject::on_update(ctx);
@@ -38,70 +30,58 @@ static void *get_proc_address_mpv(void *ctx, const char *name)
     return reinterpret_cast<void *>(glctx->getProcAddress(QByteArray(name)));
 }
 
+MpvRenderer::MpvRenderer(MpvObject *new_obj)
+    : obj{new_obj}
+{}
+
+MpvRenderer::~MpvRenderer()
+{}
+
+void MpvRenderer::render()
+{
+    obj->window()->resetOpenGLState();
+
+    QOpenGLFramebufferObject *fbo = framebufferObject();
+    mpv_opengl_fbo mpfbo{.fbo = static_cast<int>(fbo->handle()), .w = fbo->width(), .h = fbo->height(), .internal_format = 0};
+    int flip_y{0};
+
+    mpv_render_param params[] = {
+        // Specify the default framebuffer (0) as target. This will
+        // render onto the entire screen. If you want to show the video
+        // in a smaller rectangle or apply fancy transformations, you'll
+        // need to render into a separate FBO and draw it manually.
+        {MPV_RENDER_PARAM_OPENGL_FBO, &mpfbo},
+        // Flip rendering (needed due to flipped GL coordinate system).
+        {MPV_RENDER_PARAM_FLIP_Y, &flip_y},
+        {MPV_RENDER_PARAM_INVALID, nullptr}
+    };
+    // See render_gl.h on what OpenGL environment mpv expects, and
+    // other API details.
+    mpv_render_context_render(obj->mpv_gl, params);
+
+    obj->window()->resetOpenGLState();
 }
 
-class MpvRenderer : public QQuickFramebufferObject::Renderer
+QOpenGLFramebufferObject * MpvRenderer::createFramebufferObject(const QSize &size)
 {
-    MpvObject *obj;
-
-public:
-    MpvRenderer(MpvObject *new_obj)
-        : obj{new_obj}
+    // init mpv_gl:
+    if (!obj->mpv_gl)
     {
-        mpv_set_wakeup_callback(obj->mpv, on_mpv_events, nullptr);
-    }
-
-    virtual ~MpvRenderer()
-    {}
-
-    // This function is called when a new FBO is needed.
-    // This happens on the initial frame.
-    QOpenGLFramebufferObject * createFramebufferObject(const QSize &size)
-    {
-        // init mpv_gl:
-        if (!obj->mpv_gl)
-        {
-            mpv_opengl_init_params gl_init_params{get_proc_address_mpv, nullptr, nullptr};
-            mpv_render_param params[]{
-                {MPV_RENDER_PARAM_API_TYPE, const_cast<char *>(MPV_RENDER_API_TYPE_OPENGL)},
-                {MPV_RENDER_PARAM_OPENGL_INIT_PARAMS, &gl_init_params},
-                {MPV_RENDER_PARAM_INVALID, nullptr}
-            };
-
-            if (mpv_render_context_create(&obj->mpv_gl, obj->mpv, params) < 0)
-                throw std::runtime_error("failed to initialize mpv GL context");
-            mpv_render_context_set_update_callback(obj->mpv_gl, on_mpv_redraw, obj);
-            emit obj->ready();
-        }
-
-        return QQuickFramebufferObject::Renderer::createFramebufferObject(size);
-    }
-
-    void render()
-    {
-        obj->window()->resetOpenGLState();
-
-        QOpenGLFramebufferObject *fbo = framebufferObject();
-        mpv_opengl_fbo mpfbo{.fbo = static_cast<int>(fbo->handle()), .w = fbo->width(), .h = fbo->height(), .internal_format = 0};
-        int flip_y{0};
-
-        mpv_render_param params[] = {
-            // Specify the default framebuffer (0) as target. This will
-            // render onto the entire screen. If you want to show the video
-            // in a smaller rectangle or apply fancy transformations, you'll
-            // need to render into a separate FBO and draw it manually.
-            {MPV_RENDER_PARAM_OPENGL_FBO, &mpfbo},
-            // Flip rendering (needed due to flipped GL coordinate system).
-            {MPV_RENDER_PARAM_FLIP_Y, &flip_y},
+        mpv_opengl_init_params gl_init_params{get_proc_address_mpv, nullptr, nullptr};
+        mpv_render_param params[]{
+            {MPV_RENDER_PARAM_API_TYPE, const_cast<char *>(MPV_RENDER_API_TYPE_OPENGL)},
+            {MPV_RENDER_PARAM_OPENGL_INIT_PARAMS, &gl_init_params},
             {MPV_RENDER_PARAM_INVALID, nullptr}
         };
-        // See render_gl.h on what OpenGL environment mpv expects, and
-        // other API details.
-        mpv_render_context_render(obj->mpv_gl, params);
 
-        obj->window()->resetOpenGLState();
+        if (mpv_render_context_create(&obj->mpv_gl, obj->mpv, params) < 0)
+            throw std::runtime_error("failed to initialize mpv GL context");
+        mpv_render_context_set_update_callback(obj->mpv_gl, on_mpv_redraw, obj);
+        emit obj->ready();
     }
-};
+
+    return QQuickFramebufferObject::Renderer::createFramebufferObject(size);
+}
 
 MpvObject::MpvObject(QQuickItem * parent)
     : QQuickFramebufferObject(parent)
@@ -112,10 +92,14 @@ MpvObject::MpvObject(QQuickItem * parent)
     if (!mpv)
         throw std::runtime_error("could not create mpv context");
 
+    mpv_set_option_string(mpv, "terminal", "yes");
+    mpv_set_option_string(mpv, "msg-level", "all=v");
+    mpv::qt::set_option_variant(mpv, "hwdec", "auto");
+
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "time-remaining", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
-    mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "pause", MPV_FORMAT_FLAG);
     mpv_observe_property(mpv, 0, "contrast", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
@@ -126,6 +110,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("could not initialize mpv context");
 
+    mpv_set_wakeup_callback(mpv, MpvObject::on_mpv_events, this);
     connect(this, &MpvObject::onUpdate, this, &MpvObject::doUpdate,
             Qt::QueuedConnection);
 }
@@ -149,12 +134,33 @@ void MpvObject::on_update(void *ctx)
 void MpvObject::doUpdate()
 {
     update();
+}
+
+void MpvObject::on_mpv_events(void *ctx)
+{
+    QMetaObject::invokeMethod(static_cast<MpvObject*>(ctx), "eventHandler", Qt::QueuedConnection);
+}
+
+void MpvObject::eventHandler()
+{
     while (mpv) {
         mpv_event *event = mpv_wait_event(mpv, 0);
         if (event->event_id == MPV_EVENT_NONE) {
             break;
         }
         switch (event->event_id) {
+        case MPV_EVENT_FILE_LOADED: {
+            loadTracks();
+            emit fileLoaded();
+            break;
+        }
+        case MPV_EVENT_END_FILE: {
+            auto prop = (mpv_event_end_file *)event->data;
+            if (prop->reason == MPV_END_FILE_REASON_EOF) {
+                emit endOfFile();
+            }
+            break;
+        }
         case MPV_EVENT_PROPERTY_CHANGE: {
             mpv_event_property *prop = (mpv_event_property *)event->data;
             if (strcmp(prop->name, "time-pos") == 0) {
@@ -176,8 +182,8 @@ void MpvObject::doUpdate()
                     emit onDurationChanged(m_duration);
                 }
             } else if (strcmp(prop->name, "volume") == 0) {
-                if (prop->format == MPV_FORMAT_DOUBLE) {
-                    m_volume = *(double *)prop->data;
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_volume = *(int *)prop->data;
 
                     emit onVolumeChanged(m_volume);
                 }
@@ -206,18 +212,6 @@ void MpvObject::doUpdate()
                     m_saturation = *(int *)prop->data;
                     emit onSaturationChanged(m_saturation);
                 }
-            }
-            break;
-        }
-        case MPV_EVENT_FILE_LOADED: {
-            loadTracks();
-            emit fileLoaded();
-            break;
-        }
-        case MPV_EVENT_END_FILE: {
-            auto prop = (mpv_event_end_file *)event->data;
-            if (prop->reason == MPV_END_FILE_REASON_EOF) {
-                emit endOfFile();
             }
             break;
         }
@@ -314,8 +308,8 @@ void MpvObject::setProperty(const QString& name, const QVariant& value)
 
 QVariant MpvObject::getProperty(const QString& name)
 {
-    auto value = mpv::qt::get_property(mpv, name);
     emit onUpdate();
+    auto value = mpv::qt::get_property(mpv, name);
     return value;
 }
 
@@ -328,10 +322,9 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 
 QString MpvObject::formatTime(double time)
 {
-    QDateTime d = QDateTime::fromSecsSinceEpoch(time).toUTC();
+    QDateTime d = QDateTime::fromSecsSinceEpoch(static_cast<qint64>(time)).toUTC();
     QString formattedTime = d.toString("hh:mm:ss");
     return formattedTime;
-
 }
 
 void MpvObject::play_pause()

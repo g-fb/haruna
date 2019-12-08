@@ -37,6 +37,8 @@ public:
     virtual Renderer *createRenderer() const;
 
 public slots:
+    void eventHandler();
+    static void on_mpv_events(void *ctx);
     void loadFile(const QString &file);
     void play_pause();
     void command(const QVariant& params);
@@ -80,6 +82,21 @@ private:
     int m_saturation = 0;
 
     void loadTracks();
+};
+
+class MpvRenderer : public QQuickFramebufferObject::Renderer
+{
+public:
+    MpvRenderer(MpvObject *new_obj);
+    ~MpvRenderer();
+
+    MpvObject *obj;
+
+    // This function is called when a new FBO is needed.
+    // This happens on the initial frame.
+    QOpenGLFramebufferObject * createFramebufferObject(const QSize &size);
+
+    void render();
 };
 
 #endif // MPVOBJECT_H
