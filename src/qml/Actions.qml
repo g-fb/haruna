@@ -43,6 +43,24 @@ Item {
     property alias saturationDownAction: saturationDownAction
 
     Action {
+        id: togglePlaylistAction
+        property var qaction: app.action("togglePlaylist")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+
+        Component.onCompleted: actions["togglePlaylistAction"] = togglePlaylistAction
+
+        onTriggered: {
+            if (playList.state == "visible") {
+                playList.state = "hidden"
+            } else {
+                playList.state = "visible"
+            }
+        }
+    }
+
+    Action {
         id: volumeUpAction
         property var qaction: app.action("volumeUp")
         text: qaction.text
@@ -65,6 +83,7 @@ Item {
             osd.message(`Volume: ${parseInt(mpv.getProperty("volume"))}`)
         }
     }
+
     Action {
         id: volumeDownAction
         property var qaction: app.action("volumeDown")
@@ -88,6 +107,7 @@ Item {
             osd.message(`Volume: ${parseInt(mpv.getProperty("volume"))}`)
         }
     }
+
     Action {
         id: muteAction
         property var qaction: app.action("mute")
@@ -146,6 +166,7 @@ Item {
             }
         }
     }
+
     Action {
         id: openAction
         text: qsTr("Open File")

@@ -95,6 +95,14 @@ void Application::setupActions(const QString &actionName)
         m_collection.addAction(actionName, action);
     }
 
+    if (actionName == QStringLiteral("togglePlaylist")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Toggle Playlist"));
+        action->setIcon(QIcon::fromTheme("view-media-playlist"));
+        m_collection.setDefaultShortcut(action, Qt::Key_P);
+        m_collection.addAction(actionName, action);
+    }
+
     if (actionName == QStringLiteral("fullscreen")) {
         QAction *action = new QAction();
         action->setText(i18n("Fullscreen"));
