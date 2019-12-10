@@ -43,6 +43,12 @@ Pane {
             width: root.width * 0.7 - root.padding
         }
     }
+    Component {
+        id: playlistSettings
+        Playlist {
+            width: root.width * 0.7 - root.padding
+        }
+    }
 
 
     states: [

@@ -16,5 +16,6 @@
         <file>qml/Settings/ColorAdjustments.qml</file>
         <file>qml/Settings/Mouse.qml</file>
         <file>qml/Settings/Navigation.qml</file>
+        <file>qml/Settings/Playlist.qml</file>
     </qresource>
 </RCC>

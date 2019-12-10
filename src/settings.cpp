@@ -17,12 +17,16 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"lastPlayedDuration",    QVariant(QStringLiteral())},
         {"lastPlayedPosition",    QVariant(QStringLiteral())},
         {"lastUrl",               QVariant(QStringLiteral())},
+        {"volume",                QVariant(75)},
+        // mouse actions
         {"LeftButtonAction",      QVariant(QStringLiteral("none"))},
         {"MiddleButtonAction",    QVariant(QStringLiteral("none"))},
         {"RightButtonAction",     QVariant(QStringLiteral("playPauseAction"))},
         {"ScrollUpAction",        QVariant(QStringLiteral("none"))},
         {"ScrollDownAction",      QVariant(QStringLiteral("none"))},
-        {"volume",                QVariant(75)}
+        // playlist
+        {"CanToogleWithMouse",    QVariant(true)},
+        {"Position",              QVariant(QStringLiteral("right"))},
     };
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
 }

@@ -40,5 +40,12 @@ Item {
                 settingsViewLoader.sourceComponent = mouseSettings
             }
         }
+        Button {
+            text: "Playlist"
+            Layout.fillWidth: true
+            onClicked: {
+                settingsViewLoader.sourceComponent = playlistSettings
+            }
+        }
     }
 }
