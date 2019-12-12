@@ -381,7 +381,7 @@ Item {
 
         Component.onCompleted: actions["playPauseAction"] = playPauseAction
 
-        onTriggered: mpv.play_pause()
+        onTriggered: mpv.setProperty("pause", !mpv.getProperty("pause"))
     }
 
     Action {

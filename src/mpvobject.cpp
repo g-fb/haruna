@@ -326,16 +326,3 @@ QString MpvObject::formatTime(double time)
     QString formattedTime = d.toString("hh:mm:ss");
     return formattedTime;
 }
-
-void MpvObject::play_pause()
-{
-    const bool paused = mpv::qt::get_property(mpv, "pause").toBool();
-    setProperty("pause", !paused);
-}
-
-void MpvObject::loadFile(const QString &file)
-{
-    QString filepath = QUrl(file).toLocalFile().isEmpty() ? file : QUrl(file).toLocalFile();
-    command(QVariant(QStringList() << "loadfile" << filepath));
-    setProperty("start", "+0");
-}

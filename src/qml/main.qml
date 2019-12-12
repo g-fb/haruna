@@ -16,14 +16,8 @@ ApplicationWindow {
     property int preFullScreenVisibility
 
     function openFile(path, startPlayback, loadSiblings) {
-        mpv.loadFile(path)
-
-        if (startPlayback) {
-            mpv.setProperty("pause", false)
-        } else {
-            mpv.setProperty("pause", true)
-        }
-
+        mpv.command(["loadfile", path])
+        mpv.setProperty("pause", !startPlayback)
         if (loadSiblings) {
             videoList.getVideos(path)
         }
@@ -93,9 +87,9 @@ ApplicationWindow {
                 Keys.onPressed: {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                         openFile(openUrlTextField.text, true, false)
+                        settings.set("General", "lastUrl", openUrlTextField.text)
                         openUrlPopup.close()
                         openUrlTextField.clear()
-                        settings.set("General", "lastUrl", openUrlTextField.text)
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -108,9 +102,9 @@ ApplicationWindow {
 
                 onClicked: {
                     openFile(openUrlTextField.text, true, false)
+                    settings.set("General", "lastUrl", openUrlTextField.text)
                     openUrlPopup.close()
                     openUrlTextField.clear()
-                    settings.set("General", "lastUrl", openUrlTextField.text)
                 }
             }
         }

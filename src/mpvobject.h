@@ -39,8 +39,6 @@ public:
 public slots:
     void eventHandler();
     static void on_mpv_events(void *ctx);
-    void loadFile(const QString &file);
-    void play_pause();
     void command(const QVariant& params);
     void setProperty(const QString& name, const QVariant& value);
     QVariant getProperty(const QString &name);
