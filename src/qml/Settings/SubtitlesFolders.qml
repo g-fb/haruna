@@ -138,7 +138,7 @@ Item {
     Item {
         id: spacer
         anchors.top: sfListView.bottom
-        height: 25
+        height: 5
     }
 
     Button {

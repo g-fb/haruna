@@ -27,6 +27,12 @@ Settings::Settings(QObject *parent) : QObject(parent)
         // playlist
         {"CanToogleWithMouse",    QVariant(true)},
         {"Position",              QVariant(QStringLiteral("right"))},
+        // audio
+        {"PreferredLanguage",     QVariant(QStringLiteral())},
+        {"PreferredTrack",        QVariant(0)},
+        // subtitle
+        {"PreferredLanguage",     QVariant(QStringLiteral())},
+        {"PreferredTrack",        QVariant(0)},
     };
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
 }

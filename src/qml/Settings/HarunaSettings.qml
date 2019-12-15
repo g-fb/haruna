@@ -49,6 +49,18 @@ Pane {
             width: root.width * 0.7 - root.padding
         }
     }
+    Component {
+        id: audioSettings
+        Audio {
+            width: root.width * 0.7 - root.padding
+        }
+    }
+    Component {
+        id: subtitlesSettings
+        Subtitles {
+            width: root.width * 0.7 - root.padding
+        }
+    }
 
 
     states: [

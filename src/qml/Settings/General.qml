@@ -156,11 +156,6 @@ Item {
             }
         }
 
-        SubtitlesFolders {
-            id: subtitleFolders
-            _width: grid.width
-        }
-
         Item {
             Layout.columnSpan: 2
             Layout.fillHeight: true

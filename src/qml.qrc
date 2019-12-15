@@ -17,5 +17,7 @@
         <file>qml/Settings/Mouse.qml</file>
         <file>qml/Settings/Navigation.qml</file>
         <file>qml/Settings/Playlist.qml</file>
+        <file>qml/Settings/Audio.qml</file>
+        <file>qml/Settings/Subtitles.qml</file>
     </qresource>
 </RCC>

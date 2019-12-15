@@ -47,5 +47,19 @@ Item {
                 settingsViewLoader.sourceComponent = playlistSettings
             }
         }
+        Button {
+            text: "Audio"
+            Layout.fillWidth: true
+            onClicked: {
+                settingsViewLoader.sourceComponent = audioSettings
+            }
+        }
+        Button {
+            text: "Subtitles"
+            Layout.fillWidth: true
+            onClicked: {
+                settingsViewLoader.sourceComponent = subtitlesSettings
+            }
+        }
     }
 }

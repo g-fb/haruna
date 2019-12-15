@@ -17,8 +17,8 @@ MpvObject {
             window.showFullScreen()
             header.visible = false
             footer.visible = false
-            footer.anchors.bottom = root.bottom
-            root.anchors.fill = root.parent
+            footer.anchors.bottom = bottom
+            anchors.fill = parent
         } else {
             if (window.preFullScreenVisibility === Window.Windowed) {
                 window.showNormal()
@@ -30,7 +30,7 @@ MpvObject {
             header.visible = true
             footer.visible = true
             footer.anchors.bottom = undefined
-            root.anchors.fill = undefined
+            anchors.fill = undefined
         }
     }
 
@@ -44,9 +44,9 @@ MpvObject {
         // 50 is row height, 1 is space between rows
         var scrollDistance = (rowsAbove * 50) + (rowsAbove * 1)
         var scrollAvailableDistance =
-                ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - root.height
+                ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - height
         if (scrollDistance > scrollAvailableDistance) {
-            if (scrollAvailableDistance < root.height) {
+            if (scrollAvailableDistance < height) {
                 playList.tableView.contentY = 0
             } else {
                 playList.tableView.contentY = scrollAvailableDistance
@@ -63,40 +63,49 @@ MpvObject {
 
     onSetSubtitle: {
         if (id !== -1) {
-            root.setProperty("sid", id)
+            setProperty("sid", id)
         } else {
-            root.setProperty("sid", "no")
+            setProperty("sid", "no")
         }
     }
 
     onSetAudio: {
-        root.setProperty("aid", id)
+        setProperty("aid", id)
     }
 
     onReady: {
-        root.setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
+        var preferredAudioTrack = settings.get("Audio", "PreferredTrack")
+        setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
+        setProperty("alang", settings.get("Audio", "PreferredLanguage"))
+
+        var preferredSubTrack = settings.get("Audio", "PreferredTrack")
+        setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)
+        setProperty("slang", settings.get("Subtitle", "PreferredLanguage"))
+
+        setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
+
         footer.volume.value = settings.get("General", "volume")
         if (app.argument(0) !== "") {
-            openFile(app.getPathFromArg(app.argument(0)), true, true)
+            window.openFile(app.argument(0), true, true)
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
             window.openFile(settings.get("General", "lastPlayedFile"), false, true)
-            root.setProperty("start", "+" + settings.get("General", "lastPlayedPosition"))
+            setProperty("start", settings.get("General", "lastPlayedPosition"))
             // set progress bar position
             footer.progressBar.from = 0;
             footer.progressBar.to = settings.get("General", "lastPlayedDuration")
             footer.progressBar.value = settings.get("General", "lastPlayedPosition")
 
-            footer.timeInfo.currentTime = mpv.formatTime(settings.get("General", "lastPlayedPosition"))
-            footer.timeInfo.totalTime = mpv.formatTime(settings.get("General", "lastPlayedDuration"))
+            footer.timeInfo.currentTime = formatTime(settings.get("General", "lastPlayedPosition"))
+            footer.timeInfo.totalTime = formatTime(settings.get("General", "lastPlayedDuration"))
         }
     }
 
     onFileLoaded: {
-        footer.progressBar.chapters = root.getProperty("chapter-list")
-        header.audioTracks = root.getProperty("track-list").filter(track => track["type"] === "audio")
-        header.subtitleTracks = root.getProperty("track-list").filter(track => track["type"] === "sub")
+        footer.progressBar.chapters = getProperty("chapter-list")
+        header.audioTracks = getProperty("track-list").filter(track => track["type"] === "audio")
+        header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
     }
 
     onDurationChanged: {
@@ -104,18 +113,18 @@ MpvObject {
         footer.progressBar.to = duration
         settings.set("General", "lastPlayedDuration", duration)
 
-        footer.timeInfo.totalTime = mpv.formatTime(duration)
+        footer.timeInfo.totalTime = formatTime(duration)
     }
 
     onPositionChanged: {
         if (!footer.progressBar.seekStarted) {
             footer.progressBar.value = position
         }
-        footer.timeInfo.currentTime = mpv.formatTime(position)
+        footer.timeInfo.currentTime = formatTime(position)
     }
 
     onRemainingChanged: {
-        footer.timeInfo.remainingTime = mpv.formatTime(remaining)
+        footer.timeInfo.remainingTime = formatTime(remaining)
     }
 
     onEndOfFile: {
@@ -184,15 +193,15 @@ MpvObject {
         onExited: hideCursorTimer.running = false
 
         onMouseXChanged: {
-            root.focus = true
+            focus = true
             mx = mouseX
             if (playList.position === "right") {
-                if (mouseX > root.width - 50 && playList.tableView.rows > 1) {
+                if (mouseX > width - 50 && playList.tableView.rows > 1) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "visible"
                     }
                 }
-                if (mouseX < root.width - playList.width) {
+                if (mouseX < width - playList.width) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "hidden"
                     }
@@ -212,7 +221,7 @@ MpvObject {
         }
 
         onMouseYChanged: {
-            root.focus = true
+            focus = true
             my = mouseY
             if (mouseY > window.height - footer.height && window.visibility === Window.FullScreen) {
                 footer.visible = true
