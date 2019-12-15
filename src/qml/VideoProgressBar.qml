@@ -40,9 +40,16 @@ Slider {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
+            acceptedButtons: Qt.MiddleButton
+
+            onClicked: {
+                var time = mouseX * 100 / progressBarSlider.width * root.to / 100
+                var chapters = mpv.getProperty("chapter-list")
+                const nextChapterTime = chapters.find(chapter => chapter.time > time )
+                mpv.setProperty("time-pos", mpv.formatTime(nextChapterTime.time))
+            }
 
             onMouseXChanged: {
-                mouse.accepted = false
                 progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
 
                 var time = mouseX * 100 / progressBarSlider.width * root.to / 100
