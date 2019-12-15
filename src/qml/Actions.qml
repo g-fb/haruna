@@ -16,6 +16,8 @@ Item {
     property alias seekBackwardMediumAction: seekBackwardMediumAction
     property alias seekForwardBigAction: seekForwardBigAction
     property alias seekBackwardBigAction: seekBackwardBigAction
+    property alias seekPreviousChapterAction: seekPreviousChapterAction
+    property alias seekNextChapterAction: seekNextChapterAction
     property alias seekNextSubtitleAction: seekNextSubtitleAction
     property alias seekPreviousSubtitleAction: seekPrevSubtitleAction
 
@@ -266,6 +268,41 @@ Item {
         Component.onCompleted: actions["seekBackwardBigAction"] = seekBackwardBigAction
 
         onTriggered: mpv.command(["seek", -settings.get("General", "SeekBigStep"), "exact"])
+    }
+
+    Action {
+        id: seekPreviousChapterAction
+        property var qaction: app.action("seekPreviousChapter")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+
+        Component.onCompleted: actions["seekPreviousChapterAction"] = seekPreviousChapterAction
+
+        onTriggered: {
+            mpv.command(["add", "chapter", "-1"])
+        }
+    }
+
+    Action {
+        id: seekNextChapterAction
+        property var qaction: app.action("seekNextChapter")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+
+        Component.onCompleted: actions["seekNextChapterAction"] = seekNextChapterAction
+
+        onTriggered: {
+            var chapters = mpv.getProperty("chapter-list")
+            var currentChapter = mpv.getProperty("chapter")
+            var nextChapter = currentChapter + 1
+            if (nextChapter === chapters.length) {
+                playNextAction.trigger()
+                return
+            }
+            mpv.command(["add", "chapter", "1"])
+        }
     }
 
     Action {

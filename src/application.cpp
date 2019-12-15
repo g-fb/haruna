@@ -282,6 +282,20 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::Key_Down);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("seekPreviousChapter")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Seek Previous Chapter"));
+        action->setIcon(QIcon::fromTheme("media-seek-backward"));
+        m_collection.setDefaultShortcut(action, Qt::Key_PageDown);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("seekNextChapter")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Seek Next Chapter"));
+        action->setIcon(QIcon::fromTheme("media-seek-forward"));
+        m_collection.setDefaultShortcut(action, Qt::Key_PageUp);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("seekNextSubtitle")) {
         QAction *action = new QAction();
         action->setText(i18n("Seek To Next Subtitle"));
