@@ -35,24 +35,22 @@ MpvObject {
     }
 
     function setPlayListScrollPosition() {
-        if (playList.tableView.rows <= 0) {
+        if (playList.tableView.rows < 1) {
             return;
         }
         playList.tableView.contentY = 0
-        // scroll playlist to loaded file
-        var rowsAbove = videoList.getPlayingVideo()
-        // 50 is row height, 1 is space between rows
-        var scrollDistance = (rowsAbove * 50) + (rowsAbove * 1)
-        var scrollAvailableDistance =
-                ((playList.tableView.rows * 50) + (playList.tableView.rows * 1)) - height
-        if (scrollDistance > scrollAvailableDistance) {
-            if (scrollAvailableDistance < height) {
-                playList.tableView.contentY = 0
-            } else {
-                playList.tableView.contentY = scrollAvailableDistance
-            }
+        var currentItemIndex = videoList.getPlayingVideo()
+        var currentItemPosition = currentItemIndex * 50 + currentItemIndex * 1
+        var itemsAfterCurrent = videoList.count() - currentItemIndex
+        // height of items bellow the current item
+        var heightBellow = itemsAfterCurrent * 50 + itemsAfterCurrent * 1
+        var playlistHeight = ((videoList.count() * 50) + (videoList.count() * 1))
+        var isHidden = currentItemPosition > height
+
+        if (isHidden && heightBellow > height) {
+            playList.tableView.contentY = currentItemPosition
         } else {
-            playList.tableView.contentY = scrollDistance
+            playList.tableView.contentY = playlistHeight - height
         }
     }
 
@@ -262,7 +260,7 @@ MpvObject {
         onDoubleClicked: {
             if (mouse.button === Qt.LeftButton) {
                 toggleFullScreen()
-                setPlayListScrollPosition()
+                scrollPositionTimer.start()
                 app.showCursor()
             }
         }

@@ -296,14 +296,14 @@ TracksModel *MpvObject::audioTracksModel() const
     return m_audioTracksModel;
 }
 
-void MpvObject::command(const QVariant& params)
+QVariant MpvObject::command(const QVariant& params)
 {
-    mpv::qt::command(mpv, params);
+    return mpv::qt::command(mpv, params);
 }
 
-void MpvObject::setProperty(const QString& name, const QVariant& value)
+int MpvObject::setProperty(const QString& name, const QVariant& value)
 {
-    mpv::qt::set_property(mpv, name, value);
+    return mpv::qt::set_property(mpv, name, value);
 }
 
 QVariant MpvObject::getProperty(const QString& name)

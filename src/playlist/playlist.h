@@ -24,6 +24,7 @@ public slots:
     int getPlayingVideo() const;
     QString getPath(int i);
     QMap<int, VideoItem *> items() const;
+    int count();
 private:
     QMap<int, VideoItem*> m_videoList;
     int m_playingVideo = -1;

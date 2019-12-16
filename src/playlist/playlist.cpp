@@ -67,6 +67,11 @@ QMap<int, VideoItem *> VideoList::items() const
     return m_videoList;
 }
 
+int VideoList::count()
+{
+    return m_videoList.count();
+}
+
 int VideoList::getPlayingVideo() const
 {
     return m_playingVideo;

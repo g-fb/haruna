@@ -56,7 +56,7 @@ ApplicationWindow {
         fileMode: PlatformDialog.FileDialog.OpenFile
 
         onAccepted: {
-            openFile(fileDialog.file, true, true)
+            openFile(fileDialog.file.toString(), true, true)
             // the timer scrolls the playlist to the playing file
             // once the table view rows are loaded
             mpv.scrollPositionTimer.start()

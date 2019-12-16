@@ -39,8 +39,8 @@ public:
 public slots:
     void eventHandler();
     static void on_mpv_events(void *ctx);
-    void command(const QVariant& params);
-    void setProperty(const QString& name, const QVariant& value);
+    QVariant command(const QVariant& params);
+    int setProperty(const QString& name, const QVariant& value);
     QVariant getProperty(const QString &name);
     QString formatTime(double time);
     TracksModel *audioTracksModel() const;
