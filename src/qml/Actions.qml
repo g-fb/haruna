@@ -162,8 +162,8 @@ Item {
         onTriggered: {
             if (videoList.getPlayingVideo() !== 0) {
                 var previousFileRow = videoList.getPlayingVideo() - 1
-                var nextFile = videoList.getPath(previousFileRow)
-                window.openFile(nextFile, true, false)
+                var previousFile = videoList.getPath(previousFileRow)
+                window.openFile(previousFile, true, false)
                 videoList.setPlayingVideo(previousFileRow)
             }
         }
@@ -442,7 +442,10 @@ Item {
 
         Component.onCompleted: actions["quitApplicationAction"] = quitApplicationAction
 
-        onTriggered: qaction.trigger()
+        onTriggered: {
+            mpv.command(["quit-watch-later"])
+            qaction.trigger()
+        }
     }
 
     Action {

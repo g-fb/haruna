@@ -12,7 +12,10 @@ Pane {
     padding: 10
     state: "hidden"
 
-    Navigation { id: nav }
+    Navigation {
+        id: nav
+        width: root.width * 0.3 - root.padding
+    }
 
     Loader {
         id: settingsViewLoader

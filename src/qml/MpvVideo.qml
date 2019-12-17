@@ -47,11 +47,14 @@ MpvObject {
         var playlistHeight = ((videoList.count() * 50) + (videoList.count() * 1))
         var isHidden = currentItemPosition > height
 
-        if (isHidden && heightBellow > height) {
-            playList.tableView.contentY = currentItemPosition
-        } else {
-            playList.tableView.contentY = playlistHeight - height
+        if (isHidden) {
+            if (heightBellow > height) {
+                playList.tableView.contentY = currentItemPosition
+            } else {
+                playList.tableView.contentY = playlistHeight - height
+            }
         }
+
     }
 
     width: parent.width
@@ -89,14 +92,13 @@ MpvObject {
             // open last played file, paused and
             // at the position when player was closed or last saved
             window.openFile(settings.get("General", "lastPlayedFile"), false, true)
-            setProperty("start", settings.get("General", "lastPlayedPosition"))
             // set progress bar position
             footer.progressBar.from = 0;
             footer.progressBar.to = settings.get("General", "lastPlayedDuration")
-            footer.progressBar.value = settings.get("General", "lastPlayedPosition")
 
             footer.timeInfo.currentTime = formatTime(settings.get("General", "lastPlayedPosition"))
             footer.timeInfo.totalTime = formatTime(settings.get("General", "lastPlayedDuration"))
+
         }
     }
 
@@ -151,6 +153,17 @@ MpvObject {
         onTriggered: {
             setPlayListScrollPosition()
             scrollPositionTimer.stop()
+        }
+    }
+
+    Timer {
+        id: saveWatchLaterFileTimer
+        interval: 1000
+        running: !mpv.pause
+        repeat: true
+
+        onTriggered: {
+            command(["write-watch-later-config"])
         }
     }
 
