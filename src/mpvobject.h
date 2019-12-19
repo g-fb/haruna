@@ -23,6 +23,7 @@ class MpvObject : public QQuickFramebufferObject
     Q_PROPERTY(int brightness MEMBER m_brightness NOTIFY onBrightnessChanged)
     Q_PROPERTY(int gamma MEMBER m_gamma NOTIFY onGammaChanged)
     Q_PROPERTY(int saturation MEMBER m_saturation NOTIFY onSaturationChanged)
+    Q_PROPERTY(int chapter MEMBER m_chapter NOTIFY onChapterChanged)
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
@@ -53,6 +54,7 @@ signals:
     void onRemainingChanged(double);
     void onVolumeChanged(double);
     void onPauseChanged(bool);
+    void onChapterChanged(int);
     void onContrastChanged(int);
     void onBrightnessChanged(int);
     void onGammaChanged(int);
@@ -73,6 +75,7 @@ private:
     double m_remaining;
     double m_volume;
     QVariant m_chapters;
+    int m_chapter;
     bool m_pause;
     int m_contrast = 0;
     int m_brightness = 0;

@@ -4,6 +4,8 @@ import QtQuick.Controls 2.13
 
 Item {
     id: root
+
+    visible: false
     height: parent.height
 
     ColumnLayout {

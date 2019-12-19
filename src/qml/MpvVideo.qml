@@ -102,7 +102,6 @@ MpvObject {
     }
 
     onFileLoaded: {
-        footer.progressBar.chapters = getProperty("chapter-list")
         header.audioTracks = getProperty("track-list").filter(track => track["type"] === "audio")
         header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
     }

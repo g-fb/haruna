@@ -3,6 +3,10 @@ import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 
 Item {
+    id: root
+
+    visible: false
+
     ColumnLayout {
         width: parent.width
         spacing: 30
@@ -119,5 +123,4 @@ Item {
             text: "Middle click on the sliders to reset them"
         }
     }
-
 }

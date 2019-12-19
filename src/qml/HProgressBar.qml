@@ -10,10 +10,8 @@ Slider {
     property var chapters
     property bool seekStarted: false
 
-    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
-
     background: Rectangle {
-        id: progressBarSlider
+        id: progressBarBackground
         color: systemPalette.base
         implicitWidth: 200
         implicitHeight: 25
@@ -40,19 +38,24 @@ Slider {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            acceptedButtons: Qt.MiddleButton
+            acceptedButtons: Qt.MiddleButton | Qt.RightButton
 
             onClicked: {
-                var time = mouseX * 100 / progressBarSlider.width * root.to / 100
-                var chapters = mpv.getProperty("chapter-list")
-                const nextChapterTime = chapters.find(chapter => chapter.time > time )
-                mpv.setProperty("time-pos", mpv.formatTime(nextChapterTime.time))
+                if (mouse.button === Qt.MiddleButton) {
+                    var time = mouseX * 100 / progressBarBackground.width * root.to / 100
+                    var chapters = mpv.getProperty("chapter-list")
+                    const nextChapterTime = chapters.find(chapter => chapter.time > time )
+                    mpv.setProperty("time-pos", mpv.formatTime(nextChapterTime.time))
+                }
+                if (mouse.button === Qt.RightButton) {
+                    chaptersMenu.popup(mouse.x-chaptersMenu.width * 0.5, -(chaptersMenu.count * chaptersMenu.menuItemHeight + 15))
+                }
             }
 
             onMouseXChanged: {
                 progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
 
-                var time = mouseX * 100 / progressBarSlider.width * root.to / 100
+                var time = mouseX * 100 / progressBarBackground.width * root.to / 100
                 progressBarToolTip.text = mpv.formatTime(time)
             }
 
@@ -71,9 +74,9 @@ Slider {
         model: chapters
         delegate: Shape {
             id: chapterMarkerShape
-            property int position: modelData.time * 100 / root.to * progressBarSlider.width / 100
+            property int position: modelData.time * 100 / root.to * progressBarBackground.width / 100
             antialiasing: true
-            parent: progressBarSlider
+            parent: progressBarBackground
             ShapePath {
                 strokeWidth: 1
                 strokeColor: systemPalette.text
@@ -129,5 +132,44 @@ Slider {
             mpv.command(["seek", value, "absolute"])
             seekStarted = false
         }
+    }
+
+    Menu {
+        id: chaptersMenu
+
+        property int menuItemHeight
+        property var checkedItem
+
+        width: 0
+        modal: true
+
+        Instantiator {
+            model: root.chapters
+            delegate: MenuItem {
+                id: menuitem
+
+                checkable: true
+                checked: index === chaptersMenu.checkedItem
+                text: `${mpv.formatTime(modelData.time)} - ${modelData.title}`
+                Component.onCompleted: {
+                    chaptersMenu.width = menuitem.width > chaptersMenu.width
+                            ? menuitem.width
+                            : chaptersMenu.width
+                    chaptersMenu.menuItemHeight = height
+                }
+                onClicked: {
+                    console.log(index, chaptersMenu.checkedItem)
+                    mpv.setProperty("time-pos", modelData.time)
+                }
+            }
+            onObjectAdded: chaptersMenu.insertItem(index, object)
+            onObjectRemoved: chaptersMenu.removeItem(object)
+        }
+    }
+
+    Connections {
+        target: mpv
+        onFileLoaded: chapters = mpv.getProperty("chapter-list")
+        onChapterChanged: chaptersMenu.checkedItem = mpv.chapter
     }
 }

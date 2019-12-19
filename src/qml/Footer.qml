@@ -86,7 +86,7 @@ ToolBar {
             }
         }
 
-        VideoProgressBar {
+        HProgressBar {
             id: progressBar
             Layout.fillWidth: true
         }

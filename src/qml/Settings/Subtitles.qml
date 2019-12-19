@@ -4,6 +4,9 @@ import QtQuick.Controls 2.13
 
 Item {
     id: root
+
+    visible: false
+
     ColumnLayout {
 
         spacing: 25

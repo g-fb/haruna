@@ -102,6 +102,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "pause", MPV_FORMAT_FLAG);
+    mpv_observe_property(mpv, 0, "chapter", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "contrast", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
@@ -194,6 +195,11 @@ void MpvObject::eventHandler()
                 if (prop->format == MPV_FORMAT_FLAG) {
                     m_pause = *(bool *)prop->data;
                     emit onPauseChanged(m_pause);
+                }
+            } else if (strcmp(prop->name, "chapter") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_chapter = *(int *)prop->data;
+                    emit onChapterChanged(m_chapter);
                 }
             } else if (strcmp(prop->name, "contrast") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {

@@ -33,7 +33,14 @@ Item {
             display: AbstractButton.TextUnderIcon
             Layout.fillWidth: true
             onClicked: {
+                if (active === general) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
                 settingsViewLoader.sourceComponent = generalSettings
+                settingsViewLoader.item.visible = true
                 active.checked = false
                 active = general
             }
@@ -48,9 +55,16 @@ Item {
             display: AbstractButton.TextUnderIcon
             Layout.fillWidth: true
             onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
                 settingsViewLoader.sourceComponent = colorAdjustmentsSettings
+                settingsViewLoader.item.visible = true
                 active.checked = false
-                active = colors
+                active = this
             }
         }
         ToolButton {
@@ -63,9 +77,16 @@ Item {
             display: AbstractButton.TextUnderIcon
             Layout.fillWidth: true
             onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
                 settingsViewLoader.sourceComponent = mouseSettings
+                settingsViewLoader.item.visible = true
                 active.checked = false
-                active = mouse
+                active = this
             }
         }
         ToolButton {
@@ -78,9 +99,16 @@ Item {
             display: AbstractButton.TextUnderIcon
             Layout.fillWidth: true
             onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
                 settingsViewLoader.sourceComponent = playlistSettings
+                settingsViewLoader.item.visible = true
                 active.checked = false
-                active = playlist
+                active = this
             }
         }
         ToolButton {
@@ -93,9 +121,16 @@ Item {
             display: AbstractButton.TextUnderIcon
             Layout.fillWidth: true
             onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
                 settingsViewLoader.sourceComponent = audioSettings
+                settingsViewLoader.item.visible = true
                 active.checked = false
-                active = audio
+                active = this
             }
         }
         ToolButton {
@@ -108,9 +143,16 @@ Item {
             display: AbstractButton.TextUnderIcon
             Layout.fillWidth: true
             onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
                 settingsViewLoader.sourceComponent = subtitlesSettings
+                settingsViewLoader.item.visible = true
                 active.checked = false
-                active = subtitles
+                active = this
             }
         }
     }

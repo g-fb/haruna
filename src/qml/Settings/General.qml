@@ -3,7 +3,9 @@ import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 
 Item {
-    id: settingsView
+    id: root
+
+    visible: false
     height: parent.height
 
     GridLayout {
@@ -29,7 +31,7 @@ Item {
                 value: settings.get("General", "OsdFontSize")
                 onValueChanged: {
                     // runs on start-up so only execute when state is visible
-                    if (root.state === "visible") {
+                    if (root.visible) {
                         osd.label.font.pixelSize = osdFontSize.value
                         osd.message("Test osd font size")
                         settings.set("General", "OsdFontSize", osdFontSize.value)
@@ -162,5 +164,10 @@ Item {
             Layout.fillWidth: true
         }
 
+    }
+
+    Connections {
+        target: hSettings
+        onVisibleChanged: visible = hSettings.visible
     }
 }

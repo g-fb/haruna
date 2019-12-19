@@ -24,7 +24,6 @@ Pane {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.leftMargin: root.padding
-//        anchors.rightMargin: root.padding
         sourceComponent: generalSettings
     }
 

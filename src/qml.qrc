@@ -4,7 +4,7 @@
         <file>qml/PlayListItem.qml</file>
         <file>qml/PlayList.qml</file>
         <file>qml/MpvVideo.qml</file>
-        <file>qml/VideoProgressBar.qml</file>
+        <file>qml/HProgressBar.qml</file>
         <file>qml/Header.qml</file>
         <file>qml/Footer.qml</file>
         <file>qml/Osd.qml</file>
