@@ -748,7 +748,7 @@ Item {
         Component.onCompleted: actions["videoPanXLeftAction"] = videoPanXLeftAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-x") + 0.1
+            var pan = mpv.getProperty("video-pan-x") - 0.01
             mpv.setProperty("video-pan-x", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
@@ -763,7 +763,7 @@ Item {
         Component.onCompleted: actions["videoPanXRightAction"] = videoPanXRightAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-x") - 0.1
+            var pan = mpv.getProperty("video-pan-x") + 0.01
             mpv.setProperty("video-pan-x", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
@@ -778,7 +778,7 @@ Item {
         Component.onCompleted: actions["videoPanYUpAction"] = videoPanYUpAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-y") + 0.1
+            var pan = mpv.getProperty("video-pan-y") - 0.01
             mpv.setProperty("video-pan-y", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
@@ -793,7 +793,7 @@ Item {
         Component.onCompleted: actions["videoPanYDownAction"] = videoPanYDownAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-y") - 0.1
+            var pan = mpv.getProperty("video-pan-y") + 0.01
             mpv.setProperty("video-pan-y", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
