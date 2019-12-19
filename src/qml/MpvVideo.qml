@@ -40,11 +40,11 @@ MpvObject {
         }
         playList.tableView.contentY = 0
         var currentItemIndex = videoList.getPlayingVideo()
-        var currentItemPosition = currentItemIndex * 50 + currentItemIndex * 1
+        var currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
         var itemsAfterCurrent = videoList.count() - currentItemIndex
         // height of items bellow the current item
-        var heightBellow = itemsAfterCurrent * 50 + itemsAfterCurrent * 1
-        var playlistHeight = ((videoList.count() * 50) + (videoList.count() * 1))
+        var heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
+        var playlistHeight = ((videoList.count() * playList.rowHeight) + (videoList.count() * playList.rowSpacing))
         var isHidden = currentItemPosition > height
 
         if (isHidden) {
@@ -54,7 +54,6 @@ MpvObject {
                 playList.tableView.contentY = playlistHeight - height
             }
         }
-
     }
 
     width: parent.width

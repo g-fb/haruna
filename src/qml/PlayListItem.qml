@@ -5,8 +5,10 @@ import QtGraphicalEffects 1.13
 
 Item {
     id: root
+
     property string path: model.path
-    implicitHeight: 50
+
+    implicitHeight: playList.rowHeight
 
     Rectangle {
         anchors.fill: parent

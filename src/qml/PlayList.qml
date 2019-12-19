@@ -10,6 +10,8 @@ Rectangle {
     property alias tableView: tableView
     property bool canToggleWithMouse: settings.get("Playlist", "CanToogleWithMouse")
     property string position: settings.get("Playlist", "Position")
+    property int rowHeight: 50
+    property int rowSpacing: 1
 
     height: mpv.height
     width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33
@@ -22,6 +24,7 @@ Rectangle {
 
     TableView {
         id: tableView
+
         property var columnWidths: [50, parent.width - 150, 110]
 
         anchors.fill: parent
@@ -29,7 +32,7 @@ Rectangle {
         columnSpacing: 1
         columnWidthProvider: function (column) { return columnWidths[column] }
         delegate: PlayListItem {}
-        rowSpacing: 1
+        rowSpacing: root.rowSpacing
         model: videoListModel
         z: 20
         ScrollBar.vertical: ScrollBar { id: scrollBar }
@@ -59,11 +62,19 @@ Rectangle {
     states: [
         State {
             name: "hidden"
-            PropertyChanges { target: playList; x: position === "right" ? parent.width : -width; visible: false }
+            PropertyChanges {
+                visible: false
+                target: playList
+                x: position === "right" ? parent.width : -width
+            }
         },
         State {
             name : "visible"
-            PropertyChanges { target: playList; x: position === "right" ? parent.width - root.width : mpv.x; visible: true }
+            PropertyChanges {
+                visible: true
+                target: playList
+                x: position === "right" ? parent.width - root.width : mpv.x
+            }
         }
     ]
 
