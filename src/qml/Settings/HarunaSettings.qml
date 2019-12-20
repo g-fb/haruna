@@ -12,19 +12,27 @@ Pane {
     padding: 10
     state: "hidden"
 
-    Navigation {
-        id: nav
-        width: root.width * 0.3 - root.padding
-    }
+    RowLayout {
+        anchors.fill: parent
+        Navigation {
+            id: nav
+            width: root.width * 0.3 - root.padding
+            Layout.fillHeight: true
+        }
 
-    Loader {
-        id: settingsViewLoader
-        anchors.left: nav.right
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: root.padding
-        sourceComponent: generalSettings
+        Flickable {
+            id: flick
+            clip: true
+            height: root.height
+            contentHeight: settingsViewLoader.item.contentHeight
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            ScrollBar.vertical: ScrollBar { id: scrollbar }
+            Loader {
+                id: settingsViewLoader
+                sourceComponent: generalSettings
+            }
+        }
     }
 
     Component {

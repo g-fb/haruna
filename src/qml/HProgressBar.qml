@@ -174,6 +174,10 @@ Slider {
 
             var chapters = mpv.getProperty("chapter-list")
             var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
+            if (chapters.length === 0 || skipChaptersWords === "") {
+                return
+            }
+
             skipChaptersWords.split(",").map(word => {
                 if (chapters[mpv.chapter].title.toLowerCase().includes(word.trim())) {
                     mpv.setProperty("time-pos", chapters[mpv.chapter+1].time)

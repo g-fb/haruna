@@ -21,6 +21,7 @@
 #include <QThread>
 
 #include <KAboutData>
+#include <KI18n/KLocalizedString>
 
 #include <memory>
 

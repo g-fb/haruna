@@ -5,9 +5,13 @@ import QtQuick.Controls 2.13
 Item {
     id: root
 
+    property alias contentHeight: content.height
+
     visible: false
 
     ColumnLayout {
+        id: content
+
         ColumnLayout {
             Label {
                 text: "Preferred audio language"

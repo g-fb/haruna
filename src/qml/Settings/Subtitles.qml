@@ -5,15 +5,18 @@ import QtQuick.Controls 2.13
 Item {
     id: root
 
+    property alias contentHeight: content.height
+
     visible: false
 
     ColumnLayout {
+        id: content
 
         spacing: 25
 
         SubtitlesFolders {
             id: subtitleFolders
-            _width: root.width
+            implicitWidth: root.width
         }
 
         ColumnLayout {

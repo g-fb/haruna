@@ -6,15 +6,12 @@ import QtQuick.Controls 2.13
 Item {
     id: root
 
-    property int _width
     // prevent creating multiple empty items
     // until the new one has been saved
     property bool canAddFolder: true
 
-    Layout.columnSpan: 2
     Layout.fillWidth: true
-    width: _width
-    height: sectionTitle.height + sfListView.height + sfAddFolder.height + 25
+    implicitHeight: sectionTitle.height + sfListView.implicitHeight + sfAddFolder.height + 25
 
     Label {
         id: sectionTitle
@@ -26,20 +23,21 @@ Item {
     ListView {
         id: sfListView
         property int sfDelegateHeight: 40
-        property int rows: subsFoldersModel.rowCount()
+
         anchors.top: sectionTitle.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: rows > 5
+        implicitHeight: count > 5
                 ? 5 * sfListView.sfDelegateHeight + (sfListView.spacing * 4)
-                : rows * sfListView.sfDelegateHeight + (sfListView.spacing * (rows - 1))
+                : count * sfListView.sfDelegateHeight + (sfListView.spacing * (count - 1))
         spacing: 5
         clip: true
         model: subsFoldersModel
+        Layout.fillWidth: true
         ScrollBar.vertical: ScrollBar { id: scrollBar }
         delegate: Rectangle {
             id: sfDelegate
-            width: _width
+            width: parent.width
             height: sfListView.sfDelegateHeight
             color: systemPalette.base
 
@@ -98,12 +96,12 @@ Item {
                                 return
                             }
 
-                            if (model.row === subsFoldersModel.rowCount() - 1) {
+                            if (model.row === sfListView.count - 1) {
                                 root.canAddFolder = true
                             }
                             subsFoldersModel.deleteFolder(model.row)
-                            var rows = subsFoldersModel.rowCount()
-                            sfListView.height = rows > 5
+                            var rows = sfListView.count
+                            sfListView.implicitHeight = rows > 5
                                     ? 5 * sfListView.sfDelegateHeight + (sfListView.spacing * 4)
                                     : rows * sfListView.sfDelegateHeight + (sfListView.spacing * (rows - 1))
 
@@ -120,7 +118,7 @@ Item {
                         onClicked: {
                             subsFoldersModel.updateFolder(editField.text, model.row)
                             sfLoader.sourceComponent = sfDisplayComponent
-                            if (model.row === subsFoldersModel.rowCount() - 1) {
+                            if (model.row === sfListView.count - 1) {
                                 root.canAddFolder = true
                             }
                         }
@@ -149,8 +147,8 @@ Item {
         enabled: root.canAddFolder
         onClicked: {
             subsFoldersModel.addFolder()
-            var rows = subsFoldersModel.rowCount()
-            sfListView.height = rows > 5
+            var rows = sfListView.count
+            sfListView.implicitHeight = rows > 5
                     ? 5 * sfListView.sfDelegateHeight + (sfListView.spacing * 4)
                     : rows * sfListView.sfDelegateHeight + (sfListView.spacing * (rows - 1))
             root.canAddFolder = false

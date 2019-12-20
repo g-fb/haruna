@@ -5,11 +5,13 @@ import QtQuick.Controls 2.13
 Item {
     id: root
 
+    property alias contentHeight: content.height
+
     visible: false
     height: parent.height
 
     ColumnLayout {
-        id: grid
+        id: content
 
         width: parent.width
         spacing: 20

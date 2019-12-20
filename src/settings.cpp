@@ -14,7 +14,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"OsdFontSize",           QVariant(25)},
         {"SubtitlesFolders",      QVariant(QStringLiteral("subs"))},
         {"lastPlayedFile",        QVariant(QStringLiteral())},
-        {"lastPlayedDuration",    QVariant(QStringLiteral())},
+        {"lastPlayedDuration",    QVariant(0)},
         {"lastPlayedPosition",    QVariant(QStringLiteral())},
         {"lastUrl",               QVariant(QStringLiteral())},
         {"volume",                QVariant(75)},

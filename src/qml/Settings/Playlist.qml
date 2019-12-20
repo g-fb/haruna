@@ -5,10 +5,14 @@ import QtQuick.Controls 2.13
 Item {
     id: root
 
+    property alias contentHeight: content.height
+
     visible: false
     height: parent.height
 
     ColumnLayout {
+        id: content
+
         CheckBox {
             checked: settings.get("Playlist", "CanToogleWithMouse")
             text: qsTr("Toggle with mouse")

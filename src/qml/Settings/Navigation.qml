@@ -2,26 +2,29 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 
-Item {
+Flickable {
     id: root
 
     property int iconSize: 32
     property var active: general
 
     height: parent.height
-    anchors.left: parent.left
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
+    clip: true
+    contentHeight: sidebar.height
+    ScrollBar.vertical: ScrollBar { id: scrollbar }
 
     Rectangle {
         width: 1
-        height: parent.height
+        height: root.height
         anchors.right: parent.right
         color: systemPalette.base
     }
 
     ColumnLayout {
+        id: sidebar
+
         width: parent.width
+
         ToolButton {
             id: general
             text: "General"
@@ -31,6 +34,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === general) {
@@ -53,6 +57,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -75,6 +80,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -97,6 +103,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -119,6 +126,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -141,6 +149,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -163,6 +172,7 @@ Item {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
