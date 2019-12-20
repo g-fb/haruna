@@ -63,6 +63,12 @@ Pane {
             width: root.width * 0.7 - root.padding
         }
     }
+    Component {
+        id: playbackSettings
+        Playback {
+            width: root.width * 0.7 - root.padding
+        }
+    }
 
 
     states: [

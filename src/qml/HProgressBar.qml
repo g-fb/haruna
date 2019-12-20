@@ -169,6 +169,19 @@ Slider {
     Connections {
         target: mpv
         onFileLoaded: chapters = mpv.getProperty("chapter-list")
-        onChapterChanged: chaptersMenu.checkedItem = mpv.chapter
+        onChapterChanged: {
+            chaptersMenu.checkedItem = mpv.chapter
+
+            var chapters = mpv.getProperty("chapter-list")
+            var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
+            skipChaptersWords.split(",").map(word => {
+                if (chapters[mpv.chapter].title.toLowerCase().includes(word.trim())) {
+                    mpv.setProperty("time-pos", chapters[mpv.chapter+1].time)
+                    if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
+                        osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
+                    }
+                }
+            })
+        }
     }
 }

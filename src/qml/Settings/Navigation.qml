@@ -155,5 +155,27 @@ Item {
                 active = this
             }
         }
+        ToolButton {
+            id: playback
+            text: "Playback"
+            checkable: true
+            icon.name: "media-playback-start"
+            icon.width: root.iconSize
+            icon.height: root.iconSize
+            display: AbstractButton.TextUnderIcon
+            Layout.fillWidth: true
+            onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsViewLoader.item.visible = false
+                settingsViewLoader.sourceComponent = playbackSettings
+                settingsViewLoader.item.visible = true
+                active.checked = false
+                active = this
+            }
+        }
     }
 }

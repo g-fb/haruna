@@ -37,6 +37,7 @@ Item {
         id: timer
         running: false
         repeat: false
+        interval: 3000
 
         onTriggered: {
             label.visible = false
