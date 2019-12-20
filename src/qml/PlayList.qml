@@ -10,8 +10,8 @@ Rectangle {
     property alias tableView: tableView
     property bool canToggleWithMouse: settings.get("Playlist", "CanToogleWithMouse")
     property string position: settings.get("Playlist", "Position")
-    property int rowHeight: 50
-    property int rowSpacing: 1
+    property int rowHeight: settings.get("Playlist", "RowHeight")
+    property int rowSpacing: settings.get("Playlist", "RowSpacing")
 
     height: mpv.height
     width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33

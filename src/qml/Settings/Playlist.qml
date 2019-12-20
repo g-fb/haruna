@@ -43,5 +43,43 @@ Item {
                 }
             }
         }
+
+        RowLayout {
+
+            Label {
+                text: "Playlist Row Height"
+            }
+
+            SpinBox {
+                from: 10
+                to: 100
+                value: settings.get("Playlist", "RowHeight")
+                onValueChanged: {
+                    settings.set("Playlist", "RowHeight", value)
+                    playList.rowHeight = value
+                    playList.tableView.forceLayout()
+                }
+            }
+
+        }
+
+        RowLayout {
+
+            Label {
+                text: "Playlist Row Spacing"
+            }
+
+            SpinBox {
+                from: 0
+                to: 100
+                value: settings.get("Playlist", "RowSpacing")
+                onValueChanged: {
+                    settings.set("Playlist", "RowSpacing", value)
+                    playList.rowSpacing = value
+                }
+            }
+
+        }
+
     }
 }

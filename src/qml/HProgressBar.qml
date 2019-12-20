@@ -47,7 +47,7 @@ Slider {
                     const nextChapterTime = chapters.find(chapter => chapter.time > time )
                     mpv.setProperty("time-pos", mpv.formatTime(nextChapterTime.time))
                 }
-                if (mouse.button === Qt.RightButton) {
+                if (mouse.button === Qt.RightButton && chaptersMenu.count > 0) {
                     chaptersMenu.popup(mouse.x-chaptersMenu.width * 0.5, -(chaptersMenu.count * chaptersMenu.menuItemHeight + 15))
                 }
             }
@@ -158,8 +158,7 @@ Slider {
                     chaptersMenu.menuItemHeight = height
                 }
                 onClicked: {
-                    console.log(index, chaptersMenu.checkedItem)
-                    mpv.setProperty("time-pos", modelData.time)
+                    mpv.setProperty("time-pos", modelData.time + 0.1)
                 }
             }
             onObjectAdded: chaptersMenu.insertItem(index, object)
