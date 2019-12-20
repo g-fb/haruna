@@ -6,21 +6,10 @@
 #include <KActionCollection>
 #include <KSharedConfig>
 
-#include "ui_settings.h"
-
 class HarunaSettings;
 class KActionCollection;
 class KConfigDialog;
 class QAction;
-
-class SettingsWidget: public QWidget, public Ui::SettingsWidget
-{
-    Q_OBJECT
-public:
-    explicit SettingsWidget(QWidget *parent) : QWidget(parent) {
-        setupUi(this);
-    }
-};
 
 class Application : public QObject
 {
