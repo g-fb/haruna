@@ -15,7 +15,6 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"SubtitlesFolders",      QVariant(QStringLiteral("subs"))},
         {"lastPlayedFile",        QVariant(QStringLiteral())},
         {"lastPlayedDuration",    QVariant(0)},
-        {"lastPlayedPosition",    QVariant(QStringLiteral())},
         {"lastUrl",               QVariant(QStringLiteral())},
         {"volume",                QVariant(75)},
         // mouse actions

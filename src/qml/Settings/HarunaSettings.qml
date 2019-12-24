@@ -22,6 +22,7 @@ Pane {
 
         Flickable {
             id: flick
+
             clip: true
             height: root.height
             contentHeight: settingsViewLoader.item.contentHeight
@@ -30,6 +31,8 @@ Pane {
             ScrollBar.vertical: ScrollBar { id: scrollbar }
             Loader {
                 id: settingsViewLoader
+
+                anchors.fill: parent
                 sourceComponent: generalSettings
             }
         }
@@ -77,7 +80,6 @@ Pane {
             width: root.width * 0.7 - root.padding
         }
     }
-
 
     states: [
         State {

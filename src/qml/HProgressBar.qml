@@ -121,10 +121,6 @@ Slider {
         y: topPadding + availableHeight / 2 - height / 2
     }
 
-    onValueChanged: {
-        settings.set("General", "lastPlayedPosition", value)
-    }
-
     onPressedChanged: {
         if (pressed) {
             seekStarted = true

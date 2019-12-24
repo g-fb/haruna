@@ -54,7 +54,7 @@ Item {
         Component.onCompleted: actions["togglePlaylistAction"] = togglePlaylistAction
 
         onTriggered: {
-            if (playList.state == "visible") {
+            if (playList.state === "visible") {
                 playList.state = "hidden"
             } else {
                 playList.state = "visible"

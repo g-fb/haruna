@@ -187,5 +187,18 @@ Flickable {
                 active = this
             }
         }
+        ToolButton {
+            id: shortcuts
+            text: "Shortcuts"
+            icon.name: "configure-shortcuts"
+            icon.width: root.iconSize
+            icon.height: root.iconSize
+            display: AbstractButton.TextUnderIcon
+            Layout.rightMargin: scrollbar.width
+            Layout.fillWidth: true
+            onClicked: {
+                actions.configureShortcutsAction.trigger()
+            }
+        }
     }
 }

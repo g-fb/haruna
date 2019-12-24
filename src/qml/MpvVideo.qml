@@ -91,13 +91,6 @@ MpvObject {
             // open last played file, paused and
             // at the position when player was closed or last saved
             window.openFile(settings.get("General", "lastPlayedFile"), false, true)
-            // set progress bar position
-            footer.progressBar.from = 0;
-            footer.progressBar.to = settings.get("General", "lastPlayedDuration")
-
-            footer.timeInfo.currentTime = formatTime(settings.get("General", "lastPlayedPosition"))
-            footer.timeInfo.totalTime = formatTime(settings.get("General", "lastPlayedDuration"))
-
         }
     }
 
@@ -109,7 +102,6 @@ MpvObject {
     onDurationChanged: {
         footer.progressBar.from = 0;
         footer.progressBar.to = duration
-        settings.set("General", "lastPlayedDuration", duration)
 
         footer.timeInfo.totalTime = formatTime(duration)
     }
