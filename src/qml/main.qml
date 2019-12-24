@@ -22,7 +22,7 @@ ApplicationWindow {
             videoList.getVideos(path)
         }
 
-        settings.set("General", "lastPlayedFile", path)
+        settings.set("General", "LastPlayedFile", path)
     }
 
     visible: true
@@ -82,12 +82,12 @@ ApplicationWindow {
             TextField {
                 id: openUrlTextField
                 Layout.fillWidth: true
-                text: settings.get("General", "lastUrl")
+                text: settings.get("General", "LastUrl")
 
                 Keys.onPressed: {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                         openFile(openUrlTextField.text, true, false)
-                        settings.set("General", "lastUrl", openUrlTextField.text)
+                        settings.set("General", "LastUrl", openUrlTextField.text)
                         openUrlPopup.close()
                         openUrlTextField.clear()
                     }
@@ -102,7 +102,7 @@ ApplicationWindow {
 
                 onClicked: {
                     openFile(openUrlTextField.text, true, false)
-                    settings.set("General", "lastUrl", openUrlTextField.text)
+                    settings.set("General", "LastUrl", openUrlTextField.text)
                     openUrlPopup.close()
                     openUrlTextField.clear()
                 }

@@ -13,10 +13,9 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"VolumeStep",            QVariant(5)},
         {"OsdFontSize",           QVariant(25)},
         {"SubtitlesFolders",      QVariant(QStringLiteral("subs"))},
-        {"lastPlayedFile",        QVariant(QStringLiteral())},
-        {"lastPlayedDuration",    QVariant(0)},
-        {"lastUrl",               QVariant(QStringLiteral())},
-        {"volume",                QVariant(75)},
+        {"LastPlayedFile",        QVariant(QStringLiteral())},
+        {"LastUrl",               QVariant(QStringLiteral())},
+        {"Volume",                QVariant(75)},
         // mouse actions
         {"LeftButtonAction",      QVariant(QStringLiteral("none"))},
         {"MiddleButtonAction",    QVariant(QStringLiteral("none"))},

@@ -42,7 +42,7 @@ Slider {
     onValueChanged: {
 
         mpv.setProperty("volume", value.toFixed(0))
-        settings.set("General", "volume", value.toFixed(0))
+        settings.set("General", "Volume", value.toFixed(0))
     }
 
     Connections {

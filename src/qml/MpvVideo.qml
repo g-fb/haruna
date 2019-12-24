@@ -84,13 +84,13 @@ MpvObject {
 
         setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
 
-        footer.volume.value = settings.get("General", "volume")
+        footer.volume.value = settings.get("General", "Volume")
         if (app.argument(0) !== "") {
             window.openFile(app.argument(0), true, true)
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
-            window.openFile(settings.get("General", "lastPlayedFile"), false, true)
+            window.openFile(settings.get("General", "LastPlayedFile"), false, true)
         }
     }
 
