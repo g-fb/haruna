@@ -12,7 +12,6 @@ ApplicationWindow {
     id: window
 
     property var configure: app.action("configure")
-
     property int preFullScreenVisibility
 
     function openFile(path, startPlayback, loadSiblings) {
@@ -36,13 +35,16 @@ ApplicationWindow {
         }
     }
 
-    Actions { id: actions }
-    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
-
     header: Header { id: header }
 
+    Actions { id: actions }
+
+    SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
+
     HarunaSettings { id: hSettings }
+
     MpvVideo { id: mpv }
+
     Footer { id: footer }
 
     PlayList { id: playList }
@@ -67,7 +69,6 @@ ApplicationWindow {
 
     Popup {
         id: openUrlPopup
-//        anchors.centerIn: Overlay.overlay
         width: 500
         x: 10
         y: 10

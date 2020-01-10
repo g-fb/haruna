@@ -10,6 +10,9 @@ Slider {
     property var chapters
     property bool seekStarted: false
 
+    from: 0
+    to: 99999
+
     background: Rectangle {
         id: progressBarBackground
         color: systemPalette.base
@@ -174,14 +177,15 @@ Slider {
                 return
             }
 
-            skipChaptersWords.split(",").map(word => {
-                if (chapters[mpv.chapter].title.toLowerCase().includes(word.trim())) {
-                    mpv.setProperty("time-pos", chapters[mpv.chapter+1].time)
+            var words = skipChaptersWords.split(",")
+            for (var i = 0; i < words.length; ++i) {
+                if (chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
+                    actions.seekNextChapterAction.trigger()
                     if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
                         osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
                     }
                 }
-            })
+            }
         }
     }
 }

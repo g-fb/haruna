@@ -32,6 +32,7 @@ MpvObject {
             footer.anchors.bottom = undefined
             anchors.fill = undefined
         }
+        app.showCursor()
     }
 
     function setPlayListScrollPosition() {
@@ -233,11 +234,11 @@ MpvObject {
 
         onWheel: {
             if (wheel.angleDelta.y > 0) {
-                if (settings.get("Mouse", "ScrollAction") !== "none") {
+                if (settings.get("Mouse", "ScrollUpAction") !== "none") {
                     actions.actions[settings.get("Mouse", "ScrollUpAction")].trigger()
                 }
             } else if (wheel.angleDelta.y) {
-                if (settings.get("Mouse", "ScrollAction") !== "none") {
+                if (settings.get("Mouse", "ScrollDownAction") !== "none") {
                     actions.actions[settings.get("Mouse", "ScrollDownAction")].trigger()
                 }
             }
@@ -264,7 +265,6 @@ MpvObject {
             if (mouse.button === Qt.LeftButton) {
                 toggleFullScreen()
                 scrollPositionTimer.start()
-                app.showCursor()
             }
         }
     }

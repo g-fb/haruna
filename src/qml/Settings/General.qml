@@ -59,7 +59,7 @@ Item {
                 to: 100
                 value: settings.get("General", "VolumeStep")
                 onValueChanged: {
-                    if (root.state === "visible") {
+                    if (root.visible) {
                         settings.set("General", "VolumeStep", volumeStep.value)
                     }
                 }
@@ -94,7 +94,7 @@ Item {
                 to: 100
                 value: settings.get("General", "SeekSmallStep")
                 onValueChanged: {
-                    if (root.state === "visible") {
+                    if (root.visible) {
                         settings.set("General", "SeekSmallStep", seekSmallStep.value)
                     }
                 }
@@ -118,7 +118,7 @@ Item {
                 to: 100
                 value: settings.get("General", "SeekMediumStep")
                 onValueChanged: {
-                    if (root.state === "visible") {
+                    if (root.visible) {
                         settings.set("General", "SeekMediumStep", seekMediumStep.value)
                     }
                 }
@@ -142,7 +142,7 @@ Item {
                 to: 100
                 value: settings.get("General", "SeekBigStep")
                 onValueChanged: {
-                    if (root.state === "visible") {
+                    if (root.visible) {
                         settings.set("General", "SeekBigStep", seekBigStep.value)
                     }
                 }
