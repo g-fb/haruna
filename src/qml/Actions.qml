@@ -171,9 +171,10 @@ Item {
 
     Action {
         id: openAction
-        text: qsTr("Open File")
-        icon.name: "folder-videos-symbolic"
-        shortcut: StandardKey.Open
+        property var qaction: app.action("openFile")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
 
         Component.onCompleted: actions["openAction"] = openAction
 

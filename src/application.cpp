@@ -111,6 +111,13 @@ void Application::setupActions(const QString &actionName)
         m_collection.addAction(actionName, action);
     }
 
+    if (actionName == QStringLiteral("openFile")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Open File"));
+        action->setIcon(QIcon::fromTheme("folder-videos-symbolic"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_O);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("openUrl")) {
         QAction *action = new QAction();
         action->setText(i18n("Open Url"));
