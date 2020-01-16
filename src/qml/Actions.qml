@@ -444,8 +444,10 @@ Item {
         Component.onCompleted: actions["quitApplicationAction"] = quitApplicationAction
 
         onTriggered: {
-            mpv.command(["quit-watch-later"])
-            qaction.trigger()
+            if (mpv.position < mpv.duration - 10) {
+                mpv.command(["quit-watch-later"])
+                qaction.trigger()
+            }
         }
     }
 

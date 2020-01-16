@@ -18,7 +18,12 @@ ApplicationWindow {
         mpv.command(["loadfile", path])
         mpv.setProperty("pause", !startPlayback)
         if (loadSiblings) {
+            // get video files from same folder as the opened file
             videoList.getVideos(path)
+        } else {
+            // clear playlist to prevent existing files in the playlist
+            // to be loaded when playback ends
+            playList.tableView.model = 0
         }
 
         settings.set("General", "LastPlayedFile", path)

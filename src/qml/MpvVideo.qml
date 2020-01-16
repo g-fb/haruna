@@ -98,6 +98,10 @@ MpvObject {
     onFileLoaded: {
         header.audioTracks = getProperty("track-list").filter(track => track["type"] === "audio")
         header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
+        if (playList.tableView.rows <= 1) {
+            setProperty("loop-file", "inf")
+            setProperty("pause", "no")
+        }
     }
 
     onDurationChanged: {
@@ -154,7 +158,9 @@ MpvObject {
         repeat: true
 
         onTriggered: {
-            command(["write-watch-later-config"])
+            if (mpv.position < mpv.duration - 10) {
+                command(["write-watch-later-config"])
+            }
         }
     }
 
