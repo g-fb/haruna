@@ -103,6 +103,14 @@ void Application::setupActions(const QString &actionName)
         m_collection.addAction(actionName, action);
     }
 
+    if (actionName == QStringLiteral("openContextMenu")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Open Context Menu"));
+        action->setIcon(QIcon::fromTheme("application-menu"));
+        m_collection.setDefaultShortcut(action, Qt::Key_Menu);
+        m_collection.addAction(actionName, action);
+    }
+
     if (actionName == QStringLiteral("fullscreen")) {
         QAction *action = new QAction();
         action->setText(i18n("Fullscreen"));

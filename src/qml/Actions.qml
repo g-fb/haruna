@@ -8,6 +8,7 @@ Item {
     property alias playPauseAction: playPauseAction
     property alias quitApplicationAction: quitApplicationAction
     property alias configureShortcutsAction: configureShortcutsAction
+    property alias openAction: openAction
     property alias openUrlAction: openUrlAction
 
     property alias seekForwardSmallAction: seekForwardSmallAction
@@ -26,7 +27,6 @@ Item {
     property alias increasePlayBackSpeedAction: increasePlayBackSpeedAction
     property alias decreasePlayBackSpeedAction: decreasePlayBackSpeedAction
     property alias resetPlayBackSpeedAction: resetPlayBackSpeedAction
-    property alias openAction: openAction
     property alias volumeUpAction: volumeUpAction
     property alias volumeDownAction: volumeDownAction
     property alias muteAction: muteAction
@@ -34,6 +34,7 @@ Item {
     property alias playPreviousAction: playPreviousAction
     property alias subtitleQuickenAction: subtitleQuickenAction
     property alias subtitleDelayAction: subtitleDelayAction
+    property alias subtitleToggleAction: subtitleToggleAction
 
     property alias contrastUpAction: contrastUpAction
     property alias contrastDownAction: contrastDownAction
@@ -43,6 +44,18 @@ Item {
     property alias gammaDownAction: gammaDownAction
     property alias saturationUpAction: saturationUpAction
     property alias saturationDownAction: saturationDownAction
+
+    Action {
+        id: openContextMenuAction
+        property var qaction: app.action("openContextMenu")
+        text: qaction.text
+        shortcut: qaction.shortcut
+        icon.name: app.iconName(qaction.icon)
+
+        Component.onCompleted: actions["openContextMenuAction"] = openContextMenuAction
+
+        onTriggered: mpvContextMenu.popup()
+    }
 
     Action {
         id: togglePlaylistAction
@@ -446,8 +459,8 @@ Item {
         onTriggered: {
             if (mpv.position < mpv.duration - 10) {
                 mpv.command(["quit-watch-later"])
-                qaction.trigger()
             }
+            qaction.trigger()
         }
     }
 
@@ -479,8 +492,8 @@ Item {
         Component.onCompleted: actions["subtitleQuickenAction"] = subtitleQuickenAction
 
         onTriggered: {
-            mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") + 0.1)
-            osd.message(`Subtitle timing (delay): ${mpv.getProperty("sub-delay").toFixed(2)}`)
+            mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") - 0.1)
+            osd.message(`Subtitle timing: ${mpv.getProperty("sub-delay").toFixed(2)}`)
         }
     }
 
@@ -494,8 +507,8 @@ Item {
         Component.onCompleted: actions["subtitleDelayAction"] = subtitleDelayAction
 
         onTriggered: {
-            mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") - 0.1)
-            osd.message(`Subtitle timing (quicken): ${mpv.getProperty("sub-delay").toFixed(2)}`)
+            mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") + 0.1)
+            osd.message(`Subtitle timing: ${mpv.getProperty("sub-delay").toFixed(2)}`)
         }
     }
 
