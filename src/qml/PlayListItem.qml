@@ -14,11 +14,11 @@ Item {
         anchors.fill: parent
         color: {
             if (model.isHovered && model.isPlaying) {
-                Qt.rgba(0.14, 0.15, 0.16, 0.9)
+                Qt.rgba(0.19, 0.21, 0.23, 1)
             } else if (model.isHovered && !model.isPlaying) {
-                Qt.rgba(0.14, 0.15, 0.16, 0.8)
+                Qt.rgba(0.19, 0.21, 0.23, 1)
             } else if (!model.isHovered && model.isPlaying) {
-                Qt.rgba(0.14, 0.5, 0.5, 0.5)
+                Qt.rgba(0.24, 0.68, 0.91, 1)
             } else {
                 Qt.rgba(0.14, 0.15, 0.16, 0.5)
             }
@@ -57,19 +57,21 @@ Item {
         hoverEnabled: true
 
         onEntered: {
+            playListModel.setHoveredVideo(row)
             if (column === 1 && label.truncated) {
                 toolTip.visible = true
             }
         }
 
         onExited: {
+            playListModel.clearHoveredVideo(row)
             toolTip.visible = false
         }
 
         onDoubleClicked: {
             if (mouse.button === Qt.LeftButton) {
                 window.openFile(model.path, true, false)
-                videoList.setPlayingVideo(row)
+                playListModel.setPlayingVideo(row)
             }
         }
     }

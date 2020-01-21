@@ -1,13 +1,13 @@
-#ifndef VIDEOITEM_H
-#define VIDEOITEM_H
+#ifndef PLAYLISTITEM_H
+#define PLAYLISTITEM_H
 
 #include <QObject>
 
-class VideoItem : public QObject
+class PlayListItem : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoItem(QObject *parent = nullptr);
+    explicit PlayListItem(QObject *parent = nullptr);
 
     QString filePath() const;
     void setFilePath(const QString &filePath);
@@ -44,4 +44,4 @@ private:
     int m_index;
 };
 
-#endif // VIDEOITEM_H
+#endif // PLAYLISTITEM_H

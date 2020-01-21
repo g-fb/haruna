@@ -33,7 +33,7 @@ Rectangle {
         columnWidthProvider: function (column) { return columnWidths[column] }
         delegate: PlayListItem {}
         rowSpacing: root.rowSpacing
-        model: videoListModel
+        model: playListModel
         z: 20
         ScrollBar.vertical: ScrollBar { id: scrollBar }
     }

@@ -1,17 +1,16 @@
-#ifndef VIDEOMODEL_H
-#define VIDEOMODEL_H
+#ifndef PLAYLISTMODEL_H
+#define PLAYLISTMODEL_H
 
 #include <QAbstractTableModel>
 
-class VideoList;
-class VideoItem;
+class PlayListItem;
 
-class VideoListModel : public QAbstractTableModel
+class PlayListModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    explicit VideoListModel(VideoList *videoList, QObject *parent = nullptr);
+    explicit PlayListModel(QObject *parent = nullptr);
 
     enum {
         DisplayRole = Qt::UserRole,
@@ -25,9 +24,22 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
-private:
-    VideoList *m_list;
 
+signals:
+    void videoAdded(int index, QString path);
+
+public slots:
+    QMap<int, PlayListItem *> items() const;
+    QString getPath(int i);
+    void getVideos(QString path);
+    void setPlayingVideo(int playingVideo);
+    void setHoveredVideo(int hoveredVideo);
+    void clearHoveredVideo(int hoveredVideo);
+    int getPlayingVideo() const;
+
+private:
+    QMap<int, PlayListItem*> m_playList;
+    int m_playingVideo = -1;
 };
 
-#endif // VIDEOMODEL_H
+#endif // PLAYLISTMODEL_H

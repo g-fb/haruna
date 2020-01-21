@@ -1,38 +1,34 @@
 #include "playlistmodel.h"
-#include "playlist.h"
 #include "playlistitem.h"
 #include "../_debug.h"
+#include <src/worker.h>
 
-VideoListModel::VideoListModel(VideoList *videoList, QObject *parent)
+#include <QCollator>
+#include <QDirIterator>
+#include <QFileInfo>
+#include <QMimeDatabase>
+#include <QUrl>
+
+PlayListModel::PlayListModel(QObject *parent)
     : QAbstractTableModel(parent)
-    , m_list(videoList)
 {
-    if (m_list) {
-        connect(m_list, &VideoList::preItemsAppended, [this](int numElements) {
-            const int start = m_list->items().size();
-            beginInsertRows(QModelIndex(), start, start + numElements - 1);
-        });
-
-        connect(m_list, &VideoList::postItemsAppended, [this]() {
-            endInsertRows();
-        });
-
-        connect(m_list, &VideoList::dataChanged, [this](int row, int col) {
-            dataChanged(index(row, col), index(row, col));
-        });
-
-    }
+    connect(this, &PlayListModel::videoAdded,
+            Worker::instance(), &Worker::getVideoDuration);
+    connect(Worker::instance(), &Worker::videoDuration, this, [ = ](int i, QString d) {
+        m_playList[i]->setDuration(d);
+        dataChanged(index(i, 2), index(i, 2));
+    });
 }
 
-int VideoListModel::rowCount(const QModelIndex &parent) const
+int PlayListModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
 
-    return m_list->items().size();
+    return m_playList.size();
 }
 
-int VideoListModel::columnCount(const QModelIndex &parent) const
+int PlayListModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -40,35 +36,35 @@ int VideoListModel::columnCount(const QModelIndex &parent) const
     return 3;
 }
 
-QVariant VideoListModel::data(const QModelIndex &index, int role) const
+QVariant PlayListModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || m_list == nullptr)
+    if (!index.isValid() || m_playList.isEmpty())
         return QVariant();
 
-    VideoItem *videoItem = m_list->items()[index.row()];
+    PlayListItem *playListItem = m_playList[index.row()];
     switch (role) {
     case DisplayRole:
         if (index.column() == 0) {
             return QVariant(index.row() + 1);
         } else if (index.column() == 1) {
-            return QVariant(videoItem->fileName());
+            return QVariant(playListItem->fileName());
         } else {
-            return QVariant(videoItem->duration());
+            return QVariant(playListItem->duration());
         }
     case PathRole:
-        return QVariant(videoItem->filePath());
+        return QVariant(playListItem->filePath());
     case HoverRole:
-        return QVariant(videoItem->isHovered());
+        return QVariant(playListItem->isHovered());
     case PlayingRole:
-        return QVariant(videoItem->isPlaying());
+        return QVariant(playListItem->isPlaying());
     case FolderPathRole:
-        return QVariant(videoItem->folderPath());
+        return QVariant(playListItem->folderPath());
     }
 
     return QVariant();
 }
 
-QHash<int, QByteArray> VideoListModel::roleNames() const
+QHash<int, QByteArray> PlayListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[DisplayRole] = "name";
@@ -77,4 +73,89 @@ QHash<int, QByteArray> VideoListModel::roleNames() const
     roles[HoverRole] = "isHovered";
     roles[PlayingRole] = "isPlaying";
     return roles;
+}
+
+
+void PlayListModel::getVideos(QString path)
+{
+    m_playList.clear();
+    m_playingVideo = -1;
+    path = QUrl(path).toLocalFile().isEmpty() ? path : QUrl(path).toLocalFile();
+    QFileInfo pathInfo(path);
+    QStringList videoFiles;
+    if (pathInfo.exists() && pathInfo.isFile()) {
+        QDirIterator *it = new QDirIterator(pathInfo.absolutePath(), QDir::Files, QDirIterator::NoIteratorFlags);
+        while (it->hasNext()) {
+            QString file = it->next();
+            QFileInfo fileInfo(file);
+            QMimeDatabase db;
+            QMimeType type = db.mimeTypeForFile(file);
+            if (fileInfo.exists() && type.name().startsWith("video/")) {
+                videoFiles.append(fileInfo.absoluteFilePath());
+            }
+        }
+    }
+    QCollator collator;
+    collator.setNumericMode(true);
+    std::sort(videoFiles.begin(), videoFiles.end(), collator);
+
+    beginInsertRows(QModelIndex(), 0, videoFiles.count());
+
+    for (int i = 0; i < videoFiles.count(); ++i) {
+        QFileInfo fileInfo(videoFiles.at(i));
+        auto video = new PlayListItem();
+        video->setFileName(fileInfo.fileName());
+        video->setIndex(i);
+        video->setFilePath(fileInfo.absoluteFilePath());
+        video->setFolderPath(fileInfo.absolutePath());
+        video->setIsHovered(false);
+        video->setIsPlaying(false);
+        m_playList.insert(i, video);
+        if (path == videoFiles.at(i)) {
+            setPlayingVideo(i);
+        }
+        emit videoAdded(i, video->filePath());
+    }
+
+    endInsertRows();
+}
+
+QMap<int, PlayListItem *> PlayListModel::items() const
+{
+    return m_playList;
+}
+
+int PlayListModel::getPlayingVideo() const
+{
+    return m_playingVideo;
+}
+
+QString PlayListModel::getPath(int i)
+{
+    return m_playList[i]->filePath();
+}
+
+void PlayListModel::setPlayingVideo(int playingVideo)
+{
+    if (m_playingVideo != -1) {
+        m_playList[m_playingVideo]->setIsPlaying(false);
+        emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 2));
+        m_playList[playingVideo]->setIsPlaying(true);
+        emit dataChanged(index(playingVideo, 0), index(playingVideo, 2));
+    } else {
+        m_playList[playingVideo]->setIsPlaying(true);
+    }
+    m_playingVideo = playingVideo;
+}
+
+void PlayListModel::setHoveredVideo(int hoveredVideo)
+{
+    m_playList[hoveredVideo]->setIsHovered(true);
+    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 2));
+}
+
+void PlayListModel::clearHoveredVideo(int hoveredVideo)
+{
+    m_playList[hoveredVideo]->setIsHovered(false);
+    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 2));
 }

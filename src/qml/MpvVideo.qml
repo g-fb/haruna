@@ -15,6 +15,7 @@ MpvObject {
         if (window.visibility !== Window.FullScreen) {
             hSettings.state = "hidden"
             window.showFullScreen()
+            menuBar.visible = false
             header.visible = false
             footer.visible = false
             footer.anchors.bottom = bottom
@@ -27,6 +28,7 @@ MpvObject {
                 window.show()
                 window.showMaximized()
             }
+            menuBar.visible = true
             header.visible = true
             footer.visible = true
             footer.anchors.bottom = undefined
@@ -36,16 +38,17 @@ MpvObject {
     }
 
     function setPlayListScrollPosition() {
-        if (playList.tableView.rows < 1) {
+        var tableViewRows = playList.tableView.rows
+        if (tableViewRows < 1) {
             return;
         }
         playList.tableView.contentY = 0
-        var currentItemIndex = videoList.getPlayingVideo()
+        var currentItemIndex = playListModel.getPlayingVideo()
         var currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
-        var itemsAfterCurrent = videoList.count() - currentItemIndex
+        var itemsAfterCurrent = tableViewRows - currentItemIndex
         // height of items bellow the current item
         var heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
-        var playlistHeight = ((videoList.count() * playList.rowHeight) + (videoList.count() * playList.rowSpacing))
+        var playlistHeight = ((tableViewRows * playList.rowHeight) + (tableViewRows * playList.rowSpacing))
         var isHidden = currentItemPosition > height
 
         if (isHidden) {
@@ -82,7 +85,6 @@ MpvObject {
         var preferredSubTrack = settings.get("Audio", "PreferredTrack")
         setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)
         setProperty("slang", settings.get("Subtitle", "PreferredLanguage"))
-
         setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
 
         footer.volume.value = settings.get("General", "Volume")
@@ -123,11 +125,11 @@ MpvObject {
     }
 
     onEndOfFile: {
-        var nextFileRow = videoList.getPlayingVideo() + 1
+        var nextFileRow = playListModel.getPlayingVideo() + 1
         if (nextFileRow < playList.tableView.rows) {
-            var nextFile = videoList.getPath(nextFileRow)
+            var nextFile = playListModel.getPath(nextFileRow)
             window.openFile(nextFile, true, false)
-            videoList.setPlayingVideo(nextFileRow)
+            playListModel.setPlayingVideo(nextFileRow)
         }
     }
 

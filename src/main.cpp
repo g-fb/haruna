@@ -4,7 +4,6 @@
 #include "mpvobject.h"
 #include "tracksmodel.h"
 #include "subtitlesfoldersmodel.h"
-#include "playlist/playlist.h"
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
 #include "settings.h"
@@ -95,14 +94,10 @@ int main(int argc, char *argv[])
         }
     }, Qt::QueuedConnection);
 
-    VideoList *videoList = new VideoList();
-    engine.rootContext()->setContextProperty("videoList", videoList);
-    qmlRegisterUncreatableType<VideoList>("VideoPlayList", 1, 0, "VideoList",
-                                          QStringLiteral("VideoList should not be created in QML"));
-    VideoListModel videoListModel(videoList);
-    engine.rootContext()->setContextProperty("videoListModel", &videoListModel);
-    qmlRegisterUncreatableType<VideoListModel>("VideoPlayList", 1, 0, "VideoListModel",
-                                               QStringLiteral("VideoListModel should not be created in QML"));
+    PlayListModel playListModel;
+    engine.rootContext()->setContextProperty("playListModel", &playListModel);
+    qmlRegisterUncreatableType<PlayListModel>("PlayListModel", 1, 0, "PlayListModel",
+                                               QStringLiteral("PlayListModel should not be created in QML"));
 
     engine.rootContext()->setContextProperty(QStringLiteral("app"), myApp.release());
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",

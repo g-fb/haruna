@@ -6,6 +6,7 @@ import QtGraphicalEffects 1.13
 import Qt.labs.platform 1.0 as PlatformDialog
 
 import mpv 1.0
+import "Menus"
 import "Settings"
 
 ApplicationWindow {
@@ -19,12 +20,11 @@ ApplicationWindow {
         mpv.setProperty("pause", !startPlayback)
         if (loadSiblings) {
             // get video files from same folder as the opened file
-            videoList.getVideos(path)
-        } else {
-            // clear playlist to prevent existing files in the playlist
-            // to be loaded when playback ends
-            playList.tableView.model = 0
+            playListModel.getVideos(path)
         }
+
+        // set window title
+        title = path.trim("/").split("/").pop()
 
         settings.set("General", "LastPlayedFile", path)
     }
@@ -41,6 +41,23 @@ ApplicationWindow {
     }
 
     header: Header { id: header }
+
+    menuBar: MenuBar {
+        hoverEnabled: true
+        FileMenu {}
+        PlaybackMenu {}
+        SubtitlesMenu {}
+        SettingsMenu {}
+    }
+
+    Menu {
+        id: mpvContextMenu
+
+        FileMenu {}
+        PlaybackMenu {}
+        SubtitlesMenu {}
+        SettingsMenu {}
+    }
 
     Actions { id: actions }
 
@@ -96,6 +113,9 @@ ApplicationWindow {
                         settings.set("General", "LastUrl", openUrlTextField.text)
                         openUrlPopup.close()
                         openUrlTextField.clear()
+                        // clear playlist to prevent existing files in the playlist
+                        // to be loaded when playback ends
+                        playList.tableView.model = 0
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -111,6 +131,7 @@ ApplicationWindow {
                     settings.set("General", "LastUrl", openUrlTextField.text)
                     openUrlPopup.close()
                     openUrlTextField.clear()
+                    playList.tableView.model = 0
                 }
             }
         }

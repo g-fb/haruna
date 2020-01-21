@@ -1,77 +1,77 @@
 #include "../_debug.h"
 #include "playlistitem.h"
 
-VideoItem::VideoItem(QObject *parent) : QObject(parent)
+PlayListItem::PlayListItem(QObject *parent) : QObject(parent)
 {
 
 }
 
-QString VideoItem::filePath() const
+QString PlayListItem::filePath() const
 {
     return m_filePath;
 }
 
-void VideoItem::setFilePath(const QString &filePath)
+void PlayListItem::setFilePath(const QString &filePath)
 {
     m_filePath = filePath;
 }
 
-QString VideoItem::fileName() const
+QString PlayListItem::fileName() const
 {
     return m_fileName;
 }
 
-void VideoItem::setFileName(const QString &fileName)
+void PlayListItem::setFileName(const QString &fileName)
 {
     m_fileName = fileName;
 }
 
-QString VideoItem::folderPath() const
+QString PlayListItem::folderPath() const
 {
     return m_folderPath;
 }
 
-void VideoItem::setFolderPath(const QString &folderPath)
+void PlayListItem::setFolderPath(const QString &folderPath)
 {
     m_folderPath = folderPath;
 }
 
-QString VideoItem::duration() const
+QString PlayListItem::duration() const
 {
     return m_duration;
 }
 
-void VideoItem::setDuration(const QString &duration)
+void PlayListItem::setDuration(const QString &duration)
 {
     m_duration = duration;
 }
 
-bool VideoItem::isHovered() const
+bool PlayListItem::isHovered() const
 {
     return m_isHovered;
 }
 
-void VideoItem::setIsHovered(bool isHovered)
+void PlayListItem::setIsHovered(bool isHovered)
 {
     m_isHovered = isHovered;
 }
 
-bool VideoItem::isPlaying() const
+bool PlayListItem::isPlaying() const
 {
     return m_isPlaying;
 }
 
-void VideoItem::setIsPlaying(bool isPlaying)
+void PlayListItem::setIsPlaying(bool isPlaying)
 {
     m_isPlaying = isPlaying;
 }
 
-int VideoItem::index() const
+int PlayListItem::index() const
 {
     return m_index;
 }
 
-void VideoItem::setIndex(int index)
+void PlayListItem::setIndex(int index)
 {
     m_index = index;
 }

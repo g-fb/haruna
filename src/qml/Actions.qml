@@ -5,11 +5,11 @@ Item {
     id: root
     property var actions: {"": ""}
     property alias configureAction: configureAction
-    property alias playPauseAction: playPauseAction
-    property alias quitApplicationAction: quitApplicationAction
     property alias configureShortcutsAction: configureShortcutsAction
     property alias openAction: openAction
     property alias openUrlAction: openUrlAction
+    property alias playPauseAction: playPauseAction
+    property alias quitApplicationAction: quitApplicationAction
 
     property alias seekForwardSmallAction: seekForwardSmallAction
     property alias seekBackwardSmallAction: seekBackwardSmallAction
@@ -154,11 +154,11 @@ Item {
         Component.onCompleted: actions["playNextAction"] = playNextAction
 
         onTriggered: {
-            var nextFileRow = videoList.getPlayingVideo() + 1
+            var nextFileRow = playListModel.getPlayingVideo() + 1
             if (nextFileRow < playList.tableView.rows) {
-                var nextFile = videoList.getPath(nextFileRow)
+                var nextFile = playListModel.getPath(nextFileRow)
                 window.openFile(nextFile, true, false)
-                videoList.setPlayingVideo(nextFileRow)
+                playListModel.setPlayingVideo(nextFileRow)
             }
         }
     }
@@ -173,11 +173,11 @@ Item {
         Component.onCompleted: actions["playPreviousAction"] = playPreviousAction
 
         onTriggered: {
-            if (videoList.getPlayingVideo() !== 0) {
-                var previousFileRow = videoList.getPlayingVideo() - 1
-                var previousFile = videoList.getPath(previousFileRow)
+            if (playListModel.getPlayingVideo() !== 0) {
+                var previousFileRow = playListModel.getPlayingVideo() - 1
+                var previousFile = playListModel.getPath(previousFileRow)
                 window.openFile(previousFile, true, false)
-                videoList.setPlayingVideo(previousFileRow)
+                playListModel.setPlayingVideo(previousFileRow)
             }
         }
     }
