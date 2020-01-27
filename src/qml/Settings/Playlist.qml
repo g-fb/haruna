@@ -23,7 +23,7 @@ Item {
         }
         RowLayout {
             Label {
-                text: "Playlist Position"
+                text: qsTr("Playlist Position")
             }
             ComboBox {
                 textRole: "key"
@@ -51,7 +51,7 @@ Item {
         RowLayout {
 
             Label {
-                text: "Playlist Row Height"
+                text: qsTr("Playlist Row Height")
             }
 
             SpinBox {
@@ -70,7 +70,7 @@ Item {
         RowLayout {
 
             Label {
-                text: "Playlist Row Spacing"
+                text: qsTr("Playlist Row Spacing")
             }
 
             SpinBox {

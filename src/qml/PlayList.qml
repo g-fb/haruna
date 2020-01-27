@@ -25,7 +25,7 @@ Rectangle {
     TableView {
         id: tableView
 
-        property var columnWidths: [50, parent.width - 150, 110]
+        property var columnWidths: [parent.width * 0.1, parent.width * 0.7, parent.width * 0.2]
 
         anchors.fill: parent
         clip: true

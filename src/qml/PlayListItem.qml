@@ -1,5 +1,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
+import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
 import QtGraphicalEffects 1.13
 
@@ -8,7 +9,7 @@ Item {
 
     property string path: model.path
 
-    implicitHeight: playList.rowHeight
+    implicitHeight: playList.rowHeight + label.font.pixelSize / 2
 
     Rectangle {
         anchors.fill: parent
@@ -26,21 +27,24 @@ Item {
 
         Label {
             id: label
-            anchors.centerIn: {if (column === 0) {parent} else {undefined}}
-            anchors.left: {if (column === 1) {parent.left} else {undefined}}
-            anchors.right: {if (column === 2) {parent.right} else {undefined}}
-            anchors.verticalCenter: parent.verticalCenter
+
+            anchors.fill: parent
+            horizontalAlignment: column === 1 ? Qt.AlignLeft : Qt.AlignCenter
             elide: Text.ElideRight
             font.bold: true
-            font.pointSize: 12
+            font.pointSize: {
+                if (window.visibility === Window.FullScreen) {
+                    return 18
+                }
+                return 12
+            }
             layer.enabled: true
             color: "#fff"
             layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
             leftPadding: 10
-            rightPadding: column === 2 ? 20 + scrollBar.width : 10
+            rightPadding: column === 2 ? scrollBar.width : 10
 
             text: model.name
-            width: {if (column === 1) {tableView.columnWidths[column]}}
 
             ToolTip {
                 id: toolTip
