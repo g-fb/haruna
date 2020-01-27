@@ -12,7 +12,8 @@ class TracksModel : public QAbstractListModel
 public:
     explicit TracksModel(QObject *parent = nullptr);
     enum {
-        LanguageRole = Qt::UserRole,
+        TextRole = Qt::UserRole,
+        LanguageRole,
         TitleRole,
         IDRole,
         SelectedRole,

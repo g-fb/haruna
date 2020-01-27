@@ -21,6 +21,8 @@ QVariant TracksModel::data(const QModelIndex &index, int role) const
     Track *track = m_tracks[index.row()];
 
     switch (role) {
+    case TextRole:
+        return QVariant(track->text());
     case LanguageRole:
         return QVariant(track->lang());
     case TitleRole:
@@ -39,6 +41,7 @@ QVariant TracksModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> TracksModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
+    roles[TextRole] = "text";
     roles[LanguageRole] = "language";
     roles[TitleRole] = "title";
     roles[IDRole] = "id";

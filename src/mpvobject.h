@@ -14,16 +14,16 @@ class TracksModel;
 class MpvObject : public QQuickFramebufferObject
 {
     Q_OBJECT
-    Q_PROPERTY(double position MEMBER m_position NOTIFY onPositionChanged)
-    Q_PROPERTY(double duration MEMBER m_duration NOTIFY onDurationChanged)
-    Q_PROPERTY(double remaining MEMBER m_remaining NOTIFY onRemainingChanged)
-    Q_PROPERTY(double volume MEMBER m_volume NOTIFY onVolumeChanged)
-    Q_PROPERTY(bool pause MEMBER m_pause NOTIFY onPauseChanged)
-    Q_PROPERTY(int contrast MEMBER m_contrast NOTIFY onContrastChanged)
-    Q_PROPERTY(int brightness MEMBER m_brightness NOTIFY onBrightnessChanged)
-    Q_PROPERTY(int gamma MEMBER m_gamma NOTIFY onGammaChanged)
-    Q_PROPERTY(int saturation MEMBER m_saturation NOTIFY onSaturationChanged)
-    Q_PROPERTY(int chapter MEMBER m_chapter NOTIFY onChapterChanged)
+    Q_PROPERTY(double position  MEMBER m_position   NOTIFY onPositionChanged)
+    Q_PROPERTY(double duration  MEMBER m_duration   NOTIFY onDurationChanged)
+    Q_PROPERTY(double remaining MEMBER m_remaining  NOTIFY onRemainingChanged)
+    Q_PROPERTY(double volume    MEMBER m_volume     NOTIFY onVolumeChanged)
+    Q_PROPERTY(bool pause       MEMBER m_pause      NOTIFY onPauseChanged)
+    Q_PROPERTY(int contrast     MEMBER m_contrast   NOTIFY onContrastChanged)
+    Q_PROPERTY(int brightness   MEMBER m_brightness NOTIFY onBrightnessChanged)
+    Q_PROPERTY(int gamma        MEMBER m_gamma      NOTIFY onGammaChanged)
+    Q_PROPERTY(int saturation   MEMBER m_saturation NOTIFY onSaturationChanged)
+    Q_PROPERTY(int chapter      MEMBER m_chapter    NOTIFY onChapterChanged)
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;

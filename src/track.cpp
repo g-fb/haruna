@@ -134,3 +134,18 @@ void Track::setIndex(int index)
 {
     m_index = index;
 }
+
+QString Track::text()
+{
+    QString text;
+    if (!m_title.isEmpty()) {
+        text += m_title + " ";
+    }
+    if (!m_lang.isEmpty()) {
+        text += m_lang + " ";
+    }
+    if (!m_codec.isEmpty()) {
+        text += m_codec;
+    }
+    return text;
+}

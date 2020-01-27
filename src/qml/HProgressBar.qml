@@ -1,7 +1,7 @@
+import QtQml 2.13
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQml 2.13
 import QtQuick.Shapes 1.13
 
 Slider {
@@ -184,6 +184,9 @@ Slider {
                     if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
                         osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
                     }
+                    // a chapter title can match multiple words
+                    // return to prevent skipping multiple chapters
+                    return
                 }
             }
         }

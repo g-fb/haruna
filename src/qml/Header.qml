@@ -54,12 +54,10 @@ ToolBar {
                 text: qsTr("Subtitles")
 
                 onClicked: {
-                    if (subtitleMenu.isOpen) {
+                    if (subtitleMenu.visible) {
                         subtitleMenu.close()
-                        subtitleMenu.isOpen = false
                     } else {
                         subtitleMenu.open()
-                        subtitleMenu.isOpen = true
                     }
 
                     subtitleMenuInstantiator.model = mpv.subtitleTracksModel()
@@ -67,10 +65,8 @@ ToolBar {
 
                 Menu {
                     id: subtitleMenu
-                    property bool isOpen: false
+
                     y: parent.height
-                    onOpened: isOpen = true
-                    onClosed: isOpen = false
 
                     Instantiator {
                         id: subtitleMenuInstantiator
@@ -81,7 +77,7 @@ ToolBar {
                             id: subtitleMenuItem
                             checkable: true
                             checked: model.selected
-                            text: `${model.language}: ${model.title} ${model.codec}`
+                            text: model.text
                             onTriggered: {
                                 mpv.setSubtitle(model.id)
                                 mpv.subtitleTracksModel().updateSelectedTrack(model.index)
@@ -96,12 +92,10 @@ ToolBar {
                 text: qsTr("Audio")
 
                 onClicked: {
-                    if (audioMenu.isOpen) {
+                    if (audioMenu.visible) {
                         audioMenu.close()
-                        audioMenu.isOpen = false
                     } else {
                         audioMenu.open()
-                        audioMenu.isOpen = true
                     }
 
                     audioMenuInstantiator.model = mpv.audioTracksModel()
@@ -109,10 +103,8 @@ ToolBar {
 
                 Menu {
                     id: audioMenu
-                    property bool isOpen: false
+
                     y: parent.height
-                    onOpened: isOpen = true
-                    onClosed: isOpen = false
 
                     Instantiator {
                         id: audioMenuInstantiator
@@ -123,7 +115,7 @@ ToolBar {
                             id: audioMenuItem
                             checkable: true
                             checked: model.selected
-                            text: `${model.language}: ${model.title} ${model.codec}`
+                            text: model.text
                             onTriggered: {
                                 mpv.setAudio(model.id)
                                 mpv.audioTracksModel().updateSelectedTrack(model.index)

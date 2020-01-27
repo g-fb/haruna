@@ -48,6 +48,8 @@ public:
     int index() const;
     void setIndex(int index);
 
+    QString text();
+
 signals:
 
 public slots:
