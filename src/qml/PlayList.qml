@@ -12,6 +12,7 @@ Rectangle {
     property string position: settings.get("Playlist", "Position")
     property int rowHeight: settings.get("Playlist", "RowHeight")
     property int rowSpacing: settings.get("Playlist", "RowSpacing")
+    property int bigFont: settings.get("Playlist", "BigFontFullscreen")
 
     height: mpv.height
     width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33

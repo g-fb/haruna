@@ -27,6 +27,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"Position",              QVariant(QStringLiteral("right"))},
         {"RowHeight",             QVariant(50)},
         {"RowSpacing",            QVariant(1)},
+        {"BigFontFullscreen",     QVariant(true)},
         // playback
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},

@@ -85,5 +85,15 @@ Item {
 
         }
 
+        CheckBox {
+            text: qsTr("Increase font size when fullscreen")
+            checked: settings.get("Playlist", "BigFontFullscreen")
+            onCheckStateChanged: {
+                settings.set("Playlist", "BigFontFullscreen", checked)
+                playList.bigFont = checked
+                playList.tableView.forceLayout()
+            }
+        }
+
     }
 }

@@ -33,7 +33,7 @@ Item {
             elide: Text.ElideRight
             font.bold: true
             font.pointSize: {
-                if (window.visibility === Window.FullScreen) {
+                if (window.visibility === Window.FullScreen && playList.bigFont) {
                     return 18
                 }
                 return 12

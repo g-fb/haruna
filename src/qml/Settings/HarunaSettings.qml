@@ -11,6 +11,7 @@ Pane {
     height: mpv.height
     padding: 10
     state: "hidden"
+    hoverEnabled: true
 
     RowLayout {
         anchors.fill: parent
