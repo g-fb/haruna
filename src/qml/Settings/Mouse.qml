@@ -89,7 +89,7 @@ Item {
                         ListElement { key: "None"; value: "none" }
                         ListElement { key: "Play/Pause"; value: "playPauseAction" }
                         ListElement { key: "Mute/Unmute"; value: "muteAction" }
-                        ListElement { key: "Open context menu"; value: "none" }
+                        ListElement { key: "Open context menu"; value: "openContextMenuAction" }
                     }
                     Component.onCompleted: {
                         for (var i = 0; i < model.count; ++i) {
@@ -135,7 +135,8 @@ Item {
                         ListElement { key: "None"; value: "none" }
                         ListElement { key: "Play/Pause"; value: "playPauseAction" }
                         ListElement { key: "Mute/Unmute"; value: "muteAction" }
-                        ListElement { key: "Open context menu"; value: "none" }
+                        ListElement { key: "Open context menu"; value: "openContextMenuAction" }
+                        ListElement { key: "Toggle fullscreen"; value: "fullscreenAction" }
                     }
                     Component.onCompleted: {
                         for (var i = 0; i < model.count; ++i) {
