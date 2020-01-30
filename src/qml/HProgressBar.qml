@@ -169,26 +169,7 @@ Slider {
         target: mpv
         onFileLoaded: chapters = mpv.getProperty("chapter-list")
         onChapterChanged: {
-            chaptersMenu.checkedItem = mpv.chapter
-
-            var chapters = mpv.getProperty("chapter-list")
-            var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
-            if (chapters.length === 0 || skipChaptersWords === "") {
-                return
-            }
-
-            var words = skipChaptersWords.split(",")
-            for (var i = 0; i < words.length; ++i) {
-                if (chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
-                    actions.seekNextChapterAction.trigger()
-                    if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
-                        osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
-                    }
-                    // a chapter title can match multiple words
-                    // return to prevent skipping multiple chapters
-                    return
-                }
-            }
+                chaptersMenu.checkedItem = mpv.chapter
         }
     }
 }

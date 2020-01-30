@@ -25,6 +25,6 @@ void LockManager::setInhibitionOff()
 void LockManager::setInhibitionOn()
 {
     m_cookie = m_iface->Inhibit(
-                QStringLiteral("org.kde.itinerary"),
+                QStringLiteral("Haruna Video Player"),
                 i18n("Playing video."));
 }

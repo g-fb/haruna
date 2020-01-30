@@ -124,6 +124,27 @@ MpvObject {
         footer.timeInfo.remainingTime = formatTime(remaining)
     }
 
+    onChapterChanged: {
+        var chapters = mpv.getProperty("chapter-list")
+        var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
+        if (chapters.length === 0 || skipChaptersWords === "") {
+            return
+        }
+
+        var words = skipChaptersWords.split(",")
+        for (var i = 0; i < words.length; ++i) {
+            if (chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
+                actions.seekNextChapterAction.trigger()
+                if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
+                    osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
+                }
+                // a chapter title can match multiple words
+                // return to prevent skipping multiple chapters
+                return
+            }
+        }
+    }
+
     onEndOfFile: {
         var nextFileRow = playListModel.getPlayingVideo() + 1
         if (nextFileRow < playList.tableView.rows) {
