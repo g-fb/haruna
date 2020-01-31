@@ -45,6 +45,10 @@ Item {
     property alias saturationUpAction: saturationUpAction
     property alias saturationDownAction: saturationDownAction
 
+    property alias toggleMenuBarAction: toggleMenuBarAction
+    property alias toggleHeaderAction: toggleHeaderAction
+
+
     Action {
         id: openContextMenuAction
         property var qaction: app.action("openContextMenu")
@@ -840,6 +844,7 @@ Item {
 
         onTriggered: {
             menuBar.visible = !menuBar.visible
+            settings.set("View", "MenuBarVisible", menuBar.visible)
         }
     }
 
@@ -854,6 +859,7 @@ Item {
 
         onTriggered: {
             header.visible = !header.visible
+            settings.set("View", "HeaderVisible", header.visible)
         }
     }
 }

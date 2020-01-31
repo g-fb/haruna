@@ -5,16 +5,21 @@ import QtQml 2.13
 
 ToolBar {
     id: root
+
     property var audioTracks
     property var subtitleTracks
+
     position: ToolBar.Header
+    visible: settings.get("View", "HeaderVisible")
 
     RowLayout {
         id: headerRow
+
         width: parent.width
 
         RowLayout {
             id: headerRowLeft
+
             Layout.alignment: Qt.AlignLeft
 
             ToolButton {
@@ -70,6 +75,7 @@ ToolBar {
 
                     Instantiator {
                         id: subtitleMenuInstantiator
+
                         model: 0
                         onObjectAdded: subtitleMenu.insertItem( index, object )
                         onObjectRemoved: subtitleMenu.removeItem( object )
@@ -108,6 +114,7 @@ ToolBar {
 
                     Instantiator {
                         id: audioMenuInstantiator
+
                         model: 0
                         onObjectAdded: audioMenu.insertItem( index, object )
                         onObjectRemoved: audioMenu.removeItem( object )
@@ -128,6 +135,7 @@ ToolBar {
 
         RowLayout {
             id: headerRowRight
+
             Layout.alignment: Qt.AlignRight
 
             ToolButton {

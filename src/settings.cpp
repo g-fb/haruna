@@ -37,6 +37,9 @@ Settings::Settings(QObject *parent) : QObject(parent)
         // subtitle
         {"PreferredLanguage",     QVariant(QStringLiteral())},
         {"PreferredTrack",        QVariant(0)},
+        // view
+        {"MenuBarVisible",        QVariant(true)},
+        {"HeaderVisible",         QVariant(true)},
     };
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
 }

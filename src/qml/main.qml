@@ -44,7 +44,10 @@ ApplicationWindow {
 
     menuBar: MenuBar {
         hoverEnabled: true
+        visible: settings.get("View", "MenuBarVisible")
+
         FileMenu {}
+        ViewMenu {}
         PlaybackMenu {}
         SubtitlesMenu {}
         AudioMenu {}
@@ -55,6 +58,7 @@ ApplicationWindow {
         id: mpvContextMenu
 
         FileMenu {}
+        ViewMenu {}
         PlaybackMenu {}
         SubtitlesMenu {}
         AudioMenu {}
