@@ -24,5 +24,6 @@
         <file>qml/Menus/PlaybackMenu.qml</file>
         <file>qml/Menus/SubtitlesMenu.qml</file>
         <file>qml/Menus/SettingsMenu.qml</file>
+        <file>qml/Menus/AudioMenu.qml</file>
     </qresource>
 </RCC>

@@ -47,6 +47,7 @@ ApplicationWindow {
         FileMenu {}
         PlaybackMenu {}
         SubtitlesMenu {}
+        AudioMenu {}
         SettingsMenu {}
     }
 
@@ -56,6 +57,7 @@ ApplicationWindow {
         FileMenu {}
         PlaybackMenu {}
         SubtitlesMenu {}
+        AudioMenu {}
         SettingsMenu {}
     }
 
