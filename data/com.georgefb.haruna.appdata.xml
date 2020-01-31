@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 George Florea Bănuș -->
+<component type="desktop-application">
+    <name>Haruna Video Player</name>
+    <id>com.georgefb.haruna</id>
+    <launchable type="desktop-id">com.georgefb.haruna.desktop</launchable>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0+</project_license>
+    <url type="homepage">https://github.com/g-fb/haruna</url>
+    <summary>A Qt/QML video player built on top of libmpv.</summary>
+    <description>
+        <p>A Qt/QML video player built on top of libmpv.</p>
+    </description>
+    <releases>
+        <release version="0.1.0" date="2020-02-01">
+            <description>
+                <p>First release.</p>
+            </description>
+        </release>
+    </releases>
+    <screenshots>
+        <screenshot type="default">
+            <caption>Haruna</caption>
+            <image>https://s.put.re/ffGQUDe5.png</image>
+        </screenshot>
+    </screenshots>
+    <content_rating type="oars-1.0" />
+</component>

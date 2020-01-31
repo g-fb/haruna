@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Haruna Video Player
+Exec=haruna
+Icon=video-x-matroska
+Type=Application
+Categories=Qt;KDE;Multimedia;
+Terminal=false
