@@ -828,4 +828,32 @@ Item {
             mpv.toggleFullScreen()
         }
     }
+
+    Action {
+        id: toggleMenuBarAction
+        property var qaction: app.action("toggleMenuBar")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["toggleMenuBarAction"] = toggleMenuBarAction
+
+        onTriggered: {
+            menuBar.visible = !menuBar.visible
+        }
+    }
+
+    Action {
+        id: toggleHeaderAction
+        property var qaction: app.action("toggleHeader")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: actions["toggleHeaderAction"] = toggleHeaderAction
+
+        onTriggered: {
+            header.visible = !header.visible
+        }
+    }
 }

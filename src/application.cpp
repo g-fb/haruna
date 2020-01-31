@@ -418,5 +418,17 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::ALT + Qt::Key_Down);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("toggleMenuBar")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Toggle Menu Bar"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_M);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("toggleHeader")) {
+        QAction *action = new QAction();
+        action->setText(i18n("Toggle Header"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_H);
+        m_collection.addAction(actionName, action);
+    }
     m_collection.readSettings(m_shortcuts);
 }
