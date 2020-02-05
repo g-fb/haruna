@@ -106,24 +106,6 @@ MpvObject {
         }
     }
 
-    onDurationChanged: {
-        footer.progressBar.from = 0;
-        footer.progressBar.to = duration
-
-        footer.timeInfo.totalTime = formatTime(duration)
-    }
-
-    onPositionChanged: {
-        if (!footer.progressBar.seekStarted) {
-            footer.progressBar.value = position
-        }
-        footer.timeInfo.currentTime = formatTime(position)
-    }
-
-    onRemainingChanged: {
-        footer.timeInfo.remainingTime = formatTime(remaining)
-    }
-
     onChapterChanged: {
         var chapters = mpv.getProperty("chapter-list")
         var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")

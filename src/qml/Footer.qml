@@ -22,6 +22,20 @@ ToolBar {
         anchors.fill: parent
 
         ToolButton {
+            icon.name: "application-menu"
+            visible: !menuBar.visible
+            onClicked: {
+                if (mpvContextMenu.visible) {
+                    return
+                }
+
+                mpvContextMenu.visible = !mpvContextMenu.visible
+                var menuHeight = mpvContextMenu.count * mpvContextMenu.itemAt(0).height
+                mpvContextMenu.popup(mpv, 0, mpv.height - menuHeight)
+            }
+        }
+
+        ToolButton {
             id: playPauseButton
             action: actions.playPauseAction
             text: ""
@@ -62,6 +76,11 @@ ToolBar {
             }
         }
 
+        HProgressBar {
+            id: progressBar
+            Layout.fillWidth: true
+        }
+
         Label {
             id: timeInfo
             property string totalTime
@@ -84,11 +103,19 @@ ToolBar {
                 onEntered: timeToolTip.visible = true
                 onExited: timeToolTip.visible = false
             }
-        }
 
-        HProgressBar {
-            id: progressBar
-            Layout.fillWidth: true
+            Connections {
+                target: mpv
+                onDurationChanged: {
+                    timeInfo.totalTime = mpv.formatTime(mpv.duration)
+                }
+                onPositionChanged: {
+                    timeInfo.currentTime = mpv.formatTime(mpv.position)
+                }
+                onRemainingChanged: {
+                    timeInfo.remainingTime = mpv.formatTime(mpv.remaining)
+                }
+            }
         }
 
         ToolButton {
