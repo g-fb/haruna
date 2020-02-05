@@ -11,6 +11,7 @@
 #include <QQuickView>
 #include <QDateTime>
 #include <QStandardPaths>
+#include <QDir>
 
 #include "mpvobject.h"
 #include "track.h"
@@ -107,8 +108,15 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "saturation", MPV_FORMAT_INT64);
-    setProperty("watch-later-directory", QStandardPaths::writableLocation(QStandardPaths::ConfigLocation).append("/georgefb/watch-later"));
     setProperty("sub-auto", "exact");
+
+    QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    QString watchLaterPath = configPath.append("/georgefb/watch-later");
+    setProperty("watch-later-directory", watchLaterPath);
+    QDir watchLaterDir(watchLaterPath);
+    if (!watchLaterDir.exists()) {
+        QDir().mkdir(watchLaterPath);
+    }
 
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("could not initialize mpv context");
