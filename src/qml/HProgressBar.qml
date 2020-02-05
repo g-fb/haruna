@@ -143,6 +143,24 @@ Slider {
         width: 0
         modal: true
 
+        MenuSeparator {}
+
+        MenuItem {
+            id: skipChaptersMenuItem
+            text: qsTr("Skip Chapters")
+            checkable: true
+            checked: settings.get("Playback", "SkipChapters")
+            onCheckedChanged: {
+                settings.set("Playback", "SkipChapters", checked)
+                hSettings.skipChaptersChanged(checked)
+            }
+
+            Connections {
+                target: hSettings
+                onSkipChaptersChanged: skipChaptersMenuItem.checked = checked
+            }
+        }
+
         Instantiator {
             model: root.chapters
             delegate: MenuItem {

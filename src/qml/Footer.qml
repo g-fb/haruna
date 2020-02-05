@@ -31,7 +31,7 @@ ToolBar {
 
                 mpvContextMenu.visible = !mpvContextMenu.visible
                 var menuHeight = mpvContextMenu.count * mpvContextMenu.itemAt(0).height
-                mpvContextMenu.popup(mpv, 0, mpv.height - menuHeight)
+                mpvContextMenu.popup(footer, 0, -menuHeight)
             }
         }
 

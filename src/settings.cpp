@@ -31,6 +31,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         // playback
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},
+        {"SkipChapters",          QVariant(false)},
         // audio
         {"PreferredLanguage",     QVariant(QStringLiteral())},
         {"PreferredTrack",        QVariant(0)},

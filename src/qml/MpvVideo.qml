@@ -107,6 +107,10 @@ MpvObject {
     }
 
     onChapterChanged: {
+        if (!settings.get("Playback", "SkipChapters")) {
+            return
+        }
+
         var chapters = mpv.getProperty("chapter-list")
         var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
         if (chapters.length === 0 || skipChaptersWords === "") {

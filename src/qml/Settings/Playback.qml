@@ -17,12 +17,29 @@ Item {
 
         ColumnLayout {
 
+            CheckBox {
+                id: skipChaptersCheckBox
+                text: qsTr("Skip chapters")
+                checked: settings.get("Playback", "SkipChapters")
+                onCheckedChanged: {
+                    settings.set("Playback", "SkipChapters", checked)
+                    hSettings.skipChaptersChanged(checked)
+                }
+
+                Connections {
+                    target: hSettings
+                    onSkipChaptersChanged: skipChaptersCheckBox.checked = checked
+                }
+            }
+
             Label {
-                text: "Skip chapters containing the following words"
+                text: qsTr("Skip chapters containing the following words")
+                enabled: skipChaptersCheckBox.checked
             }
 
             TextField {
                 text: settings.get("Playback", "SkipChaptersWordList")
+                enabled: skipChaptersCheckBox.checked
                 Layout.fillWidth: true
                 onEditingFinished: {
                     settings.set("Playback", "SkipChaptersWordList", text)
@@ -30,13 +47,13 @@ Item {
             }
 
             CheckBox {
-                text: "Show an osd message when skipping chapters"
+                text: qsTr("Show an osd message when skipping chapters")
+                enabled: skipChaptersCheckBox.checked
                 checked: settings.get("Playback", "ShowOsdOnSkipChapters")
                 onCheckedChanged: {
                     settings.set("Playback", "ShowOsdOnSkipChapters", checked)
                 }
             }
-
         }
 
     }

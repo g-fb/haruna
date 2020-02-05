@@ -6,6 +6,8 @@ import QtGraphicalEffects 1.13
 Pane {
     id: root
 
+    signal skipChaptersChanged(bool checked)
+
     x: -width; y: 0; z: 50
     width: 600
     height: mpv.height
