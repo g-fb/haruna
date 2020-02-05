@@ -176,7 +176,7 @@ Slider {
                     chaptersMenu.menuItemHeight = height
                 }
                 onClicked: {
-                    mpv.setProperty("time-pos", modelData.time + 0.1)
+                    mpv.setProperty("chapter", index)
                 }
             }
             onObjectAdded: chaptersMenu.insertItem(index, object)

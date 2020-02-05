@@ -16,6 +16,7 @@ ToolBar {
     y: mpv.height
     padding: 5
     position: ToolBar.Footer
+    hoverEnabled: true
 
     RowLayout {
         id: footerRow
