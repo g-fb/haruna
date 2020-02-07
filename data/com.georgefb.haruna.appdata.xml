@@ -1,5 +1,10 @@
+<!--
+ SPDX-FileCopyrightText: 2020 George Florea Bănuș <georgefb899@gmail.com>
+
+ SPDX-License-Identifier: GPL-3.0-or-later
+ -->
+
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright 2019 George Florea Bănuș -->
 <component type="desktop-application">
     <name>Haruna Video Player</name>
     <id>com.georgefb.haruna</id>
