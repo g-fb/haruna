@@ -50,7 +50,7 @@ Slider {
                     const nextChapterTime = chapters.find(chapter => chapter.time > time )
                     mpv.setProperty("time-pos", mpv.formatTime(nextChapterTime.time))
                 }
-                if (mouse.button === Qt.RightButton && chaptersMenu.count > 0) {
+                if (mouse.button === Qt.RightButton && root.chapters.length > 0) {
                     chaptersMenu.popup(mouse.x-chaptersMenu.width * 0.5, -(chaptersMenu.count * chaptersMenu.menuItemHeight + 15))
                 }
             }
