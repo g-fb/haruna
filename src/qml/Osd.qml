@@ -14,8 +14,8 @@ Item {
 
     Label {
         id: label
-        x: mpv.x + 10
-        y: mpv.y + 10
+        x: 10
+        y: 10
         visible: false
         background: Rectangle {
             color: systemPalette.base

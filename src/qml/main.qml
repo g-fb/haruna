@@ -65,13 +65,15 @@ ApplicationWindow {
 
     HarunaSettings { id: hSettings }
 
-    MpvVideo { id: mpv }
+    MpvVideo {
+        id: mpv
+
+        Osd { id: osd }
+    }
 
     Footer { id: footer }
 
     PlayList { id: playList }
-
-    Osd { id: osd }
 
     PlatformDialog.FileDialog {
         id: fileDialog

@@ -14,6 +14,7 @@ MpvObject {
     property int mx
     property int my
     property alias scrollPositionTimer: scrollPositionTimer
+
     signal setSubtitle(int id)
     signal setAudio(int id)
 

@@ -24,6 +24,7 @@ Rectangle {
     width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33
     x: position === "right" ? parent.width : -width
     y: 0
+    state: "hidden"
 
     onWidthChanged: {
         tableView.columnWidthProvider = (column) => tableView.columnWidths[column]
@@ -69,23 +70,52 @@ Rectangle {
     states: [
         State {
             name: "hidden"
-            PropertyChanges {
-                visible: false
-                target: playList
-                x: position === "right" ? parent.width : -width
-            }
+            PropertyChanges { target: root; x: position === "right" ? parent.width : -width }
+            PropertyChanges { target: root; visible: false }
         },
         State {
             name : "visible"
-            PropertyChanges {
-                visible: true
-                target: playList
-                x: position === "right" ? parent.width - root.width : mpv.x
-            }
+            PropertyChanges { target: root; x: position === "right" ? parent.width - root.width : mpv.x }
+            PropertyChanges { target: root; visible: true }
         }
     ]
 
-    transitions: Transition {
-        PropertyAnimation { properties: "x"; easing.type: Easing.Linear; duration: 100 }
-    }
+    transitions: [
+        Transition {
+            from: "visible"
+            to: "hidden"
+
+            SequentialAnimation {
+                NumberAnimation {
+                    target: root
+                    property: "x"
+                    duration: 150
+                    easing.type: Easing.InQuad
+                }
+                PropertyAction {
+                    target: root
+                    property: "visible"
+                    value: false
+                }
+            }
+        },
+        Transition {
+            from: "hidden"
+            to: "visible"
+
+            SequentialAnimation {
+                PropertyAction {
+                    target: root
+                    property: "visible"
+                    value: true
+                }
+                NumberAnimation {
+                    target: root
+                    property: "x"
+                    duration: 150
+                    easing.type: Easing.OutQuad
+                }
+            }
+        }
+    ]
 }
