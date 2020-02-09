@@ -63,6 +63,8 @@ ApplicationWindow {
     Menu {
         id: mpvContextMenu
 
+        modal: true
+
         FileMenu {}
         ViewMenu {}
         PlaybackMenu {}
@@ -117,7 +119,7 @@ ApplicationWindow {
             TextField {
                 id: openUrlTextField
                 Layout.fillWidth: true
-                text: settings.get("General", "LastUrl")
+                Component.onCompleted: text = settings.get("General", "LastUrl")
 
                 Keys.onPressed: {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {

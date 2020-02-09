@@ -34,8 +34,8 @@ MpvObject {
                 window.show()
                 window.showMaximized()
             }
-            menuBar.visible = true
-            header.visible = true
+            menuBar.visible = settings.get("View", "MenuBarVisible")
+            header.visible = settings.get("View", "HeaderVisible")
             footer.visible = true
             footer.anchors.bottom = undefined
             anchors.fill = undefined
