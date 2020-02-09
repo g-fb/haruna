@@ -21,20 +21,6 @@ ApplicationWindow {
     property var configure: app.action("configure")
     property int preFullScreenVisibility
 
-    function openFile(path, startPlayback, loadSiblings) {
-        mpv.command(["loadfile", path])
-        mpv.setProperty("pause", !startPlayback)
-        if (loadSiblings) {
-            // get video files from same folder as the opened file
-            playListModel.getVideos(path)
-        }
-
-        // set window title
-        title = path.trim("/").split("/").pop()
-
-        settings.set("General", "LastPlayedFile", path)
-    }
-
     visible: true
     title: qsTr("Haruna")
     width: 1280
@@ -149,5 +135,19 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    function openFile(path, startPlayback, loadSiblings) {
+        mpv.command(["loadfile", path])
+        mpv.setProperty("pause", !startPlayback)
+        if (loadSiblings) {
+            // get video files from same folder as the opened file
+            playListModel.getVideos(path)
+        }
+
+        // set window title
+        title = path.trim("/").split("/").pop()
+
+        settings.set("General", "LastPlayedFile", path)
     }
 }

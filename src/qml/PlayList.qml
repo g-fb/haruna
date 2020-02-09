@@ -26,7 +26,7 @@ Rectangle {
     y: 0
 
     onWidthChanged: {
-        tableView.columnWidthProvider = function (column) { return tableView.columnWidths[column] }
+        tableView.columnWidthProvider = (column) => tableView.columnWidths[column]
     }
 
     TableView {
@@ -37,7 +37,7 @@ Rectangle {
         anchors.fill: parent
         clip: true
         columnSpacing: 1
-        columnWidthProvider: function (column) { return columnWidths[column] }
+        columnWidthProvider: (column) => columnWidths[column]
         delegate: PlayListItem {}
         rowSpacing: root.rowSpacing
         model: playListModel

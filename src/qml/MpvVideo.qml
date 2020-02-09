@@ -17,55 +17,6 @@ MpvObject {
     signal setSubtitle(int id)
     signal setAudio(int id)
 
-    function toggleFullScreen() {
-        if (window.visibility !== Window.FullScreen) {
-            hSettings.state = "hidden"
-            window.showFullScreen()
-            menuBar.visible = false
-            header.visible = false
-            footer.visible = false
-            footer.anchors.bottom = bottom
-            anchors.fill = parent
-        } else {
-            if (window.preFullScreenVisibility === Window.Windowed) {
-                window.showNormal()
-            }
-            if (window.preFullScreenVisibility == Window.Maximized) {
-                window.show()
-                window.showMaximized()
-            }
-            menuBar.visible = settings.get("View", "MenuBarVisible")
-            header.visible = settings.get("View", "HeaderVisible")
-            footer.visible = true
-            footer.anchors.bottom = undefined
-            anchors.fill = undefined
-        }
-        app.showCursor()
-    }
-
-    function setPlayListScrollPosition() {
-        var tableViewRows = playList.tableView.rows
-        if (tableViewRows < 1) {
-            return;
-        }
-        playList.tableView.contentY = 0
-        var currentItemIndex = playListModel.getPlayingVideo()
-        var currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
-        var itemsAfterCurrent = tableViewRows - currentItemIndex
-        // height of items bellow the current item
-        var heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
-        var playlistHeight = ((tableViewRows * playList.rowHeight) + (tableViewRows * playList.rowSpacing))
-        var isHidden = currentItemPosition > height
-
-        if (isHidden) {
-            if (heightBellow > height) {
-                playList.tableView.contentY = currentItemPosition
-            } else {
-                playList.tableView.contentY = playlistHeight - height
-            }
-        }
-    }
-
     width: parent.width
     height: parent.height - footer.height
     anchors.left: hSettings.right
@@ -299,4 +250,54 @@ MpvObject {
             window.openFile(drop.urls[0], true, true)
         }
     }
+
+    function toggleFullScreen() {
+        if (window.visibility !== Window.FullScreen) {
+            hSettings.state = "hidden"
+            window.showFullScreen()
+            menuBar.visible = false
+            header.visible = false
+            footer.visible = false
+            footer.anchors.bottom = bottom
+            anchors.fill = parent
+        } else {
+            if (window.preFullScreenVisibility === Window.Windowed) {
+                window.showNormal()
+            }
+            if (window.preFullScreenVisibility == Window.Maximized) {
+                window.show()
+                window.showMaximized()
+            }
+            menuBar.visible = settings.get("View", "MenuBarVisible")
+            header.visible = settings.get("View", "HeaderVisible")
+            footer.visible = true
+            footer.anchors.bottom = undefined
+            anchors.fill = undefined
+        }
+        app.showCursor()
+    }
+
+    function setPlayListScrollPosition() {
+        var tableViewRows = playList.tableView.rows
+        if (tableViewRows < 1) {
+            return;
+        }
+        playList.tableView.contentY = 0
+        var currentItemIndex = playListModel.getPlayingVideo()
+        var currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
+        var itemsAfterCurrent = tableViewRows - currentItemIndex
+        // height of items bellow the current item
+        var heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
+        var playlistHeight = ((tableViewRows * playList.rowHeight) + (tableViewRows * playList.rowSpacing))
+        var isHidden = currentItemPosition > height
+
+        if (isHidden) {
+            if (heightBellow > height) {
+                playList.tableView.contentY = currentItemPosition
+            } else {
+                playList.tableView.contentY = playlistHeight - height
+            }
+        }
+    }
+
 }

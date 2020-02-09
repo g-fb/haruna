@@ -12,21 +12,6 @@ Item {
 
     property alias label: label
 
-    function message(text) {
-        var osdFontSize = parseInt(settings.get("General", "OsdFontSize"))
-        label.text = text
-        if (osdFontSize === 0) {
-            return;
-        }
-
-        if(label.visible) {
-            timer.restart()
-        } else {
-            timer.start()
-        }
-        label.visible = true
-    }
-
     Label {
         id: label
         x: mpv.x + 10
@@ -48,6 +33,21 @@ Item {
         onTriggered: {
             label.visible = false
         }
+    }
+
+    function message(text) {
+        var osdFontSize = parseInt(settings.get("General", "OsdFontSize"))
+        label.text = text
+        if (osdFontSize === 0) {
+            return;
+        }
+
+        if(label.visible) {
+            timer.restart()
+        } else {
+            timer.start()
+        }
+        label.visible = true
     }
 
 }
