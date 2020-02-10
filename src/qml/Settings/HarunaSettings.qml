@@ -20,6 +20,9 @@ Pane {
     padding: 10
     state: "hidden"
     hoverEnabled: true
+    background: Rectangle {
+        color: systemPalette.alternateBase
+    }
 
     RowLayout {
         anchors.fill: parent

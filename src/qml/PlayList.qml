@@ -36,7 +36,6 @@ Rectangle {
         property var columnWidths: [parent.width * 0.1, parent.width * 0.7, parent.width * 0.2]
 
         anchors.fill: parent
-        clip: true
         columnSpacing: 1
         columnWidthProvider: (column) => columnWidths[column]
         delegate: PlayListItem {}

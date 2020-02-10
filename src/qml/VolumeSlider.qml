@@ -36,6 +36,7 @@ Slider {
         id: progressBarToolTip
         text: root.value
         anchors.centerIn: root
+        color: "#fff"
         layer.enabled: true
         layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
     }

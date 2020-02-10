@@ -19,15 +19,19 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+
         color: {
             if (model.isHovered && model.isPlaying) {
-                Qt.rgba(0.19, 0.21, 0.23, 1)
+                let color = systemPalette.base
+                Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.8)
             } else if (model.isHovered && !model.isPlaying) {
-                Qt.rgba(0.19, 0.21, 0.23, 1)
+                let color = systemPalette.base
+                Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.8)
             } else if (!model.isHovered && model.isPlaying) {
-                Qt.rgba(0.24, 0.68, 0.91, 1)
+                systemPalette.highlight
             } else {
-                Qt.rgba(0.14, 0.15, 0.16, 0.5)
+                let color = systemPalette.alternateBase
+                Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.7)
             }
         }
 
@@ -38,20 +42,16 @@ Item {
             horizontalAlignment: column === 1 ? Qt.AlignLeft : Qt.AlignCenter
             elide: Text.ElideRight
             font.bold: true
+            text: model.name
+            leftPadding: 10
+            rightPadding: column === 2 ? scrollBar.width : 10
+            layer.enabled: true
             font.pointSize: {
                 if (window.visibility === Window.FullScreen && playList.bigFont) {
                     return 18
                 }
                 return 12
             }
-            layer.enabled: true
-            color: "#fff"
-            layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
-            leftPadding: 10
-            rightPadding: column === 2 ? scrollBar.width : 10
-
-            text: model.name
-
             ToolTip {
                 id: toolTip
                 delay: 250

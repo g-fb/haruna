@@ -71,9 +71,9 @@ ApplicationWindow {
         Osd { id: osd }
     }
 
-    Footer { id: footer }
-
     PlayList { id: playList }
+
+    Footer { id: footer }
 
     PlatformDialog.FileDialog {
         id: fileDialog
