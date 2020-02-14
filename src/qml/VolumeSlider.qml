@@ -20,15 +20,20 @@ Slider {
     implicitHeight: 25
     wheelEnabled: true
     stepSize: settings.get("General", "VolumeStep")
+    leftPadding: 0
+    rightPadding: 0
+
+    handle: Item { visible: false }
 
     background: Rectangle {
         id: harunaSliderBG
         color: systemPalette.base
 
         Rectangle {
-            color: systemPalette.highlight
-            height: parent.height
             width: visualPosition * parent.width
+            height: parent.height
+            color: systemPalette.highlight
+            radius: 0
         }
     }
 
@@ -46,6 +51,7 @@ Slider {
             mpv.setProperty("volume", value.toFixed(0))
         }
     }
+
     onValueChanged: {
 
         mpv.setProperty("volume", value.toFixed(0))

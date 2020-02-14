@@ -40,6 +40,7 @@ Item {
 
             anchors.fill: parent
             horizontalAlignment: column === 1 ? Qt.AlignLeft : Qt.AlignCenter
+            verticalAlignment: Qt.AlignVCenter
             elide: Text.ElideRight
             font.bold: true
             text: model.name

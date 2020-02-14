@@ -18,23 +18,22 @@ Slider {
 
     from: 0
     to: 99999
+    implicitWidth: 200
+    implicitHeight: 25
+    leftPadding: 0
+    rightPadding: 0
+
+    handle: Item { visible: false }
 
     background: Rectangle {
         id: progressBarBackground
         color: systemPalette.base
-        implicitWidth: 200
-        implicitHeight: 25
-        height: implicitHeight
-        radius: 0
-        width: availableWidth
-        x: leftPadding
-        y: topPadding + availableHeight / 2 - height / 2
 
         Rectangle {
+            width: visualPosition * parent.width
+            height: parent.height
             color: systemPalette.highlight
             radius: 0
-            height: parent.height
-            width: visualPosition * parent.width
         }
 
         ToolTip {
@@ -121,16 +120,6 @@ Slider {
                 }
             }
         }
-    }
-
-    handle: Rectangle {
-        border.color: systemPalette.light
-        color: systemPalette.light
-        implicitWidth: 0
-        implicitHeight: 35
-        radius: 0
-        x: leftPadding + visualPosition * (availableWidth - width)
-        y: topPadding + availableHeight / 2 - height / 2
     }
 
     onPressedChanged: {
