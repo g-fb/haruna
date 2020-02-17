@@ -28,13 +28,16 @@ Item {
         ////////////////////////////////////////////////////////
         ColumnLayout {
             Label {
-                text: "Contrast " + contrastSlider.value.toFixed(0)
+                text: qsTr("Contrast %1").arg(contrastSlider.value.toFixed(0))
+                color: systemPalette.text
             }
             Slider {
                 id: contrastSlider
                 from: -100
                 to: 100
                 value: mpv.contrast
+                wheelEnabled: true
+                stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
                     mpv.setProperty("contrast", contrastSlider.value.toFixed(0))
@@ -55,13 +58,16 @@ Item {
         ////////////////////////////////////////////////////////
         ColumnLayout {
             Label {
-                text: "Brightness " + brightnessSlider.value.toFixed(0)
+                text: qsTr("Brightness %1").arg(brightnessSlider.value.toFixed(0))
+                color: systemPalette.text
             }
             Slider {
                 id: brightnessSlider
                 from: -100
                 to: 100
                 value: mpv.brightness
+                wheelEnabled: true
+                stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
                     mpv.setProperty("brightness", brightnessSlider.value.toFixed(0))
@@ -82,13 +88,16 @@ Item {
         ////////////////////////////////////////////////////////
         ColumnLayout {
             Label {
-                text: "Gamma " + gammaSlider.value.toFixed(0)
+                text: qsTr("Gamma %1").arg(gammaSlider.value.toFixed(0))
+                color: systemPalette.text
             }
             Slider {
                 id: gammaSlider
                 from: -100
                 to: 100
                 value: mpv.gamma
+                wheelEnabled: true
+                stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
                     mpv.setProperty("gamma", gammaSlider.value.toFixed(0))
@@ -109,13 +118,16 @@ Item {
         ////////////////////////////////////////////////////////
         ColumnLayout {
             Label {
-                text: "Saturation " + saturationSlider.value.toFixed(0)
+                text: qsTr("Saturation %1").arg(saturationSlider.value.toFixed(0))
+                color: systemPalette.text
             }
             Slider {
                 id: saturationSlider
                 from: -100
                 to: 100
                 value: mpv.saturation
+                wheelEnabled: true
+                stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
                     mpv.setProperty("saturation", saturationSlider.value.toFixed(0))
@@ -130,7 +142,8 @@ Item {
         }
 
         Label {
-            text: "Middle click on the sliders to reset them"
+            text: qsTr("Middle click on the sliders to reset them")
+            color: systemPalette.text
         }
     }
 }

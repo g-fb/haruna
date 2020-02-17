@@ -21,9 +21,10 @@ Item {
 
     Label {
         id: sectionTitle
+
+        text: qsTr("Subtitles folders")
         color: systemPalette.text
         bottomPadding: 10
-        text: "Subtitles folders"
     }
 
     ListView {
@@ -61,6 +62,7 @@ Item {
                     Label {
                         id: sfLabel
                         text: model.display
+                        color: systemPalette.text
                         leftPadding: 10
                         Layout.fillWidth: true
                     }

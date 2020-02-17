@@ -24,8 +24,8 @@ Item {
 
         // OSD Font Size
         Label {
+            text: qsTr("Osd font size")
             color: systemPalette.text
-            text: "Osd font size"
             Layout.alignment: Qt.AlignRight
         }
 
@@ -51,8 +51,8 @@ Item {
 
         // Volume Step
         Label {
+            text: qsTr("Volume step")
             color: systemPalette.text
-            text: "Volume step"
             Layout.alignment: Qt.AlignRight
         }
 
@@ -86,8 +86,8 @@ Item {
 
         // Seek Small Step
         Label {
+            text: qsTr("Seek Small Step")
             color: systemPalette.text
-            text: "Seek Small Step"
             Layout.alignment: Qt.AlignRight
         }
 
@@ -110,8 +110,8 @@ Item {
 
         // Seek Medium Step
         Label {
+            text: qsTr("Seek Medium Step")
             color: systemPalette.text
-            text: "Seek Medium Step"
             Layout.alignment: Qt.AlignRight
         }
 
@@ -134,8 +134,8 @@ Item {
 
         // Seek Big Step
         Label {
+            text: qsTr("Seek Big Step")
             color: systemPalette.text
-            text: "Seek Big Step"
             Layout.alignment: Qt.AlignRight
         }
 

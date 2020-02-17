@@ -40,6 +40,7 @@ Item {
 
             Label {
                 text: qsTr("Skip chapters containing the following words")
+                color: systemPalette.text
                 enabled: skipChaptersCheckBox.checked
             }
 

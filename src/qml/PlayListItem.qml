@@ -39,6 +39,7 @@ Item {
             id: label
 
             anchors.fill: parent
+            color: systemPalette.text
             horizontalAlignment: column === 1 ? Qt.AlignLeft : Qt.AlignCenter
             verticalAlignment: Qt.AlignVCenter
             elide: Text.ElideRight

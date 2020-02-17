@@ -17,6 +17,7 @@ Item {
         x: 10
         y: 10
         visible: false
+        color: systemPalette.text
         background: Rectangle {
             color: systemPalette.base
         }

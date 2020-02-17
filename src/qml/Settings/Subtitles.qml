@@ -27,7 +27,8 @@ Item {
 
         ColumnLayout {
             Label {
-                text: "Preferred subtitle language"
+                text: qsTr("Preferred subtitle language")
+                color: systemPalette.text
             }
             TextField {
                 text: settings.get("Subtitle", "PreferredLanguage")
@@ -41,7 +42,8 @@ Item {
 
         RowLayout {
             Label {
-                text: "Preferred subtitle track"
+                text: qsTr("Preferred subtitle track")
+                color: systemPalette.text
             }
             SpinBox {
                 from: 0

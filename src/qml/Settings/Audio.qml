@@ -20,7 +20,8 @@ Item {
 
         ColumnLayout {
             Label {
-                text: "Preferred audio language"
+                text: qsTr("Preferred audio language")
+                color: systemPalette.text
             }
             TextField {
                 text: settings.get("Audio", "PreferredLanguage")
@@ -33,7 +34,8 @@ Item {
         }
         RowLayout {
             Label {
-                text: "Preferred audio track"
+                text: qsTr("Preferred audio track")
+                color: systemPalette.text
             }
             SpinBox {
                 from: 0
