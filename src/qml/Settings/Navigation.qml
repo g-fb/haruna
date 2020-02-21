@@ -7,6 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Flickable {
     id: root
@@ -18,13 +19,6 @@ Flickable {
     clip: true
     contentHeight: sidebar.height
     ScrollBar.vertical: ScrollBar { id: scrollbar }
-
-    Rectangle {
-        width: 1
-        height: root.height
-        anchors.right: parent.right
-        color: systemPalette.base
-    }
 
     ColumnLayout {
         id: sidebar
@@ -203,7 +197,7 @@ Flickable {
             Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
-                actions.configureShortcutsAction.trigger()
+                window.actions.configureShortcutsAction.trigger()
             }
         }
     }

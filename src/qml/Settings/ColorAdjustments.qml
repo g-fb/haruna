@@ -29,7 +29,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Contrast %1").arg(contrastSlider.value.toFixed(0))
-                color: systemPalette.text
             }
             Slider {
                 id: contrastSlider
@@ -59,7 +58,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Brightness %1").arg(brightnessSlider.value.toFixed(0))
-                color: systemPalette.text
             }
             Slider {
                 id: brightnessSlider
@@ -89,7 +87,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Gamma %1").arg(gammaSlider.value.toFixed(0))
-                color: systemPalette.text
             }
             Slider {
                 id: gammaSlider
@@ -119,7 +116,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Saturation %1").arg(saturationSlider.value.toFixed(0))
-                color: systemPalette.text
             }
             Slider {
                 id: saturationSlider
@@ -143,7 +139,6 @@ Item {
 
         Label {
             text: qsTr("Middle click on the sliders to reset them")
-            color: systemPalette.text
         }
     }
 }

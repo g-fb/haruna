@@ -9,6 +9,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
 import QtGraphicalEffects 1.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Item {
     id: root
@@ -22,15 +23,15 @@ Item {
 
         color: {
             if (model.isHovered && model.isPlaying) {
-                let color = systemPalette.base
+                let color = Kirigami.Theme.backgroundColor
                 Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.8)
             } else if (model.isHovered && !model.isPlaying) {
-                let color = systemPalette.base
+                let color = Kirigami.Theme.backgroundColor
                 Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.8)
             } else if (!model.isHovered && model.isPlaying) {
-                systemPalette.highlight
+                Kirigami.Theme.highlightColor
             } else {
-                let color = systemPalette.alternateBase
+                let color = Kirigami.Theme.alternateBackgroundColor
                 Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.7)
             }
         }
@@ -39,7 +40,7 @@ Item {
             id: label
 
             anchors.fill: parent
-            color: systemPalette.text
+            color: Kirigami.Theme.textColor
             horizontalAlignment: column === 1 ? Qt.AlignLeft : Qt.AlignCenter
             verticalAlignment: Qt.AlignVCenter
             elide: Text.ElideRight

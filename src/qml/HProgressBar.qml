@@ -9,6 +9,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Shapes 1.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Slider {
     id: root
@@ -27,12 +28,12 @@ Slider {
 
     background: Rectangle {
         id: progressBarBackground
-        color: systemPalette.base
+        color: Kirigami.Theme.alternateBackgroundColor
 
         Rectangle {
             width: visualPosition * parent.width
             height: parent.height
-            color: systemPalette.highlight
+            color: Kirigami.Theme.highlightColor
             radius: 0
         }
 
@@ -89,10 +90,10 @@ Slider {
             parent: progressBarBackground
             ShapePath {
                 strokeWidth: 1
-                strokeColor: systemPalette.text
+                strokeColor: Kirigami.Theme.textColor
                 startX: chapterMarkerShape.position
                 startY: root.height
-                fillColor: systemPalette.text
+                fillColor: Kirigami.Theme.textColor
                 PathLine { x: chapterMarkerShape.position; y: -1 }
                 PathLine { x: chapterMarkerShape.position + 6; y: -7 }
                 PathLine { x: chapterMarkerShape.position - 7; y: -7 }

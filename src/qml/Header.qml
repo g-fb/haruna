@@ -8,6 +8,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQml 2.13
+import org.kde.kirigami 2.11 as Kirigami
 
 ToolBar {
     id: root
@@ -56,7 +57,7 @@ ToolBar {
                 contentItem: Rectangle {
                     implicitWidth: parent.vertical ? 1 : 24
                     implicitHeight: parent.vertical ? 24 : 1
-                    color: systemPalette.text
+                    color: Kirigami.Theme.textColor
                 }
             }
 

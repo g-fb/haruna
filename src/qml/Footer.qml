@@ -95,7 +95,6 @@ ToolBar {
             property string remainingTime
 
             text: currentTime + " / " + totalTime
-            color: systemPalette.text
 
             ToolTip {
                 id: timeToolTip

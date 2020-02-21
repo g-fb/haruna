@@ -28,7 +28,6 @@
 #include <KAboutData>
 #include <KI18n/KLocalizedString>
 
-#include <memory>
 
 int main(int argc, char *argv[])
 {
@@ -71,8 +70,7 @@ int main(int argc, char *argv[])
     qmlRegisterInterface<QAction>("QAction");
     qmlRegisterInterface<TracksModel>("TracksModel");
 
-    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
-    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
+    QQuickStyle::setFallbackStyle(QStringLiteral("org.kde.desktop"));
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();

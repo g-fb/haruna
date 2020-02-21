@@ -30,7 +30,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Left Button")
-                color: systemPalette.text
             }
             RowLayout {
                 TextField {
@@ -74,7 +73,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Right Button")
-                color: systemPalette.text
             }
             RowLayout {
                 TextField {
@@ -120,7 +118,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Middle Button")
-                color: systemPalette.text
             }
             RowLayout {
                 TextField {
@@ -167,7 +164,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Scroll Up")
-                color: systemPalette.text
             }
             RowLayout {
                 TextField {
@@ -213,7 +209,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Scroll Down")
-                color: systemPalette.text
             }
             RowLayout {
                 TextField {

@@ -10,6 +10,7 @@ import QtQuick.Layouts 1.13
 import QtQml 2.13
 import QtQuick.Shapes 1.13
 import QtGraphicalEffects 1.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Slider {
     id: root
@@ -27,12 +28,12 @@ Slider {
 
     background: Rectangle {
         id: harunaSliderBG
-        color: systemPalette.base
+        color: Kirigami.Theme.backgroundColor
 
         Rectangle {
             width: visualPosition * parent.width
             height: parent.height
-            color: systemPalette.highlight
+            color: Kirigami.Theme.highlightColor
             radius: 0
         }
     }

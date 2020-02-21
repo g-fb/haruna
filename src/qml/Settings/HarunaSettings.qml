@@ -8,8 +8,9 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 import QtGraphicalEffects 1.13
+import org.kde.kirigami 2.11 as Kirigami
 
-Pane {
+Kirigami.Page {
     id: root
 
     signal skipChaptersChanged(bool checked)
@@ -20,15 +21,18 @@ Pane {
     padding: 10
     state: "hidden"
     hoverEnabled: true
-    background: Rectangle {
-        color: systemPalette.alternateBase
-    }
 
     RowLayout {
         anchors.fill: parent
         Navigation {
             id: nav
             width: root.width * 0.3 - root.padding
+            Layout.fillHeight: true
+        }
+
+        Rectangle {
+            width: 1
+            color: Kirigami.Theme.alternateBackgroundColor
             Layout.fillHeight: true
         }
 

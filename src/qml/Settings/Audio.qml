@@ -21,7 +21,6 @@ Item {
         ColumnLayout {
             Label {
                 text: qsTr("Preferred audio language")
-                color: systemPalette.text
             }
             TextField {
                 text: settings.get("Audio", "PreferredLanguage")
@@ -35,7 +34,6 @@ Item {
         RowLayout {
             Label {
                 text: qsTr("Preferred audio track")
-                color: systemPalette.text
             }
             SpinBox {
                 from: 0

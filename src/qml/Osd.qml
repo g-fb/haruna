@@ -6,6 +6,7 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Item {
     id: root
@@ -17,9 +18,9 @@ Item {
         x: 10
         y: 10
         visible: false
-        color: systemPalette.text
+        color: Kirigami.Theme.textColor
         background: Rectangle {
-            color: systemPalette.base
+            color: Kirigami.Theme.backgroundColor
         }
         padding: 5
         font.pixelSize: parseInt(settings.get("General", "OsdFontSize"))

@@ -30,7 +30,6 @@ Item {
         RowLayout {
             Label {
                 text: qsTr("Playlist Position")
-                color: systemPalette.text
             }
             ComboBox {
                 textRole: "key"
@@ -59,7 +58,6 @@ Item {
 
             Label {
                 text: qsTr("Playlist Row Height")
-                color: systemPalette.text
             }
 
             SpinBox {
@@ -79,7 +77,6 @@ Item {
 
             Label {
                 text: qsTr("Playlist Row Spacing")
-                color: systemPalette.text
             }
 
             SpinBox {

@@ -7,6 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Item {
     id: root
@@ -25,7 +26,6 @@ Item {
         // OSD Font Size
         Label {
             text: qsTr("Osd font size")
-            color: systemPalette.text
             Layout.alignment: Qt.AlignRight
         }
 
@@ -52,7 +52,6 @@ Item {
         // Volume Step
         Label {
             text: qsTr("Volume step")
-            color: systemPalette.text
             Layout.alignment: Qt.AlignRight
         }
 
@@ -80,14 +79,13 @@ Item {
             orientation: Qt.Horizontal
             contentItem: Rectangle {
                 implicitHeight: parent.vertical ? 24 : 1
-                color: systemPalette.base
+                color: Kirigami.Theme.backgroundColor
             }
         }
 
         // Seek Small Step
         Label {
             text: qsTr("Seek Small Step")
-            color: systemPalette.text
             Layout.alignment: Qt.AlignRight
         }
 
@@ -111,7 +109,6 @@ Item {
         // Seek Medium Step
         Label {
             text: qsTr("Seek Medium Step")
-            color: systemPalette.text
             Layout.alignment: Qt.AlignRight
         }
 
@@ -135,7 +132,6 @@ Item {
         // Seek Big Step
         Label {
             text: qsTr("Seek Big Step")
-            color: systemPalette.text
             Layout.alignment: Qt.AlignRight
         }
 
@@ -162,7 +158,7 @@ Item {
             orientation: Qt.Horizontal
             contentItem: Rectangle {
                 implicitHeight: parent.vertical ? 24 : 1
-                color: systemPalette.base
+                color: Kirigami.Theme.backgroundColor
             }
         }
 

@@ -7,6 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import org.kde.kirigami 2.11 as Kirigami
 
 // Subtitles Folders
 Item {
@@ -23,7 +24,6 @@ Item {
         id: sectionTitle
 
         text: qsTr("Subtitles folders")
-        color: systemPalette.text
         bottomPadding: 10
     }
 
@@ -46,7 +46,7 @@ Item {
             id: sfDelegate
             width: parent.width
             height: sfListView.sfDelegateHeight
-            color: systemPalette.base
+            color: Kirigami.Theme.alternateBackgroundColor
 
             Loader {
                 id: sfLoader
@@ -62,7 +62,6 @@ Item {
                     Label {
                         id: sfLabel
                         text: model.display
-                        color: systemPalette.text
                         leftPadding: 10
                         Layout.fillWidth: true
                     }

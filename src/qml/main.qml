@@ -10,21 +10,24 @@ import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
 import QtGraphicalEffects 1.13
 import Qt.labs.platform 1.0 as PlatformDialog
+import org.kde.kirigami 2.11 as Kirigami
 
 import mpv 1.0
 import "Menus"
 import "Settings"
 
-ApplicationWindow {
+Kirigami.ApplicationWindow {
     id: window
 
     property var configure: app.action("configure")
     property int preFullScreenVisibility
+    property alias actions: actions
 
     visible: true
     title: qsTr("Haruna")
     width: 1280
     height: 720
+    color: Kirigami.Theme.backgroundColor
 
     onVisibilityChanged: {
         if (visibility !== Window.FullScreen) {
@@ -36,6 +39,7 @@ ApplicationWindow {
 
     menuBar: MenuBar {
         hoverEnabled: true
+        implicitHeight: 24
         visible: settings.get("View", "MenuBarVisible")
 
         FileMenu {}
