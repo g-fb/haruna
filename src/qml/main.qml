@@ -21,7 +21,6 @@ Kirigami.ApplicationWindow {
 
     property var configure: app.action("configure")
     property int preFullScreenVisibility
-    property alias actions: actions
 
     visible: true
     title: qsTr("Haruna")

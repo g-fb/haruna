@@ -9,7 +9,8 @@ import QtQuick.Controls 2.13
 
 Item {
     id: root
-    property var actions: {"": ""}
+    property var actions: ({})
+
     property alias configureAction: configureAction
     property alias configureShortcutsAction: configureShortcutsAction
     property alias openAction: openAction
@@ -53,7 +54,6 @@ Item {
 
     property alias toggleMenuBarAction: toggleMenuBarAction
     property alias toggleHeaderAction: toggleHeaderAction
-
 
     Action {
         id: openContextMenuAction

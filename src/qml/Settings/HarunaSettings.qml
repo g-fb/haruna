@@ -10,7 +10,7 @@ import QtQuick.Controls 2.13
 import QtGraphicalEffects 1.13
 import org.kde.kirigami 2.11 as Kirigami
 
-Kirigami.Page {
+Pane {
     id: root
 
     signal skipChaptersChanged(bool checked)

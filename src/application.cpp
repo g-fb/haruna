@@ -62,7 +62,7 @@ QString Application::iconName(const QIcon &icon)
 
 void Application::configureShortcuts()
 {
-    KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
+    KShortcutsDialog dlg(KShortcutsEditor::ApplicationAction, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
     connect(&dlg, &KShortcutsDialog::accepted, this, [ = ](){
         m_collection.writeSettings(m_shortcuts);
         m_config->sync();

@@ -60,7 +60,6 @@ MpvObject {
         header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
         if (playList.tableView.rows <= 1) {
             setProperty("loop-file", "inf")
-            setProperty("pause", "no")
         }
     }
 
@@ -77,7 +76,7 @@ MpvObject {
 
         var words = skipChaptersWords.split(",")
         for (var i = 0; i < words.length; ++i) {
-            if (chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
+            if (chapters[mpv.chapter] && chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
                 actions.seekNextChapterAction.trigger()
                 if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
                     osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)

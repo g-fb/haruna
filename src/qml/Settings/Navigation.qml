@@ -7,7 +7,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
-import org.kde.kirigami 2.11 as Kirigami
 
 Flickable {
     id: root
@@ -196,9 +195,7 @@ Flickable {
             display: AbstractButton.TextUnderIcon
             Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
-            onClicked: {
-                window.actions.configureShortcutsAction.trigger()
-            }
+            action: actions.configureShortcutsAction
         }
     }
 }
