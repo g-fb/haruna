@@ -90,38 +90,30 @@ ToolBar {
 
         Label {
             id: timeInfo
-            property string totalTime
-            property string currentTime
-            property string remainingTime
 
-            text: currentTime + " / " + totalTime
+            text: timeInfoTextMetrics.text
+            font.pointSize: timeInfoTextMetrics.font.pointSize
+            horizontalAlignment: Qt.AlignHCenter
+            Layout.preferredWidth: timeInfoTextMetrics.width + 50
+
+            TextMetrics {
+                id: timeInfoTextMetrics
+
+                text: mpv.formatTime(mpv.position) + " / " + mpv.formatTime(mpv.duration)
+                font.pointSize: 14
+            }
 
             ToolTip {
-                id: timeToolTip
-                visible: false
+                text: qsTr("Remaining: ") + mpv.formatTime(mpv.remaining)
+                visible: timeInfoMouseArea.containsMouse
                 timeout: -1
-                text: qsTr("Remaining: ") + timeInfo.remainingTime
             }
+
 
             MouseArea {
+                id: timeInfoMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-
-                onEntered: timeToolTip.visible = true
-                onExited: timeToolTip.visible = false
-            }
-
-            Connections {
-                target: mpv
-                onDurationChanged: {
-                    timeInfo.totalTime = mpv.formatTime(mpv.duration)
-                }
-                onPositionChanged: {
-                    timeInfo.currentTime = mpv.formatTime(mpv.position)
-                }
-                onRemainingChanged: {
-                    timeInfo.remainingTime = mpv.formatTime(mpv.remaining)
-                }
             }
         }
 

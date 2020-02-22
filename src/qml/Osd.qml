@@ -23,7 +23,7 @@ Item {
             color: Kirigami.Theme.backgroundColor
         }
         padding: 5
-        font.pixelSize: parseInt(settings.get("General", "OsdFontSize"))
+        font.pointSize: parseInt(settings.get("General", "OsdFontSize"))
     }
 
     Timer {

@@ -40,7 +40,7 @@ Item {
                 onValueChanged: {
                     // runs on start-up so only execute when state is visible
                     if (root.visible) {
-                        osd.label.font.pixelSize = osdFontSize.value
+                        osd.label.font.pointSize = osdFontSize.value
                         osd.message("Test osd font size")
                         settings.set("General", "OsdFontSize", osdFontSize.value)
                     }

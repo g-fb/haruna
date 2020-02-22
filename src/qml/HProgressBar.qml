@@ -40,11 +40,14 @@ Slider {
         ToolTip {
             id: progressBarToolTip
 
-            visible: false
+            visible: progressBarMouseArea.containsMouse
             timeout: -1
+            delay: 0
         }
 
         MouseArea {
+            id: progressBarMouseArea
+
             anchors.fill: parent
             hoverEnabled: true
             acceptedButtons: Qt.MiddleButton | Qt.RightButton
@@ -71,12 +74,9 @@ Slider {
             }
 
             onEntered: {
-                progressBarToolTip.visible = true
                 progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
                 progressBarToolTip.y = root.height
             }
-
-            onExited: progressBarToolTip.visible = false
         }
     }
 

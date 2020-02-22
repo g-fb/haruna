@@ -16,7 +16,7 @@ Item {
 
     property string path: model.path
 
-    implicitHeight: playList.rowHeight + label.font.pixelSize / 2
+    implicitHeight: playList.rowHeight + label.font.pointSize / 1.5
 
     Rectangle {
         anchors.fill: parent
@@ -60,6 +60,7 @@ Item {
                 delay: 250
                 visible: false
                 text: model.name
+                font.pointSize: label.font.pointSize + 2
             }
         }
     }
