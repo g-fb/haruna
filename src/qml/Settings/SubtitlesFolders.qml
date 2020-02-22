@@ -107,7 +107,7 @@ Item {
                                 root.canAddFolder = true
                             }
                             subsFoldersModel.deleteFolder(model.row)
-                            var rows = sfListView.count
+                            const rows = sfListView.count
                             sfListView.implicitHeight = rows > 5
                                     ? 5 * sfListView.sfDelegateHeight + (sfListView.spacing * 4)
                                     : rows * sfListView.sfDelegateHeight + (sfListView.spacing * (rows - 1))
@@ -154,7 +154,7 @@ Item {
         enabled: root.canAddFolder
         onClicked: {
             subsFoldersModel.addFolder()
-            var rows = sfListView.count
+            const rows = sfListView.count
             sfListView.implicitHeight = rows > 5
                     ? 5 * sfListView.sfDelegateHeight + (sfListView.spacing * 4)
                     : rows * sfListView.sfDelegateHeight + (sfListView.spacing * (rows - 1))

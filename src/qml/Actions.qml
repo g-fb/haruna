@@ -95,9 +95,9 @@ Item {
         Component.onCompleted: actions["volumeUpAction"] = volumeUpAction
 
         onTriggered: {
-            var currentVolume = parseInt(mpv.getProperty("volume"))
-            var volumeStep = parseInt(settings.get("General", "VolumeStep"))
-            var newVolume = currentVolume + volumeStep
+            const currentVolume = parseInt(mpv.getProperty("volume"))
+            const volumeStep = parseInt(settings.get("General", "VolumeStep"))
+            const newVolume = currentVolume + volumeStep
             if (currentVolume < 100) {
                 if (newVolume > 100) {
                     mpv.setProperty("volume", 100)
@@ -119,9 +119,9 @@ Item {
         Component.onCompleted: actions["volumeDownAction"] = volumeDownAction
 
         onTriggered: {
-            var currentVolume = parseInt(mpv.getProperty("volume"))
-            var volumeStep = parseInt(settings.get("General", "VolumeStep"))
-            var newVolume = currentVolume - volumeStep
+            const currentVolume = parseInt(mpv.getProperty("volume"))
+            const volumeStep = parseInt(settings.get("General", "VolumeStep"))
+            const newVolume = currentVolume - volumeStep
             if (currentVolume >= 0) {
                 if (newVolume < 0) {
                     mpv.setProperty("volume", 0)
@@ -164,9 +164,9 @@ Item {
         Component.onCompleted: actions["playNextAction"] = playNextAction
 
         onTriggered: {
-            var nextFileRow = playListModel.getPlayingVideo() + 1
+            const nextFileRow = playListModel.getPlayingVideo() + 1
             if (nextFileRow < playList.tableView.rows) {
-                var nextFile = playListModel.getPath(nextFileRow)
+                const nextFile = playListModel.getPath(nextFileRow)
                 window.openFile(nextFile, true, false)
                 playListModel.setPlayingVideo(nextFileRow)
             }
@@ -184,8 +184,8 @@ Item {
 
         onTriggered: {
             if (playListModel.getPlayingVideo() !== 0) {
-                var previousFileRow = playListModel.getPlayingVideo() - 1
-                var previousFile = playListModel.getPath(previousFileRow)
+                const previousFileRow = playListModel.getPlayingVideo() - 1
+                const previousFile = playListModel.getPath(previousFileRow)
                 window.openFile(previousFile, true, false)
                 playListModel.setPlayingVideo(previousFileRow)
             }
@@ -318,9 +318,9 @@ Item {
         Component.onCompleted: actions["seekNextChapterAction"] = seekNextChapterAction
 
         onTriggered: {
-            var chapters = mpv.getProperty("chapter-list")
-            var currentChapter = mpv.getProperty("chapter")
-            var nextChapter = currentChapter + 1
+            const chapters = mpv.getProperty("chapter-list")
+            const currentChapter = mpv.getProperty("chapter")
+            const nextChapter = currentChapter + 1
             if (nextChapter === chapters.length) {
                 playNextAction.trigger()
                 return
@@ -532,8 +532,8 @@ Item {
         Component.onCompleted: actions["subtitleToggleAction"] = subtitleToggleAction
 
         onTriggered: {
-            var visible = mpv.getProperty("sub-visibility")
-            var message = visible ? "Subtitles off" : "Subtitles on"
+            const visible = mpv.getProperty("sub-visibility")
+            const message = visible ? "Subtitles off" : "Subtitles on"
             mpv.setProperty("sub-visibility", !visible)
             osd.message(message)
         }
@@ -549,7 +549,7 @@ Item {
         Component.onCompleted: actions["contrastUpAction"] = contrastUpAction
 
         onTriggered: {
-            var contrast = parseInt(mpv.getProperty("contrast")) + 1
+            const contrast = parseInt(mpv.getProperty("contrast")) + 1
             mpv.setProperty("contrast", `${contrast}`)
             osd.message(`Contrast: ${contrast}`)
         }
@@ -564,7 +564,7 @@ Item {
         Component.onCompleted: actions["contrastDownAction"] = contrastDownAction
 
         onTriggered: {
-            var contrast = parseInt(mpv.getProperty("contrast")) - 1
+            const contrast = parseInt(mpv.getProperty("contrast")) - 1
             mpv.setProperty("contrast", `${contrast}`)
             osd.message(`Contrast: ${contrast}`)
         }
@@ -594,7 +594,7 @@ Item {
         Component.onCompleted: actions["brightnessUpAction"] = brightnessUpAction
 
         onTriggered: {
-            var brightness = parseInt(mpv.getProperty("brightness")) + 1
+            const brightness = parseInt(mpv.getProperty("brightness")) + 1
             mpv.setProperty("brightness", `${brightness}`)
             osd.message(`Brightness: ${brightness}`)
         }
@@ -609,7 +609,7 @@ Item {
         Component.onCompleted: actions["brightnessDownAction"] = brightnessDownAction
 
         onTriggered: {
-            var brightness = parseInt(mpv.getProperty("brightness")) - 1
+            const brightness = parseInt(mpv.getProperty("brightness")) - 1
             mpv.setProperty("brightness", `${brightness}`)
             osd.message(`Brightness: ${brightness}`)
         }
@@ -638,7 +638,7 @@ Item {
         Component.onCompleted: actions["gammaUpAction"] = gammaUpAction
 
         onTriggered: {
-            var gamma = parseInt(mpv.getProperty("gamma")) + 1
+            const gamma = parseInt(mpv.getProperty("gamma")) + 1
             mpv.setProperty("gamma", `${gamma}`)
             osd.message(`Gamma: ${gamma}`)
         }
@@ -653,7 +653,7 @@ Item {
         Component.onCompleted: actions["gammaDownAction"] = gammaDownAction
 
         onTriggered: {
-            var gamma = parseInt(mpv.getProperty("gamma")) - 1
+            const gamma = parseInt(mpv.getProperty("gamma")) - 1
             mpv.setProperty("gamma", `${gamma}`)
             osd.message(`Gamma: ${gamma}`)
         }
@@ -682,7 +682,7 @@ Item {
         Component.onCompleted: actions["saturationUpAction"] = saturationUpAction
 
         onTriggered: {
-            var saturation = parseInt(mpv.getProperty("saturation")) + 1
+            const saturation = parseInt(mpv.getProperty("saturation")) + 1
             mpv.setProperty("saturation", `${saturation}`)
             osd.message(`Saturation: ${saturation}`)
         }
@@ -697,7 +697,7 @@ Item {
         Component.onCompleted: actions["saturationDownAction"] = saturationDownAction
 
         onTriggered: {
-            var saturation = parseInt(mpv.getProperty("saturation")) - 1
+            const saturation = parseInt(mpv.getProperty("saturation")) - 1
             mpv.setProperty("saturation", `${saturation}`)
             osd.message(`Saturation: ${saturation}`)
         }
@@ -727,7 +727,7 @@ Item {
         Component.onCompleted: actions["zoomInAction"] = zoomInAction
 
         onTriggered: {
-            var zoom = mpv.getProperty("video-zoom") + 0.1
+            const zoom = mpv.getProperty("video-zoom") + 0.1
             mpv.setProperty("video-zoom", zoom)
             osd.message(`Zoom: ${zoom.toFixed(2)}`)
         }
@@ -743,7 +743,7 @@ Item {
         Component.onCompleted: actions["zoomOutAction"] = zoomOutAction
 
         onTriggered: {
-            var zoom = mpv.getProperty("video-zoom") - 0.1
+            const zoom = mpv.getProperty("video-zoom") - 0.1
             mpv.setProperty("video-zoom", zoom)
             osd.message(`Zoom: ${zoom.toFixed(2)}`)
         }
@@ -774,7 +774,7 @@ Item {
         Component.onCompleted: actions["videoPanXLeftAction"] = videoPanXLeftAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-x") - 0.01
+            const pan = mpv.getProperty("video-pan-x") - 0.01
             mpv.setProperty("video-pan-x", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
@@ -789,7 +789,7 @@ Item {
         Component.onCompleted: actions["videoPanXRightAction"] = videoPanXRightAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-x") + 0.01
+            const pan = mpv.getProperty("video-pan-x") + 0.01
             mpv.setProperty("video-pan-x", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
@@ -804,7 +804,7 @@ Item {
         Component.onCompleted: actions["videoPanYUpAction"] = videoPanYUpAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-y") - 0.01
+            const pan = mpv.getProperty("video-pan-y") - 0.01
             mpv.setProperty("video-pan-y", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
@@ -819,7 +819,7 @@ Item {
         Component.onCompleted: actions["videoPanYDownAction"] = videoPanYDownAction
 
         onTriggered: {
-            var pan = mpv.getProperty("video-pan-y") + 0.01
+            const pan = mpv.getProperty("video-pan-y") + 0.01
             mpv.setProperty("video-pan-y", pan)
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }

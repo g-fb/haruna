@@ -38,7 +38,7 @@ Item {
     }
 
     function message(text) {
-        var osdFontSize = parseInt(settings.get("General", "OsdFontSize"))
+        const osdFontSize = parseInt(settings.get("General", "OsdFontSize"))
         label.text = text
         if (osdFontSize === 0) {
             return;

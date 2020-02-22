@@ -37,7 +37,7 @@ ToolBar {
                 }
 
                 mpvContextMenu.visible = !mpvContextMenu.visible
-                var menuHeight = mpvContextMenu.count * mpvContextMenu.itemAt(0).height
+                const menuHeight = mpvContextMenu.count * mpvContextMenu.itemAt(0).height
                 mpvContextMenu.popup(footer, 0, -menuHeight)
             }
         }

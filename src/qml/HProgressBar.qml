@@ -18,7 +18,7 @@ Slider {
     property bool seekStarted: false
 
     from: 0
-    to: 99999
+    to: mpv.duration
     implicitWidth: 200
     implicitHeight: 25
     leftPadding: 0
@@ -51,14 +51,14 @@ Slider {
 
             onClicked: {
                 if (mouse.button === Qt.MiddleButton) {
-                    var time = mouseX * 100 / progressBarBackground.width * root.to / 100
-                    var chapters = mpv.getProperty("chapter-list")
-                    const nextChapterTime = chapters.find(chapter => chapter.time > time )
-                    mpv.setProperty("time-pos", mpv.formatTime(nextChapterTime.time))
+                    const time = mouseX * 100 / progressBarBackground.width * root.to / 100
+                    const chapters = mpv.getProperty("chapter-list")
+                    const nextChapter = chapters.findIndex(chapter => chapter.time > time)
+                    mpv.setProperty("chapter", nextChapter)
                 }
                 if (mouse.button === Qt.RightButton && root.chapters.length > 0) {
-                    var menuX = mouse.x-chaptersMenu.width * 0.5
-                    var menuY = -((chaptersMenu.count - 1) * chaptersMenu.menuItemHeight + 15)
+                    const menuX = mouse.x-chaptersMenu.width * 0.5
+                    const menuY = -((chaptersMenu.count - 1) * chaptersMenu.menuItemHeight + 15)
                     chaptersMenu.popup(root, menuX, menuY)
                 }
             }
@@ -66,7 +66,7 @@ Slider {
             onMouseXChanged: {
                 progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
 
-                var time = mouseX * 100 / progressBarBackground.width * root.to / 100
+                const time = mouseX * 100 / progressBarBackground.width * root.to / 100
                 progressBarToolTip.text = mpv.formatTime(time)
             }
 
@@ -80,12 +80,18 @@ Slider {
         }
     }
 
+    // create markers for the chapters
     Instantiator {
         id: chaptersInstantiator
         model: chapters
         delegate: Shape {
             id: chapterMarkerShape
-            property int position: modelData.time * 100 / root.to * progressBarBackground.width / 100
+
+            // modelData.time * 100 / mpv.duration is chapter-time percentage
+            //  multiplied with progressBarBackground.width / 100 is the percentage at which
+            // the chapter marker shoud be positioned on the progress bar
+            property int position: modelData.time * 100 / mpv.duration * progressBarBackground.width / 100
+
             antialiasing: true
             parent: progressBarBackground
             ShapePath {
@@ -123,6 +129,7 @@ Slider {
         }
     }
 
+    onToChanged: value = mpv.position
     onPressedChanged: {
         if (pressed) {
             seekStarted = true
@@ -186,11 +193,7 @@ Slider {
         target: mpv
         onFileLoaded: chapters = mpv.getProperty("chapter-list")
         onChapterChanged: {
-                chaptersMenu.checkedItem = mpv.chapter
-        }
-        onDurationChanged: {
-            root.from = 0;
-            root.to = mpv.duration
+            chaptersMenu.checkedItem = mpv.chapter
         }
         onPositionChanged: {
             if (!root.seekStarted) {

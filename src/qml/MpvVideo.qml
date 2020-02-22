@@ -36,11 +36,11 @@ MpvObject {
     }
 
     onReady: {
-        var preferredAudioTrack = settings.get("Audio", "PreferredTrack")
+        const preferredAudioTrack = settings.get("Audio", "PreferredTrack")
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
         setProperty("alang", settings.get("Audio", "PreferredLanguage"))
 
-        var preferredSubTrack = settings.get("Audio", "PreferredTrack")
+        const preferredSubTrack = settings.get("Audio", "PreferredTrack")
         setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)
         setProperty("slang", settings.get("Subtitle", "PreferredLanguage"))
         setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
@@ -68,14 +68,14 @@ MpvObject {
             return
         }
 
-        var chapters = mpv.getProperty("chapter-list")
-        var skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
+        const chapters = mpv.getProperty("chapter-list")
+        const skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
         if (chapters.length === 0 || skipChaptersWords === "") {
             return
         }
 
-        var words = skipChaptersWords.split(",")
-        for (var i = 0; i < words.length; ++i) {
+        const words = skipChaptersWords.split(",")
+        for (let i = 0; i < words.length; ++i) {
             if (chapters[mpv.chapter] && chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
                 actions.seekNextChapterAction.trigger()
                 if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
@@ -89,9 +89,9 @@ MpvObject {
     }
 
     onEndOfFile: {
-        var nextFileRow = playListModel.getPlayingVideo() + 1
+        const nextFileRow = playListModel.getPlayingVideo() + 1
         if (nextFileRow < playList.tableView.rows) {
-            var nextFile = playListModel.getPath(nextFileRow)
+            const nextFile = playListModel.getPath(nextFileRow)
             window.openFile(nextFile, true, false)
             playListModel.setPlayingVideo(nextFileRow)
         }
@@ -278,18 +278,18 @@ MpvObject {
     }
 
     function setPlayListScrollPosition() {
-        var tableViewRows = playList.tableView.rows
+        const tableViewRows = playList.tableView.rows
         if (tableViewRows < 1) {
             return;
         }
         playList.tableView.contentY = 0
-        var currentItemIndex = playListModel.getPlayingVideo()
-        var currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
-        var itemsAfterCurrent = tableViewRows - currentItemIndex
+        const currentItemIndex = playListModel.getPlayingVideo()
+        const currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
+        const itemsAfterCurrent = tableViewRows - currentItemIndex
         // height of items bellow the current item
-        var heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
-        var playlistHeight = ((tableViewRows * playList.rowHeight) + (tableViewRows * playList.rowSpacing))
-        var isHidden = currentItemPosition > height
+        const heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
+        const playlistHeight = ((tableViewRows * playList.rowHeight) + (tableViewRows * playList.rowSpacing))
+        const isHidden = currentItemPosition > height
 
         if (isHidden) {
             if (heightBellow > height) {

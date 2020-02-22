@@ -40,7 +40,7 @@ Item {
                     ListElement { key: "Right"; value: "right" }
                 }
                 Component.onCompleted: {
-                    for (var i = 0; i < model.count; ++i) {
+                    for (let i = 0; i < model.count; ++i) {
                         if (model.get(i).value === settings.get("Playlist", "Position")) {
                             currentIndex = i
                             break

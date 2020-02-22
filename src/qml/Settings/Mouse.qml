@@ -51,7 +51,7 @@ Item {
                         ListElement { key: "Play/Pause"; value: "playPauseAction" }
                     }
                     Component.onCompleted: {
-                        for (var i = 0; i < model.count; ++i) {
+                        for (let i = 0; i < model.count; ++i) {
                             if (model.get(i).value === settings.get("Mouse", "LeftButtonAction")) {
                                 currentIndex = i
                                 break
@@ -96,7 +96,7 @@ Item {
                         ListElement { key: "Open context menu"; value: "openContextMenuAction" }
                     }
                     Component.onCompleted: {
-                        for (var i = 0; i < model.count; ++i) {
+                        for (let i = 0; i < model.count; ++i) {
                             if (model.get(i).value === settings.get("Mouse", "RightButtonAction")) {
                                 currentIndex = i
                                 break
@@ -142,7 +142,7 @@ Item {
                         ListElement { key: "Toggle fullscreen"; value: "fullscreenAction" }
                     }
                     Component.onCompleted: {
-                        for (var i = 0; i < model.count; ++i) {
+                        for (let i = 0; i < model.count; ++i) {
                             if (model.get(i).value === settings.get("Mouse", "MiddleButtonAction")) {
                                 currentIndex = i
                                 break
@@ -187,7 +187,7 @@ Item {
                         ListElement { key: "Zoom In"; value: "zoomInAction" }
                     }
                     Component.onCompleted: {
-                        for (var i = 0; i < model.count; ++i) {
+                        for (let i = 0; i < model.count; ++i) {
                             if (model.get(i).value === settings.get("Mouse", "ScrollUpAction")) {
                                 currentIndex = i
                                 break
@@ -231,7 +231,7 @@ Item {
                         ListElement { key: "Zoom Out"; value: "zoomOutAction" }
                     }
                     Component.onCompleted: {
-                        for (var i = 0; i < model.count; ++i) {
+                        for (let i = 0; i < model.count; ++i) {
                             if (model.get(i).value === settings.get("Mouse", "ScrollDownAction")) {
                                 currentIndex = i
                                 break
