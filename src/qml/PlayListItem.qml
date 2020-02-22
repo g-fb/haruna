@@ -41,13 +41,13 @@ Item {
 
             anchors.fill: parent
             color: Kirigami.Theme.textColor
-            horizontalAlignment: column === 1 ? Qt.AlignLeft : Qt.AlignCenter
+            horizontalAlignment: column === 0 ? Qt.AlignLeft : Qt.AlignCenter
             verticalAlignment: Qt.AlignVCenter
             elide: Text.ElideRight
             font.bold: true
             text: model.name
             leftPadding: 10
-            rightPadding: column === 2 ? scrollBar.width : 10
+            rightPadding: column === 1 ? scrollBar.width : 10
             layer.enabled: true
             font.pointSize: {
                 if (window.visibility === Window.FullScreen && playList.bigFont) {
@@ -71,7 +71,7 @@ Item {
 
         onEntered: {
             playListModel.setHoveredVideo(row)
-            if (column === 1 && label.truncated) {
+            if (column === 0 && label.truncated) {
                 toolTip.visible = true
             }
         }

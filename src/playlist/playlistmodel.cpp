@@ -22,7 +22,7 @@ PlayListModel::PlayListModel(QObject *parent)
             Worker::instance(), &Worker::getVideoDuration);
     connect(Worker::instance(), &Worker::videoDuration, this, [ = ](int i, QString d) {
         m_playList[i]->setDuration(d);
-        dataChanged(index(i, 2), index(i, 2));
+        dataChanged(index(i, 1), index(i, 1));
     });
 }
 
@@ -39,7 +39,7 @@ int PlayListModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    return 3;
+    return 2;
 }
 
 QVariant PlayListModel::data(const QModelIndex &index, int role) const
@@ -51,8 +51,6 @@ QVariant PlayListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case DisplayRole:
         if (index.column() == 0) {
-            return QVariant(index.row() + 1);
-        } else if (index.column() == 1) {
             return QVariant(playListItem->fileName());
         } else {
             return QVariant(playListItem->duration());
@@ -145,9 +143,9 @@ void PlayListModel::setPlayingVideo(int playingVideo)
 {
     if (m_playingVideo != -1) {
         m_playList[m_playingVideo]->setIsPlaying(false);
-        emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 2));
+        emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 1));
         m_playList[playingVideo]->setIsPlaying(true);
-        emit dataChanged(index(playingVideo, 0), index(playingVideo, 2));
+        emit dataChanged(index(playingVideo, 0), index(playingVideo, 1));
     } else {
         m_playList[playingVideo]->setIsPlaying(true);
     }
@@ -157,11 +155,11 @@ void PlayListModel::setPlayingVideo(int playingVideo)
 void PlayListModel::setHoveredVideo(int hoveredVideo)
 {
     m_playList[hoveredVideo]->setIsHovered(true);
-    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 2));
+    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 1));
 }
 
 void PlayListModel::clearHoveredVideo(int hoveredVideo)
 {
     m_playList[hoveredVideo]->setIsHovered(false);
-    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 2));
+    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 1));
 }

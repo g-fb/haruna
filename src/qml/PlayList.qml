@@ -33,7 +33,7 @@ Rectangle {
     TableView {
         id: tableView
 
-        property var columnWidths: [parent.width * 0.1, parent.width * 0.7, parent.width * 0.2]
+        property var columnWidths: [parent.width * 0.8, parent.width * 0.2]
 
         anchors.fill: parent
         columnSpacing: 1
