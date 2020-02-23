@@ -250,11 +250,13 @@ void MpvObject::loadTracks()
     m_audioTracks.clear();
 
     auto *none = new Track();
-    none->setSelected(false);
+    none->setFirst(false);
+    none->setSecond(false);
     none->setId(-1);
     none->setTitle("None");
     m_subtitleTracks.insert(0, none);
-    m_subtitleTracksModel->setSelectedTrack(0);
+    m_subtitleTracksModel->setFirstTrack(0);
+    m_subtitleTracksModel->setSecondTrack(0);
 
     QVariant tracks = getProperty("track-list");
     int subIndex = 1;
@@ -268,7 +270,7 @@ void MpvObject::loadTracks()
             track->setDefaut(t["default"].toBool());
             track->setDependent(t["dependent"].toBool());
             track->setForced(t["forced"].toBool());
-            track->setSelected(t["selected"].toBool());
+            track->setFirst(t["selected"].toBool());
             track->setId(t["id"].toLongLong());
             track->setSrcId(t["src-id"].toLongLong());
             track->setFfIndex(t["ff-index"].toLongLong());
@@ -276,7 +278,7 @@ void MpvObject::loadTracks()
             track->setTitle(t["title"].toString());
             track->setIndex(subIndex);
             if (t["selected"].toBool()) {
-                m_subtitleTracksModel->setSelectedTrack(subIndex);
+                m_subtitleTracksModel->setFirstTrack(subIndex);
             }
 
             m_subtitleTracks.insert(subIndex, track);
@@ -290,7 +292,7 @@ void MpvObject::loadTracks()
             track->setDefaut(t["default"].toBool());
             track->setDependent(t["dependent"].toBool());
             track->setForced(t["forced"].toBool());
-            track->setSelected(t["selected"].toBool());
+            track->setFirst(t["selected"].toBool());
             track->setId(t["id"].toLongLong());
             track->setSrcId(t["src-id"].toLongLong());
             track->setFfIndex(t["ff-index"].toLongLong());
@@ -298,7 +300,7 @@ void MpvObject::loadTracks()
             track->setTitle(t["title"].toString());
             track->setIndex(audioIndex);
             if (t["selected"].toBool()) {
-                m_audioTracksModel->setSelectedTrack(audioIndex);
+                m_audioTracksModel->setFirstTrack(audioIndex);
             }
 
             m_audioTracks.insert(audioIndex, track);

@@ -22,23 +22,28 @@ public:
         LanguageRole,
         TitleRole,
         IDRole,
-        SelectedRole,
+        FirstTrackRole,
+        SecondTrackRole,
         CodecRole
     };
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
-    int selectedTrack() const;
-    void setSelectedTrack(int selectedTrack);
+    int firstTrack() const;
+    void setFirstTrack(int i);
+    int secondTrack() const;
+    void setSecondTrack(int i);
 
 signals:
 
 public slots:
     void setTracks(QMap<int, Track *> tracks);
-    Q_INVOKABLE void updateSelectedTrack(int i);
+    Q_INVOKABLE void updateFirstTrack(int i);
+    Q_INVOKABLE void updateSecondTrack(int i);
 private:
     QMap<int, Track *> m_tracks;
-    int m_selectedTrack;
+    int m_firstTrack;
+    int m_secondTrack;
 };
 
 #endif // TRACKSMODEL_H

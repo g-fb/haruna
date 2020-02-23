@@ -16,6 +16,7 @@ MpvObject {
     property alias scrollPositionTimer: scrollPositionTimer
 
     signal setSubtitle(int id)
+    signal setSecondarySubtitle(int id)
     signal setAudio(int id)
 
     width: parent.width
@@ -28,6 +29,14 @@ MpvObject {
             setProperty("sid", id)
         } else {
             setProperty("sid", "no")
+        }
+    }
+
+    onSetSecondarySubtitle: {
+        if (id !== -1) {
+            setProperty("secondary-sid", id)
+        } else {
+            setProperty("secondary-sid", "no")
         }
     }
 

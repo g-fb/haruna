@@ -35,8 +35,10 @@ QVariant TracksModel::data(const QModelIndex &index, int role) const
         return QVariant(track->title());
     case IDRole:
         return QVariant(track->id());
-    case SelectedRole:
-        return QVariant(track->selected());
+    case FirstTrackRole:
+        return QVariant(track->isFirst());
+    case SecondTrackRole:
+        return QVariant(track->isSecond());
     case CodecRole:
         return QVariant(track->codec());
     }
@@ -51,7 +53,8 @@ QHash<int, QByteArray> TracksModel::roleNames() const
     roles[LanguageRole] = "language";
     roles[TitleRole] = "title";
     roles[IDRole] = "id";
-    roles[SelectedRole] = "selected";
+    roles[FirstTrackRole] = "isFirstTrack";
+    roles[SecondTrackRole] = "isSecondTrack";
     roles[CodecRole] = "codec";
     return roles;
 }
@@ -63,22 +66,43 @@ void TracksModel::setTracks(QMap<int, Track *> tracks)
     endResetModel();
 }
 
-void TracksModel::updateSelectedTrack(int i)
+void TracksModel::updateFirstTrack(int i)
 {
-    m_tracks[selectedTrack()]->setSelected(false);
-    dataChanged(index(selectedTrack()), index(selectedTrack()));
+    qDebug() << i;
+    m_tracks[firstTrack()]->setFirst(false);
+    dataChanged(index(firstTrack()), index(firstTrack()));
 
-    m_tracks[i]->setSelected(true);
+    m_tracks[i]->setFirst(true);
     dataChanged(index(i), index(i));
-    setSelectedTrack(i);
+    setFirstTrack(i);
 }
 
-int TracksModel::selectedTrack() const
+int TracksModel::firstTrack() const
 {
-    return m_selectedTrack;
+    return m_firstTrack;
 }
 
-void TracksModel::setSelectedTrack(int selectedTrack)
+void TracksModel::setFirstTrack(int i)
 {
-    m_selectedTrack = selectedTrack;
+    m_firstTrack = i;
+}
+
+void TracksModel::updateSecondTrack(int i)
+{
+    m_tracks[secondTrack()]->setSecond(false);
+    dataChanged(index(secondTrack()), index(secondTrack()));
+
+    m_tracks[i]->setSecond(true);
+    dataChanged(index(i), index(i));
+    setSecondTrack(i);
+}
+
+int TracksModel::secondTrack() const
+{
+    return m_secondTrack;
+}
+
+void TracksModel::setSecondTrack(int i)
+{
+    m_secondTrack = i;
 }

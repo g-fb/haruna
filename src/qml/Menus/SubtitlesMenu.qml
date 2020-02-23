@@ -14,30 +14,37 @@ Menu {
     title: qsTr("&Subtitles")
 
     Menu {
-        id: subtitleMenu
+        id: primarySubtitleMenu
 
-        title: qsTr("&Primary Track")
+        title: qsTr("Primary Subtitle")
+        onOpened: primaryMenuItems.model = mpv.subtitleTracksModel()
 
-        Instantiator {
-            id: subtitleMenuInstantiator
-            model: 0
-            onObjectAdded: subtitleMenu.insertItem( index, object )
-            onObjectRemoved: subtitleMenu.removeItem( object )
-            delegate: MenuItem {
-                id: subtitleMenuItem
-                checkable: true
-                checked: model.selected
-                text: model.text
-                onTriggered: {
-                    mpv.setSubtitle(model.id)
-                    mpv.subtitleTracksModel().updateSelectedTrack(model.index)
-                }
+        TrackMenuItems {
+            id: primaryMenuItems
+
+            menu: primarySubtitleMenu
+            isFirst: true
+            onSubtitleChanged: {
+                mpv.setSubtitle(id)
+                mpv.subtitleTracksModel().updateFirstTrack(index)
             }
         }
-        Connections {
-            target: mpv
-            onFileLoaded: {
-                subtitleMenuInstantiator.model = mpv.subtitleTracksModel()
+    }
+
+    Menu {
+        id: secondarySubtitleMenu
+
+        title: qsTr("Secondary Subtitle")
+        onOpened: secondaryMenuItems.model = mpv.subtitleTracksModel()
+
+        TrackMenuItems {
+            id: secondaryMenuItems
+
+            menu: secondarySubtitleMenu
+            isFirst: false
+            onSubtitleChanged: {
+                mpv.setSecondarySubtitle(id)
+                mpv.subtitleTracksModel().updateSecondTrack(index)
             }
         }
     }

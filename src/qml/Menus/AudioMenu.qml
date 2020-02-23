@@ -26,7 +26,7 @@ Menu {
             delegate: MenuItem {
                 id: audioMenuItem
                 checkable: true
-                checked: model.selected
+                checked: model.isFirstTrack
                 text: model.text
                 onTriggered: {
                     mpv.setAudio(model.id)

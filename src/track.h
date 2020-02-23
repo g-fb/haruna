@@ -39,8 +39,11 @@ public:
     bool external() const;
     void setExternal(bool external);
 
-    bool selected() const;
-    void setSelected(bool selected);
+    bool isFirst() const;
+    void setFirst(bool selected);
+
+    bool isSecond() const;
+    void setSecond(bool isSecond);
 
     bool forced() const;
     void setForced(bool forced);
@@ -71,7 +74,8 @@ private:
     bool m_defaut;
     bool m_dependent;
     bool m_external;
-    bool m_selected;
+    bool m_first;
+    bool m_second;
     bool m_forced;
     int m_index;
 };

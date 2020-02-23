@@ -10,6 +10,8 @@ import QtQuick.Layouts 1.13
 import QtQml 2.13
 import org.kde.kirigami 2.11 as Kirigami
 
+import "Menus"
+
 ToolBar {
     id: root
 
@@ -39,14 +41,14 @@ ToolBar {
             ToolButton {
                 action: actions.openUrlAction
                 MouseArea {
-                     anchors.fill: parent
-                     acceptedButtons: Qt.MiddleButton
-                     onClicked: {
-                         openUrlTextField.clear()
-                         openUrlTextField.paste()
-                         window.openFile(openUrlTextField.text, true, false)
-                     }
-                 }
+                    anchors.fill: parent
+                    acceptedButtons: Qt.MiddleButton
+                    onClicked: {
+                        openUrlTextField.clear()
+                        openUrlTextField.paste()
+                        window.openFile(openUrlTextField.text, true, false)
+                    }
+                }
             }
 
             ToolSeparator {
@@ -71,30 +73,47 @@ ToolBar {
                     } else {
                         subtitleMenu.open()
                     }
-
-                    subtitleMenuInstantiator.model = mpv.subtitleTracksModel()
                 }
 
                 Menu {
                     id: subtitleMenu
 
                     y: parent.height
+                    onOpened: primaryMenuItems.model = mpv.subtitleTracksModel()
 
-                    Instantiator {
-                        id: subtitleMenuInstantiator
+                    Menu {
+                        id: secondarySubtitleMenu
 
-                        model: 0
-                        onObjectAdded: subtitleMenu.insertItem( index, object )
-                        onObjectRemoved: subtitleMenu.removeItem( object )
-                        delegate: MenuItem {
-                            id: subtitleMenuItem
-                            checkable: true
-                            checked: model.selected
-                            text: model.text
-                            onTriggered: {
-                                mpv.setSubtitle(model.id)
-                                mpv.subtitleTracksModel().updateSelectedTrack(model.index)
+                        title: qsTr("Secondary Subtitle")
+                        onOpened: secondaryMenuItems.model = mpv.subtitleTracksModel()
+
+                        TrackMenuItems {
+                            id: secondaryMenuItems
+
+                            menu: secondarySubtitleMenu
+                            isFirst: false
+                            onSubtitleChanged: {
+                                mpv.setSecondarySubtitle(id)
+                                mpv.subtitleTracksModel().updateSecondTrack(index)
                             }
+                        }
+                    }
+
+                    MenuSeparator {}
+
+                    MenuItem {
+                        text: qsTr("Primary Subtitle")
+                        hoverEnabled: false
+                    }
+
+                    TrackMenuItems {
+                        id: primaryMenuItems
+                        menu: subtitleMenu
+                        isFirst: true
+
+                        onSubtitleChanged: {
+                            mpv.setSubtitle(id)
+                            mpv.subtitleTracksModel().updateFirstTrack(index)
                         }
                     }
                 }
@@ -128,11 +147,11 @@ ToolBar {
                         delegate: MenuItem {
                             id: audioMenuItem
                             checkable: true
-                            checked: model.selected
+                            checked: model.isFirstTrack
                             text: model.text
                             onTriggered: {
                                 mpv.setAudio(model.id)
-                                mpv.audioTracksModel().updateSelectedTrack(model.index)
+                                mpv.audioTracksModel().updateFirstTrack(model.index)
                             }
                         }
                     }

@@ -26,5 +26,6 @@
         <file>qml/Menus/SettingsMenu.qml</file>
         <file>qml/Menus/AudioMenu.qml</file>
         <file>qml/Menus/ViewMenu.qml</file>
+        <file>qml/Menus/TrackMenuItems.qml</file>
     </qresource>
 </RCC>

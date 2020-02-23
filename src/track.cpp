@@ -6,7 +6,9 @@
 
 #include "track.h"
 
-Track::Track(QObject *parent) : QObject(parent)
+Track::Track(QObject *parent)
+    : QObject(parent)
+    , m_second(false)
 {
 
 }
@@ -91,14 +93,24 @@ void Track::setExternal(bool external)
     m_external = external;
 }
 
-bool Track::selected() const
+bool Track::isFirst() const
 {
-    return m_selected;
+    return m_first;
 }
 
-void Track::setSelected(bool selected)
+void Track::setFirst(bool isFirst)
 {
-    m_selected = selected;
+    m_first = isFirst;
+}
+
+bool Track::isSecond() const
+{
+    return m_second;
+}
+
+void Track::setSecond(bool isSecond)
+{
+    m_second = isSecond;
 }
 
 bool Track::forced() const
