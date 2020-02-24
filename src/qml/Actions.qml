@@ -9,7 +9,7 @@ import QtQuick.Controls 2.13
 
 Item {
     id: root
-    property var actions: ({})
+    property var list: ({})
 
     property alias configureAction: configureAction
     property alias configureShortcutsAction: configureShortcutsAction
@@ -62,7 +62,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["openContextMenuAction"] = openContextMenuAction
+        Component.onCompleted: list["openContextMenuAction"] = openContextMenuAction
 
         onTriggered: mpvContextMenu.popup()
     }
@@ -74,7 +74,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["togglePlaylistAction"] = togglePlaylistAction
+        Component.onCompleted: list["togglePlaylistAction"] = togglePlaylistAction
 
         onTriggered: {
             if (playList.state === "visible") {
@@ -92,7 +92,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["volumeUpAction"] = volumeUpAction
+        Component.onCompleted: list["volumeUpAction"] = volumeUpAction
 
         onTriggered: {
             const currentVolume = parseInt(mpv.getProperty("volume"))
@@ -116,7 +116,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["volumeDownAction"] = volumeDownAction
+        Component.onCompleted: list["volumeDownAction"] = volumeDownAction
 
         onTriggered: {
             const currentVolume = parseInt(mpv.getProperty("volume"))
@@ -140,7 +140,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["muteAction"] = muteAction
+        Component.onCompleted: list["muteAction"] = muteAction
 
         onTriggered: {
             mpv.setProperty("mute", !mpv.getProperty("mute"))
@@ -161,7 +161,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["playNextAction"] = playNextAction
+        Component.onCompleted: list["playNextAction"] = playNextAction
 
         onTriggered: {
             const nextFileRow = playListModel.getPlayingVideo() + 1
@@ -180,7 +180,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["playPreviousAction"] = playPreviousAction
+        Component.onCompleted: list["playPreviousAction"] = playPreviousAction
 
         onTriggered: {
             if (playListModel.getPlayingVideo() !== 0) {
@@ -199,7 +199,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["openAction"] = openAction
+        Component.onCompleted: list["openAction"] = openAction
 
         onTriggered: fileDialog.open()
     }
@@ -211,7 +211,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["openUrlAction"] = openAction
+        Component.onCompleted: list["openUrlAction"] = openAction
 
         onTriggered: {
             if (openUrlPopup.visible) {
@@ -229,7 +229,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekForwardSmallAction"] = seekForwardSmallAction
+        Component.onCompleted: list["seekForwardSmallAction"] = seekForwardSmallAction
 
         onTriggered: mpv.command(["seek", settings.get("General", "SeekSmallStep"), "exact"])
     }
@@ -241,7 +241,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekBackwardSmallAction"] = seekBackwardSmallAction
+        Component.onCompleted: list["seekBackwardSmallAction"] = seekBackwardSmallAction
 
         onTriggered: mpv.command(["seek", -settings.get("General", "SeekSmallStep"), "exact"])
     }
@@ -253,7 +253,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekForwardMediumAction"] = seekForwardMediumAction
+        Component.onCompleted: list["seekForwardMediumAction"] = seekForwardMediumAction
 
         onTriggered: mpv.command(["seek", settings.get("General", "SeekMediumStep"), "exact"])
     }
@@ -265,7 +265,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekBackwardMediumAction"] = seekBackwardMediumAction
+        Component.onCompleted: list["seekBackwardMediumAction"] = seekBackwardMediumAction
 
         onTriggered: mpv.command(["seek", -settings.get("General", "SeekMediumStep"), "exact"])
     }
@@ -277,7 +277,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekForwardBigAction"] = seekForwardBigAction
+        Component.onCompleted: list["seekForwardBigAction"] = seekForwardBigAction
 
         onTriggered: mpv.command(["seek", settings.get("General", "SeekBigStep"), "exact"])
     }
@@ -289,7 +289,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekBackwardBigAction"] = seekBackwardBigAction
+        Component.onCompleted: list["seekBackwardBigAction"] = seekBackwardBigAction
 
         onTriggered: mpv.command(["seek", -settings.get("General", "SeekBigStep"), "exact"])
     }
@@ -301,7 +301,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekPreviousChapterAction"] = seekPreviousChapterAction
+        Component.onCompleted: list["seekPreviousChapterAction"] = seekPreviousChapterAction
 
         onTriggered: {
             mpv.command(["add", "chapter", "-1"])
@@ -315,7 +315,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekNextChapterAction"] = seekNextChapterAction
+        Component.onCompleted: list["seekNextChapterAction"] = seekNextChapterAction
 
         onTriggered: {
             const chapters = mpv.getProperty("chapter-list")
@@ -336,7 +336,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekNextSubtitleAction"] = seekNextSubtitleAction
+        Component.onCompleted: list["seekNextSubtitleAction"] = seekNextSubtitleAction
 
         onTriggered: {
             if (mpv.getProperty("sid") !== false) {
@@ -354,7 +354,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["seekPrevSubtitleAction"] = seekPrevSubtitleAction
+        Component.onCompleted: list["seekPrevSubtitleAction"] = seekPrevSubtitleAction
 
         onTriggered: {
              if (mpv.getProperty("sid") !== false) {
@@ -372,7 +372,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["frameStepAction"] = frameStepAction
+        Component.onCompleted: list["frameStepAction"] = frameStepAction
 
         onTriggered: mpv.command(["frame-step"])
     }
@@ -384,7 +384,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["frameBackStepAction"] = frameBackStepAction
+        Component.onCompleted: list["frameBackStepAction"] = frameBackStepAction
 
         onTriggered: mpv.command(["frame-back-step"])
     }
@@ -396,7 +396,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["increasePlayBackSpeedAction"] = increasePlayBackSpeedAction
+        Component.onCompleted: list["increasePlayBackSpeedAction"] = increasePlayBackSpeedAction
 
         onTriggered: {
             mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
@@ -411,7 +411,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["decreasePlayBackSpeedAction"] = decreasePlayBackSpeedAction
+        Component.onCompleted: list["decreasePlayBackSpeedAction"] = decreasePlayBackSpeedAction
 
         onTriggered: {
             mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
@@ -426,7 +426,7 @@ Item {
         shortcut: qaction.shortcut
         icon.name: app.iconName(qaction.icon)
 
-        Component.onCompleted: actions["resetPlayBackSpeedAction"] = resetPlayBackSpeedAction
+        Component.onCompleted: list["resetPlayBackSpeedAction"] = resetPlayBackSpeedAction
 
         onTriggered: {
             mpv.setProperty("speed", 1.0)
@@ -440,7 +440,7 @@ Item {
         icon.name: "media-playback-pause"
         shortcut: "Space"
 
-        Component.onCompleted: actions["playPauseAction"] = playPauseAction
+        Component.onCompleted: list["playPauseAction"] = playPauseAction
 
         onTriggered: mpv.setProperty("pause", !mpv.getProperty("pause"))
     }
@@ -452,7 +452,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["configureShortcutsAction"] = configureShortcutsAction
+        Component.onCompleted: list["configureShortcutsAction"] = configureShortcutsAction
 
         onTriggered: qaction.trigger()
     }
@@ -464,7 +464,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["quitApplicationAction"] = quitApplicationAction
+        Component.onCompleted: list["quitApplicationAction"] = quitApplicationAction
 
         onTriggered: {
             if (mpv.position < mpv.duration - 10) {
@@ -481,7 +481,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["configureAction"] = configureAction
+        Component.onCompleted: list["configureAction"] = configureAction
 
         onTriggered: {
             if (hSettings.state === "visible") {
@@ -499,7 +499,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["subtitleQuickenAction"] = subtitleQuickenAction
+        Component.onCompleted: list["subtitleQuickenAction"] = subtitleQuickenAction
 
         onTriggered: {
             mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") - 0.1)
@@ -514,7 +514,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["subtitleDelayAction"] = subtitleDelayAction
+        Component.onCompleted: list["subtitleDelayAction"] = subtitleDelayAction
 
         onTriggered: {
             mpv.setProperty("sub-delay", mpv.getProperty("sub-delay") + 0.1)
@@ -529,7 +529,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["subtitleToggleAction"] = subtitleToggleAction
+        Component.onCompleted: list["subtitleToggleAction"] = subtitleToggleAction
 
         onTriggered: {
             const visible = mpv.getProperty("sub-visibility")
@@ -546,7 +546,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["contrastUpAction"] = contrastUpAction
+        Component.onCompleted: list["contrastUpAction"] = contrastUpAction
 
         onTriggered: {
             const contrast = parseInt(mpv.getProperty("contrast")) + 1
@@ -561,7 +561,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["contrastDownAction"] = contrastDownAction
+        Component.onCompleted: list["contrastDownAction"] = contrastDownAction
 
         onTriggered: {
             const contrast = parseInt(mpv.getProperty("contrast")) - 1
@@ -576,7 +576,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["contrastResetAction"] = contrastResetAction
+        Component.onCompleted: list["contrastResetAction"] = contrastResetAction
 
         onTriggered: {
             mpv.setProperty("contrast", `0`)
@@ -591,7 +591,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["brightnessUpAction"] = brightnessUpAction
+        Component.onCompleted: list["brightnessUpAction"] = brightnessUpAction
 
         onTriggered: {
             const brightness = parseInt(mpv.getProperty("brightness")) + 1
@@ -606,7 +606,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["brightnessDownAction"] = brightnessDownAction
+        Component.onCompleted: list["brightnessDownAction"] = brightnessDownAction
 
         onTriggered: {
             const brightness = parseInt(mpv.getProperty("brightness")) - 1
@@ -621,7 +621,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["brightnessResetAction"] = brightnessResetAction
+        Component.onCompleted: list["brightnessResetAction"] = brightnessResetAction
 
         onTriggered: {
             mpv.setProperty("brightness", `0`)
@@ -635,7 +635,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["gammaUpAction"] = gammaUpAction
+        Component.onCompleted: list["gammaUpAction"] = gammaUpAction
 
         onTriggered: {
             const gamma = parseInt(mpv.getProperty("gamma")) + 1
@@ -650,7 +650,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["gammaDownAction"] = gammaDownAction
+        Component.onCompleted: list["gammaDownAction"] = gammaDownAction
 
         onTriggered: {
             const gamma = parseInt(mpv.getProperty("gamma")) - 1
@@ -665,7 +665,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["gammaResetAction"] = gammaResetAction
+        Component.onCompleted: list["gammaResetAction"] = gammaResetAction
 
         onTriggered: {
             mpv.setProperty("gamma", `0`)
@@ -679,7 +679,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["saturationUpAction"] = saturationUpAction
+        Component.onCompleted: list["saturationUpAction"] = saturationUpAction
 
         onTriggered: {
             const saturation = parseInt(mpv.getProperty("saturation")) + 1
@@ -694,7 +694,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["saturationDownAction"] = saturationDownAction
+        Component.onCompleted: list["saturationDownAction"] = saturationDownAction
 
         onTriggered: {
             const saturation = parseInt(mpv.getProperty("saturation")) - 1
@@ -709,7 +709,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["saturationResetAction"] = saturationResetAction
+        Component.onCompleted: list["saturationResetAction"] = saturationResetAction
 
         onTriggered: {
             mpv.setProperty("saturation", `0`)
@@ -724,7 +724,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["zoomInAction"] = zoomInAction
+        Component.onCompleted: list["zoomInAction"] = zoomInAction
 
         onTriggered: {
             const zoom = mpv.getProperty("video-zoom") + 0.1
@@ -740,7 +740,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["zoomOutAction"] = zoomOutAction
+        Component.onCompleted: list["zoomOutAction"] = zoomOutAction
 
         onTriggered: {
             const zoom = mpv.getProperty("video-zoom") - 0.1
@@ -755,7 +755,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["zoomResetAction"] = zoomResetAction
+        Component.onCompleted: list["zoomResetAction"] = zoomResetAction
 
         onTriggered: {
             mpv.setProperty("video-zoom", 0)
@@ -771,7 +771,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["videoPanXLeftAction"] = videoPanXLeftAction
+        Component.onCompleted: list["videoPanXLeftAction"] = videoPanXLeftAction
 
         onTriggered: {
             const pan = mpv.getProperty("video-pan-x") - 0.01
@@ -786,7 +786,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["videoPanXRightAction"] = videoPanXRightAction
+        Component.onCompleted: list["videoPanXRightAction"] = videoPanXRightAction
 
         onTriggered: {
             const pan = mpv.getProperty("video-pan-x") + 0.01
@@ -801,7 +801,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["videoPanYUpAction"] = videoPanYUpAction
+        Component.onCompleted: list["videoPanYUpAction"] = videoPanYUpAction
 
         onTriggered: {
             const pan = mpv.getProperty("video-pan-y") - 0.01
@@ -816,7 +816,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["videoPanYDownAction"] = videoPanYDownAction
+        Component.onCompleted: list["videoPanYDownAction"] = videoPanYDownAction
 
         onTriggered: {
             const pan = mpv.getProperty("video-pan-y") + 0.01
@@ -832,7 +832,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["fullscreenAction"] = fullscreenAction
+        Component.onCompleted: list["fullscreenAction"] = fullscreenAction
 
         onTriggered: {
             mpv.toggleFullScreen()
@@ -846,7 +846,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["toggleMenuBarAction"] = toggleMenuBarAction
+        Component.onCompleted: list["toggleMenuBarAction"] = toggleMenuBarAction
 
         onTriggered: {
             menuBar.visible = !menuBar.visible
@@ -861,7 +861,7 @@ Item {
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: actions["toggleHeaderAction"] = toggleHeaderAction
+        Component.onCompleted: list["toggleHeaderAction"] = toggleHeaderAction
 
         onTriggered: {
             header.visible = !header.visible

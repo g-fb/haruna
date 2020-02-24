@@ -216,11 +216,11 @@ MpvObject {
         onWheel: {
             if (wheel.angleDelta.y > 0) {
                 if (settings.get("Mouse", "ScrollUpAction") !== "none") {
-                    actions.actions[settings.get("Mouse", "ScrollUpAction")].trigger()
+                    actions.list[settings.get("Mouse", "ScrollUpAction")].trigger()
                 }
             } else if (wheel.angleDelta.y) {
                 if (settings.get("Mouse", "ScrollDownAction") !== "none") {
-                    actions.actions[settings.get("Mouse", "ScrollDownAction")].trigger()
+                    actions.list[settings.get("Mouse", "ScrollDownAction")].trigger()
                 }
             }
         }
@@ -229,15 +229,15 @@ MpvObject {
             focus = true
             if (mouse.button === Qt.LeftButton) {
                 if (settings.get("Mouse", "LeftButtonAction") !== "none") {
-                    actions.actions[settings.get("Mouse", "LeftButtonAction")].trigger()
+                    actions.list[settings.get("Mouse", "LeftButtonAction")].trigger()
                 }
             } else if (mouse.button === Qt.MiddleButton) {
                 if (settings.get("Mouse", "MiddleButtonAction") !== "none") {
-                    actions.actions[settings.get("Mouse", "MiddleButtonAction")].trigger()
+                    actions.list[settings.get("Mouse", "MiddleButtonAction")].trigger()
                 }
             } else if (mouse.button === Qt.RightButton) {
                 if (settings.get("Mouse", "RightButtonAction") !== "none") {
-                    actions.actions[settings.get("Mouse", "RightButtonAction")].trigger()
+                    actions.list[settings.get("Mouse", "RightButtonAction")].trigger()
                 }
             }
         }
