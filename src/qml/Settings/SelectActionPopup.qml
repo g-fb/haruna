@@ -14,10 +14,18 @@ Popup {
     implicitWidth: parent.width* 0.9
     modal: true
     anchors.centerIn: parent
+    focus : true
 
     onOpened: {
         filterActionsField.text = ""
-        filterActionsField.forceActiveFocus(Qt.MouseFocusReason)
+        filterActionsField.focus = true
+    }
+
+    onActionSelected: close()
+
+    Action {
+        shortcut: "ctrl+f"
+        onTriggered: filterActionsField.forceActiveFocus(Qt.ShortcutFocusReason)
     }
 
     ColumnLayout {
@@ -27,24 +35,25 @@ Popup {
             id: filterActionsField
 
             placeholderText: qsTr("Type to filter...")
+            focus: true
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignTop
+            KeyNavigation.down: actionNone
             onTextChanged: {
                 const menuModel = actionsListView.actionsList
                 actionsListView.model = menuModel.filter(action => action.toLowerCase().includes(text))
             }
         }
-        Kirigami.BasicListItem {
-            height: 30
-            width: parent.width
-            label: qsTr("None")
-            reserveSpaceForIcon: false
+        Button {
+            id: actionNone
 
-            onDoubleClicked: {
-                console.log(222)
-                actionSelected("")
-                root.close()
-            }
+            Layout.fillWidth: true
+            text: qsTr("Clear current action")
+            KeyNavigation.up: filterActionsField
+            KeyNavigation.down: actionsListView
+            onClicked: actionSelected("")
+            Keys.onEnterPressed: actionSelected("")
+            Keys.onReturnPressed: actionSelected("")
         }
 
         ListView {
@@ -59,17 +68,15 @@ Popup {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignTop
+            currentIndex: focus ? 0 : -1
             delegate: Kirigami.BasicListItem {
                 height: 30
                 width: parent.width
                 label: modelData
                 reserveSpaceForIcon: false
-
-                onDoubleClicked: {
-                    console.log(222)
-                    actionSelected(modelData)
-                    root.close()
-                }
+                onDoubleClicked: actionSelected(modelData)
+                Keys.onEnterPressed: actionSelected(modelData)
+                Keys.onReturnPressed: actionSelected(modelData)
             }
         }
     }
