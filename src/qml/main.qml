@@ -25,7 +25,9 @@ Kirigami.ApplicationWindow {
     visible: true
     title: qsTr("Haruna")
     width: 1280
+    minimumWidth: 700
     height: 720
+    minimumHeight: 450
     color: Kirigami.Theme.backgroundColor
 
     onVisibilityChanged: {

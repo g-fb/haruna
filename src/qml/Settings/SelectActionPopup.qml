@@ -6,7 +6,7 @@ import org.kde.kirigami 2.11 as Kirigami
 Popup {
     id: root
 
-    property int actionIndex: -1
+    property string headerTitle
 
     signal actionSelected(string actionName)
 
@@ -30,6 +30,10 @@ Popup {
 
     ColumnLayout {
         anchors.fill: parent
+
+        Kirigami.Heading {
+            text: root.headerTitle
+        }
 
         TextField {
             id: filterActionsField
@@ -78,6 +82,12 @@ Popup {
                 Keys.onEnterPressed: actionSelected(modelData)
                 Keys.onReturnPressed: actionSelected(modelData)
             }
+        }
+
+        Label {
+            text: qsTr("Double click to set action")
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
         }
     }
 }

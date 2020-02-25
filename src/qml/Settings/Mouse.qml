@@ -29,7 +29,7 @@ Item {
 
             property int index: -1
 
-            implicitHeight: 50 * buttonsView.count + 100
+            implicitHeight: 50 * (buttonsView.count + 1)
             model: ["Left", "Left.x2", "Middle", "Middle.x2", "Right", "Right.x2", "ScrollUp", "ScrollDown"]
             header: RowLayout {
                 Kirigami.ListSectionHeader {
@@ -51,10 +51,7 @@ Item {
                 width: content.width
                 height: 50
 
-                onDoubleClicked: {
-                    buttonsView.index = model.index
-                    selectActionPopup.open()
-                }
+                onDoubleClicked: openSelectActionPopup()
 
                 contentItem: RowLayout {
                     Layout.fillWidth: true
@@ -80,12 +77,14 @@ Item {
                         flat: true
                         icon.name: "configure"
                         Layout.alignment: Qt.AlignRight
-                        onClicked: {
-                            buttonsView.index = model.index
-                            selectActionPopup.open()
-                        }
+                        onClicked: openSelectActionPopup()
                     }
+                }
 
+                function openSelectActionPopup() {
+                    buttonsView.index = model.index
+                    selectActionPopup.headerTitle = buttonLabel.text
+                    selectActionPopup.open()
                 }
             }
             Connections {
@@ -96,6 +95,12 @@ Item {
                     settings.set("Mouse", item.buttonLabel.text, actionName)
                 }
             }
+        }
+
+        Label {
+            text: qsTr("Double click to edit actions")
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
         }
 
         SelectActionPopup { id: selectActionPopup }
