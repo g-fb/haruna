@@ -117,9 +117,9 @@ void Application::setupActions(const QString &actionName)
         m_collection.addAction(actionName, action);
     }
 
-    if (actionName == QStringLiteral("fullscreen")) {
+    if (actionName == QStringLiteral("toggleFullscreen")) {
         QAction *action = new QAction();
-        action->setText(i18n("Fullscreen"));
+        action->setText(i18n("Toggle Fullscreen"));
         action->setIcon(QIcon::fromTheme("view-fullscreen"));
         m_collection.setDefaultShortcut(action, Qt::Key_F);
         m_collection.addAction(actionName, action);

@@ -45,6 +45,7 @@ Pane {
             Layout.fillWidth: true
             Layout.fillHeight: true
             ScrollBar.vertical: ScrollBar { id: scrollbar }
+
             Loader {
                 id: settingsViewLoader
 

@@ -826,13 +826,13 @@ Item {
     }
 
     Action {
-        id: fullscreenAction
-        property var qaction: app.action("fullscreen")
+        id: toggleFullscreenAction
+        property var qaction: app.action("toggleFullscreen")
         text: qaction.text
         icon.name: app.iconName(qaction.icon)
         shortcut: qaction.shortcut
 
-        Component.onCompleted: list["fullscreenAction"] = fullscreenAction
+        Component.onCompleted: list["toggleFullscreenAction"] = toggleFullscreenAction
 
         onTriggered: {
             mpv.toggleFullScreen()

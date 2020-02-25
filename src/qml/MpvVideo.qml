@@ -215,37 +215,46 @@ MpvObject {
 
         onWheel: {
             if (wheel.angleDelta.y > 0) {
-                if (settings.get("Mouse", "ScrollUpAction") !== "none") {
-                    actions.list[settings.get("Mouse", "ScrollUpAction")].trigger()
+                if (settings.get("Mouse", "ScrollUp")) {
+                    actions.list[settings.get("Mouse", "ScrollUp")].trigger()
                 }
             } else if (wheel.angleDelta.y) {
-                if (settings.get("Mouse", "ScrollDownAction") !== "none") {
-                    actions.list[settings.get("Mouse", "ScrollDownAction")].trigger()
+                if (settings.get("Mouse", "ScrollDown")) {
+                    actions.list[settings.get("Mouse", "ScrollDown")].trigger()
                 }
             }
         }
 
-        onClicked: {
+        onPressed: {
             focus = true
             if (mouse.button === Qt.LeftButton) {
-                if (settings.get("Mouse", "LeftButtonAction") !== "none") {
-                    actions.list[settings.get("Mouse", "LeftButtonAction")].trigger()
+                if (settings.get("Mouse", "Left")) {
+                    actions.list[settings.get("Mouse", "Left")].trigger()
                 }
             } else if (mouse.button === Qt.MiddleButton) {
-                if (settings.get("Mouse", "MiddleButtonAction") !== "none") {
-                    actions.list[settings.get("Mouse", "MiddleButtonAction")].trigger()
+                if (settings.get("Mouse", "Middle")) {
+                    actions.list[settings.get("Mouse", "Middle")].trigger()
                 }
             } else if (mouse.button === Qt.RightButton) {
-                if (settings.get("Mouse", "RightButtonAction") !== "none") {
-                    actions.list[settings.get("Mouse", "RightButtonAction")].trigger()
+                if (settings.get("Mouse", "Right")) {
+                    actions.list[settings.get("Mouse", "Right")].trigger()
                 }
             }
         }
 
         onDoubleClicked: {
             if (mouse.button === Qt.LeftButton) {
-                toggleFullScreen()
-                scrollPositionTimer.start()
+                if (settings.get("Mouse", "Left.x2")) {
+                    actions.list[settings.get("Mouse", "Left.x2")].trigger()
+                }
+            } else if (mouse.button === Qt.MiddleButton) {
+                if (settings.get("Mouse", "Middle.x2")) {
+                    actions.list[settings.get("Mouse", "Middle.x2")].trigger()
+                }
+            } else if (mouse.button === Qt.RightButton) {
+                if (settings.get("Mouse", "Right.x2")) {
+                    actions.list[settings.get("Mouse", "Right.x2")].trigger()
+                }
             }
         }
     }
@@ -284,6 +293,7 @@ MpvObject {
             anchors.fill = undefined
         }
         app.showCursor()
+        scrollPositionTimer.start()
     }
 
     function setPlayListScrollPosition() {

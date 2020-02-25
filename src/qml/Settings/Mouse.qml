@@ -4,9 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import QtQml 2.13
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import org.kde.kirigami 2.11 as Kirigami
 
 Item {
     id: root
@@ -14,7 +16,7 @@ Item {
     property alias contentHeight: content.height
 
     visible: false
-    height: parent.height
+    anchors.fill: parent
 
     ColumnLayout {
         id: content
@@ -22,227 +24,80 @@ Item {
         width: parent.width
         spacing: 20
 
-        ////////////////////////////////////////////////////////
-        //
-        // Left Button
-        //
-        ////////////////////////////////////////////////////////
-        ColumnLayout {
-            Label {
-                text: qsTr("Left Button")
-            }
-            RowLayout {
-                TextField {
-                    id: leftButton
-                    text: settings.get("Mouse", "LeftButtonAction")
-                    onTextEdited: {
-                        settings.set("Mouse", "LeftButtonAction", leftButton.text)
-                    }
-                    onTextChanged: {
-                        settings.set("Mouse", "LeftButtonAction", leftButton.text)
-                    }
+        ListView {
+            id: buttonsView
+
+            property int index: -1
+
+            implicitHeight: 50 * buttonsView.count + 100
+            model: ["Left", "Left.x2", "Middle", "Middle.x2", "Right", "Right.x2", "ScrollUp", "ScrollDown"]
+            header: RowLayout {
+                Kirigami.ListSectionHeader {
+                    text: qsTr("Button")
+                    Layout.leftMargin: 5
+                    Layout.preferredWidth: 100
                 }
-                ComboBox {
-                    textRole: "key"
+
+                Kirigami.ListSectionHeader {
+                    text: qsTr("Action")
+                    Layout.leftMargin: 5
                     Layout.fillWidth: true
-                    model: ListModel {
-                        id: leftButtonModel
-                        ListElement { key: "None"; value: "none" }
-                        ListElement { key: "Play/Pause"; value: "playPauseAction" }
+                }
+            }
+            delegate: Kirigami.BasicListItem {
+                property alias actionLabel: actionLabel
+                property alias buttonLabel: buttonLabel
+
+                width: content.width
+                height: 50
+
+                onDoubleClicked: {
+                    buttonsView.index = model.index
+                    selectActionPopup.open()
+                }
+
+                contentItem: RowLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Label {
+                        id: buttonLabel
+
+                        text: modelData
+                        padding: 10
+                        Layout.preferredWidth: 100
+                        Layout.fillHeight: true
                     }
-                    Component.onCompleted: {
-                        for (let i = 0; i < model.count; ++i) {
-                            if (model.get(i).value === settings.get("Mouse", "LeftButtonAction")) {
-                                currentIndex = i
-                                break
-                            }
+
+                    Label {
+                        id: actionLabel
+
+                        text: settings.get("Mouse", modelData)
+                        Layout.fillWidth: true
+                    }
+
+                    Button {
+                        flat: true
+                        icon.name: "configure"
+                        Layout.alignment: Qt.AlignRight
+                        onClicked: {
+                            buttonsView.index = model.index
+                            selectActionPopup.open()
                         }
                     }
-                    onActivated: {
-                        leftButton.text = model.get(index).value
-                    }
+
+                }
+            }
+            Connections {
+                target: selectActionPopup
+                onActionSelected: {
+                    const item  = buttonsView.itemAtIndex(buttonsView.index)
+                    item.actionLabel.text = actionName
+                    settings.set("Mouse", item.buttonLabel.text, actionName)
                 }
             }
         }
 
-        ////////////////////////////////////////////////////////
-        //
-        // Right Button
-        //
-        ////////////////////////////////////////////////////////
-        ColumnLayout {
-            Label {
-                text: qsTr("Right Button")
-            }
-            RowLayout {
-                TextField {
-                    id: rightButton
-                    text: settings.get("Mouse", "RightButtonAction")
-                    onTextEdited: {
-                        settings.set("Mouse", "RightButtonAction", rightButton.text)
-                    }
-                    onTextChanged: {
-                        settings.set("Mouse", "RightButtonAction", rightButton.text)
-                    }
-                }
-                ComboBox {
-                    textRole: "key"
-                    Layout.fillWidth: true
-                    model: ListModel {
-                        id: rightButtonModel
-                        ListElement { key: "None"; value: "none" }
-                        ListElement { key: "Play/Pause"; value: "playPauseAction" }
-                        ListElement { key: "Mute/Unmute"; value: "muteAction" }
-                        ListElement { key: "Open context menu"; value: "openContextMenuAction" }
-                    }
-                    Component.onCompleted: {
-                        for (let i = 0; i < model.count; ++i) {
-                            if (model.get(i).value === settings.get("Mouse", "RightButtonAction")) {
-                                currentIndex = i
-                                break
-                            }
-                        }
-                    }
-                    onActivated: {
-                        rightButton.text = model.get(index).value
-                    }
-                }
-            }
-        }
-
-        ////////////////////////////////////////////////////////
-        //
-        // Middle Button
-        //
-        ////////////////////////////////////////////////////////
-        ColumnLayout {
-            Label {
-                text: qsTr("Middle Button")
-            }
-            RowLayout {
-                TextField {
-                    id: middleButton
-                    text: settings.get("Mouse", "MiddleButtonAction")
-                    onTextEdited: {
-                        settings.set("Mouse", "MiddleButtonAction", middleButton.text)
-                    }
-                    onTextChanged: {
-                        settings.set("Mouse", "MiddleButtonAction", middleButton.text)
-                    }
-                }
-                ComboBox {
-                    textRole: "key"
-                    Layout.fillWidth: true
-                    model: ListModel {
-                        id: middleButtonModel
-                        ListElement { key: "None"; value: "none" }
-                        ListElement { key: "Play/Pause"; value: "playPauseAction" }
-                        ListElement { key: "Mute/Unmute"; value: "muteAction" }
-                        ListElement { key: "Open context menu"; value: "openContextMenuAction" }
-                        ListElement { key: "Toggle fullscreen"; value: "fullscreenAction" }
-                    }
-                    Component.onCompleted: {
-                        for (let i = 0; i < model.count; ++i) {
-                            if (model.get(i).value === settings.get("Mouse", "MiddleButtonAction")) {
-                                currentIndex = i
-                                break
-                            }
-                        }
-                    }
-                    onActivated: {
-                        middleButton.text = model.get(index).value
-                    }
-                }
-            }
-        }
-
-        ////////////////////////////////////////////////////////
-        //
-        // Scroll Up
-        //
-        ////////////////////////////////////////////////////////
-        ColumnLayout {
-            Label {
-                text: qsTr("Scroll Up")
-            }
-            RowLayout {
-                TextField {
-                    id: scrollUp
-                    text: settings.get("Mouse", "ScrollUpAction")
-                    onTextEdited: {
-                        settings.set("Mouse", "ScrollUpAction", scrollUp.text)
-                    }
-                    onTextChanged: {
-                        settings.set("Mouse", "ScrollUpAction", scrollUp.text)
-                    }
-                }
-                ComboBox {
-                    height: scrollUp.height
-                    textRole: "key"
-                    Layout.fillWidth: true
-                    model: ListModel {
-                        id: scrollUpModel
-                        ListElement { key: "None"; value: "none" }
-                        ListElement { key: "Volume Up"; value: "volumeUpAction" }
-                        ListElement { key: "Zoom In"; value: "zoomInAction" }
-                    }
-                    Component.onCompleted: {
-                        for (let i = 0; i < model.count; ++i) {
-                            if (model.get(i).value === settings.get("Mouse", "ScrollUpAction")) {
-                                currentIndex = i
-                                break
-                            }
-                        }
-                    }
-                    onActivated: {
-                        scrollUp.text = model.get(index).value
-                    }
-                }
-            }
-        }
-
-        ////////////////////////////////////////////////////////
-        //
-        // Scroll Down
-        //
-        ////////////////////////////////////////////////////////
-        ColumnLayout {
-            Label {
-                text: qsTr("Scroll Down")
-            }
-            RowLayout {
-                TextField {
-                    id: scrollDown
-                    text: settings.get("Mouse", "ScrollDownAction")
-                    onTextEdited: {
-                        settings.set("Mouse", "ScrollDownAction", scrollDown.text)
-                    }
-                    onTextChanged: {
-                        settings.set("Mouse", "ScrollDownAction", scrollDown.text)
-                    }
-                }
-                ComboBox {
-                    textRole: "key"
-                    Layout.fillWidth: true
-                    model: ListModel {
-                        id: scrollDownDownModel
-                        ListElement { key: "None"; value: "none" }
-                        ListElement { key: "Volume Down"; value: "volumeDownAction" }
-                        ListElement { key: "Zoom Out"; value: "zoomOutAction" }
-                    }
-                    Component.onCompleted: {
-                        for (let i = 0; i < model.count; ++i) {
-                            if (model.get(i).value === settings.get("Mouse", "ScrollDownAction")) {
-                                currentIndex = i
-                                break
-                            }
-                        }
-                    }
-                    onActivated: {
-                        scrollDown.text = model.get(index).value
-                    }
-                }
-            }
-        }
+        SelectActionPopup { id: selectActionPopup }
     }
 }
