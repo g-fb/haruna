@@ -28,11 +28,11 @@
 #include <KAboutData>
 #include <KI18n/KLocalizedString>
 
-
 int main(int argc, char *argv[])
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QQuickStyle::setFallbackStyle("org.kde.desktop");
 
     QApplication app(argc, argv);
     app.setOrganizationName("georgefb");
@@ -70,8 +70,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
     qmlRegisterInterface<QAction>("QAction");
     qmlRegisterInterface<TracksModel>("TracksModel");
-
-    QQuickStyle::setFallbackStyle(QStringLiteral("org.kde.desktop"));
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();

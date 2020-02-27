@@ -35,6 +35,12 @@ Popup {
             text: root.headerTitle
         }
 
+        Label {
+            text: qsTr("Double click to set action")
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
+        }
+
         TextField {
             id: filterActionsField
 
@@ -82,12 +88,6 @@ Popup {
                 Keys.onEnterPressed: actionSelected(modelData)
                 Keys.onReturnPressed: actionSelected(modelData)
             }
-        }
-
-        Label {
-            text: qsTr("Double click to set action")
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignTop
         }
     }
 }
