@@ -7,9 +7,12 @@
 #include "_debug.h"
 #include "worker.h"
 
+#include <QDate>
 #include <QDateTime>
+#include <QMimeDatabase>
 #include <QThread>
-#include <MediaInfo/MediaInfo.h>
+#include <KFileMetaData/ExtractorCollection>
+#include <KFileMetaData/SimpleExtractionResult>
 
 Worker* Worker::sm_worker = 0;
 
@@ -23,13 +26,18 @@ Worker* Worker::instance()
 
 void Worker::getVideoDuration(int index, QString path)
 {
-    MediaInfoLib::MediaInfo MI;
-    MI.Open(path.toStdWString());
-    QString duration = QString::fromStdWString(MI.Get(MediaInfoLib::Stream_General, 0, L"Duration"));
-    if (duration.isEmpty()) {
-        return;
-    }
-    MI.Close();
-    QDateTime UTCDuration = QDateTime::fromMSecsSinceEpoch(duration.toInt()).toUTC();
-    emit videoDuration(index, UTCDuration.toString("hh:mm:ss"));
+    QMimeDatabase db;
+    QMimeType type = db.mimeTypeForFile(path);
+    KFileMetaData::ExtractorCollection exCol;
+    QList<KFileMetaData::Extractor*> extractors = exCol.fetchExtractors(type.name());
+    KFileMetaData::SimpleExtractionResult result(path, type.name(),
+                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+    KFileMetaData::Extractor* ex = extractors.first();
+    ex->extract(&result);
+    auto properties = result.properties();
+
+    int duration = properties[KFileMetaData::Property::Duration].toInt();
+    QTime t(0,0,0);
+
+    emit videoDuration(index, t.addSecs(duration).toString("hh:mm:ss"));
 }

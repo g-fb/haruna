@@ -27,6 +27,7 @@ find_package(KF5 COMPONENTS
     Config
     CoreAddons
     XmlGui
+    FileMetaData
     I18n
 )
 
@@ -54,10 +55,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::QuickControls2
     KF5::ConfigCore
     KF5::CoreAddons
+    KF5::FileMetaData
     KF5::XmlGui
     KF5::I18n
     mpv
-    mediainfo
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
