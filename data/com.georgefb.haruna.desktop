@@ -7,7 +7,7 @@
 [Desktop Entry]
 Name=Haruna Video Player
 Exec=haruna
-Icon=video-x-matroska
+Icon=com.georgefb.haruna
 Type=Application
 Categories=Qt;KDE;AudioVideo;Player;Video;
 Terminal=false

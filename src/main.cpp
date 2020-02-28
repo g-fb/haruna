@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setOrganizationName("georgefb");
     app.setOrganizationDomain("georgefb.com");
-    app.setWindowIcon(QIcon::fromTheme("folder-videos-symbolic"));
+    app.setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
 
     KAboutData aboutData(
                 QStringLiteral("haruna"),
