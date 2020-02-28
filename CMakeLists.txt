@@ -62,3 +62,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(FILES data/com.georgefb.haruna.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+install(PROGRAMS data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
