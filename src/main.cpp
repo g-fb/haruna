@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    QQuickStyle::setFallbackStyle("org.kde.desktop");
+    QQuickStyle::setFallbackStyle(QStringLiteral("org.kde.desktop"));
 
     QApplication app(argc, argv);
     app.setOrganizationName("georgefb");

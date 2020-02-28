@@ -36,6 +36,7 @@ Rectangle {
         property var columnWidths: [parent.width * 0.8, parent.width * 0.2]
 
         anchors.fill: parent
+        boundsBehavior: Flickable.StopAtBounds
         columnSpacing: 1
         columnWidthProvider: (column) => columnWidths[column]
         delegate: PlayListItem {}
@@ -88,7 +89,7 @@ Rectangle {
                 NumberAnimation {
                     target: root
                     property: "x"
-                    duration: 150
+                    duration: 120
                     easing.type: Easing.InQuad
                 }
                 PropertyAction {
@@ -111,7 +112,7 @@ Rectangle {
                 NumberAnimation {
                     target: root
                     property: "x"
-                    duration: 150
+                    duration: 120
                     easing.type: Easing.OutQuad
                 }
             }
