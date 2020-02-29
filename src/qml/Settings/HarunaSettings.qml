@@ -18,14 +18,18 @@ Pane {
     x: -width; y: 0; z: 50
     width: 600
     height: mpv.height
-    padding: 10
+    leftPadding: 0
+    rightPadding: 0
     state: "hidden"
     hoverEnabled: true
 
     RowLayout {
         anchors.fill: parent
+        spacing: 0
+
         Navigation {
             id: nav
+
             width: root.width * 0.3 - root.padding
             Layout.fillHeight: true
         }
@@ -37,19 +41,21 @@ Pane {
         }
 
         Flickable {
-            id: flick
+            id: settingsPage
 
             clip: true
             height: root.height
-            contentHeight: settingsViewLoader.item.contentHeight
+            contentHeight: settingsPageLoader.item.contentHeight
             Layout.fillWidth: true
             Layout.fillHeight: true
-            ScrollBar.vertical: ScrollBar { id: scrollbar }
+            ScrollBar.vertical: ScrollBar { id: settingsPageScrollBar }
 
             Loader {
-                id: settingsViewLoader
+                id: settingsPageLoader
 
                 anchors.fill: parent
+                anchors.leftMargin: settingsPageScrollBar.width
+                anchors.rightMargin: settingsPageScrollBar.width
                 sourceComponent: generalSettings
             }
         }

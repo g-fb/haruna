@@ -14,7 +14,6 @@ Flickable {
     property int iconSize: 32
     property var active: general
 
-    height: parent.height
     clip: true
     contentHeight: sidebar.height
     ScrollBar.vertical: ScrollBar { id: scrollbar }
@@ -22,10 +21,14 @@ Flickable {
     ColumnLayout {
         id: sidebar
 
-        width: parent.width
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: scrollbar.width
+        anchors.rightMargin: scrollbar.width
 
         ToolButton {
             id: general
+
             text: "General"
             checkable: true
             checked: true
@@ -33,7 +36,6 @@ Flickable {
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === general) {
@@ -41,22 +43,22 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = generalSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = generalSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = general
             }
         }
         ToolButton {
             id: colors
+
             text: "Color Adjustments"
             checkable: true
             icon.name: "color-management"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -64,22 +66,22 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = colorAdjustmentsSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = colorAdjustmentsSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
             }
         }
         ToolButton {
             id: mouse
+
             text: "Mouse"
             checkable: true
             icon.name: "input-mouse"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -87,22 +89,22 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = mouseSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = mouseSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
             }
         }
         ToolButton {
             id: playlist
+
             text: "Playlist"
             checkable: true
             icon.name: "view-media-playlist"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -110,22 +112,22 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = playlistSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = playlistSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
             }
         }
         ToolButton {
             id: audio
+
             text: "Audio"
             checkable: true
             icon.name: "audio-speakers-symbolic"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -133,22 +135,22 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = audioSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = audioSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
             }
         }
         ToolButton {
             id: subtitles
+
             text: "Subtitles"
             checkable: true
             icon.name: "media-view-subtitles-symbolic"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -156,22 +158,22 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = subtitlesSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = subtitlesSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
             }
         }
         ToolButton {
             id: playback
+
             text: "Playback"
             checkable: true
             icon.name: "media-playback-start"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             onClicked: {
                 if (active === this) {
@@ -179,21 +181,21 @@ Flickable {
                     return
                 }
 
-                settingsViewLoader.item.visible = false
-                settingsViewLoader.sourceComponent = playbackSettings
-                settingsViewLoader.item.visible = true
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = playbackSettings
+                settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
             }
         }
         ToolButton {
             id: shortcuts
+
             text: "Shortcuts"
             icon.name: "configure-shortcuts"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
-            Layout.rightMargin: scrollbar.width
             Layout.fillWidth: true
             action: actions.configureShortcutsAction
         }
