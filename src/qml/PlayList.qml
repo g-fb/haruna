@@ -33,9 +33,10 @@ Rectangle {
     TableView {
         id: tableView
 
-        property var columnWidths: [parent.width * 0.8, parent.width * 0.2]
+        property var columnWidths: [tableView.width * 0.8, tableView.width * 0.2]
 
         anchors.fill: parent
+        anchors.rightMargin: scrollBar.width
         boundsBehavior: Flickable.StopAtBounds
         columnSpacing: 1
         columnWidthProvider: (column) => columnWidths[column]
@@ -43,7 +44,14 @@ Rectangle {
         rowSpacing: root.rowSpacing
         model: playListModel
         z: 20
-        ScrollBar.vertical: ScrollBar { id: scrollBar }
+        ScrollBar.vertical: ScrollBar {
+            id: scrollBar
+            parent: tableView.parent
+            anchors.top: tableView.top
+            anchors.bottom: tableView.bottom
+            anchors.left: tableView.right
+            z: 25
+        }
     }
 
     MouseArea {

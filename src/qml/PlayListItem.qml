@@ -47,7 +47,7 @@ Item {
             font.bold: true
             text: model.name
             leftPadding: 10
-            rightPadding: column === 1 ? scrollBar.width : 10
+            rightPadding: 10
             layer.enabled: true
             font.pointSize: {
                 if (window.visibility === Window.FullScreen && playList.bigFont) {
