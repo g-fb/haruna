@@ -16,7 +16,6 @@ Item {
     property alias contentHeight: content.height
 
     visible: false
-    anchors.fill: parent
 
     ColumnLayout {
         id: content

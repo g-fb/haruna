@@ -33,6 +33,8 @@ ToolBar {
 
             ToolButton {
                 action: actions.configureAction
+                checkable: true
+                checked: hSettings.state === "visible"
             }
             ToolButton {
                 action: actions.openAction

@@ -95,15 +95,16 @@ Slider {
             antialiasing: true
             parent: progressBarBackground
             ShapePath {
+                id: shape
                 strokeWidth: 1
                 strokeColor: Kirigami.Theme.textColor
                 startX: chapterMarkerShape.position
                 startY: root.height
                 fillColor: Kirigami.Theme.textColor
-                PathLine { x: chapterMarkerShape.position; y: -1 }
-                PathLine { x: chapterMarkerShape.position + 6; y: -7 }
-                PathLine { x: chapterMarkerShape.position - 7; y: -7 }
-                PathLine { x: chapterMarkerShape.position - 1; y: -1 }
+                PathLine { x: shape.startX; y: -1 }
+                PathLine { x: shape.startX + 6; y: -7 }
+                PathLine { x: shape.startX - 7; y: -7 }
+                PathLine { x: shape.startX - 1; y: -1 }
             }
             Rectangle {
                 x: chapterMarkerShape.position - 8

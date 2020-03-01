@@ -15,7 +15,6 @@ Item {
     property alias contentHeight: content.height
 
     visible: false
-    height: parent.height
 
     GridLayout {
         id: content

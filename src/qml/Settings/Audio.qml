@@ -15,40 +15,45 @@ Item {
 
     visible: false
 
-    ColumnLayout {
+    GridLayout {
         id: content
 
-        ColumnLayout {
-            Label {
-                text: qsTr("Preferred audio language")
-            }
-            TextField {
-                text: settings.get("Audio", "PreferredLanguage")
-                placeholderText: "eng, ger etc."
-                onTextEdited: {
-                    settings.set("Audio", "PreferredLanguage", text)
-                    mpv.setProperty("alang", text)
-                }
+        width: parent.width
+        columns: 2
+
+        Label {
+            text: qsTr("Preferred language")
+            Layout.alignment: Qt.AlignRight
+        }
+        TextField {
+            text: settings.get("Audio", "PreferredLanguage")
+            placeholderText: "eng, ger etc."
+            Layout.fillWidth: true
+            onTextEdited: {
+                settings.set("Audio", "PreferredLanguage", text)
+                mpv.setProperty("alang", text)
             }
         }
-        RowLayout {
-            Label {
-                text: qsTr("Preferred audio track")
-            }
-            SpinBox {
-                from: 0
-                to: 100
-                value: settings.get("Audio", "PreferredTrack")
-                onValueChanged: {
-                    if (value === 0) {
-                        settings.set("Audio", "PreferredTrack", value)
-                        mpv.setProperty("aid", "auto")
-                        return
-                    }
 
+
+        Label {
+            text: qsTr("Preferred track")
+            Layout.alignment: Qt.AlignRight
+        }
+        SpinBox {
+            from: 0
+            to: 100
+            value: settings.get("Audio", "PreferredTrack")
+            editable: true
+            onValueChanged: {
+                if (value === 0) {
                     settings.set("Audio", "PreferredTrack", value)
-                    mpv.setProperty("aid", value)
+                    mpv.setProperty("aid", "auto")
+                    return
                 }
+
+                settings.set("Audio", "PreferredTrack", value)
+                mpv.setProperty("aid", value)
             }
         }
     }

@@ -15,48 +15,51 @@ Item {
 
     visible: false
 
-    ColumnLayout {
+    GridLayout {
         id: content
 
-        spacing: 25
+        width: parent.width
+        columns: 2
 
         SubtitlesFolders {
             id: subtitleFolders
             implicitWidth: root.width
+            Layout.fillWidth: true
+            Layout.columnSpan: 2
         }
 
-        ColumnLayout {
-            Label {
-                text: qsTr("Preferred subtitle language")
-            }
-            TextField {
-                text: settings.get("Subtitle", "PreferredLanguage")
-                placeholderText: "eng, ger etc."
-                onTextEdited: {
-                    settings.set("Subtitle", "PreferredLanguage", text)
-                    mpv.setProperty("slang", text)
-                }
+        Label {
+            text: qsTr("Preferred language")
+            Layout.alignment: Qt.AlignRight
+        }
+        TextField {
+            text: settings.get("Subtitle", "PreferredLanguage")
+            placeholderText: "eng, ger etc."
+            Layout.fillWidth: true
+            onTextEdited: {
+                settings.set("Subtitle", "PreferredLanguage", text)
+                mpv.setProperty("slang", text)
             }
         }
 
-        RowLayout {
-            Label {
-                text: qsTr("Preferred subtitle track")
-            }
-            SpinBox {
-                from: 0
-                to: 100
-                value: settings.get("Subtitle", "PreferredTrack")
-                onValueChanged: {
-                    if (value === 0) {
-                        settings.set("Subtitle", "PreferredTrack", value)
-                        mpv.setProperty("sid", "auto")
-                        return
-                    }
-
+        Label {
+            text: qsTr("Preferred track")
+            Layout.alignment: Qt.AlignRight
+        }
+        SpinBox {
+            from: 0
+            to: 100
+            value: settings.get("Subtitle", "PreferredTrack")
+            editable: true
+            onValueChanged: {
+                if (value === 0) {
                     settings.set("Subtitle", "PreferredTrack", value)
-                    mpv.setProperty("sid", value)
+                    mpv.setProperty("sid", "auto")
+                    return
                 }
+
+                settings.set("Subtitle", "PreferredTrack", value)
+                mpv.setProperty("sid", value)
             }
         }
     }

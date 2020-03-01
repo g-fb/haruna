@@ -48,14 +48,16 @@ Popup {
             focus: true
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignTop
-            KeyNavigation.down: actionNone
+            KeyNavigation.up: actionsListView
+            KeyNavigation.down: clearActionButton
+
             onTextChanged: {
                 const menuModel = actionsListView.actionsList
                 actionsListView.model = menuModel.filter(action => action.toLowerCase().includes(text))
             }
         }
         Button {
-            id: actionNone
+            id: clearActionButton
 
             Layout.fillWidth: true
             text: qsTr("Clear current action")
@@ -79,6 +81,18 @@ Popup {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignTop
             currentIndex: focus ? 0 : -1
+            KeyNavigation.up: clearActionButton
+            KeyNavigation.down: filterActionsField
+            Keys.onPressed: {
+                if (event.key === Qt.Key_End) {
+                    actionsListView.currentIndex = actionsListView.count - 1
+                    actionsListView.positionViewAtIndex(actionsListView.currentIndex,ListView.Center)
+                }
+                if (event.key === Qt.Key_Home) {
+                    actionsListView.currentIndex = 0
+                    actionsListView.positionViewAtIndex(actionsListView.currentIndex,ListView.Center)
+                }
+            }
             delegate: Kirigami.BasicListItem {
                 height: 30
                 width: parent.width
