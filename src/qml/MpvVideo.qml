@@ -23,6 +23,7 @@ MpvObject {
     height: parent.height - footer.height
     anchors.left: hSettings.right
     anchors.right: parent.right
+    anchors.fill: window.isFullScreen() ? parent : undefined
 
     onSetSubtitle: {
         if (id !== -1) {
@@ -206,11 +207,6 @@ MpvObject {
         onMouseYChanged: {
             focus = true
             my = mouseY
-            if (mouseY > window.height - footer.height && window.visibility === Window.FullScreen) {
-                footer.visible = true
-            } else if (mouseY < window.height - footer.height && window.visibility === Window.FullScreen) {
-                footer.visible = false
-            }
         }
 
         onWheel: {
@@ -273,11 +269,6 @@ MpvObject {
         if (window.visibility !== Window.FullScreen) {
             hSettings.state = "hidden"
             window.showFullScreen()
-            menuBar.visible = false
-            header.visible = false
-            footer.visible = false
-            footer.anchors.bottom = bottom
-            anchors.fill = parent
         } else {
             if (window.preFullScreenVisibility === Window.Windowed) {
                 window.showNormal()
@@ -286,11 +277,6 @@ MpvObject {
                 window.show()
                 window.showMaximized()
             }
-            menuBar.visible = settings.get("View", "MenuBarVisible")
-            header.visible = settings.get("View", "HeaderVisible")
-            footer.visible = true
-            footer.anchors.bottom = undefined
-            anchors.fill = undefined
         }
         app.showCursor()
         scrollPositionTimer.start()

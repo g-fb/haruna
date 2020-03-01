@@ -17,12 +17,14 @@ ToolBar {
     property alias playPauseButton: playPauseButton
     property alias volume: volume
 
+    y: mpv.height
     anchors.left: parent.left
     anchors.right: parent.right
-    y: mpv.height
+    anchors.bottom: isFullScreen() ? mpv.bottom : window.bottom
     padding: 5
     position: ToolBar.Footer
     hoverEnabled: true
+    visible: !window.isFullScreen() || mpv.my > window.height - footer.height
 
     RowLayout {
         id: footerRow

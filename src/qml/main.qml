@@ -39,9 +39,11 @@ Kirigami.ApplicationWindow {
     header: Header { id: header }
 
     menuBar: MenuBar {
+        property bool isVisible: settings.get("View", "MenuBarVisible")
+
         hoverEnabled: true
         implicitHeight: 24
-        visible: settings.get("View", "MenuBarVisible")
+        visible: !window.isFullScreen() && isVisible
 
         FileMenu {}
         ViewMenu {}
@@ -156,5 +158,9 @@ Kirigami.ApplicationWindow {
         title = path.trim("/").split("/").pop()
 
         settings.set("General", "LastPlayedFile", path)
+    }
+
+    function isFullScreen() {
+        return window.visibility === Window.FullScreen
     }
 }

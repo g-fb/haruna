@@ -849,8 +849,8 @@ Item {
         Component.onCompleted: list["toggleMenuBarAction"] = toggleMenuBarAction
 
         onTriggered: {
-            menuBar.visible = !menuBar.visible
-            settings.set("View", "MenuBarVisible", menuBar.visible)
+            menuBar.isVisible = !menuBar.isVisible
+            settings.set("View", "MenuBarVisible", menuBar.isVisible)
         }
     }
 
@@ -864,8 +864,8 @@ Item {
         Component.onCompleted: list["toggleHeaderAction"] = toggleHeaderAction
 
         onTriggered: {
-            header.visible = !header.visible
-            settings.set("View", "HeaderVisible", header.visible)
+            header.isVisible = !header.isVisible
+            settings.set("View", "HeaderVisible", header.isVisible)
         }
     }
 }

@@ -17,9 +17,10 @@ ToolBar {
 
     property var audioTracks
     property var subtitleTracks
+    property bool isVisible: settings.get("View", "HeaderVisible")
 
     position: ToolBar.Header
-    visible: settings.get("View", "HeaderVisible")
+    visible: !window.isFullScreen() && isVisible
 
     RowLayout {
         id: headerRow
