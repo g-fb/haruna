@@ -37,6 +37,7 @@ set(${PROJECT_NAME}_SRC
     src/settings.cpp
     src/lockmanager.cpp
     src/mpvobject.cpp
+    src/qthelper.h
     src/subtitlesfoldersmodel.cpp
     src/track.cpp
     src/tracksmodel.cpp

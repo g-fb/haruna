@@ -68,7 +68,6 @@ void TracksModel::setTracks(QMap<int, Track *> tracks)
 
 void TracksModel::updateFirstTrack(int i)
 {
-    qDebug() << i;
     m_tracks[firstTrack()]->setFirst(false);
     dataChanged(index(firstTrack()), index(firstTrack()));
 

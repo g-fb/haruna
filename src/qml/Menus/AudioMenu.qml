@@ -30,7 +30,7 @@ Menu {
                 text: model.text
                 onTriggered: {
                     mpv.setAudio(model.id)
-                    mpv.audioTracksModel().updateSelectedTrack(model.index)
+                    mpv.audioTracksModel().updateFirstTrack(model.index)
                 }
             }
         }

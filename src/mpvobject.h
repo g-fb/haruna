@@ -11,7 +11,7 @@
 
 #include <mpv/client.h>
 #include <mpv/render_gl.h>
-#include <mpv/qthelper.hpp>
+#include "qthelper.h"
 
 class MpvRenderer;
 class Track;

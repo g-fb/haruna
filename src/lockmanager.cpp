@@ -10,7 +10,6 @@
 #include <KLocalizedString>
 
 #include <QDBusConnection>
-#include <QDebug>
 
 LockManager::LockManager(QObject *parent)
     : QObject(parent)
