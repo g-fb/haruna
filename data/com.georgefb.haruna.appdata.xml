@@ -12,12 +12,19 @@
     <metadata_license>CC-BY-4.0</metadata_license>
     <project_license>GPL-3.0-or-later</project_license>
     <url type="homepage">https://github.com/g-fb/haruna</url>
+    <url type="bugtracker">https://github.com/g-fb/haruna/issues</url>
     <url type="donation">https://www.patreon.com/georgefb</url>
     <summary>A Qt/QML video player built on top of libmpv.</summary>
     <description>
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.1" date="2020-03-09">
+            <description>
+                <p>Fix changing audio track from meniu.</p>
+                <p>Fix icon.</p>
+            </description>
+        </release>
         <release version="0.1.0" date="2020-02-28">
             <description>
                 <p>First release.</p>

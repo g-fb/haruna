@@ -8,7 +8,14 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Haruna is an open source video player built with Qt/QML on top of libmpv.
 
-**Does not support mpv config files nor scripts.**
+# Install
+
+```
+flatpak install flathub com.georgefb.haruna
+flatpak run com.georgefb.haruna
+```
+
+[Flatpak setup guide](https://flatpak.org/setup/)
 
 # Features
 
@@ -23,8 +30,6 @@ these are just some features that set Haruna apart from others players
 - configurable shortcuts and mouse buttons
 
 - quick jump to next chapter by middle click on progress bar
-
-### More info coming soon
 
 # Screenshots
 
