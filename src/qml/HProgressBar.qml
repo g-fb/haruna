@@ -70,7 +70,7 @@ Slider {
                 progressBarToolTip.x = mouseX - (progressBarToolTip.width * 0.5)
 
                 const time = mouseX * 100 / progressBarBackground.width * root.to / 100
-                progressBarToolTip.text = mpv.formatTime(time)
+                progressBarToolTip.text = app.formatTime(time)
             }
 
             onEntered: {
@@ -174,7 +174,7 @@ Slider {
 
                 checkable: true
                 checked: index === chaptersMenu.checkedItem
-                text: `${mpv.formatTime(modelData.time)} - ${modelData.title}`
+                text: `${app.formatTime(modelData.time)} - ${modelData.title}`
                 Component.onCompleted: {
                     chaptersMenu.width = menuitem.width > chaptersMenu.width
                             ? menuitem.width

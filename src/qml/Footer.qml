@@ -101,12 +101,12 @@ ToolBar {
             TextMetrics {
                 id: timeInfoTextMetrics
 
-                text: mpv.formatTime(mpv.position) + " / " + mpv.formatTime(mpv.duration)
+                text: app.formatTime(mpv.position) + " / " + app.formatTime(mpv.duration)
                 font.pointSize: 14
             }
 
             ToolTip {
-                text: qsTr("Remaining: ") + mpv.formatTime(mpv.remaining)
+                text: qsTr("Remaining: ") + app.formatTime(mpv.remaining)
                 visible: timeInfoMouseArea.containsMouse
                 timeout: -1
             }

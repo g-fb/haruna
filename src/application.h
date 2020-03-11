@@ -36,6 +36,7 @@ public slots:
     void showCursor();
     QAction* action(const QString& name);
     QString iconName(const QIcon& icon);
+    QString formatTime(const double time);
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;

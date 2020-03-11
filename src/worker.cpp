@@ -37,7 +37,7 @@ void Worker::getVideoDuration(int index, const QString &path)
     auto properties = result.properties();
 
     int duration = properties[KFileMetaData::Property::Duration].toInt();
-    QTime t(0,0,0);
+    QTime t(0, 0, 0);
 
     emit videoDuration(index, t.addSecs(duration).toString("hh:mm:ss"));
 }

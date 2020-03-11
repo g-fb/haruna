@@ -341,10 +341,3 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
     window()->setPersistentSceneGraph(true);
     return new MpvRenderer(const_cast<MpvObject *>(this));
 }
-
-QString MpvObject::formatTime(const double time)
-{
-    QTime t(0,0,0);
-    QString formattedTime = t.addSecs(static_cast<qint64>(time)).toString("hh:mm:ss");
-    return formattedTime;
-}

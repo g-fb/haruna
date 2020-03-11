@@ -82,6 +82,13 @@ void Application::showCursor()
     QApplication::setOverrideCursor(Qt::ArrowCursor);
 }
 
+QString Application::formatTime(const double time)
+{
+    QTime t(0, 0, 0);
+    QString formattedTime = t.addSecs(static_cast<qint64>(time)).toString("hh:mm:ss");
+    return formattedTime;
+}
+
 void Application::setupActions(const QString &actionName)
 {
     if (actionName == QStringLiteral("file_quit")) {
