@@ -32,12 +32,12 @@ int main(int argc, char *argv[])
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setOrganizationName("georgefb");
+    QApplication::setOrganizationDomain("georgefb.com");
+    QApplication::setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
     QQuickStyle::setFallbackStyle(QStringLiteral("org.kde.desktop"));
 
     QApplication app(argc, argv);
-    app.setOrganizationName("georgefb");
-    app.setOrganizationDomain("georgefb.com");
-    app.setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
 
     KAboutData aboutData(
                 QStringLiteral("haruna"),
@@ -113,6 +113,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
     engine.rootContext()->setContextProperty(QStringLiteral("settings"), settings.release());
     engine.load(url);
-    return app.exec();
+    return QApplication::exec();
 }
 

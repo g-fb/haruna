@@ -45,9 +45,9 @@ private:
     QString m_fileName;
     QString m_folderPath;
     QString m_duration;
-    bool m_isHovered;
-    bool m_isPlaying;
-    int m_index;
+    bool m_isHovered {};
+    bool m_isPlaying {};
+    int m_index {};
 };
 
 #endif // PLAYLISTITEM_H

@@ -7,6 +7,7 @@
 #include "_debug.h"
 #include "track.h"
 #include "tracksmodel.h"
+#include <utility>
 
 TracksModel::TracksModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -14,7 +15,7 @@ TracksModel::TracksModel(QObject *parent)
 
 }
 
-int TracksModel::rowCount(const QModelIndex &parent) const
+int TracksModel::rowCount(const QModelIndex &/*parent*/) const
 {
     return m_tracks.size();
 }
@@ -62,7 +63,7 @@ QHash<int, QByteArray> TracksModel::roleNames() const
 void TracksModel::setTracks(QMap<int, Track *> tracks)
 {
     beginResetModel();
-    m_tracks = tracks;
+    m_tracks = std::move(tracks);
     endResetModel();
 }
 

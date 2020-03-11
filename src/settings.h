@@ -18,12 +18,12 @@ public:
     explicit Settings(QObject *parent = nullptr);
 
 public slots:
-    QVariant get(const QString group, const QString key);
-    void set(const QString group, const QString key, const QString value);
-    QVariant getPath(const QString group, const QString key);
-    void setPath(const QString group, const QString key, const QString value);
+    QVariant get(const QString &group, const QString &key);
+    void set(const QString &group, const QString &key, const QString &value);
+    QVariant getPath(const QString &group, const QString &key);
+    void setPath(const QString &group, const QString &key, const QString &value);
 private:
-    QVariant defaultSetting(QString key);
+    QVariant defaultSetting(const QString &key);
     QHash<QString, QVariant> m_defaultSettings;
     KSharedConfig::Ptr m_config;
 };

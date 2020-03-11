@@ -42,8 +42,8 @@ public slots:
     Q_INVOKABLE void updateSecondTrack(int i);
 private:
     QMap<int, Track *> m_tracks;
-    int m_firstTrack;
-    int m_secondTrack;
+    int m_firstTrack {};
+    int m_secondTrack {};
 };
 
 #endif // TRACKSMODEL_H

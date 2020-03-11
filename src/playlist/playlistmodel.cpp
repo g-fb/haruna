@@ -20,7 +20,7 @@ PlayListModel::PlayListModel(QObject *parent)
 {
     connect(this, &PlayListModel::videoAdded,
             Worker::instance(), &Worker::getVideoDuration);
-    connect(Worker::instance(), &Worker::videoDuration, this, [ = ](int i, QString d) {
+    connect(Worker::instance(), &Worker::videoDuration, this, [ = ](int i, const QString &d) {
         m_playList[i]->setDuration(d);
         dataChanged(index(i, 1), index(i, 1));
     });
@@ -88,7 +88,7 @@ void PlayListModel::getVideos(QString path)
     QFileInfo pathInfo(path);
     QStringList videoFiles;
     if (pathInfo.exists() && pathInfo.isFile()) {
-        QDirIterator *it = new QDirIterator(pathInfo.absolutePath(), QDir::Files, QDirIterator::NoIteratorFlags);
+        auto it = new QDirIterator(pathInfo.absolutePath(), QDir::Files, QDirIterator::NoIteratorFlags);
         while (it->hasNext()) {
             QString file = it->next();
             QFileInfo fileInfo(file);

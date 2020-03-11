@@ -8,9 +8,7 @@
 #include "playlistitem.h"
 
 PlayListItem::PlayListItem(QObject *parent) : QObject(parent)
-{
-
-}
+{}
 
 QString PlayListItem::filePath() const
 {

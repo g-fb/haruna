@@ -30,8 +30,8 @@ signals:
 public slots:
     void configureShortcuts();
     QString argument(int key);
-    void addArgument(int key, QString value);
-    QUrl getPathFromArg(QString arg);
+    void addArgument(int key, const QString &value);
+    QUrl getPathFromArg(const QString &arg);
     void hideCursor();
     void showCursor();
     QAction* action(const QString& name);

@@ -42,9 +42,6 @@ MpvRenderer::MpvRenderer(MpvObject *new_obj)
     : obj{new_obj}
 {}
 
-MpvRenderer::~MpvRenderer()
-{}
-
 void MpvRenderer::render()
 {
     obj->window()->resetOpenGLState();
@@ -261,7 +258,7 @@ void MpvObject::loadTracks()
     QVariant tracks = getProperty("track-list");
     int subIndex = 1;
     int audioIndex = 0;
-    for (auto track : tracks.toList()) {
+    for (const auto &track : tracks.toList()) {
         if (track.toMap()["type"] == "sub") {
             const auto t = track.toMap();
             auto *track = new Track();
@@ -348,6 +345,6 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 QString MpvObject::formatTime(const double time)
 {
     QTime t(0,0,0);
-    QString formattedTime = t.addSecs(time).toString("hh:mm:ss");
+    QString formattedTime = t.addSecs(static_cast<qint64>(time)).toString("hh:mm:ss");
     return formattedTime;
 }

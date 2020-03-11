@@ -76,17 +76,17 @@ private:
     TracksModel *m_subtitleTracksModel;
     QMap<int, Track*> m_subtitleTracks;
     QMap<int, Track*> m_audioTracks;
-    double m_position;
-    double m_duration;
-    double m_remaining;
-    double m_volume;
     QVariant m_chapters;
-    int m_chapter;
-    bool m_pause;
-    int m_contrast = 0;
-    int m_brightness = 0;
-    int m_gamma = 0;
-    int m_saturation = 0;
+    double m_position {};
+    double m_duration {};
+    double m_remaining {};
+    double m_volume {};
+    bool m_pause {};
+    int m_chapter {};
+    int m_contrast {};
+    int m_brightness {};
+    int m_gamma {};
+    int m_saturation {};
 
     void loadTracks();
 };
@@ -95,7 +95,7 @@ class MpvRenderer : public QQuickFramebufferObject::Renderer
 {
 public:
     MpvRenderer(MpvObject *new_obj);
-    ~MpvRenderer();
+    ~MpvRenderer() = default;
 
     MpvObject *obj;
 

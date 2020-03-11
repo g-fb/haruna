@@ -40,7 +40,7 @@ public:
     void setExternal(bool external);
 
     bool isFirst() const;
-    void setFirst(bool selected);
+    void setFirst(bool isFirst);
 
     bool isSecond() const;
     void setSecond(bool isSecond);
@@ -68,16 +68,16 @@ private:
     QString m_title;
     QString m_codec;
     QString m_type;
-    qlonglong m_id;
-    qlonglong m_ffIndex;
-    qlonglong m_srcId;
-    bool m_defaut;
-    bool m_dependent;
-    bool m_external;
-    bool m_first;
-    bool m_second;
-    bool m_forced;
-    int m_index;
+    qlonglong m_id {};
+    qlonglong m_ffIndex {};
+    qlonglong m_srcId {};
+    bool m_defaut {};
+    bool m_dependent {};
+    bool m_external {};
+    bool m_first {};
+    bool m_second {};
+    bool m_forced {};
+    int m_index {};
 };
 
 #endif // TRACK_H

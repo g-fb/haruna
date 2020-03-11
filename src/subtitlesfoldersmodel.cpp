@@ -44,7 +44,7 @@ QVariant SubtitlesFoldersModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void SubtitlesFoldersModel::updateFolder(QString folder, int row)
+void SubtitlesFoldersModel::updateFolder(const QString &folder, int row)
 {
     m_list.replace(row, folder);
     QStringList newList = m_list;

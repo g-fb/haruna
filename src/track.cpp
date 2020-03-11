@@ -6,12 +6,8 @@
 
 #include "track.h"
 
-Track::Track(QObject *parent)
-    : QObject(parent)
-    , m_second(false)
-{
-
-}
+Track::Track(QObject *parent) : QObject(parent)
+{}
 
 QString Track::lang() const
 {

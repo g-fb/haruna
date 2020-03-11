@@ -24,7 +24,7 @@ public Q_SLOTS:
     void setInhibitionOff();
 private:
     OrgFreedesktopScreenSaverInterface* m_iface;
-    int m_cookie;
+    int m_cookie {};
     bool m_inhibit;
 };
 

@@ -14,7 +14,7 @@
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/SimpleExtractionResult>
 
-Worker* Worker::sm_worker = 0;
+Worker* Worker::sm_worker = nullptr;
 
 Worker* Worker::instance()
 {
@@ -24,7 +24,7 @@ Worker* Worker::instance()
     return sm_worker;
 }
 
-void Worker::getVideoDuration(int index, QString path)
+void Worker::getVideoDuration(int index, const QString &path)
 {
     QMimeDatabase db;
     QMimeType type = db.mimeTypeForFile(path);
