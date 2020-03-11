@@ -28,21 +28,21 @@ signals:
     void settingsChanged();
 
 public slots:
+    static QString formatTime(const double time);
+    static QString iconName(const QIcon& icon);
+    static QUrl getPathFromArg(const QString &arg);
+    static void hideCursor();
+    static void showCursor();
+    void addArgument(int key, const QString &value);
     void configureShortcuts();
     QString argument(int key);
-    void addArgument(int key, const QString &value);
-    QUrl getPathFromArg(const QString &arg);
-    void hideCursor();
-    void showCursor();
     QAction* action(const QString& name);
-    QString iconName(const QIcon& icon);
-    QString formatTime(const double time);
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
     KConfigGroup *m_shortcuts;
-    QMap<int, QString> args;
+    QMap<int, QString> m_args;
 };
 
 #endif // APPLICATION_H

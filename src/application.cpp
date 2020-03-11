@@ -28,19 +28,41 @@ Application::Application(QObject *parent)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
 }
 
-QString Application::argument(int key)
+QString Application::formatTime(const double time)
 {
-    return args[key];
+    QTime t(0, 0, 0);
+    QString formattedTime = t.addSecs(static_cast<qint64>(time)).toString("hh:mm:ss");
+    return formattedTime;
 }
 
-void Application::addArgument(int key, const QString &value)
+QString Application::iconName(const QIcon &icon)
 {
-    args.insert(key, value);
+    return icon.name();
 }
 
 QUrl Application::getPathFromArg(const QString &arg)
 {
     return QUrl::fromUserInput(arg, QDir::currentPath());
+}
+
+void Application::hideCursor()
+{
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+}
+
+void Application::showCursor()
+{
+    QApplication::setOverrideCursor(Qt::ArrowCursor);
+}
+
+QString Application::argument(int key)
+{
+    return m_args[key];
+}
+
+void Application::addArgument(int key, const QString &value)
+{
+    m_args.insert(key, value);
 }
 
 QAction *Application::action(const QString &name)
@@ -55,11 +77,6 @@ QAction *Application::action(const QString &name)
     return resultAction;
 }
 
-QString Application::iconName(const QIcon &icon)
-{
-    return icon.name();
-}
-
 void Application::configureShortcuts()
 {
     KShortcutsDialog dlg(KShortcutsEditor::ApplicationAction, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
@@ -70,23 +87,6 @@ void Application::configureShortcuts()
     dlg.setModal(true);
     dlg.addCollection(&m_collection);
     dlg.configure(false);
-}
-
-void Application::hideCursor()
-{
-    QApplication::setOverrideCursor(Qt::BlankCursor);
-}
-
-void Application::showCursor()
-{
-    QApplication::setOverrideCursor(Qt::ArrowCursor);
-}
-
-QString Application::formatTime(const double time)
-{
-    QTime t(0, 0, 0);
-    QString formattedTime = t.addSecs(static_cast<qint64>(time)).toString("hh:mm:ss");
-    return formattedTime;
 }
 
 void Application::setupActions(const QString &actionName)

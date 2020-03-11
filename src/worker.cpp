@@ -6,9 +6,8 @@
 
 #include "_debug.h"
 #include "worker.h"
+#include "application.h"
 
-#include <QDate>
-#include <QDateTime>
 #include <QMimeDatabase>
 #include <QThread>
 #include <KFileMetaData/ExtractorCollection>
@@ -35,9 +34,7 @@ void Worker::getVideoDuration(int index, const QString &path)
     KFileMetaData::Extractor* ex = extractors.first();
     ex->extract(&result);
     auto properties = result.properties();
-
     int duration = properties[KFileMetaData::Property::Duration].toInt();
-    QTime t(0, 0, 0);
 
-    emit videoDuration(index, t.addSecs(duration).toString("hh:mm:ss"));
+    emit videoDuration(index, Application::formatTime(duration));
 }
