@@ -345,9 +345,9 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
     return new MpvRenderer(const_cast<MpvObject *>(this));
 }
 
-QString MpvObject::formatTime(double time)
+QString MpvObject::formatTime(const double time)
 {
-    QDateTime d = QDateTime::fromSecsSinceEpoch(static_cast<qint64>(time)).toUTC();
-    QString formattedTime = d.toString("hh:mm:ss");
+    QTime t(0,0,0);
+    QString formattedTime = t.addSecs(time).toString("hh:mm:ss");
     return formattedTime;
 }

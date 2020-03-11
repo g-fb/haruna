@@ -49,7 +49,7 @@ public slots:
     QVariant command(const QVariant& params);
     int setProperty(const QString& name, const QVariant& value);
     QVariant getProperty(const QString &name);
-    QString formatTime(double time);
+    QString formatTime(const double time);
     TracksModel *audioTracksModel() const;
     TracksModel *subtitleTracksModel() const;
 
