@@ -13,22 +13,25 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 include(KDEInstallDirs)
 include(ECMInstallIcons)
+include(FeatureSummary)
 
-find_package(Qt5 COMPONENTS
+find_package(Qt5 REQUIRED COMPONENTS
     Core
     Quick
     QuickControls2
 )
-find_package(KF5 COMPONENTS
+find_package(KF5 REQUIRED COMPONENTS
     Config
     CoreAddons
-    XmlGui
     FileMetaData
     I18n
+    XmlGui
 )
 
 set(${PROJECT_NAME}_SRC
@@ -66,3 +69,5 @@ ecm_install_icons(ICONS data/256-apps-com.georgefb.haruna.svg DESTINATION ${KDE_
 install(TARGETS ${PROJECT_NAME} DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES data/com.georgefb.haruna.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 install(PROGRAMS data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
