@@ -146,6 +146,11 @@ Kirigami.ApplicationWindow {
         }
     }
 
+    Connections {
+        target: mpv
+        onTitleChanged: window.title = mpv.title
+    }
+
     function openFile(path, startPlayback, loadSiblings) {
         mpv.command(["loadfile", path])
         mpv.setProperty("pause", !startPlayback)
@@ -153,9 +158,6 @@ Kirigami.ApplicationWindow {
             // get video files from same folder as the opened file
             playListModel.getVideos(path)
         }
-
-        // set window title
-        title = path.trim("/").split("/").pop()
 
         settings.set("General", "LastPlayedFile", path)
     }

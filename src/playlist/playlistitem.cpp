@@ -4,10 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#include "../_debug.h"
 #include "playlistitem.h"
 
-PlayListItem::PlayListItem(QObject *parent) : QObject(parent)
+PlayListItem::PlayListItem(QObject */*parent*/)
 {}
 
 QString PlayListItem::filePath() const

@@ -166,7 +166,10 @@ void MpvObject::eventHandler()
         switch (event->event_id) {
         case MPV_EVENT_FILE_LOADED: {
             loadTracks();
+            m_title = getProperty("media-title").toString();
+
             emit fileLoaded();
+            emit titleChanged();
             break;
         }
         case MPV_EVENT_END_FILE: {
@@ -182,55 +185,55 @@ void MpvObject::eventHandler()
                 if (prop->format == MPV_FORMAT_DOUBLE) {
                     m_position = *(double *)prop->data;
 
-                    emit onPositionChanged(m_position);
+                    emit positionChanged();
                 }
             } else if (strcmp(prop->name, "time-remaining") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
                     m_remaining = *(double *)prop->data;
 
-                    emit onRemainingChanged(m_remaining);
+                    emit remainingChanged();
                 }
             } else if (strcmp(prop->name, "duration") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
                     m_duration = *(double *)prop->data;
 
-                    emit onDurationChanged(m_duration);
+                    emit durationChanged();
                 }
             } else if (strcmp(prop->name, "volume") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_volume = *(int *)prop->data;
 
-                    emit onVolumeChanged(m_volume);
+                    emit volumeChanged();
                 }
             } else if (strcmp(prop->name, "pause") == 0) {
                 if (prop->format == MPV_FORMAT_FLAG) {
                     m_pause = *(bool *)prop->data;
-                    emit onPauseChanged(m_pause);
+                    emit pauseChanged();
                 }
             } else if (strcmp(prop->name, "chapter") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_chapter = *(int *)prop->data;
-                    emit onChapterChanged(m_chapter);
+                    emit chapterChanged();
                 }
             } else if (strcmp(prop->name, "contrast") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_contrast = *(int *)prop->data;
-                    emit onContrastChanged(m_contrast);
+                    emit contrastChanged();
                 }
             } else if (strcmp(prop->name, "brightness") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_brightness = *(int *)prop->data;
-                    emit onBrightnessChanged(m_brightness);
+                    emit brightnessChanged();
                 }
             } else if (strcmp(prop->name, "gamma") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_gamma = *(int *)prop->data;
-                    emit onGammaChanged(m_gamma);
+                    emit gammaChanged();
                 }
             } else if (strcmp(prop->name, "saturation") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_saturation = *(int *)prop->data;
-                    emit onSaturationChanged(m_saturation);
+                    emit saturationChanged();
                 }
             }
             break;
