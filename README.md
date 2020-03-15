@@ -4,6 +4,8 @@ SPDX-FileCopyrightText: 2020 George Florea Bănuș <georgefb899@gmail.com>
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
+## [Donate (Patreon)](https://www.patreon.com/georgefb)
+
 # Haruna Video Player
 
 Haruna is an open source video player built with Qt/QML on top of libmpv.
