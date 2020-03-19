@@ -21,18 +21,42 @@ include(KDEInstallDirs)
 include(ECMInstallIcons)
 include(FeatureSummary)
 
-find_package(Qt5 REQUIRED COMPONENTS
-    Core
-    Quick
-    QuickControls2
-)
-find_package(KF5 REQUIRED COMPONENTS
-    Config
-    CoreAddons
-    FileMetaData
-    I18n
-    XmlGui
-)
+find_package(Qt5Core REQUIRED)
+set_package_properties(Qt5Core PROPERTIES
+    TYPE REQUIRED)
+
+find_package(Qt5Quick REQUIRED)
+set_package_properties(Qt5Quick PROPERTIES
+    TYPE REQUIRED)
+
+find_package(Qt5QuickControls2 REQUIRED)
+set_package_properties(Qt5QuickControls2 PROPERTIES
+    TYPE REQUIRED)
+
+find_package(KF5Config REQUIRED)
+set_package_properties(KF5Config PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/kconfig/html/index.html")
+
+find_package(KF5CoreAddons REQUIRED)
+set_package_properties(KF5CoreAddons PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/kcoreaddons/html/index.html")
+
+find_package(KF5FileMetaData REQUIRED)
+set_package_properties(KF5FileMetaData PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/kfilemetadata/html/index.html")
+
+find_package(KF5I18n REQUIRED)
+set_package_properties(KF5I18n PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/ki18n/html/index.html")
+
+find_package(KF5XmlGui REQUIRED)
+set_package_properties(KF5XmlGui PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
 set(${PROJECT_NAME}_SRC
     src/main.cpp
@@ -57,11 +81,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Core
     Qt5::Quick
     Qt5::QuickControls2
-    KF5::ConfigCore
+
+    KF5::ConfigGui
     KF5::CoreAddons
     KF5::FileMetaData
-    KF5::XmlGui
     KF5::I18n
+    KF5::XmlGui
     mpv
 )
 
