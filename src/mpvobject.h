@@ -38,8 +38,6 @@ class MpvObject : public QQuickFramebufferObject
     friend class MpvRenderer;
     void handle_mpv_event(mpv_event *event);
 public:
-    static void on_update(void *ctx);
-
     MpvObject(QQuickItem * parent = 0);
     virtual ~MpvObject();
     virtual Renderer *createRenderer() const;
@@ -54,7 +52,6 @@ public slots:
     TracksModel *subtitleTracksModel() const;
 
 signals:
-    void onUpdate();
     void titleChanged();
     void positionChanged();
     void durationChanged();
@@ -70,8 +67,6 @@ signals:
     void endOfFile();
     void ready();
 
-private slots:
-    void doUpdate();
 private:
     TracksModel *m_audioTracksModel;
     TracksModel *m_subtitleTracksModel;

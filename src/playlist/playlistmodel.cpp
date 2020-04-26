@@ -79,7 +79,6 @@ QHash<int, QByteArray> PlayListModel::roleNames() const
     return roles;
 }
 
-
 void PlayListModel::getVideos(QString path)
 {
     m_playList.clear();
@@ -88,9 +87,9 @@ void PlayListModel::getVideos(QString path)
     QFileInfo pathInfo(path);
     QStringList videoFiles;
     if (pathInfo.exists() && pathInfo.isFile()) {
-        auto it = new QDirIterator(pathInfo.absolutePath(), QDir::Files, QDirIterator::NoIteratorFlags);
-        while (it->hasNext()) {
-            QString file = it->next();
+        QDirIterator it(pathInfo.absolutePath(), QDir::Files, QDirIterator::NoIteratorFlags);
+        while (it.hasNext()) {
+            QString file = it.next();
             QFileInfo fileInfo(file);
             QMimeDatabase db;
             QMimeType type = db.mimeTypeForFile(file);

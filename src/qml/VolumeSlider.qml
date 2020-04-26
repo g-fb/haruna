@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import QtQml 2.13
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQml 2.13
 import QtQuick.Shapes 1.13
 import QtGraphicalEffects 1.13
 import org.kde.kirigami 2.11 as Kirigami
@@ -17,6 +17,7 @@ Slider {
 
     from: 0
     to: 100
+    value: mpv.volume
     implicitWidth: 100
     implicitHeight: 25
     wheelEnabled: true
@@ -54,15 +55,10 @@ Slider {
     }
 
     onValueChanged: {
-
         mpv.setProperty("volume", value.toFixed(0))
         settings.set("General", "Volume", value.toFixed(0))
     }
 
-    Connections {
-        target: mpv
-        onVolumeChanged: value = mpv.volume
-    }
     Connections {
         target: app
         onSettingsChanged: stepSize = settings.get("General", "VolumeStep")

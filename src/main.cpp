@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
-    parser.addPositionalArgument(QStringLiteral("file"), i18n("Document to open"));
+    parser.addPositionalArgument(QStringLiteral("file"), i18n("File to open"));
     parser.process(app);
     aboutData.processCommandLine(&parser);
 

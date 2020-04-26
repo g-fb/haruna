@@ -5,27 +5,21 @@
  */
 
 #include "_debug.h"
-
-#include <QObject>
-#include <QtGlobal>
-#include <QOpenGLContext>
-#include <QGuiApplication>
-
-#include <QOpenGLFramebufferObject>
-
-#include <QQuickWindow>
-#include <QQuickView>
-#include <QDateTime>
-#include <QStandardPaths>
-#include <QDir>
-
 #include "mpvobject.h"
 #include "track.h"
 #include "tracksmodel.h"
 
+#include <QDir>
+#include <QObject>
+#include <QOpenGLContext>
+#include <QOpenGLFramebufferObject>
+#include <QQuickWindow>
+#include <QStandardPaths>
+#include <QtGlobal>
+
 void on_mpv_redraw(void *ctx)
 {
-    MpvObject::on_update(ctx);
+    QMetaObject::invokeMethod(static_cast<MpvObject*>(ctx), "update", Qt::QueuedConnection);
 }
 
 static void *get_proc_address_mpv(void *ctx, const char *name)
@@ -47,8 +41,11 @@ void MpvRenderer::render()
     obj->window()->resetOpenGLState();
 
     QOpenGLFramebufferObject *fbo = framebufferObject();
-    mpv_opengl_fbo mpfbo{.fbo = static_cast<int>(fbo->handle()), .w = fbo->width(), .h = fbo->height(), .internal_format = 0};
-    int flip_y{0};
+    mpv_opengl_fbo mpfbo;
+    mpfbo.fbo = static_cast<int>(fbo->handle());
+    mpfbo.w = fbo->width();
+    mpfbo.h = fbo->height();
+    mpfbo.internal_format = 0;
 
     mpv_render_param params[] = {
         // Specify the default framebuffer (0) as target. This will
@@ -56,8 +53,6 @@ void MpvRenderer::render()
         // in a smaller rectangle or apply fancy transformations, you'll
         // need to render into a separate FBO and draw it manually.
         {MPV_RENDER_PARAM_OPENGL_FBO, &mpfbo},
-        // Flip rendering (needed due to flipped GL coordinate system).
-        {MPV_RENDER_PARAM_FLIP_Y, &flip_y},
         {MPV_RENDER_PARAM_INVALID, nullptr}
     };
     // See render_gl.h on what OpenGL environment mpv expects, and
@@ -90,7 +85,8 @@ QOpenGLFramebufferObject * MpvRenderer::createFramebufferObject(const QSize &siz
 
 MpvObject::MpvObject(QQuickItem * parent)
     : QQuickFramebufferObject(parent)
-    , mpv{mpv_create()}, mpv_gl(nullptr)
+    , mpv{mpv_create()}
+    , mpv_gl(nullptr)
     , m_audioTracksModel(new TracksModel)
     , m_subtitleTracksModel(new TracksModel)
 {
@@ -125,8 +121,6 @@ MpvObject::MpvObject(QQuickItem * parent)
         throw std::runtime_error("could not initialize mpv context");
 
     mpv_set_wakeup_callback(mpv, MpvObject::on_mpv_events, this);
-    connect(this, &MpvObject::onUpdate, this, &MpvObject::doUpdate,
-            Qt::QueuedConnection);
 }
 
 MpvObject::~MpvObject()
@@ -135,20 +129,14 @@ MpvObject::~MpvObject()
     if (mpv_gl) {
         mpv_render_context_free(mpv_gl);
     }
-
     mpv_terminate_destroy(mpv);
 }
 
-void MpvObject::on_update(void *ctx)
+QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 {
-    MpvObject *self = (MpvObject *)ctx;
-    emit self->onUpdate();
-}
-
-// connected to onUpdate(); signal makes sure it runs on the GUI thread
-void MpvObject::doUpdate()
-{
-    update();
+    window()->setPersistentOpenGLContext(true);
+    window()->setPersistentSceneGraph(true);
+    return new MpvRenderer(const_cast<MpvObject *>(this));
 }
 
 void MpvObject::on_mpv_events(void *ctx)
@@ -249,7 +237,7 @@ void MpvObject::loadTracks()
     m_subtitleTracks.clear();
     m_audioTracks.clear();
 
-    auto *none = new Track();
+    auto none = new Track();
     none->setFirst(false);
     none->setSecond(false);
     none->setId(-1);
@@ -264,7 +252,7 @@ void MpvObject::loadTracks()
     for (const auto &track : tracks.toList()) {
         if (track.toMap()["type"] == "sub") {
             const auto t = track.toMap();
-            auto *track = new Track();
+            auto track = new Track();
             track->setCodec(t["codec"].toString());
             track->setType(t["type"].toString());
             track->setDefaut(t["default"].toBool());
@@ -286,7 +274,7 @@ void MpvObject::loadTracks()
         }
         if (track.toMap()["type"] == "audio") {
             const auto t = track.toMap();
-            auto *track = new Track();
+            auto track = new Track();
             track->setCodec(t["codec"].toString());
             track->setType(t["type"].toString());
             track->setDefaut(t["default"].toBool());
@@ -333,14 +321,6 @@ int MpvObject::setProperty(const QString& name, const QVariant& value)
 
 QVariant MpvObject::getProperty(const QString& name)
 {
-    emit onUpdate();
     auto value = mpv::qt::get_property(mpv, name);
     return value;
-}
-
-QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
-{
-    window()->setPersistentOpenGLContext(true);
-    window()->setPersistentSceneGraph(true);
-    return new MpvRenderer(const_cast<MpvObject *>(this));
 }

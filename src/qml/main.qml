@@ -9,7 +9,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
 import QtGraphicalEffects 1.13
-import Qt.labs.platform 1.0 as PlatformDialog
+import Qt.labs.platform 1.0 as Platform
 import org.kde.kirigami 2.11 as Kirigami
 
 import mpv 1.0
@@ -82,11 +82,11 @@ Kirigami.ApplicationWindow {
 
     Footer { id: footer }
 
-    PlatformDialog.FileDialog {
+    Platform.FileDialog {
         id: fileDialog
-        folder: PlatformDialog.StandardPaths.writableLocation(PlatformDialog.StandardPaths.MoviesLocation)
+        folder: Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation)
         title: "Select file"
-        fileMode: PlatformDialog.FileDialog.OpenFile
+        fileMode: Platform.FileDialog.OpenFile
 
         onAccepted: {
             openFile(fileDialog.file.toString(), true, true)
