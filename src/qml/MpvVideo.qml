@@ -24,6 +24,7 @@ MpvObject {
     anchors.left: hSettings.right
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
+    volume: settings.get("General", "Volume")
 
     onSetSubtitle: {
         if (id !== -1) {
@@ -55,7 +56,6 @@ MpvObject {
         setProperty("slang", settings.get("Subtitle", "PreferredLanguage"))
         setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
 
-        footer.volume.value = settings.get("General", "Volume")
         if (app.argument(0) !== "") {
             window.openFile(app.argument(0), true, true)
         } else {

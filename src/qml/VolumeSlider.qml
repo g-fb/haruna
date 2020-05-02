@@ -29,7 +29,7 @@ Slider {
 
     background: Rectangle {
         id: harunaSliderBG
-        color: Kirigami.Theme.backgroundColor
+        color: Kirigami.Theme.alternateBackgroundColor
 
         Rectangle {
             width: visualPosition * parent.width
@@ -60,7 +60,7 @@ Slider {
     }
 
     Connections {
-        target: app
+        target: settings
         onSettingsChanged: stepSize = settings.get("General", "VolumeStep")
     }
 }

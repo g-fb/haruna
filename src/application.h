@@ -24,9 +24,6 @@ public:
     explicit Application(QObject *parent = nullptr);
     ~Application() = default;
 
-signals:
-    void settingsChanged();
-
 public slots:
     static QString formatTime(const double time);
     static QString iconName(const QIcon& icon);

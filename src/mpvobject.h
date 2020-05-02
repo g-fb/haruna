@@ -24,8 +24,8 @@ class MpvObject : public QQuickFramebufferObject
     Q_PROPERTY(double  position     MEMBER m_position   NOTIFY positionChanged)
     Q_PROPERTY(double  duration     MEMBER m_duration   NOTIFY durationChanged)
     Q_PROPERTY(double  remaining    MEMBER m_remaining  NOTIFY remainingChanged)
-    Q_PROPERTY(double  volume       MEMBER m_volume     NOTIFY volumeChanged)
     Q_PROPERTY(bool    pause        MEMBER m_pause      NOTIFY pauseChanged)
+    Q_PROPERTY(int     volume       MEMBER m_volume     NOTIFY volumeChanged)
     Q_PROPERTY(int     contrast     MEMBER m_contrast   NOTIFY contrastChanged)
     Q_PROPERTY(int     brightness   MEMBER m_brightness NOTIFY brightnessChanged)
     Q_PROPERTY(int     gamma        MEMBER m_gamma      NOTIFY gammaChanged)
@@ -77,8 +77,8 @@ private:
     double m_position {};
     double m_duration {};
     double m_remaining {};
-    double m_volume {};
     bool m_pause {};
+    int m_volume {};
     int m_chapter {};
     int m_contrast {};
     int m_brightness {};

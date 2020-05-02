@@ -17,6 +17,9 @@ class Settings : public QObject
 public:
     explicit Settings(QObject *parent = nullptr);
 
+signals:
+    void settingsChanged();
+
 public slots:
     QVariant get(const QString &group, const QString &key);
     void set(const QString &group, const QString &key, const QString &value);

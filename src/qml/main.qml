@@ -23,7 +23,7 @@ Kirigami.ApplicationWindow {
     property int preFullScreenVisibility
 
     visible: true
-    title: qsTr("Haruna")
+    title: mpv.title || qsTr("Haruna")
     width: 1280
     minimumWidth: 700
     height: 720
@@ -144,11 +144,6 @@ Kirigami.ApplicationWindow {
                 }
             }
         }
-    }
-
-    Connections {
-        target: mpv
-        onTitleChanged: window.title = mpv.title
     }
 
     function openFile(path, startPlayback, loadSiblings) {

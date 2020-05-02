@@ -68,6 +68,8 @@ void Settings::set(const QString &group, const QString &key, const QString &valu
 {
     m_config->group(group).writeEntry(key, value);
     m_config->sync();
+
+    emit settingsChanged();
 }
 
 QVariant Settings::getPath(const QString &group, const QString &key)
