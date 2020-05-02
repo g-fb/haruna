@@ -44,10 +44,10 @@ int PlayListModel::columnCount(const QModelIndex &parent) const
 
 QVariant PlayListModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || m_playList.isEmpty())
+    if (!index.isValid() || m_playList.empty())
         return QVariant();
 
-    PlayListItem *playListItem = m_playList[index.row()];
+    PlayListItem *playListItem = m_playList.at(index.row());
     switch (role) {
     case DisplayRole:
         if (index.column() == 0) {
@@ -113,7 +113,7 @@ void PlayListModel::getVideos(QString path)
         video->setFolderPath(fileInfo.absolutePath());
         video->setIsHovered(false);
         video->setIsPlaying(false);
-        m_playList.insert(i, video);
+        m_playList.insert({i, video});
         if (path == videoFiles.at(i)) {
             setPlayingVideo(i);
         }
@@ -123,7 +123,7 @@ void PlayListModel::getVideos(QString path)
     endInsertRows();
 }
 
-QMap<int, PlayListItem *> PlayListModel::items() const
+std::map<int, PlayListItem *> PlayListModel::items() const
 {
     return m_playList;
 }

@@ -36,7 +36,7 @@ signals:
     void videoAdded(int index, QString path);
 
 public slots:
-    QMap<int, PlayListItem *> items() const;
+    std::map<int, PlayListItem *> items() const;
     QString getPath(int i);
     void getVideos(QString path);
     void setPlayingVideo(int playingVideo);
@@ -45,7 +45,7 @@ public slots:
     int getPlayingVideo() const;
 
 private:
-    QMap<int, PlayListItem*> m_playList;
+    std::map<int, PlayListItem*> m_playList;
     int m_playingVideo = -1;
 };
 

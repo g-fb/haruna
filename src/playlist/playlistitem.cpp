@@ -6,9 +6,6 @@
 
 #include "playlistitem.h"
 
-PlayListItem::PlayListItem(QObject */*parent*/)
-{}
-
 QString PlayListItem::filePath() const
 {
     return m_filePath;

@@ -9,11 +9,11 @@
 
 #include <QObject>
 
-class PlayListItem : public QObject
+class PlayListItem
 {
-    Q_OBJECT
 public:
-    explicit PlayListItem(QObject *parent = nullptr);
+    explicit PlayListItem() = default;
+    ~PlayListItem() = default;
 
     QString filePath() const;
     void setFilePath(const QString &filePath);
@@ -35,10 +35,6 @@ public:
 
     int index() const;
     void setIndex(int index);
-
-signals:
-
-public slots:
 
 private:
     QString m_filePath;
