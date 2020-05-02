@@ -71,24 +71,23 @@ ToolBar {
                 text: qsTr("Subtitles")
 
                 onClicked: {
-                    if (subtitleMenu.visible) {
-                        subtitleMenu.close()
-                    } else {
-                        subtitleMenu.open()
+                    if (primaryMenuItems.model === 0) {
+                        primaryMenuItems.model = mpv.subtitleTracksModel()
+                        secondaryMenuItems.model = mpv.subtitleTracksModel()
                     }
+
+                    subtitleMenu.visible = !subtitleMenu.visible
                 }
 
                 Menu {
                     id: subtitleMenu
 
                     y: parent.height
-                    onOpened: primaryMenuItems.model = mpv.subtitleTracksModel()
 
                     Menu {
                         id: secondarySubtitleMenu
 
                         title: qsTr("Secondary Subtitle")
-                        onOpened: secondaryMenuItems.model = mpv.subtitleTracksModel()
 
                         TrackMenuItems {
                             id: secondaryMenuItems
@@ -127,13 +126,10 @@ ToolBar {
                 text: qsTr("Audio")
 
                 onClicked: {
-                    if (audioMenu.visible) {
-                        audioMenu.close()
-                    } else {
-                        audioMenu.open()
+                    if (audioMenuInstantiator.model === 0) {
+                        audioMenuInstantiator.model = mpv.audioTracksModel()
                     }
-
-                    audioMenuInstantiator.model = mpv.audioTracksModel()
+                    audioMenu.visible = !audioMenu.visible
                 }
 
                 Menu {
