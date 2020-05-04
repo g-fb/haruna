@@ -7,13 +7,12 @@
 #ifndef PLAYLISTITEM_H
 #define PLAYLISTITEM_H
 
-#include <QObject>
+#include <QString>
 
 class PlayListItem
 {
 public:
     explicit PlayListItem() = default;
-    ~PlayListItem() = default;
 
     QString filePath() const;
     void setFilePath(const QString &filePath);
@@ -41,9 +40,9 @@ private:
     QString m_fileName;
     QString m_folderPath;
     QString m_duration;
-    bool m_isHovered {};
-    bool m_isPlaying {};
-    int m_index {};
+    bool m_isHovered {false};
+    bool m_isPlaying {false};
+    int m_index {-1};
 };
 
 #endif // PLAYLISTITEM_H

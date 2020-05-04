@@ -8,8 +8,12 @@
 #define PLAYLISTMODEL_H
 
 #include <QAbstractTableModel>
+#include <map>
+#include <memory>
 
 class PlayListItem;
+
+using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
 
 class PlayListModel : public QAbstractTableModel
 {
@@ -36,7 +40,7 @@ signals:
     void videoAdded(int index, QString path);
 
 public slots:
-    std::map<int, PlayListItem *> items() const;
+    Playlist items() const;
     QString getPath(int i);
     void getVideos(QString path);
     void setPlayingVideo(int playingVideo);
@@ -45,7 +49,7 @@ public slots:
     int getPlayingVideo() const;
 
 private:
-    std::map<int, PlayListItem*> m_playList;
+    Playlist m_playList;
     int m_playingVideo = -1;
 };
 
