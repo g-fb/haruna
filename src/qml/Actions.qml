@@ -540,6 +540,112 @@ Item {
     }
 
     Action {
+        id: audioCycleUpAction
+        property var qaction: app.action("audioCycleUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["audioCycleUpAction"] = audioCycleUpAction
+
+        onTriggered: {
+            const tracks = mpv.getProperty("track-list")
+            let audioTracksCount = 0
+            tracks.forEach(t => { if(t.type === "audio") ++audioTracksCount })
+
+            if (audioTracksCount > 1) {
+                mpv.command(["cycle", "aid", "up"])
+                const currentTrackId = mpv.getProperty("aid")
+
+                if (currentTrackId === false) {
+                    audioCycleUpAction.trigger()
+                    return
+                }
+                const track = tracks.find(t => t.type === "audio" && t.id === currentTrackId)
+                const message = `Audio: ${currentTrackId} (${track.lang})`
+                osd.message(message)
+            }
+        }
+    }
+
+    Action {
+        id: audioCycleDownAction
+        property var qaction: app.action("audioCycleDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["audioCycleDownAction"] = audioCycleDownAction
+
+        onTriggered: {
+            const tracks = mpv.getProperty("track-list")
+            let audioTracksCount = 0
+            tracks.forEach(t => { if(t.type === "audio") ++audioTracksCount })
+
+            if (audioTracksCount > 1) {
+                mpv.command(["cycle", "aid", "down"])
+                const currentTrackId = mpv.getProperty("aid")
+
+                if (currentTrackId === false) {
+                    audioCycleDownAction.trigger()
+                    return
+                }
+                const track = tracks.find(t => t.type === "audio" && t.id === currentTrackId)
+                const message = `Audio: ${currentTrackId} (${track.lang})`
+                osd.message(message)
+            }
+        }
+    }
+
+    Action {
+        id: subtitleCycleUpAction
+        property var qaction: app.action("subtitleCycleUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["subtitleCycleUpAction"] = subtitleCycleUpAction
+
+        onTriggered: {
+            mpv.command(["cycle", "sid", "up"])
+            const currentTrackId = mpv.getProperty("sid")
+            let message;
+            if (currentTrackId === false) {
+                message = `Subtitle: None`
+            } else {
+                const tracks = mpv.getProperty("track-list")
+                const track = tracks.find(t => t.type === "sub" && t.id === currentTrackId)
+                message = `Subtitle: ${currentTrackId} (${track.lang})`
+            }
+            osd.message(message)
+        }
+    }
+
+    Action {
+        id: subtitleCycleDownAction
+        property var qaction: app.action("subtitleCycleDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["subtitleCycleDownAction"] = subtitleCycleDownAction
+
+        onTriggered: {
+            mpv.command(["cycle", "sid", "down"])
+            const currentTrackId = mpv.getProperty("sid")
+            let message;
+            if (currentTrackId === false) {
+                message = `Subtitle: None`
+            } else {
+                const tracks = mpv.getProperty("track-list")
+                const track = tracks.find(t => t.type === "sub" && t.id === currentTrackId)
+                message = `Subtitle: ${currentTrackId} (${track.lang})`
+            }
+            osd.message(message)
+        }
+    }
+
+    Action {
         id: contrastUpAction
         property var qaction: app.action("contrastUp")
         text: qaction.text

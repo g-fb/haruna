@@ -36,10 +36,6 @@ QVariant TracksModel::data(const QModelIndex &index, int role) const
         return QVariant(track->title());
     case IDRole:
         return QVariant(track->id());
-    case FirstTrackRole:
-        return QVariant(track->isFirst());
-    case SecondTrackRole:
-        return QVariant(track->isSecond());
     case CodecRole:
         return QVariant(track->codec());
     }
@@ -54,8 +50,6 @@ QHash<int, QByteArray> TracksModel::roleNames() const
     roles[LanguageRole] = "language";
     roles[TitleRole] = "title";
     roles[IDRole] = "id";
-    roles[FirstTrackRole] = "isFirstTrack";
-    roles[SecondTrackRole] = "isSecondTrack";
     roles[CodecRole] = "codec";
     return roles;
 }
@@ -65,44 +59,4 @@ void TracksModel::setTracks(QMap<int, Track *> tracks)
     beginResetModel();
     m_tracks = std::move(tracks);
     endResetModel();
-}
-
-void TracksModel::updateFirstTrack(int i)
-{
-    m_tracks[firstTrack()]->setFirst(false);
-    dataChanged(index(firstTrack()), index(firstTrack()));
-
-    m_tracks[i]->setFirst(true);
-    dataChanged(index(i), index(i));
-    setFirstTrack(i);
-}
-
-int TracksModel::firstTrack() const
-{
-    return m_firstTrack;
-}
-
-void TracksModel::setFirstTrack(int i)
-{
-    m_firstTrack = i;
-}
-
-void TracksModel::updateSecondTrack(int i)
-{
-    m_tracks[secondTrack()]->setSecond(false);
-    dataChanged(index(secondTrack()), index(secondTrack()));
-
-    m_tracks[i]->setSecond(true);
-    dataChanged(index(i), index(i));
-    setSecondTrack(i);
-}
-
-int TracksModel::secondTrack() const
-{
-    return m_secondTrack;
-}
-
-void TracksModel::setSecondTrack(int i)
-{
-    m_secondTrack = i;
 }

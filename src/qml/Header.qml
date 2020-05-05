@@ -71,9 +71,11 @@ ToolBar {
                 text: qsTr("Subtitles")
 
                 onClicked: {
-                    if (primaryMenuItems.model === 0) {
-                        primaryMenuItems.model = mpv.subtitleTracksModel()
-                        secondaryMenuItems.model = mpv.subtitleTracksModel()
+                    if (primarySubtitleMenuInstantiator.model === 0) {
+                        primarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
+                    }
+                    if(secondarySubtitleMenuInstantiator.model === 0) {
+                        secondarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
                     }
 
                     subtitleMenu.visible = !subtitleMenu.visible
@@ -89,14 +91,17 @@ ToolBar {
 
                         title: qsTr("Secondary Subtitle")
 
-                        TrackMenuItems {
-                            id: secondaryMenuItems
-
-                            menu: secondarySubtitleMenu
-                            isFirst: false
-                            onSubtitleChanged: {
-                                mpv.setSecondarySubtitle(id)
-                                mpv.subtitleTracksModel().updateSecondTrack(index)
+                        Instantiator {
+                            id: secondarySubtitleMenuInstantiator
+                            model: 0
+                            onObjectAdded: secondarySubtitleMenu.insertItem( index, object )
+                            onObjectRemoved: secondarySubtitleMenu.removeItem( object )
+                            delegate: MenuItem {
+                                enabled: model.id !== mpv.subtitleId || model.id === 0
+                                checkable: true
+                                checked: model.id === mpv.secondarySubtitleId
+                                text: model.text
+                                onTriggered: mpv.setSecondarySubtitle(model.id)
                             }
                         }
                     }
@@ -108,14 +113,17 @@ ToolBar {
                         hoverEnabled: false
                     }
 
-                    TrackMenuItems {
-                        id: primaryMenuItems
-                        menu: subtitleMenu
-                        isFirst: true
-
-                        onSubtitleChanged: {
-                            mpv.setSubtitle(id)
-                            mpv.subtitleTracksModel().updateFirstTrack(index)
+                    Instantiator {
+                        id: primarySubtitleMenuInstantiator
+                        model: 0
+                        onObjectAdded: subtitleMenu.addItem( object )
+                        onObjectRemoved: subtitleMenu.removeItem( object )
+                        delegate: MenuItem {
+                            enabled: model.id !== mpv.secondarySubtitleId || model.id === 0
+                            checkable: true
+                            checked: model.id === mpv.subtitleId
+                            text: model.text
+                            onTriggered: mpv.setSubtitle(model.id)
                         }
                     }
                 }
@@ -146,12 +154,9 @@ ToolBar {
                         delegate: MenuItem {
                             id: audioMenuItem
                             checkable: true
-                            checked: model.isFirstTrack
+                            checked: model.id === mpv.audioId
                             text: model.text
-                            onTriggered: {
-                                mpv.setAudio(model.id)
-                                mpv.audioTracksModel().updateFirstTrack(model.index)
-                            }
+                            onTriggered: mpv.setAudio(model.id)
                         }
                     }
                 }

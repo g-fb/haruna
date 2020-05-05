@@ -39,12 +39,6 @@ public:
     bool external() const;
     void setExternal(bool external);
 
-    bool isFirst() const;
-    void setFirst(bool isFirst);
-
-    bool isSecond() const;
-    void setSecond(bool isSecond);
-
     bool forced() const;
     void setForced(bool forced);
 
@@ -59,10 +53,6 @@ public:
 
     QString text();
 
-signals:
-
-public slots:
-
 private:
     QString m_lang;
     QString m_title;
@@ -74,8 +64,6 @@ private:
     bool m_defaut {};
     bool m_dependent {};
     bool m_external {};
-    bool m_first {};
-    bool m_second {};
     bool m_forced {};
     int m_index {};
 };

@@ -20,17 +20,20 @@ class TracksModel;
 class MpvObject : public QQuickFramebufferObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString title        MEMBER m_title      NOTIFY titleChanged)
-    Q_PROPERTY(double  position     MEMBER m_position   NOTIFY positionChanged)
-    Q_PROPERTY(double  duration     MEMBER m_duration   NOTIFY durationChanged)
-    Q_PROPERTY(double  remaining    MEMBER m_remaining  NOTIFY remainingChanged)
-    Q_PROPERTY(bool    pause        MEMBER m_pause      NOTIFY pauseChanged)
-    Q_PROPERTY(int     volume       MEMBER m_volume     NOTIFY volumeChanged)
-    Q_PROPERTY(int     contrast     MEMBER m_contrast   NOTIFY contrastChanged)
-    Q_PROPERTY(int     brightness   MEMBER m_brightness NOTIFY brightnessChanged)
-    Q_PROPERTY(int     gamma        MEMBER m_gamma      NOTIFY gammaChanged)
-    Q_PROPERTY(int     saturation   MEMBER m_saturation NOTIFY saturationChanged)
-    Q_PROPERTY(int     chapter      MEMBER m_chapter    NOTIFY chapterChanged)
+    Q_PROPERTY(QString title               MEMBER m_title               NOTIFY titleChanged)
+    Q_PROPERTY(double  position            MEMBER m_position            NOTIFY positionChanged)
+    Q_PROPERTY(double  duration            MEMBER m_duration            NOTIFY durationChanged)
+    Q_PROPERTY(double  remaining           MEMBER m_remaining           NOTIFY remainingChanged)
+    Q_PROPERTY(bool    pause               MEMBER m_pause               NOTIFY pauseChanged)
+    Q_PROPERTY(int     volume              MEMBER m_volume              NOTIFY volumeChanged)
+    Q_PROPERTY(int     contrast            MEMBER m_contrast            NOTIFY contrastChanged)
+    Q_PROPERTY(int     brightness          MEMBER m_brightness          NOTIFY brightnessChanged)
+    Q_PROPERTY(int     gamma               MEMBER m_gamma               NOTIFY gammaChanged)
+    Q_PROPERTY(int     saturation          MEMBER m_saturation          NOTIFY saturationChanged)
+    Q_PROPERTY(int     chapter             MEMBER m_chapter             NOTIFY chapterChanged)
+    Q_PROPERTY(int     audioId             MEMBER m_audioId             NOTIFY audioIdChanged)
+    Q_PROPERTY(int     subtitleId          MEMBER m_subtitleId          NOTIFY subtitleIdChanged)
+    Q_PROPERTY(int     secondarySubtitleId MEMBER m_secondarySubtitleId NOTIFY secondarySubtitleIdChanged)
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
@@ -59,6 +62,9 @@ signals:
     void volumeChanged();
     void pauseChanged();
     void chapterChanged();
+    void audioIdChanged();
+    void subtitleIdChanged();
+    void secondarySubtitleIdChanged();
     void contrastChanged();
     void brightnessChanged();
     void gammaChanged();
@@ -80,6 +86,9 @@ private:
     bool m_pause {};
     int m_volume {};
     int m_chapter {};
+    int m_audioId {};
+    int m_subtitleId {};
+    int m_secondarySubtitleId {};
     int m_contrast {};
     int m_brightness {};
     int m_gamma {};

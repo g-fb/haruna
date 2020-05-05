@@ -27,19 +27,11 @@ MpvObject {
     volume: settings.get("General", "Volume")
 
     onSetSubtitle: {
-        if (id !== -1) {
-            setProperty("sid", id)
-        } else {
-            setProperty("sid", "no")
-        }
+        setProperty("sid", id)
     }
 
     onSetSecondarySubtitle: {
-        if (id !== -1) {
-            setProperty("secondary-sid", id)
-        } else {
-            setProperty("secondary-sid", "no")
-        }
+        setProperty("secondary-sid", id)
     }
 
     onSetAudio: {

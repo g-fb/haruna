@@ -386,6 +386,30 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_S);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("audioCycleUp")) {
+        auto action = new QAction();
+        action->setText(i18n("Cycle Audio Up"));
+        m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_3);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("audioCycleDown")) {
+        auto action = new QAction();
+        action->setText(i18n("Cycle Audio Down"));
+        m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_2);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("subtitleCycleUp")) {
+        auto action = new QAction();
+        action->setText(i18n("Cycle Subtitle Up"));
+        m_collection.setDefaultShortcut(action, Qt::Key_J);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("subtitleCycleDown")) {
+        auto action = new QAction();
+        action->setText(i18n("Cycle Subtitle Down"));
+        m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_J);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("zoomIn")) {
         auto action = new QAction();
         action->setText(i18n("Zoom In"));

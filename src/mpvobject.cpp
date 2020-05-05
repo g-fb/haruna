@@ -103,6 +103,9 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "pause", MPV_FORMAT_FLAG);
     mpv_observe_property(mpv, 0, "chapter", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "aid", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "sid", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "secondary-sid", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "contrast", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
@@ -203,6 +206,27 @@ void MpvObject::eventHandler()
                     m_chapter = *(int *)prop->data;
                     emit chapterChanged();
                 }
+            } else if (strcmp(prop->name, "aid") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_audioId = *(int *)prop->data;
+                    emit audioIdChanged();
+                }
+            } else if (strcmp(prop->name, "sid") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_subtitleId = *(int *)prop->data;
+                    emit subtitleIdChanged();
+                } else {
+                    m_subtitleId = 0;
+                    emit subtitleIdChanged();
+                }
+            } else if (strcmp(prop->name, "secondary-sid") == 0) {
+                if (prop->format == MPV_FORMAT_INT64) {
+                    m_secondarySubtitleId = *(int *)prop->data;
+                    emit secondarySubtitleIdChanged();
+                } else {
+                    m_secondarySubtitleId = 0;
+                    emit secondarySubtitleIdChanged();
+                }
             } else if (strcmp(prop->name, "contrast") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     m_contrast = *(int *)prop->data;
@@ -238,58 +262,45 @@ void MpvObject::loadTracks()
     m_audioTracks.clear();
 
     auto none = new Track();
-    none->setFirst(false);
-    none->setSecond(false);
-    none->setId(-1);
+    none->setId(0);
     none->setTitle("None");
     m_subtitleTracks.insert(0, none);
-    m_subtitleTracksModel->setFirstTrack(0);
-    m_subtitleTracksModel->setSecondTrack(0);
 
     QVariant tracks = getProperty("track-list");
     int subIndex = 1;
     int audioIndex = 0;
     for (const auto &track : tracks.toList()) {
+        const auto t = track.toMap();
         if (track.toMap()["type"] == "sub") {
-            const auto t = track.toMap();
             auto track = new Track();
             track->setCodec(t["codec"].toString());
             track->setType(t["type"].toString());
             track->setDefaut(t["default"].toBool());
             track->setDependent(t["dependent"].toBool());
             track->setForced(t["forced"].toBool());
-            track->setFirst(t["selected"].toBool());
             track->setId(t["id"].toLongLong());
             track->setSrcId(t["src-id"].toLongLong());
             track->setFfIndex(t["ff-index"].toLongLong());
             track->setLang(t["lang"].toString());
             track->setTitle(t["title"].toString());
             track->setIndex(subIndex);
-            if (t["selected"].toBool()) {
-                m_subtitleTracksModel->setFirstTrack(subIndex);
-            }
 
             m_subtitleTracks.insert(subIndex, track);
             subIndex++;
         }
         if (track.toMap()["type"] == "audio") {
-            const auto t = track.toMap();
             auto track = new Track();
             track->setCodec(t["codec"].toString());
             track->setType(t["type"].toString());
             track->setDefaut(t["default"].toBool());
             track->setDependent(t["dependent"].toBool());
             track->setForced(t["forced"].toBool());
-            track->setFirst(t["selected"].toBool());
             track->setId(t["id"].toLongLong());
             track->setSrcId(t["src-id"].toLongLong());
             track->setFfIndex(t["ff-index"].toLongLong());
             track->setLang(t["lang"].toString());
             track->setTitle(t["title"].toString());
             track->setIndex(audioIndex);
-            if (t["selected"].toBool()) {
-                m_audioTracksModel->setFirstTrack(audioIndex);
-            }
 
             m_audioTracks.insert(audioIndex, track);
             audioIndex++;

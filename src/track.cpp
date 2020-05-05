@@ -89,26 +89,6 @@ void Track::setExternal(bool external)
     m_external = external;
 }
 
-bool Track::isFirst() const
-{
-    return m_first;
-}
-
-void Track::setFirst(bool isFirst)
-{
-    m_first = isFirst;
-}
-
-bool Track::isSecond() const
-{
-    return m_second;
-}
-
-void Track::setSecond(bool isSecond)
-{
-    m_second = isSecond;
-}
-
 bool Track::forced() const
 {
     return m_forced;

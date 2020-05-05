@@ -17,16 +17,19 @@ Menu {
         id: primarySubtitleMenu
 
         title: qsTr("Primary Subtitle")
-        onOpened: primaryMenuItems.model = mpv.subtitleTracksModel()
+        onOpened: primarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
 
-        TrackMenuItems {
-            id: primaryMenuItems
-
-            menu: primarySubtitleMenu
-            isFirst: true
-            onSubtitleChanged: {
-                mpv.setSubtitle(id)
-                mpv.subtitleTracksModel().updateFirstTrack(index)
+        Instantiator {
+            id: primarySubtitleMenuInstantiator
+            model: 0
+            onObjectAdded: primarySubtitleMenu.insertItem( index, object )
+            onObjectRemoved: primarySubtitleMenu.removeItem( object )
+            delegate: MenuItem {
+                enabled: model.id !== mpv.secondarySubtitleId || model.id === 0
+                checkable: true
+                checked: model.id === mpv.subtitleId
+                text: model.text
+                onTriggered: mpv.setSubtitle(id)
             }
         }
     }
@@ -35,16 +38,19 @@ Menu {
         id: secondarySubtitleMenu
 
         title: qsTr("Secondary Subtitle")
-        onOpened: secondaryMenuItems.model = mpv.subtitleTracksModel()
+        onOpened: secondarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
 
-        TrackMenuItems {
-            id: secondaryMenuItems
-
-            menu: secondarySubtitleMenu
-            isFirst: false
-            onSubtitleChanged: {
-                mpv.setSecondarySubtitle(id)
-                mpv.subtitleTracksModel().updateSecondTrack(index)
+        Instantiator {
+            id: secondarySubtitleMenuInstantiator
+            model: 0
+            onObjectAdded: secondarySubtitleMenu.insertItem( index, object )
+            onObjectRemoved: secondarySubtitleMenu.removeItem( object )
+            delegate: MenuItem {
+                enabled: model.id !== mpv.subtitleId || model.id === 0
+                checkable: true
+                checked: model.id === mpv.secondarySubtitleId
+                text: model.text
+                onTriggered: mpv.setSecondarySubtitle(id)
             }
         }
     }
