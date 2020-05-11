@@ -24,14 +24,14 @@ Kirigami.ApplicationWindow {
 
     visible: true
     title: mpv.title || qsTr("Haruna")
-    width: 1280
+    width: 1200
     minimumWidth: 700
     height: 720
     minimumHeight: 450
     color: Kirigami.Theme.backgroundColor
 
     onVisibilityChanged: {
-        if (visibility !== Window.FullScreen) {
+        if (!window.isFullScreen()) {
             preFullScreenVisibility = visibility
         }
     }

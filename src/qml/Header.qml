@@ -169,7 +169,11 @@ ToolBar {
             Layout.alignment: Qt.AlignRight
 
             ToolButton {
-                action: actions.quitApplicationAction
+                // using `action: actions.quitApplicationAction` breaks the action
+                // doens't work on the first try in certain circumstances
+                text: actions.quitApplicationAction.text
+                icon: actions.quitApplicationAction.icon
+                onClicked: actions.quitApplicationAction.trigger()
             }
         }
     }

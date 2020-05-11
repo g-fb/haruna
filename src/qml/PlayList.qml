@@ -34,15 +34,19 @@ Rectangle {
         id: tableView
 
         property var columnWidths: [tableView.width * 0.8, tableView.width * 0.2]
+        property int rowFontSize: (window.isFullScreen() && playList.bigFont) ? 18 : 12
+        property int rowHeight: playList.rowHeight + rowFontSize * 0.5
 
         anchors.fill: parent
         anchors.rightMargin: scrollBar.width
         boundsBehavior: Flickable.StopAtBounds
         columnSpacing: 1
-        columnWidthProvider: (column) => columnWidths[column]
+        rowHeightProvider:  row => rowHeight
+        columnWidthProvider: column => columnWidths[column]
         delegate: PlayListItem {}
         rowSpacing: root.rowSpacing
         model: playListModel
+        contentHeight: rowHeight * rows + rowSpacing * rows
         z: 20
         ScrollBar.vertical: ScrollBar {
             id: scrollBar
@@ -57,6 +61,7 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onWheel: wheel.accepted = true
+        hoverEnabled: true
     }
 
     ShaderEffectSource {

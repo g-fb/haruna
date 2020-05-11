@@ -143,7 +143,7 @@ MpvObject {
         interval: 50; running: true; repeat: true
 
         onTriggered: {
-            if (window.visibility !== Window.FullScreen) {
+            if (!window.isFullScreen()) {
                 return;
             }
             if (mx === tx && my === ty) {
@@ -259,7 +259,7 @@ MpvObject {
     }
 
     function toggleFullScreen() {
-        if (window.visibility !== Window.FullScreen) {
+        if (!window.isFullScreen()) {
             hSettings.state = "hidden"
             window.showFullScreen()
         } else {
