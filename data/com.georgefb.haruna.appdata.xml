@@ -19,6 +19,17 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.2" date="2020-05-13">
+            <description>
+                <p>Add audio tracks cycle up (Shift+3) and down (Shift+2) actions.</p>
+                <p>Add subtitle tracks cycle up (j) and down (Shift+j) actions.</p>
+                <p>Video title is now used as window title.</p>
+                <p>Fix volume not being remembered between sessions.</p>
+                <p>Fix volume slider background being the same as the footer background.</p>
+                <p>Fix playlist not being able to scroll sometimes.</p>
+                <p>Fix quit keyboard shortcut sometimes having to be triggered twice to work.</p>
+            </description>
+        </release>
         <release version="0.1.1" date="2020-03-09">
             <description>
                 <p>Fix changing audio track from meniu.</p>
