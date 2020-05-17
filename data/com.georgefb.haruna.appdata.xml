@@ -19,6 +19,12 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.3" date="2020-05-17">
+            <description>
+                <p>Add action (s key) to take screenshots.</p>
+                <p>Screenshots are saved in a `screenshots` folder in the same folder as the video file.</p>
+            </description>
+        </release>
         <release version="0.1.2" date="2020-05-13">
             <description>
                 <p>Add audio tracks cycle up (Shift+3) and down (Shift+2) actions.</p>
