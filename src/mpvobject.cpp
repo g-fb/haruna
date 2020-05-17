@@ -95,7 +95,8 @@ MpvObject::MpvObject(QQuickItem * parent)
 
 //    mpv_set_option_string(mpv, "terminal", "yes");
 //    mpv_set_option_string(mpv, "msg-level", "all=v");
-    mpv::qt::set_option_variant(mpv, "hwdec", "auto");
+    setProperty("hwdec", "auto");
+    setProperty("screenshot-template", "%x/screenshots/%n");
 
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "time-remaining", MPV_FORMAT_DOUBLE);

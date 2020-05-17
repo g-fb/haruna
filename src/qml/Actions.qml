@@ -974,4 +974,16 @@ Item {
             settings.set("View", "HeaderVisible", header.isVisible)
         }
     }
+
+    Action {
+        id: screenshotAction
+        property var qaction: app.action("screenshot")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["screenshotAction"] = screenshotAction
+
+        onTriggered: mpv.command(["screenshot"])
+    }
 }

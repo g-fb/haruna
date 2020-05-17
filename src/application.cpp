@@ -91,6 +91,13 @@ void Application::configureShortcuts()
 
 void Application::setupActions(const QString &actionName)
 {
+    if (actionName == QStringLiteral("screenshot")) {
+        auto action = new QAction();
+        action->setText(i18n("Screenshot"));
+        action->setIcon(QIcon::fromTheme("image-x-generic"));
+        m_collection.setDefaultShortcut(action, Qt::Key_S);
+        m_collection.addAction(actionName, action);
+    }
     if (actionName == QStringLiteral("file_quit")) {
         auto action = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &m_collection);
         m_collection.addAction(actionName, action);
