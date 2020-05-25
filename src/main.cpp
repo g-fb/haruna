@@ -112,6 +112,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
     engine.rootContext()->setContextProperty(QStringLiteral("settings"), settings.release());
+    qmlRegisterSingletonType<Settings>("AppSettings", 1, 0, "AppSettings", Settings::provider);
     engine.load(url);
     return QApplication::exec();
 }

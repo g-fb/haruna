@@ -70,7 +70,7 @@ Kirigami.ApplicationWindow {
 
     SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
-    HarunaSettings { id: hSettings }
+    SettingsEditor { id: settingsEditor }
 
     MpvVideo {
         id: mpv

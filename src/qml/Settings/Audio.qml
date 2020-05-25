@@ -7,6 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import AppSettings 1.0
 
 Item {
     id: root
@@ -26,11 +27,11 @@ Item {
             Layout.alignment: Qt.AlignRight
         }
         TextField {
-            text: settings.get("Audio", "PreferredLanguage")
+            text: AppSettings.audioPreferredLanguage
             placeholderText: "eng, ger etc."
             Layout.fillWidth: true
             onTextEdited: {
-                settings.set("Audio", "PreferredLanguage", text)
+                AppSettings.audioPreferredLanguage = text
                 mpv.setProperty("alang", text)
             }
         }
@@ -43,16 +44,16 @@ Item {
         SpinBox {
             from: 0
             to: 100
-            value: settings.get("Audio", "PreferredTrack")
+            value: AppSettings.audioPreferredTrack
             editable: true
             onValueChanged: {
                 if (value === 0) {
-                    settings.set("Audio", "PreferredTrack", value)
+                    AppSettings.audioPreferredTrack = value
                     mpv.setProperty("aid", "auto")
                     return
                 }
 
-                settings.set("Audio", "PreferredTrack", value)
+                AppSettings.audioPreferredTrack = value
                 mpv.setProperty("aid", value)
             }
         }

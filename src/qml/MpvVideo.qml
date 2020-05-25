@@ -21,7 +21,7 @@ MpvObject {
 
     width: parent.width
     height: parent.height - footer.height
-    anchors.left: hSettings.right
+    anchors.left: settingsEditor.right
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
     volume: settings.get("General", "Volume")
@@ -260,7 +260,7 @@ MpvObject {
 
     function toggleFullScreen() {
         if (!window.isFullScreen()) {
-            hSettings.state = "hidden"
+            settingsEditor.state = "hidden"
             window.showFullScreen()
         } else {
             if (window.preFullScreenVisibility === Window.Windowed) {

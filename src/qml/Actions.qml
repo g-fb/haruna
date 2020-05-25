@@ -484,10 +484,10 @@ Item {
         Component.onCompleted: list["configureAction"] = configureAction
 
         onTriggered: {
-            if (hSettings.state === "visible") {
-                hSettings.state = "hidden"
+            if (settingsEditor.state === "visible") {
+                settingsEditor.state = "hidden"
             } else {
-                hSettings.state = "visible"
+                settingsEditor.state = "visible"
             }
         }
     }

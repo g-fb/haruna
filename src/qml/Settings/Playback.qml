@@ -7,6 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import AppSettings 1.0
 
 Item {
     id: root
@@ -26,16 +27,8 @@ Item {
             CheckBox {
                 id: skipChaptersCheckBox
                 text: qsTr("Skip chapters")
-                checked: settings.get("Playback", "SkipChapters")
-                onCheckedChanged: {
-                    settings.set("Playback", "SkipChapters", checked)
-                    hSettings.skipChaptersChanged(checked)
-                }
-
-                Connections {
-                    target: hSettings
-                    onSkipChaptersChanged: skipChaptersCheckBox.checked = checked
-                }
+                checked: AppSettings.skipChapters
+                onCheckedChanged: AppSettings.skipChapters = checked
             }
 
             Label {
@@ -44,21 +37,17 @@ Item {
             }
 
             TextField {
-                text: settings.get("Playback", "SkipChaptersWordList")
+                text: AppSettings.skipChaptersWordList
                 enabled: skipChaptersCheckBox.checked
                 Layout.fillWidth: true
-                onEditingFinished: {
-                    settings.set("Playback", "SkipChaptersWordList", text)
-                }
+                onEditingFinished: AppSettings.skipChaptersWordList = text
             }
 
             CheckBox {
                 text: qsTr("Show an osd message when skipping chapters")
                 enabled: skipChaptersCheckBox.checked
-                checked: settings.get("Playback", "ShowOsdOnSkipChapters")
-                onCheckedChanged: {
-                    settings.set("Playback", "ShowOsdOnSkipChapters", checked)
-                }
+                checked: AppSettings.showOsdOnSkipChapters
+                onCheckedChanged: AppSettings.showOsdOnSkipChapters = checked
             }
         }
 

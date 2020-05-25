@@ -8,6 +8,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 import org.kde.kirigami 2.11 as Kirigami
+import AppSettings 1.0
 
 Item {
     id: root
@@ -95,12 +96,8 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: settings.get("General", "SeekSmallStep")
-                onValueChanged: {
-                    if (root.visible) {
-                        settings.set("General", "SeekSmallStep", seekSmallStep.value)
-                    }
-                }
+                value: AppSettings.seekSmallStep
+                onValueChanged: AppSettings.seekSmallStep = seekSmallStep.value
             }
             Layout.fillWidth: true
         }
@@ -118,12 +115,8 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: settings.get("General", "SeekMediumStep")
-                onValueChanged: {
-                    if (root.visible) {
-                        settings.set("General", "SeekMediumStep", seekMediumStep.value)
-                    }
-                }
+                value: AppSettings.seekMediumStep
+                onValueChanged: AppSettings.seekMediumStep = seekMediumStep.value
             }
             Layout.fillWidth: true
         }
@@ -141,12 +134,8 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: settings.get("General", "SeekBigStep")
-                onValueChanged: {
-                    if (root.visible) {
-                        settings.set("General", "SeekBigStep", seekBigStep.value)
-                    }
-                }
+                value: AppSettings.seekBigStep
+                onValueChanged: AppSettings.seekBigStep = seekBigStep.value
             }
             Layout.fillWidth: true
         }
@@ -170,7 +159,7 @@ Item {
     }
 
     Connections {
-        target: hSettings
-        onVisibleChanged: visible = hSettings.visible
+        target: settingsEditor
+        onVisibleChanged: visible = settingsEditor.visible
     }
 }
