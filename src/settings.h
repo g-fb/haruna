@@ -65,6 +65,31 @@ class Settings : public QObject
                WRITE setAudioPreferredTrack
                NOTIFY audioPreferredTrackChanged)
 
+    Q_PROPERTY(QString playlistPosition
+               READ playlistPosition
+               WRITE setPlaylistPosition
+               NOTIFY playlistPositionChanged)
+
+    Q_PROPERTY(int playlistRowHeight
+               READ playlistRowHeight
+               WRITE setPlaylistRowHeight
+               NOTIFY playlistRowHeightChanged)
+
+    Q_PROPERTY(int playlistRowSpacing
+               READ playlistRowSpacing
+               WRITE setPlaylistRowSpacing
+               NOTIFY playlistRowSpacingChanged)
+
+    Q_PROPERTY(bool playlistCanToogleWithMouse
+               READ playlistCanToogleWithMouse
+               WRITE setPlaylistCanToogleWithMouse
+               NOTIFY playlistCanToogleWithMouseChanged)
+
+    Q_PROPERTY(bool playlistBigFontFullscreen
+               READ playlistBigFontFullscreen
+               WRITE setPlaylistBigFontFullscreen
+               NOTIFY playlistBigFontFullscreenChanged)
+
 public:
     explicit Settings(QObject *parent = nullptr);
 
@@ -98,6 +123,21 @@ public:
     int audioPreferredTrack();
     void setAudioPreferredTrack(int track);
 
+    QString playlistPosition();
+    void setPlaylistPosition(QString position);
+
+    int playlistRowHeight();
+    void setPlaylistRowHeight(int height);
+
+    int playlistRowSpacing();
+    void setPlaylistRowSpacing(int spacing);
+
+    bool playlistCanToogleWithMouse();
+    void setPlaylistCanToogleWithMouse(bool toggleWithMouse);
+
+    bool playlistBigFontFullscreen();
+    void setPlaylistBigFontFullscreen(bool bigFont);
+
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -122,6 +162,11 @@ signals:
     void saturationChanged();
     void audioPreferredLanguageChanged();
     void audioPreferredTrackChanged();
+    void playlistPositionChanged();
+    void playlistRowHeightChanged();
+    void playlistRowSpacingChanged();
+    void playlistCanToogleWithMouseChanged();
+    void playlistBigFontFullscreenChanged();
 
 public slots:
     QVariant get(const QString &group, const QString &key);

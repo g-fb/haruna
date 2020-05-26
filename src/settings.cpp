@@ -33,7 +33,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"ScrollUp",              QVariant(QStringLiteral("volumeUpAction"))},
         {"ScrollDown",            QVariant(QStringLiteral("volumeDownAction"))},
         // playlist
-        {"CanToogleWithMouse",    QVariant(true)},
+        {"CanToggleWithMouse",    QVariant(true)},
         {"Position",              QVariant(QStringLiteral("right"))},
         {"RowHeight",             QVariant(50)},
         {"RowSpacing",            QVariant(1)},
@@ -196,12 +196,75 @@ void Settings::setAudioPreferredTrack(int track)
     emit audioPreferredTrackChanged();
 }
 
+QString Settings::playlistPosition()
+{
+    return get("Playlist", "Position").toString();
+}
 
+void Settings::setPlaylistPosition(QString position)
+{
+    if (position == playlistPosition()) {
+        return;
+    }
+    set("Playlist", "Position", position);
+    emit playlistPositionChanged();
+}
 
+int Settings::playlistRowHeight()
+{
+    return get("Playlist", "RowHeight").toInt();
+}
 
+void Settings::setPlaylistRowHeight(int height)
+{
+    if (height == playlistRowHeight()) {
+        return;
+    }
+    set("Playlist", "RowHeight", QString::number(height));
+    emit playlistRowHeightChanged();
+}
 
+int Settings::playlistRowSpacing()
+{
+    return get("Playlist", "RowSpacing").toInt();
+}
 
+void Settings::setPlaylistRowSpacing(int spacing)
+{
+    if (spacing == playlistRowSpacing()) {
+        return;
+    }
+    set("Playlist", "RowSpacing", QString::number(spacing));
+    emit playlistRowSpacingChanged();
+}
 
+bool Settings::playlistCanToggleWithMouse()
+{
+    return get("Playlist", "CanToggleWithMouse").toBool();
+}
+
+void Settings::setPlaylistCanToggleWithMouse(bool toggleWithMouse)
+{
+    if (toggleWithMouse == playlistCanToggleWithMouse()) {
+        return;
+    }
+    set("Playlist", "CanToggleWithMouse", QVariant(toggleWithMouse).toString());
+    emit playlistCanToggleWithMouseChanged();
+}
+
+bool Settings::playlistBigFontFullscreen()
+{
+    return get("Playlist", "BigFontFullscreen").toBool();
+}
+
+void Settings::setPlaylistBigFontFullscreen(bool bigFont)
+{
+    if (bigFont == playlistBigFontFullscreen()) {
+        return;
+    }
+    set("Playlist", "BigFontFullscreen", QVariant(bigFont).toString());
+    emit playlistBigFontFullscreenChanged();
+}
 
 
 
