@@ -14,7 +14,7 @@ Rectangle {
     id: root
 
     property alias tableView: tableView
-    property bool canToggleWithMouse: settings.get("Playlist", "CanToogleWithMouse")
+    property bool canToggleWithMouse: settings.get("Playlist", "CanToggleWithMouse")
     property string position: settings.get("Playlist", "Position")
     property int rowHeight: settings.get("Playlist", "RowHeight")
     property int rowSpacing: settings.get("Playlist", "RowSpacing")

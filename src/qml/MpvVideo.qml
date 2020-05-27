@@ -7,6 +7,7 @@
 import QtQuick 2.13
 import QtQuick.Window 2.13
 import mpv 1.0
+import AppSettings 1.0
 
 MpvObject {
     id: root
@@ -204,12 +205,12 @@ MpvObject {
 
         onWheel: {
             if (wheel.angleDelta.y > 0) {
-                if (settings.get("Mouse", "ScrollUp")) {
-                    actions.list[settings.get("Mouse", "ScrollUp")].trigger()
+                if (AppSettings.mouseScrollUpAction) {
+                    actions.list[AppSettings.mouseScrollUpAction].trigger()
                 }
             } else if (wheel.angleDelta.y) {
-                if (settings.get("Mouse", "ScrollDown")) {
-                    actions.list[settings.get("Mouse", "ScrollDown")].trigger()
+                if (AppSettings.mouseScrollDownAction) {
+                    actions.list[AppSettings.mouseScrollDownAction].trigger()
                 }
             }
         }
@@ -217,32 +218,32 @@ MpvObject {
         onPressed: {
             focus = true
             if (mouse.button === Qt.LeftButton) {
-                if (settings.get("Mouse", "Left")) {
-                    actions.list[settings.get("Mouse", "Left")].trigger()
+                if (AppSettings.mouseLeftAction) {
+                    actions.list[AppSettings.mouseLeftAction].trigger()
                 }
             } else if (mouse.button === Qt.MiddleButton) {
-                if (settings.get("Mouse", "Middle")) {
-                    actions.list[settings.get("Mouse", "Middle")].trigger()
+                if (AppSettings.mouseMiddleAction) {
+                    actions.list[AppSettings.mouseMiddleAction].trigger()
                 }
             } else if (mouse.button === Qt.RightButton) {
-                if (settings.get("Mouse", "Right")) {
-                    actions.list[settings.get("Mouse", "Right")].trigger()
+                if (AppSettings.mouseRightAction) {
+                    actions.list[AppSettings.mouseRightAction].trigger()
                 }
             }
         }
 
         onDoubleClicked: {
             if (mouse.button === Qt.LeftButton) {
-                if (settings.get("Mouse", "Left.x2")) {
-                    actions.list[settings.get("Mouse", "Left.x2")].trigger()
+                if (AppSettings.mouseLeftx2Action) {
+                    actions.list[AppSettings.mouseLeftx2Action].trigger()
                 }
             } else if (mouse.button === Qt.MiddleButton) {
-                if (settings.get("Mouse", "Middle.x2")) {
-                    actions.list[settings.get("Mouse", "Middle.x2")].trigger()
+                if (AppSettings.mouseMiddlex2Action) {
+                    actions.list[AppSettings.mouseMiddlex2Action].trigger()
                 }
             } else if (mouse.button === Qt.RightButton) {
-                if (settings.get("Mouse", "Right.x2")) {
-                    actions.list[settings.get("Mouse", "Right.x2")].trigger()
+                if (AppSettings.mouseRightx2Action) {
+                    actions.list[AppSettings.mouseRightx2Action].trigger()
                 }
             }
         }

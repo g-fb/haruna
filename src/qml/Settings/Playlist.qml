@@ -81,11 +81,11 @@ Item {
         }
 
         CheckBox {
-            checked: AppSettings.playlistCanToogleWithMouse
+            checked: AppSettings.playlistCanToggleWithMouse
             text: qsTr("Toggle with mouse")
             Layout.columnSpan: 2
             onCheckStateChanged: {
-                AppSettings.playlistCanToogleWithMouse = checked
+                AppSettings.playlistCanToggleWithMouse = checked
                 playList.canToggleWithMouse = checked
             }
         }

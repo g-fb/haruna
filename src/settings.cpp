@@ -145,7 +145,7 @@ QString Settings::skipChaptersWordList()
     return get("Playback", "SkipChaptersWordList").toString();
 }
 
-void Settings::setSkipChaptersWordList(QString wordList)
+void Settings::setSkipChaptersWordList(const QString &wordList)
 {
     if (wordList == skipChaptersWordList()) {
         return;
@@ -173,7 +173,7 @@ QString Settings::audioPreferredLanguage()
     return get("Audio", "PreferredLanguage").toString();
 }
 
-void Settings::setAudioPreferredLanguage(QString lang)
+void Settings::setAudioPreferredLanguage(const QString &lang)
 {
     if (lang == audioPreferredLanguage()) {
         return;
@@ -196,12 +196,55 @@ void Settings::setAudioPreferredTrack(int track)
     emit audioPreferredTrackChanged();
 }
 
+QString Settings::subtitlesFolders()
+{
+    return get("Subtitles", "Folders").toString();
+}
+
+void Settings::setSubtitlesFolders(const QString &folders)
+{
+    if (folders == subtitlesFolders()) {
+        return;
+    }
+    set("Subtitles", "Folders", folders);
+    emit subtitlesFoldersChanged();
+}
+
+QString Settings::subtitlesPreferredLanguage()
+{
+    return get("Subtitles", "PreferredLanguage").toString();
+}
+
+void Settings::setSubtitlesPreferredLanguage(const QString &preferredLanguage)
+{
+    if (preferredLanguage == subtitlesPreferredLanguage()) {
+        return;
+    }
+    set("Subtitles", "PreferredLanguage", preferredLanguage);
+    emit subtitlesPreferredLanguageChanged();
+}
+
+int Settings::subtitlesPreferredTrack()
+{
+    return get("Subtitles", "PreferredTrack").toInt();
+}
+
+void Settings::setSubtitlesPreferredTrack(int preferredTrack)
+{
+    if (preferredTrack == subtitlesPreferredTrack()) {
+        return;
+    }
+    set("Subtitles", "PreferredTrack", QString::number(preferredTrack));
+    emit subtitlesPreferredTrackChanged();
+}
+
+
 QString Settings::playlistPosition()
 {
     return get("Playlist", "Position").toString();
 }
 
-void Settings::setPlaylistPosition(QString position)
+void Settings::setPlaylistPosition(const QString &position)
 {
     if (position == playlistPosition()) {
         return;
@@ -266,7 +309,117 @@ void Settings::setPlaylistBigFontFullscreen(bool bigFont)
     emit playlistBigFontFullscreenChanged();
 }
 
+QString Settings::mouseLeftAction()
+{
+    return get("Mouse", "Left").toString();
+}
 
+void Settings::setMouseLeftAction(const QString &action)
+{
+    if (action == mouseLeftAction()) {
+        return;
+    }
+    set("Mouse", "Left", action);
+    emit mouseLeftActionChanged();
+}
+
+QString Settings::mouseLeftx2Action()
+{
+    return get("Mouse", "Left.x2").toString();
+}
+
+void Settings::setMouseLeftx2Action(const QString &action)
+{
+    if (action == mouseLeftx2Action()) {
+        return;
+    }
+    set("Mouse", "Left.x2", action);
+    emit mouseLeftx2ActionChanged();
+}
+
+QString Settings::mouseRightAction()
+{
+    return get("Mouse", "Right").toString();
+}
+
+void Settings::setMouseRightAction(const QString &action)
+{
+    if (action == mouseRightAction()) {
+        return;
+    }
+    set("Mouse", "Right", action);
+    emit mouseRightActionChanged();
+}
+
+QString Settings::mouseRightx2Action()
+{
+    return get("Mouse", "Right.x2").toString();
+}
+
+void Settings::setMouseRightx2Action(const QString &action)
+{
+    if (action == mouseRightx2Action()) {
+        return;
+    }
+    set("Mouse", "Right.x2", action);
+    emit mouseRightx2ActionChanged();
+}
+
+QString Settings::mouseMiddleAction()
+{
+    return get("Mouse", "Middle").toString();
+}
+
+void Settings::setMouseMiddleAction(const QString &action)
+{
+    if (action == mouseMiddleAction()) {
+        return;
+    }
+    set("Mouse", "Middle", action);
+    emit mouseMiddleActionChanged();
+}
+
+QString Settings::mouseMiddlex2Action()
+{
+    return get("Mouse", "Middle.x2").toString();
+}
+
+void Settings::setMouseMiddlex2Action(const QString &action)
+{
+    if (action == mouseMiddlex2Action()) {
+        return;
+    }
+    set("Mouse", "Middle.x2", action);
+    emit mouseMiddlex2ActionChanged();
+}
+
+QString Settings::mouseScrollUpAction()
+{
+    return get("Mouse", "ScrollUp").toString();
+}
+
+void Settings::setMouseScrollUpAction(const QString &action)
+{
+    if (&action == mouseScrollUpAction()) {
+        return;
+    }
+    set("Mouse", "ScrollUp", action);
+    emit mouseScrollUpActionChanged();
+}
+
+QString Settings::mouseScrollDownAction()
+{
+    return get("Mouse", "ScrollDown").toString();
+}
+
+void Settings::setMouseScrollDownAction(const QString &action)
+{
+    if (action == mouseScrollDownAction()) {
+        return;
+    }
+    set("Mouse", "ScrollDown", action);
+    emit mouseScrollDownActionChanged();
+}
 
 
 QVariant Settings::get(const QString &group, const QString &key)

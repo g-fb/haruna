@@ -7,6 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
+import AppSettings 1.0
 
 Item {
     id: root
@@ -33,11 +34,11 @@ Item {
             Layout.alignment: Qt.AlignRight
         }
         TextField {
-            text: settings.get("Subtitle", "PreferredLanguage")
+            text: AppSettings.subtitlesPreferredLanguage
             placeholderText: "eng, ger etc."
             Layout.fillWidth: true
             onTextEdited: {
-                settings.set("Subtitle", "PreferredLanguage", text)
+                AppSettings.subtitlesPreferredLanguage = text
                 mpv.setProperty("slang", text)
             }
         }
@@ -49,17 +50,15 @@ Item {
         SpinBox {
             from: 0
             to: 100
-            value: settings.get("Subtitle", "PreferredTrack")
+            value: AppSettings.subtitlesPreferredTrack
             editable: true
             onValueChanged: {
+                AppSettings.subtitlesPreferredTrack = value
                 if (value === 0) {
-                    settings.set("Subtitle", "PreferredTrack", value)
                     mpv.setProperty("sid", "auto")
-                    return
+                } else {
+                    mpv.setProperty("sid", value)
                 }
-
-                settings.set("Subtitle", "PreferredTrack", value)
-                mpv.setProperty("sid", value)
             }
         }
     }
