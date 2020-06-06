@@ -57,11 +57,7 @@ Slider {
 
     onValueChanged: {
         mpv.setProperty("volume", value.toFixed(0))
-        AppSettings = value.toFixed(0)
+        AppSettings.volume = value.toFixed(0)
     }
 
-    Connections {
-        target: settings
-        onSettingsChanged: stepSize = AppSettings.volumeStep
-    }
 }

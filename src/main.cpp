@@ -74,7 +74,6 @@ int main(int argc, char *argv[])
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
     std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
-    std::unique_ptr<Settings> settings = std::make_unique<Settings>();
 
     for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
         myApp->addArgument(i, parser.positionalArguments().at(i));
@@ -111,7 +110,6 @@ int main(int argc, char *argv[])
                                             QStringLiteral("LockManager should not be created in QML"));
 
     engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
-    engine.rootContext()->setContextProperty(QStringLiteral("settings"), settings.release());
     qmlRegisterSingletonType<Settings>("AppSettings", 1, 0, "AppSettings", Settings::provider);
     engine.load(url);
     return QApplication::exec();

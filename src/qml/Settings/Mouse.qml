@@ -9,6 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 import org.kde.kirigami 2.11 as Kirigami
+import AppSettings 1.0
 
 Item {
     id: root
@@ -68,7 +69,7 @@ Item {
                     Label {
                         id: actionLabel
 
-                        text: settings.get("Mouse", modelData)
+                        text: AppSettings.get("Mouse", modelData)
                         Layout.fillWidth: true
                     }
 
@@ -91,7 +92,7 @@ Item {
                 onActionSelected: {
                     const item  = buttonsView.itemAtIndex(buttonsView.index)
                     item.actionLabel.text = actionName
-                    settings.set("Mouse", item.buttonLabel.text, actionName)
+                    AppSettings.set("Mouse", item.buttonLabel.text, actionName)
                 }
             }
         }

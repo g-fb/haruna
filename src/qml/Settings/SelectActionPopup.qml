@@ -95,7 +95,7 @@ Popup {
             }
             delegate: Kirigami.BasicListItem {
                 height: 30
-                width: parent.width
+                width: root.width
                 label: modelData
                 reserveSpaceForIcon: false
                 onDoubleClicked: actionSelected(modelData)
