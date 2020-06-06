@@ -9,6 +9,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQml 2.13
 import org.kde.kirigami 2.11 as Kirigami
+import AppSettings 1.0
 
 import "Menus"
 
@@ -17,10 +18,9 @@ ToolBar {
 
     property var audioTracks
     property var subtitleTracks
-    property bool isVisible: settings.get("View", "HeaderVisible")
 
     position: ToolBar.Header
-    visible: !window.isFullScreen() && isVisible
+    visible: !window.isFullScreen() && AppSettings.viewIsHeaderVisible
 
     RowLayout {
         id: headerRow

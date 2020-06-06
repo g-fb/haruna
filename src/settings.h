@@ -15,20 +15,18 @@
 class Settings : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool skipChapters
-               READ skipChapters
-               WRITE setSkipChapters
-               NOTIFY skipChaptersChanged)
+    // *********************************************
+    //   GENERAL
+    // *********************************************
+    Q_PROPERTY(int osdFontSize
+               READ osdFontSize
+               WRITE setOsdFontSize
+               NOTIFY osdFontSizeChanged)
 
-    Q_PROPERTY(QString skipChaptersWordList
-               READ skipChaptersWordList
-               WRITE setSkipChaptersWordList
-               NOTIFY skipChaptersWordListChanged)
-
-    Q_PROPERTY(bool showOsdOnSkipChapters
-               READ showOsdOnSkipChapters
-               WRITE setShowOsdOnSkipChapters
-               NOTIFY showOsdOnSkipChaptersChanged)
+    Q_PROPERTY(int volumeStep
+               READ volumeStep
+               WRITE setVolumeStep
+               NOTIFY volumeStepChanged)
 
     Q_PROPERTY(int seekSmallStep
                READ seekSmallStep
@@ -45,66 +43,25 @@ class Settings : public QObject
                WRITE setSeekBigStep
                NOTIFY seekBigStepChanged)
 
-    Q_PROPERTY(int volumeStep
-               READ volumeStep
-               WRITE setVolumeStep
-               NOTIFY volumeStepChanged)
+    // no gui settings
+    Q_PROPERTY(int volume
+               READ volume
+               WRITE setVolume
+               NOTIFY volumeChanged)
 
-    Q_PROPERTY(int osdFontSize
-               READ osdFontSize
-               WRITE setOsdFontSize
-               NOTIFY osdFontSizeChanged)
+    Q_PROPERTY(QString lastPlayedFile
+               READ lastPlayedFile
+               WRITE setLastPlayedFile
+               NOTIFY lastPlayedFileChanged)
 
-    Q_PROPERTY(QString audioPreferredLanguage
-               READ audioPreferredLanguage
-               WRITE setAudioPreferredLanguage
-               NOTIFY audioPreferredLanguageChanged)
+    Q_PROPERTY(QString lastUrl
+               READ lastUrl
+               WRITE setLastUrl
+               NOTIFY lastUrlChanged)
 
-    Q_PROPERTY(int audioPreferredTrack
-               READ audioPreferredTrack
-               WRITE setAudioPreferredTrack
-               NOTIFY audioPreferredTrackChanged)
-
-    Q_PROPERTY(QString subtitlesFolders
-               READ subtitlesFolders
-               WRITE setSubtitlesFolders
-               NOTIFY subtitlesFoldersChanged)
-
-    Q_PROPERTY(QString subtitlesPreferredLanguage
-               READ subtitlesPreferredLanguage
-               WRITE setSubtitlesPreferredLanguage
-               NOTIFY subtitlesPreferredLanguageChanged)
-
-    Q_PROPERTY(int subtitlesPreferredTrack
-               READ subtitlesPreferredTrack
-               WRITE setSubtitlesPreferredTrack
-               NOTIFY subtitlesPreferredTrackChanged)
-
-    Q_PROPERTY(QString playlistPosition
-               READ playlistPosition
-               WRITE setPlaylistPosition
-               NOTIFY playlistPositionChanged)
-
-    Q_PROPERTY(int playlistRowHeight
-               READ playlistRowHeight
-               WRITE setPlaylistRowHeight
-               NOTIFY playlistRowHeightChanged)
-
-    Q_PROPERTY(int playlistRowSpacing
-               READ playlistRowSpacing
-               WRITE setPlaylistRowSpacing
-               NOTIFY playlistRowSpacingChanged)
-
-    Q_PROPERTY(bool playlistCanToggleWithMouse
-               READ playlistCanToggleWithMouse
-               WRITE setPlaylistCanToggleWithMouse
-               NOTIFY playlistCanToggleWithMouseChanged)
-
-    Q_PROPERTY(bool playlistBigFontFullscreen
-               READ playlistBigFontFullscreen
-               WRITE setPlaylistBigFontFullscreen
-               NOTIFY playlistBigFontFullscreenChanged)
-
+    // *********************************************
+    //   MOUSE
+    // *********************************************
     Q_PROPERTY(QString mouseLeftAction
                READ mouseLeftAction
                WRITE setMouseLeftAction
@@ -145,8 +102,108 @@ class Settings : public QObject
                WRITE setMouseScrollDownAction
                NOTIFY mouseScrollDownActionChanged)
 
+    // *********************************************
+    //   PLAYLIST
+    // *********************************************
+    Q_PROPERTY(QString playlistPosition
+               READ playlistPosition
+               WRITE setPlaylistPosition
+               NOTIFY playlistPositionChanged)
+
+    Q_PROPERTY(int playlistRowHeight
+               READ playlistRowHeight
+               WRITE setPlaylistRowHeight
+               NOTIFY playlistRowHeightChanged)
+
+    Q_PROPERTY(int playlistRowSpacing
+               READ playlistRowSpacing
+               WRITE setPlaylistRowSpacing
+               NOTIFY playlistRowSpacingChanged)
+
+    Q_PROPERTY(bool playlistCanToggleWithMouse
+               READ playlistCanToggleWithMouse
+               WRITE setPlaylistCanToggleWithMouse
+               NOTIFY playlistCanToggleWithMouseChanged)
+
+    Q_PROPERTY(bool playlistBigFontFullscreen
+               READ playlistBigFontFullscreen
+               WRITE setPlaylistBigFontFullscreen
+               NOTIFY playlistBigFontFullscreenChanged)
+
+    // *********************************************
+    //   AUDIO
+    // *********************************************
+    Q_PROPERTY(QString audioPreferredLanguage
+               READ audioPreferredLanguage
+               WRITE setAudioPreferredLanguage
+               NOTIFY audioPreferredLanguageChanged)
+
+    Q_PROPERTY(int audioPreferredTrack
+               READ audioPreferredTrack
+               WRITE setAudioPreferredTrack
+               NOTIFY audioPreferredTrackChanged)
+
+    // *********************************************
+    //   SUBTITLES
+    // *********************************************
+    Q_PROPERTY(QStringList subtitlesFolders
+               READ subtitlesFolders
+               WRITE setSubtitlesFolders
+               NOTIFY subtitlesFoldersChanged)
+
+    Q_PROPERTY(QString subtitlesPreferredLanguage
+               READ subtitlesPreferredLanguage
+               WRITE setSubtitlesPreferredLanguage
+               NOTIFY subtitlesPreferredLanguageChanged)
+
+    Q_PROPERTY(int subtitlesPreferredTrack
+               READ subtitlesPreferredTrack
+               WRITE setSubtitlesPreferredTrack
+               NOTIFY subtitlesPreferredTrackChanged)
+
+    // *********************************************
+    //   PLAYBACK
+    // *********************************************
+    Q_PROPERTY(bool playbackSkipChapters
+               READ playbackSkipChapters
+               WRITE setPlaybackSkipChapters
+               NOTIFY playbackSkipChaptersChanged)
+
+    Q_PROPERTY(QString playbackChaptersToSkip
+               READ playbackChaptersToSkip
+               WRITE setPlaybackChaptersToSkip
+               NOTIFY playbackChaptersToSkipChanged)
+
+    Q_PROPERTY(bool playbackShowOsdOnSkipChapters
+               READ playbackShowOsdOnSkipChapters
+               WRITE setPlaybackShowOsdOnSkipChapters
+               NOTIFY playbackShowOsdOnSkipChaptersChanged)
+
+    // *********************************************
+    //   VIEW
+    // *********************************************
+    Q_PROPERTY(bool viewIsMenuBarVisible
+               READ viewIsMenuBarVisible
+               WRITE setViewIsMenuBarVisible
+               NOTIFY viewIsMenuBarVisibleChanged)
+
+    Q_PROPERTY(bool viewIsHeaderVisible
+               READ viewIsHeaderVisible
+               WRITE setViewIsHeaderVisible
+               NOTIFY viewIsHeaderVisibleChanged)
+
+
 public:
     explicit Settings(QObject *parent = nullptr);
+
+    // *********************************************
+    //   GENERAL
+    // *********************************************
+    int osdFontSize();
+    void setOsdFontSize(int fontSize);
+
+    int volumeStep();
+    void setVolumeStep(int step);
 
     int seekSmallStep();
     void setSeekSmallStep(int step);
@@ -157,51 +214,18 @@ public:
     int seekBigStep();
     void setSeekBigStep(int step);
 
-    bool skipChapters();
-    void setSkipChapters(bool skip);
+    int volume();
+    void setVolume(int vol);
 
-    QString skipChaptersWordList();
-    void setSkipChaptersWordList(const QString &wordList);
+    QString lastPlayedFile();
+    void setLastPlayedFile(const QString &file);
 
-    bool showOsdOnSkipChapters();
-    void setShowOsdOnSkipChapters(bool show);
+    QString lastUrl();
+    void setLastUrl(const QString &url);
 
-    int volumeStep();
-    void setVolumeStep(int step);
-
-    int osdFontSize();
-    void setOsdFontSize(int fontSize);
-
-    QString audioPreferredLanguage();
-    void setAudioPreferredLanguage(const QString &lang);
-
-    int audioPreferredTrack();
-    void setAudioPreferredTrack(int track);
-
-    QString subtitlesFolders();
-    void setSubtitlesFolders(const QString &folders);
-
-    QString subtitlesPreferredLanguage();
-    void setSubtitlesPreferredLanguage(const QString &preferredLanguage);
-
-    int subtitlesPreferredTrack();
-    void setSubtitlesPreferredTrack(int preferredTrack);
-
-    QString playlistPosition();
-    void setPlaylistPosition(const QString &position);
-
-    int playlistRowHeight();
-    void setPlaylistRowHeight(int height);
-
-    int playlistRowSpacing();
-    void setPlaylistRowSpacing(int spacing);
-
-    bool playlistCanToggleWithMouse();
-    void setPlaylistCanToggleWithMouse(bool toggleWithMouse);
-
-    bool playlistBigFontFullscreen();
-    void setPlaylistBigFontFullscreen(bool bigFont);
-
+    // *********************************************
+    //   MOUSE
+    // *********************************************
     QString mouseLeftAction();
     void setMouseLeftAction(const QString &action);
 
@@ -226,6 +250,66 @@ public:
     QString mouseScrollDownAction();
     void setMouseScrollDownAction(const QString &action);
 
+    QString playlistPosition();
+    void setPlaylistPosition(const QString &position);
+
+    // *********************************************
+    //   PLAYLIST
+    // *********************************************
+    int playlistRowHeight();
+    void setPlaylistRowHeight(int height);
+
+    int playlistRowSpacing();
+    void setPlaylistRowSpacing(int spacing);
+
+    bool playlistCanToggleWithMouse();
+    void setPlaylistCanToggleWithMouse(bool toggleWithMouse);
+
+    bool playlistBigFontFullscreen();
+    void setPlaylistBigFontFullscreen(bool bigFont);
+
+    // *********************************************
+    //   AUDIO
+    // *********************************************
+    QString audioPreferredLanguage();
+    void setAudioPreferredLanguage(const QString &lang);
+
+    int audioPreferredTrack();
+    void setAudioPreferredTrack(int track);
+
+    // *********************************************
+    //   SUBTITLES
+    // *********************************************
+    QStringList subtitlesFolders();
+    void setSubtitlesFolders(const QStringList &folders);
+
+    QString subtitlesPreferredLanguage();
+    void setSubtitlesPreferredLanguage(const QString &preferredLanguage);
+
+    int subtitlesPreferredTrack();
+    void setSubtitlesPreferredTrack(int preferredTrack);
+
+    // *********************************************
+    //   PLAYBACK
+    // *********************************************
+    bool playbackSkipChapters();
+    void setPlaybackSkipChapters(bool skip);
+
+    QString playbackChaptersToSkip();
+    void setPlaybackChaptersToSkip(const QString &chapters);
+
+    bool playbackShowOsdOnSkipChapters();
+    void setPlaybackShowOsdOnSkipChapters(bool show);
+
+    // *********************************************
+    //   VIEW
+    // *********************************************
+    bool viewIsMenuBarVisible();
+    void setViewIsMenuBarVisible(bool isVisible);
+
+    bool viewIsHeaderVisible();
+    void setViewIsHeaderVisible(bool isVisible);
+
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -237,27 +321,20 @@ public:
 
 signals:
     void settingsChanged();
+    // *********************************************
+    //   GENERAL
+    // *********************************************
+    void osdFontSizeChanged();
+    void volumeStepChanged();
     void seekSmallStepChanged();
     void seekMediumStepChanged();
     void seekBigStepChanged();
-    void skipChaptersChanged();
-    void skipChaptersWordListChanged();
-    void showOsdOnSkipChaptersChanged();
-    void volumeStepChanged();
-    void osdFontSizeChanged();
-    void brightnessChanged();
-    void gammaChanged();
-    void saturationChanged();
-    void audioPreferredLanguageChanged();
-    void audioPreferredTrackChanged();
-    void subtitlesFoldersChanged();
-    void subtitlesPreferredLanguageChanged();
-    void subtitlesPreferredTrackChanged();
-    void playlistPositionChanged();
-    void playlistRowHeightChanged();
-    void playlistRowSpacingChanged();
-    void playlistCanToggleWithMouseChanged();
-    void playlistBigFontFullscreenChanged();
+    void volumeChanged();
+    void lastPlayedFileChanged();
+    void lastUrlChanged();
+    // *********************************************
+    //   MOUSE
+    // *********************************************
     void mouseLeftActionChanged();
     void mouseLeftx2ActionChanged();
     void mouseRightActionChanged();
@@ -266,14 +343,41 @@ signals:
     void mouseMiddlex2ActionChanged();
     void mouseScrollUpActionChanged();
     void mouseScrollDownActionChanged();
+    // *********************************************
+    //   PLAYLIST
+    // *********************************************
+    void playlistPositionChanged();
+    void playlistRowHeightChanged();
+    void playlistRowSpacingChanged();
+    void playlistCanToggleWithMouseChanged();
+    void playlistBigFontFullscreenChanged();
+    // *********************************************
+    //   AUDIO
+    // *********************************************
+    void audioPreferredLanguageChanged();
+    void audioPreferredTrackChanged();
+    // *********************************************
+    //   SUBTITLES
+    // *********************************************
+    void subtitlesFoldersChanged();
+    void subtitlesPreferredLanguageChanged();
+    void subtitlesPreferredTrackChanged();
+    // *********************************************
+    //   PLAYBACK
+    // *********************************************
+    void playbackSkipChaptersChanged();
+    void playbackChaptersToSkipChanged();
+    void playbackShowOsdOnSkipChaptersChanged();
+    // *********************************************
+    //   VIEW
+    // *********************************************
+    void viewIsMenuBarVisibleChanged();
+    void viewIsHeaderVisibleChanged();
 
 public slots:
     QVariant get(const QString &group, const QString &key);
     void set(const QString &group, const QString &key, const QString &value);
-    QVariant getPath(const QString &group, const QString &key);
-    void setPath(const QString &group, const QString &key, const QString &value);
 private:
-    QVariant defaultSetting(const QString &key);
     QHash<QString, QVariant> m_defaultSettings;
     KSharedConfig::Ptr m_config;
 };

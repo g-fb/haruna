@@ -15,7 +15,7 @@ SubtitlesFoldersModel::SubtitlesFoldersModel(QObject *parent)
     : QAbstractListModel(parent)
 {
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
-    m_list = m_config->group("General").readPathEntry("SubtitlesFolders", QStringList());
+    m_list = m_config->group("Subtitles").readPathEntry("Folders", QStringList());
 }
 
 int SubtitlesFoldersModel::rowCount(const QModelIndex &parent) const
@@ -51,7 +51,7 @@ void SubtitlesFoldersModel::updateFolder(const QString &folder, int row)
     // remove empty strings
     // removing directly from m_list messes with the ui logic
     newList.removeAll(QString(""));
-    m_config->group("General").writePathEntry("SubtitlesFolders", newList);
+    m_config->group("Subtitles").writePathEntry("Folders", newList);
     m_config->sync();
 }
 
@@ -60,7 +60,7 @@ void SubtitlesFoldersModel::deleteFolder(int row)
     emit beginRemoveRows(QModelIndex(), row, row);
     m_list.removeAt(row);
     emit endRemoveRows();
-    m_config->group("General").writePathEntry("SubtitlesFolders", m_list);
+    m_config->group("Subtitles").writePathEntry("Folders", m_list);
     m_config->sync();
 }
 

@@ -23,7 +23,7 @@ Item {
     Label {
         id: sectionTitle
 
-        text: qsTr("Subtitles folders")
+        text: qsTr("Load subtitles from")
         bottomPadding: 10
     }
 
@@ -44,7 +44,7 @@ Item {
         ScrollBar.vertical: ScrollBar { id: scrollBar }
         delegate: Rectangle {
             id: sfDelegate
-            width: parent.width
+            width: root.width
             height: sfListView.sfDelegateHeight
             color: Kirigami.Theme.alternateBackgroundColor
 
@@ -98,7 +98,7 @@ Item {
                         flat: true
                         onClicked: {
                             if (!canDelete) {
-                                text = "Click again to delete"
+                                text = qsTr("Confirm deletion")
                                 canDelete = true
                                 return
                             }
@@ -114,7 +114,7 @@ Item {
 
                         }
                         ToolTip {
-                            text: "Delete this folder from list"
+                            text: qsTr("Delete this folder from list")
                         }
                     }
 
@@ -130,7 +130,7 @@ Item {
                             }
                         }
                         ToolTip {
-                            text: "Save changes"
+                            text: qsTr("Save changes")
                         }
                     }
 
@@ -150,7 +150,7 @@ Item {
         id: sfAddFolder
         anchors.top: spacer.bottom
         icon.name: "list-add"
-        text: "Add new folder"
+        text: qsTr("Add new folder")
         enabled: root.canAddFolder
         onClicked: {
             subsFoldersModel.addFolder()
@@ -159,9 +159,6 @@ Item {
                     ? 5 * sfListView.sfDelegateHeight + (sfListView.spacing * 4)
                     : rows * sfListView.sfDelegateHeight + (sfListView.spacing * (rows - 1))
             root.canAddFolder = false
-        }
-        ToolTip {
-            text: "Add new subtitles folder to the list"
         }
     }
 }

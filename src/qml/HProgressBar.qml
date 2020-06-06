@@ -156,8 +156,8 @@ Slider {
             id: skipChaptersMenuItem
             text: qsTr("Skip Chapters")
             checkable: true
-            checked: AppSettings.skipChapters
-            onCheckedChanged: AppSettings.skipChapters = checked
+            checked: AppSettings.playbackSkipChapters
+            onCheckedChanged: AppSettings.playbackSkipChapters = checked
         }
 
         Instantiator {

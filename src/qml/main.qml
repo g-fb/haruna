@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.13
 import QtGraphicalEffects 1.13
 import Qt.labs.platform 1.0 as Platform
 import org.kde.kirigami 2.11 as Kirigami
+import AppSettings 1.0
 
 import mpv 1.0
 import "Menus"
@@ -39,11 +40,10 @@ Kirigami.ApplicationWindow {
     header: Header { id: header }
 
     menuBar: MenuBar {
-        property bool isVisible: settings.get("View", "MenuBarVisible")
 
         hoverEnabled: true
         implicitHeight: 24
-        visible: !window.isFullScreen() && isVisible
+        visible: !window.isFullScreen() && AppSettings.viewIsMenuBarVisible
 
         FileMenu {}
         ViewMenu {}
@@ -114,12 +114,12 @@ Kirigami.ApplicationWindow {
             TextField {
                 id: openUrlTextField
                 Layout.fillWidth: true
-                Component.onCompleted: text = settings.get("General", "LastUrl")
+                Component.onCompleted: text = AppSettings.lastUrl
 
                 Keys.onPressed: {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                         openFile(openUrlTextField.text, true, false)
-                        settings.set("General", "LastUrl", openUrlTextField.text)
+                        AppSettings.lastUrl = openUrlTextField.text
                         openUrlPopup.close()
                         openUrlTextField.clear()
                         // clear playlist to prevent existing files in the playlist
@@ -137,7 +137,7 @@ Kirigami.ApplicationWindow {
 
                 onClicked: {
                     openFile(openUrlTextField.text, true, false)
-                    settings.set("General", "LastUrl", openUrlTextField.text)
+                    AppSettings.lastUrl = openUrlTextField.text
                     openUrlPopup.close()
                     openUrlTextField.clear()
                     playList.tableView.model = 0
@@ -154,7 +154,7 @@ Kirigami.ApplicationWindow {
             playListModel.getVideos(path)
         }
 
-        settings.set("General", "LastPlayedFile", path)
+        AppSettings.lastPlayedFile = path
     }
 
     function isFullScreen() {

@@ -9,16 +9,17 @@ import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
 import QtGraphicalEffects 1.13
+import AppSettings 1.0
 
 Rectangle {
     id: root
 
     property alias tableView: tableView
-    property bool canToggleWithMouse: settings.get("Playlist", "CanToggleWithMouse")
-    property string position: settings.get("Playlist", "Position")
-    property int rowHeight: settings.get("Playlist", "RowHeight")
-    property int rowSpacing: settings.get("Playlist", "RowSpacing")
-    property int bigFont: settings.get("Playlist", "BigFontFullscreen")
+    property bool canToggleWithMouse: AppSettings.playlistCanToggleWithMouse
+    property string position: AppSettings.playlistPosition
+    property int rowHeight: AppSettings.playlistRowHeight
+    property int rowSpacing: AppSettings.playlistRowSpacing
+    property int bigFont: AppSettings.playlistBigFontFullscreen
 
     height: mpv.height
     width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33

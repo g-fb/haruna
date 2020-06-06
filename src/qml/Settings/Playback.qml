@@ -27,8 +27,8 @@ Item {
             CheckBox {
                 id: skipChaptersCheckBox
                 text: qsTr("Skip chapters")
-                checked: AppSettings.skipChapters
-                onCheckedChanged: AppSettings.skipChapters = checked
+                checked: AppSettings.playbackSkipChapters
+                onCheckedChanged: AppSettings.playbackSkipChapters = checked
             }
 
             Label {
@@ -37,17 +37,17 @@ Item {
             }
 
             TextField {
-                text: AppSettings.skipChaptersWordList
+                text: AppSettings.playbackChaptersToSkip
                 enabled: skipChaptersCheckBox.checked
                 Layout.fillWidth: true
-                onEditingFinished: AppSettings.skipChaptersWordList = text
+                onEditingFinished: AppSettings.playbackChaptersToSkip = text
             }
 
             CheckBox {
                 text: qsTr("Show an osd message when skipping chapters")
                 enabled: skipChaptersCheckBox.checked
-                checked: AppSettings.showOsdOnSkipChapters
-                onCheckedChanged: AppSettings.showOsdOnSkipChapters = checked
+                checked: AppSettings.playbackShowOsdOnSkipChapters
+                onCheckedChanged: AppSettings.playbackShowOsdOnSkipChapters = checked
             }
         }
 

@@ -25,7 +25,7 @@ MpvObject {
     anchors.left: settingsEditor.right
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
-    volume: settings.get("General", "Volume")
+    volume: AppSettings.volume
 
     onSetSubtitle: {
         setProperty("sid", id)
@@ -40,21 +40,21 @@ MpvObject {
     }
 
     onReady: {
-        const preferredAudioTrack = settings.get("Audio", "PreferredTrack")
+        const preferredAudioTrack = AppSettings.audioPreferredTrack
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
-        setProperty("alang", settings.get("Audio", "PreferredLanguage"))
+        setProperty("alang", AppSettings.audioPreferredLanguage)
 
-        const preferredSubTrack = settings.get("Audio", "PreferredTrack")
+        const preferredSubTrack = AppSettings.subtitlesPreferredTrack
         setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)
-        setProperty("slang", settings.get("Subtitle", "PreferredLanguage"))
-        setProperty("sub-file-paths", settings.getPath("General", "SubtitlesFolders").join(":"))
+        setProperty("slang", AppSettings.subtitlesPreferredLanguage)
+        setProperty("sub-file-paths", AppSettings.subtitlesFolders.join(":"))
 
         if (app.argument(0) !== "") {
             window.openFile(app.argument(0), true, true)
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
-            window.openFile(settings.get("General", "LastPlayedFile"), false, true)
+            window.openFile(AppSettings.lastPlayedFile, false, true)
         }
     }
 
@@ -68,21 +68,21 @@ MpvObject {
     }
 
     onChapterChanged: {
-        if (!settings.get("Playback", "SkipChapters")) {
+        if (!AppSettings.playbackSkipChapters) {
             return
         }
 
         const chapters = mpv.getProperty("chapter-list")
-        const skipChaptersWords = settings.get("Playback", "SkipChaptersWordList")
-        if (chapters.length === 0 || skipChaptersWords === "") {
+        const chaptersToSkip = AppSettings.playbackChaptersToSkip
+        if (chapters.length === 0 || chaptersToSkip === "") {
             return
         }
 
-        const words = skipChaptersWords.split(",")
+        const words = chaptersToSkip.split(",")
         for (let i = 0; i < words.length; ++i) {
             if (chapters[mpv.chapter] && chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
                 actions.seekNextChapterAction.trigger()
-                if (settings.get("Playback", "ShowOsdOnSkipChapters")) {
+                if (AppSettings.playbackShowOsdOnSkipChapters) {
                     osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
                 }
                 // a chapter title can match multiple words

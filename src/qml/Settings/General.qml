@@ -36,13 +36,13 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: settings.get("General", "OsdFontSize")
+                value: AppSettings.osdFontSize
                 onValueChanged: {
                     // runs on start-up so only execute when state is visible
                     if (root.visible) {
                         osd.label.font.pointSize = osdFontSize.value
                         osd.message("Test osd font size")
-                        settings.set("General", "OsdFontSize", osdFontSize.value)
+                        AppSettings.osdFontSize = osdFontSize.value
                     }
                 }
             }
@@ -62,10 +62,10 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: settings.get("General", "VolumeStep")
+                value: AppSettings.volumeStep
                 onValueChanged: {
                     if (root.visible) {
-                        settings.set("General", "VolumeStep", volumeStep.value)
+                        AppSettings.volumeStep = volumeStep.value
                     }
                 }
             }

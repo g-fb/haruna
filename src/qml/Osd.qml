@@ -7,6 +7,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import org.kde.kirigami 2.11 as Kirigami
+import AppSettings 1.0
 
 Item {
     id: root
@@ -23,7 +24,7 @@ Item {
             color: Kirigami.Theme.backgroundColor
         }
         padding: 5
-        font.pointSize: parseInt(settings.get("General", "OsdFontSize"))
+        font.pointSize: parseInt(AppSettings.osdFontSize)
     }
 
     Timer {
@@ -38,7 +39,7 @@ Item {
     }
 
     function message(text) {
-        const osdFontSize = parseInt(settings.get("General", "OsdFontSize"))
+        const osdFontSize = parseInt(AppSettings.osdFontSize)
         label.text = text
         if (osdFontSize === 0) {
             return;

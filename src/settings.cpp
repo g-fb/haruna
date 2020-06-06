@@ -49,11 +49,42 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"PreferredLanguage",     QVariant(QStringLiteral())},
         {"PreferredTrack",        QVariant(0)},
         // view
-        {"MenuBarVisible",        QVariant(true)},
-        {"HeaderVisible",         QVariant(true)},
+        {"IsMenuBarVisible",      QVariant(true)},
+        {"IsHeaderVisible",       QVariant(true)},
     };
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
+}
+
+// *********************************************
+//   GENERAL
+// *********************************************
+int Settings::osdFontSize()
+{
+    return get("General", "OsdFontSize").toInt();
+}
+
+void Settings::setOsdFontSize(int fontSize)
+{
+    if (fontSize == osdFontSize()) {
+        return;
+    }
+    set("General", "OsdFontSize", QString::number(fontSize));
+    emit osdFontSizeChanged();
+}
+
+int Settings::volumeStep()
+{
+    return get("General", "VolumeStep").toInt();
+}
+
+void Settings::setVolumeStep(int step)
+{
+    if (step == volumeStep()) {
+        return;
+    }
+    set("General", "VolumeStep", QString::number(step));
+    emit volumeStepChanged();
 }
 
 int Settings::seekSmallStep()
@@ -98,217 +129,51 @@ void Settings::setSeekBigStep(int step)
     emit seekBigStep();
 }
 
-bool Settings::skipChapters()
+int Settings::volume()
 {
-    return get("Playback", "SkipChapters").toBool();
+    return get("General", "Volume").toInt();
 }
 
-void Settings::setSkipChapters(bool skip)
+void Settings::setVolume(int vol)
 {
-    if (skipChapters() == skip)
-        return;
-    set("Playback", "SkipChapters", QVariant(skip).toString());
-    emit skipChaptersChanged();
-}
-
-
-int Settings::volumeStep()
-{
-    return get("General", "VolumeStep").toInt();
-}
-
-void Settings::setVolumeStep(int step)
-{
-    if (step == volumeStep()) {
+    if (vol == volume()) {
         return;
     }
-    set("General", "VolumeStep", QString::number(step));
-    emit volumeStepChanged();
+    set("General", "Volume", QString::number(vol));
+    emit volumeChanged();
 }
 
-int Settings::osdFontSize()
+QString Settings::lastPlayedFile()
 {
-    return get("", "OsdFontSize").toInt();
+    return get("General", "LastPlayedFile").toString();
 }
 
-void Settings::setOsdFontSize(int fontSize)
+void Settings::setLastPlayedFile(const QString &file)
 {
-    if (fontSize == osdFontSize()) {
+    if (file == lastPlayedFile()) {
         return;
     }
-    set("General", "OsdFontSize", QString::number(fontSize));
-    emit osdFontSizeChanged();
+    set("General", "LastPlayedFile", file);
+    emit lastPlayedFileChanged();
 }
 
-QString Settings::skipChaptersWordList()
+QString Settings::lastUrl()
 {
-    return get("Playback", "SkipChaptersWordList").toString();
+    return get("General", "LastUrl").toString();
 }
 
-void Settings::setSkipChaptersWordList(const QString &wordList)
+void Settings::setLastUrl(const QString &url)
 {
-    if (wordList == skipChaptersWordList()) {
+    if (url == lastUrl()) {
         return;
     }
-    set("Playback", "SkipChaptersWordList", wordList);
-    emit skipChaptersWordListChanged();
+    set("General", "LastUrl", url);
+    emit lastUrlChanged();
 }
 
-bool Settings::showOsdOnSkipChapters()
-{
-    return get("Playback", "ShowOsdOnSkipChapters").toBool();
-}
-
-void Settings::setShowOsdOnSkipChapters(bool show)
-{
-    if (showOsdOnSkipChapters() == show) {
-        return;
-    }
-    set("Playback", "ShowOsdOnSkipChapters", QVariant(show).toString());
-    emit showOsdOnSkipChaptersChanged();
-}
-
-QString Settings::audioPreferredLanguage()
-{
-    return get("Audio", "PreferredLanguage").toString();
-}
-
-void Settings::setAudioPreferredLanguage(const QString &lang)
-{
-    if (lang == audioPreferredLanguage()) {
-        return;
-    }
-    set("Audio", "PreferredLanguage", lang);
-    emit audioPreferredLanguageChanged();
-}
-
-int Settings::audioPreferredTrack()
-{
-    return get("Audio", "PreferredTrack").toInt();
-}
-
-void Settings::setAudioPreferredTrack(int track)
-{
-    if (track == audioPreferredTrack()) {
-        return;
-    }
-    set("Audio", "PreferredTrack", QString::number(track));
-    emit audioPreferredTrackChanged();
-}
-
-QString Settings::subtitlesFolders()
-{
-    return get("Subtitles", "Folders").toString();
-}
-
-void Settings::setSubtitlesFolders(const QString &folders)
-{
-    if (folders == subtitlesFolders()) {
-        return;
-    }
-    set("Subtitles", "Folders", folders);
-    emit subtitlesFoldersChanged();
-}
-
-QString Settings::subtitlesPreferredLanguage()
-{
-    return get("Subtitles", "PreferredLanguage").toString();
-}
-
-void Settings::setSubtitlesPreferredLanguage(const QString &preferredLanguage)
-{
-    if (preferredLanguage == subtitlesPreferredLanguage()) {
-        return;
-    }
-    set("Subtitles", "PreferredLanguage", preferredLanguage);
-    emit subtitlesPreferredLanguageChanged();
-}
-
-int Settings::subtitlesPreferredTrack()
-{
-    return get("Subtitles", "PreferredTrack").toInt();
-}
-
-void Settings::setSubtitlesPreferredTrack(int preferredTrack)
-{
-    if (preferredTrack == subtitlesPreferredTrack()) {
-        return;
-    }
-    set("Subtitles", "PreferredTrack", QString::number(preferredTrack));
-    emit subtitlesPreferredTrackChanged();
-}
-
-
-QString Settings::playlistPosition()
-{
-    return get("Playlist", "Position").toString();
-}
-
-void Settings::setPlaylistPosition(const QString &position)
-{
-    if (position == playlistPosition()) {
-        return;
-    }
-    set("Playlist", "Position", position);
-    emit playlistPositionChanged();
-}
-
-int Settings::playlistRowHeight()
-{
-    return get("Playlist", "RowHeight").toInt();
-}
-
-void Settings::setPlaylistRowHeight(int height)
-{
-    if (height == playlistRowHeight()) {
-        return;
-    }
-    set("Playlist", "RowHeight", QString::number(height));
-    emit playlistRowHeightChanged();
-}
-
-int Settings::playlistRowSpacing()
-{
-    return get("Playlist", "RowSpacing").toInt();
-}
-
-void Settings::setPlaylistRowSpacing(int spacing)
-{
-    if (spacing == playlistRowSpacing()) {
-        return;
-    }
-    set("Playlist", "RowSpacing", QString::number(spacing));
-    emit playlistRowSpacingChanged();
-}
-
-bool Settings::playlistCanToggleWithMouse()
-{
-    return get("Playlist", "CanToggleWithMouse").toBool();
-}
-
-void Settings::setPlaylistCanToggleWithMouse(bool toggleWithMouse)
-{
-    if (toggleWithMouse == playlistCanToggleWithMouse()) {
-        return;
-    }
-    set("Playlist", "CanToggleWithMouse", QVariant(toggleWithMouse).toString());
-    emit playlistCanToggleWithMouseChanged();
-}
-
-bool Settings::playlistBigFontFullscreen()
-{
-    return get("Playlist", "BigFontFullscreen").toBool();
-}
-
-void Settings::setPlaylistBigFontFullscreen(bool bigFont)
-{
-    if (bigFont == playlistBigFontFullscreen()) {
-        return;
-    }
-    set("Playlist", "BigFontFullscreen", QVariant(bigFont).toString());
-    emit playlistBigFontFullscreenChanged();
-}
-
+// *********************************************
+//   MOUSE
+// *********************************************
 QString Settings::mouseLeftAction()
 {
     return get("Mouse", "Left").toString();
@@ -421,10 +286,235 @@ void Settings::setMouseScrollDownAction(const QString &action)
     emit mouseScrollDownActionChanged();
 }
 
+// *********************************************
+//   PLAYLIST
+// *********************************************
+QString Settings::playlistPosition()
+{
+    return get("Playlist", "Position").toString();
+}
+
+void Settings::setPlaylistPosition(const QString &position)
+{
+    if (position == playlistPosition()) {
+        return;
+    }
+    set("Playlist", "Position", position);
+    emit playlistPositionChanged();
+}
+
+int Settings::playlistRowHeight()
+{
+    return get("Playlist", "RowHeight").toInt();
+}
+
+void Settings::setPlaylistRowHeight(int height)
+{
+    if (height == playlistRowHeight()) {
+        return;
+    }
+    set("Playlist", "RowHeight", QString::number(height));
+    emit playlistRowHeightChanged();
+}
+
+int Settings::playlistRowSpacing()
+{
+    return get("Playlist", "RowSpacing").toInt();
+}
+
+void Settings::setPlaylistRowSpacing(int spacing)
+{
+    if (spacing == playlistRowSpacing()) {
+        return;
+    }
+    set("Playlist", "RowSpacing", QString::number(spacing));
+    emit playlistRowSpacingChanged();
+}
+
+bool Settings::playlistCanToggleWithMouse()
+{
+    return get("Playlist", "CanToggleWithMouse").toBool();
+}
+
+void Settings::setPlaylistCanToggleWithMouse(bool toggleWithMouse)
+{
+    if (toggleWithMouse == playlistCanToggleWithMouse()) {
+        return;
+    }
+    set("Playlist", "CanToggleWithMouse", QVariant(toggleWithMouse).toString());
+    emit playlistCanToggleWithMouseChanged();
+}
+
+bool Settings::playlistBigFontFullscreen()
+{
+    return get("Playlist", "BigFontFullscreen").toBool();
+}
+
+void Settings::setPlaylistBigFontFullscreen(bool bigFont)
+{
+    if (bigFont == playlistBigFontFullscreen()) {
+        return;
+    }
+    set("Playlist", "BigFontFullscreen", QVariant(bigFont).toString());
+    emit playlistBigFontFullscreenChanged();
+}
+
+// *********************************************
+//   AUDIO
+// *********************************************
+QString Settings::audioPreferredLanguage()
+{
+    return get("Audio", "PreferredLanguage").toString();
+}
+
+void Settings::setAudioPreferredLanguage(const QString &lang)
+{
+    if (lang == audioPreferredLanguage()) {
+        return;
+    }
+    set("Audio", "PreferredLanguage", lang);
+    emit audioPreferredLanguageChanged();
+}
+
+int Settings::audioPreferredTrack()
+{
+    return get("Audio", "PreferredTrack").toInt();
+}
+
+void Settings::setAudioPreferredTrack(int track)
+{
+    if (track == audioPreferredTrack()) {
+        return;
+    }
+    set("Audio", "PreferredTrack", QString::number(track));
+    emit audioPreferredTrackChanged();
+}
+
+// *********************************************
+//   SUBTITLES
+// *********************************************
+QStringList Settings::subtitlesFolders()
+{
+    return m_config->group("Subtitles").readPathEntry("Folders", QStringList());
+}
+
+void Settings::setSubtitlesFolders(const QStringList &folders)
+{
+    if (folders == subtitlesFolders()) {
+        return;
+    }
+    m_config->group("Subtitles").writePathEntry("Folders", folders);
+    m_config->sync();
+    emit subtitlesFoldersChanged();
+}
+
+QString Settings::subtitlesPreferredLanguage()
+{
+    return get("Subtitles", "PreferredLanguage").toString();
+}
+
+void Settings::setSubtitlesPreferredLanguage(const QString &preferredLanguage)
+{
+    if (preferredLanguage == subtitlesPreferredLanguage()) {
+        return;
+    }
+    set("Subtitles", "PreferredLanguage", preferredLanguage);
+    emit subtitlesPreferredLanguageChanged();
+}
+
+int Settings::subtitlesPreferredTrack()
+{
+    return get("Subtitles", "PreferredTrack").toInt();
+}
+
+void Settings::setSubtitlesPreferredTrack(int preferredTrack)
+{
+    if (preferredTrack == subtitlesPreferredTrack()) {
+        return;
+    }
+    set("Subtitles", "PreferredTrack", QString::number(preferredTrack));
+    emit subtitlesPreferredTrackChanged();
+}
+
+// *********************************************
+//   PLAYBACK
+// *********************************************
+bool Settings::playbackSkipChapters()
+{
+    return get("Playback", "SkipChapters").toBool();
+}
+
+void Settings::setPlaybackSkipChapters(bool skip)
+{
+    if (playbackSkipChapters() == skip)
+        return;
+    set("Playback", "SkipChapters", QVariant(skip).toString());
+    emit playbackSkipChaptersChanged();
+}
+
+QString Settings::playbackChaptersToSkip()
+{
+    return get("Playback", "SkipChaptersWordList").toString();
+}
+
+void Settings::setPlaybackChaptersToSkip(const QString &wordList)
+{
+    if (wordList == playbackChaptersToSkip()) {
+        return;
+    }
+    set("Playback", "SkipChaptersWordList", wordList);
+    emit playbackChaptersToSkipChanged();
+}
+
+bool Settings::playbackShowOsdOnSkipChapters()
+{
+    return get("Playback", "ShowOsdOnSkipChapters").toBool();
+}
+
+void Settings::setPlaybackShowOsdOnSkipChapters(bool show)
+{
+    if (playbackShowOsdOnSkipChapters() == show) {
+        return;
+    }
+    set("Playback", "ShowOsdOnSkipChapters", QVariant(show).toString());
+    emit playbackShowOsdOnSkipChaptersChanged();
+}
+
+// *********************************************
+//   VIEW
+// *********************************************
+bool Settings::viewIsMenuBarVisible()
+{
+    return get("View", "IsMenuBarVisible").toBool();
+}
+
+void Settings::setViewIsMenuBarVisible(bool isVisible)
+{
+    if (isVisible == viewIsMenuBarVisible()) {
+        return;
+    }
+    set("View", "IsMenuBarVisible", QVariant(isVisible).toString());
+    emit viewIsMenuBarVisibleChanged();
+}
+
+bool Settings::viewIsHeaderVisible()
+{
+    return get("View", "IsHeaderVisible").toBool();
+}
+
+void Settings::setViewIsHeaderVisible(bool isVisible)
+{
+    if (isVisible == viewIsHeaderVisible()) {
+        return;
+    }
+    set("View", "IsHeaderVisible", QVariant(isVisible).toString());
+    emit viewIsHeaderVisibleChanged();
+}
+
 
 QVariant Settings::get(const QString &group, const QString &key)
 {
-    return m_config->group(group).readEntry(key, defaultSetting(key));
+    return m_config->group(group).readEntry(key, m_defaultSettings[key]);
 }
 
 void Settings::set(const QString &group, const QString &key, const QString &value)
@@ -433,20 +523,4 @@ void Settings::set(const QString &group, const QString &key, const QString &valu
     m_config->sync();
 
     emit settingsChanged();
-}
-
-QVariant Settings::getPath(const QString &group, const QString &key)
-{
-    return m_config->group(group).readPathEntry(key, QStringList());
-}
-
-void Settings::setPath(const QString &group, const QString &key, const QString &value)
-{
-    m_config->group(group).writePathEntry(key, value);
-    m_config->sync();
-}
-
-QVariant Settings::defaultSetting(const QString &key)
-{
-    return m_defaultSettings[key];
 }
