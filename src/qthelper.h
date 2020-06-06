@@ -76,7 +76,7 @@ static inline QVariant node_to_variant(const mpv_node *node)
 }
 
 struct node_builder {
-    node_builder(const QVariant& v) {
+    node_builder(const QVariant &v) {
         set(&node_, v);
     }
     ~node_builder() {

@@ -101,7 +101,7 @@ ToolBar {
                                 checkable: true
                                 checked: model.id === mpv.secondarySubtitleId
                                 text: model.text
-                                onTriggered: mpv.setSecondarySubtitle(model.id)
+                                onTriggered: mpv.secondarySubtitleId = model.id
                             }
                         }
                     }
@@ -123,7 +123,7 @@ ToolBar {
                             checkable: true
                             checked: model.id === mpv.subtitleId
                             text: model.text
-                            onTriggered: mpv.setSubtitle(model.id)
+                            onTriggered: mpv.subtitleId = model.id
                         }
                     }
                 }
@@ -156,7 +156,7 @@ ToolBar {
                             checkable: true
                             checked: model.id === mpv.audioId
                             text: model.text
-                            onTriggered: mpv.setAudio(model.id)
+                            onTriggered: mpv.audioId = model.id
                         }
                     }
                 }

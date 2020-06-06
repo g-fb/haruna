@@ -39,7 +39,7 @@ Item {
                 stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
-                    mpv.setProperty("contrast", contrastSlider.value.toFixed(0))
+                    mpv.contrast = contrastSlider.value.toFixed(0)
                 }
 
                 MouseArea {
@@ -68,7 +68,7 @@ Item {
                 stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
-                    mpv.setProperty("brightness", brightnessSlider.value.toFixed(0))
+                    mpv.brightness = brightnessSlider.value.toFixed(0)
                 }
 
                 MouseArea {
@@ -97,7 +97,7 @@ Item {
                 stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
-                    mpv.setProperty("gamma", gammaSlider.value.toFixed(0))
+                    mpv.gamma = gammaSlider.value.toFixed(0)
                 }
 
                 MouseArea {
@@ -126,7 +126,7 @@ Item {
                 stepSize: 1
                 Layout.fillWidth: true
                 onValueChanged: {
-                    mpv.setProperty("saturation", saturationSlider.value.toFixed(0))
+                    mpv.saturation = saturationSlider.value.toFixed(0)
                 }
 
                 MouseArea {

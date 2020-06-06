@@ -24,7 +24,7 @@ Kirigami.ApplicationWindow {
     property int preFullScreenVisibility
 
     visible: true
-    title: mpv.title || qsTr("Haruna")
+    title: mpv.mediaTitle || qsTr("Haruna")
     width: 1200
     minimumWidth: 700
     height: 720

@@ -58,7 +58,7 @@ Slider {
                     const time = mouseX * 100 / progressBarBackground.width * root.to / 100
                     const chapters = mpv.getProperty("chapter-list")
                     const nextChapter = chapters.findIndex(chapter => chapter.time > time)
-                    mpv.setProperty("chapter", nextChapter)
+                    mpv.chapter = nextChapter
                 }
                 if (mouse.button === Qt.RightButton && root.chapters.length > 0) {
                     const menuX = mouse.x-chaptersMenu.width * 0.5
@@ -174,9 +174,7 @@ Slider {
                             : chaptersMenu.width
                     chaptersMenu.menuItemHeight = height
                 }
-                onClicked: {
-                    mpv.setProperty("chapter", index)
-                }
+                onClicked: mpv.chapter = index
             }
             onObjectAdded: chaptersMenu.insertItem(index, object)
             onObjectRemoved: chaptersMenu.removeItem(object)

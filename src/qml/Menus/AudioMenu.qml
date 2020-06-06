@@ -28,7 +28,7 @@ Menu {
                 checkable: true
                 checked: model.id === mpv.audioId
                 text: model.text
-                onTriggered: mpv.setAudio(model.id)
+                onTriggered: mpv.audioId = model.id
             }
         }
         Connections {

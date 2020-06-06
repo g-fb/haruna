@@ -29,7 +29,7 @@ Menu {
                 checkable: true
                 checked: model.id === mpv.subtitleId
                 text: model.text
-                onTriggered: mpv.setSubtitle(id)
+                onTriggered: mpv.subtitleId = model.id
             }
         }
     }
@@ -50,7 +50,7 @@ Menu {
                 checkable: true
                 checked: model.id === mpv.secondarySubtitleId
                 text: model.text
-                onTriggered: mpv.setSecondarySubtitle(id)
+                onTriggered: mpv.secondarySubtitleId = model.id
             }
         }
     }

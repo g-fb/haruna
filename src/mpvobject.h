@@ -20,42 +20,130 @@ class TracksModel;
 class MpvObject : public QQuickFramebufferObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString title               MEMBER m_title               NOTIFY titleChanged)
-    Q_PROPERTY(double  position            MEMBER m_position            NOTIFY positionChanged)
-    Q_PROPERTY(double  duration            MEMBER m_duration            NOTIFY durationChanged)
-    Q_PROPERTY(double  remaining           MEMBER m_remaining           NOTIFY remainingChanged)
-    Q_PROPERTY(bool    pause               MEMBER m_pause               NOTIFY pauseChanged)
-    Q_PROPERTY(int     volume              MEMBER m_volume              NOTIFY volumeChanged)
-    Q_PROPERTY(int     contrast            MEMBER m_contrast            NOTIFY contrastChanged)
-    Q_PROPERTY(int     brightness          MEMBER m_brightness          NOTIFY brightnessChanged)
-    Q_PROPERTY(int     gamma               MEMBER m_gamma               NOTIFY gammaChanged)
-    Q_PROPERTY(int     saturation          MEMBER m_saturation          NOTIFY saturationChanged)
-    Q_PROPERTY(int     chapter             MEMBER m_chapter             NOTIFY chapterChanged)
-    Q_PROPERTY(int     audioId             MEMBER m_audioId             NOTIFY audioIdChanged)
-    Q_PROPERTY(int     subtitleId          MEMBER m_subtitleId          NOTIFY subtitleIdChanged)
-    Q_PROPERTY(int     secondarySubtitleId MEMBER m_secondarySubtitleId NOTIFY secondarySubtitleIdChanged)
+    Q_PROPERTY(QString mediaTitle
+               READ mediaTitle
+               NOTIFY mediaTitleChanged)
+
+    Q_PROPERTY(double position
+               READ position
+               WRITE setPosition
+               NOTIFY positionChanged)
+
+    Q_PROPERTY(double duration
+               READ duration
+               NOTIFY durationChanged)
+
+    Q_PROPERTY(double remaining
+               READ remaining
+               NOTIFY remainingChanged)
+
+    Q_PROPERTY(bool pause
+               READ pause
+               NOTIFY pauseChanged)
+
+    Q_PROPERTY(int volume
+               READ volume
+               WRITE setVolume
+               NOTIFY volumeChanged)
+
+    Q_PROPERTY(int chapter
+               READ chapter
+               WRITE setChapter
+               NOTIFY chapterChanged)
+
+    Q_PROPERTY(int audioId
+               READ audioId
+               WRITE setAudioId
+               NOTIFY audioIdChanged)
+
+    Q_PROPERTY(int subtitleId
+               READ subtitleId
+               WRITE setSubtitleId
+               NOTIFY subtitleIdChanged)
+
+    Q_PROPERTY(int secondarySubtitleId
+               READ secondarySubtitleId
+               WRITE setSecondarySubtitleId
+               NOTIFY secondarySubtitleIdChanged)
+
+    Q_PROPERTY(int contrast
+               READ contrast
+               WRITE setContrast
+               NOTIFY contrastChanged)
+
+    Q_PROPERTY(int brightness
+               READ brightness
+               WRITE setBrightness
+               NOTIFY brightnessChanged)
+
+    Q_PROPERTY(int gamma
+               READ gamma
+               WRITE setGamma
+               NOTIFY gammaChanged)
+
+    Q_PROPERTY(int saturation
+               READ saturation
+               WRITE setSaturation
+               NOTIFY saturationChanged)
+
+
+    QString mediaTitle();
+
+    double position();
+    void setPosition(double value);
+
+    double remaining();
+    double duration();
+    bool pause();
+    
+    int volume();
+    void setVolume(int value);
+
+    int chapter();
+    void setChapter(int value);
+
+    int audioId();
+    void setAudioId(int value);
+
+    int subtitleId();
+    void setSubtitleId(int value);
+
+    int secondarySubtitleId();
+    void setSecondarySubtitleId(int value);
+
+    int contrast();
+    void setContrast(int value);
+
+    int brightness();
+    void setBrightness(int value);
+
+    int gamma();
+    void setGamma(int value);
+
+    int saturation();
+    void setSaturation(int value);
+
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
 
     friend class MpvRenderer;
-    void handle_mpv_event(mpv_event *event);
 public:
     MpvObject(QQuickItem * parent = 0);
     virtual ~MpvObject();
     virtual Renderer *createRenderer() const;
 
 public slots:
-    void eventHandler();
     static void on_mpv_events(void *ctx);
-    QVariant command(const QVariant& params);
-    int setProperty(const QString& name, const QVariant& value);
+    void eventHandler();
+    int setProperty(const QString &name, const QVariant &value);
     QVariant getProperty(const QString &name);
+    QVariant command(const QVariant &params);
     TracksModel *audioTracksModel() const;
     TracksModel *subtitleTracksModel() const;
 
 signals:
-    void titleChanged();
+    void mediaTitleChanged();
     void positionChanged();
     void durationChanged();
     void remainingChanged();
@@ -78,21 +166,6 @@ private:
     TracksModel *m_subtitleTracksModel;
     QMap<int, Track*> m_subtitleTracks;
     QMap<int, Track*> m_audioTracks;
-    QVariant m_chapters;
-    QString m_title;
-    double m_position {};
-    double m_duration {};
-    double m_remaining {};
-    bool m_pause {};
-    int m_volume {};
-    int m_chapter {};
-    int m_audioId {};
-    int m_subtitleId {};
-    int m_secondarySubtitleId {};
-    int m_contrast {};
-    int m_brightness {};
-    int m_gamma {};
-    int m_saturation {};
 
     void loadTracks();
 };

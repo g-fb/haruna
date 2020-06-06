@@ -98,6 +98,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     setProperty("hwdec", "auto");
     setProperty("screenshot-template", "%x/screenshots/%n");
 
+    mpv_observe_property(mpv, 0, "media-title", MPV_FORMAT_STRING);
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "time-remaining", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "duration", MPV_FORMAT_DOUBLE);
@@ -136,6 +137,166 @@ MpvObject::~MpvObject()
     mpv_terminate_destroy(mpv);
 }
 
+QString MpvObject::mediaTitle()
+{
+    return getProperty("media-title").toString();
+}
+double MpvObject::position()
+{
+    return getProperty("time-pos").toDouble();
+}
+
+void MpvObject::setPosition(double value)
+{
+    if (value == position()) {
+        return;
+    }
+    setProperty("time-pos", value);
+    emit positionChanged();
+}
+
+double MpvObject::remaining()
+{
+    return getProperty("time-pos").toDouble();
+}
+
+double MpvObject::duration()
+{
+    return getProperty("duration").toDouble();
+}
+
+bool MpvObject::pause()
+{
+    return getProperty("pause").toBool();
+}
+
+int MpvObject::volume()
+{
+    return getProperty("volume").toInt();
+}
+
+void MpvObject::setVolume(int value)
+{
+    if (value == volume()) {
+        return;
+    }
+    setProperty("volume", value);
+    emit volumeChanged();
+}
+
+int MpvObject::chapter()
+{
+    return getProperty("chapter").toInt();
+}
+
+void MpvObject::setChapter(int value)
+{
+    if (value == chapter()) {
+        return;
+    }
+    setProperty("chapter", value);
+    emit chapterChanged();
+}
+
+int MpvObject::audioId()
+{
+    return getProperty("aid").toInt();
+}
+
+void MpvObject::setAudioId(int value)
+{
+    if (value == audioId()) {
+        return;
+    }
+    setProperty("aid", value);
+    emit audioIdChanged();
+}
+
+int MpvObject::subtitleId()
+{
+    return getProperty("sid").toInt();
+}
+
+void MpvObject::setSubtitleId(int value)
+{
+    if (value == subtitleId()) {
+        return;
+    }
+    setProperty("sid", value);
+    emit subtitleIdChanged();
+}
+
+int MpvObject::secondarySubtitleId()
+{
+    return getProperty("secondary-sid").toInt();
+}
+
+void MpvObject::setSecondarySubtitleId(int value)
+{
+    if (value == secondarySubtitleId()) {
+        return;
+    }
+    setProperty("secondary-sid", value);
+    emit secondarySubtitleIdChanged();
+}
+
+int MpvObject::contrast()
+{
+    return getProperty("contrast").toInt();
+}
+
+void MpvObject::setContrast(int value)
+{
+    if (value == contrast()) {
+        return;
+    }
+    setProperty("contrast", value);
+    emit contrastChanged();
+}
+
+int MpvObject::brightness()
+{
+    return getProperty("brightness").toInt();
+}
+
+void MpvObject::setBrightness(int value)
+{
+    if (value == brightness()) {
+        return;
+    }
+    setProperty("brightness", value);
+    emit brightnessChanged();
+}
+
+int MpvObject::gamma()
+{
+    return getProperty("gamma").toInt();
+}
+
+void MpvObject::setGamma(int value)
+{
+    if (value == gamma()) {
+        return;
+    }
+    setProperty("gamma", value);
+    emit gammaChanged();
+}
+
+int MpvObject::saturation()
+{
+    return getProperty("saturation").toInt();
+}
+
+void MpvObject::setSaturation(int value)
+{
+    if (value == saturation()) {
+        return;
+    }
+    setProperty("saturation", value);
+    emit saturationChanged();
+}
+
+
 QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 {
     window()->setPersistentOpenGLContext(true);
@@ -158,10 +319,7 @@ void MpvObject::eventHandler()
         switch (event->event_id) {
         case MPV_EVENT_FILE_LOADED: {
             loadTracks();
-            m_title = getProperty("media-title").toString();
-
             emit fileLoaded();
-            emit titleChanged();
             break;
         }
         case MPV_EVENT_END_FILE: {
@@ -173,79 +331,65 @@ void MpvObject::eventHandler()
         }
         case MPV_EVENT_PROPERTY_CHANGE: {
             mpv_event_property *prop = (mpv_event_property *)event->data;
+
             if (strcmp(prop->name, "time-pos") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    m_position = *(double *)prop->data;
-
                     emit positionChanged();
+                }
+            } else if (strcmp(prop->name, "media-title") == 0) {
+                if (prop->format == MPV_FORMAT_STRING) {
+                    emit mediaTitleChanged();
                 }
             } else if (strcmp(prop->name, "time-remaining") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    m_remaining = *(double *)prop->data;
-
                     emit remainingChanged();
                 }
             } else if (strcmp(prop->name, "duration") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    m_duration = *(double *)prop->data;
-
                     emit durationChanged();
                 }
             } else if (strcmp(prop->name, "volume") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_volume = *(int *)prop->data;
-
                     emit volumeChanged();
                 }
             } else if (strcmp(prop->name, "pause") == 0) {
                 if (prop->format == MPV_FORMAT_FLAG) {
-                    m_pause = *(bool *)prop->data;
                     emit pauseChanged();
                 }
             } else if (strcmp(prop->name, "chapter") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_chapter = *(int *)prop->data;
                     emit chapterChanged();
                 }
             } else if (strcmp(prop->name, "aid") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_audioId = *(int *)prop->data;
                     emit audioIdChanged();
                 }
             } else if (strcmp(prop->name, "sid") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_subtitleId = *(int *)prop->data;
                     emit subtitleIdChanged();
                 } else {
-                    m_subtitleId = 0;
                     emit subtitleIdChanged();
                 }
             } else if (strcmp(prop->name, "secondary-sid") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_secondarySubtitleId = *(int *)prop->data;
                     emit secondarySubtitleIdChanged();
                 } else {
-                    m_secondarySubtitleId = 0;
                     emit secondarySubtitleIdChanged();
                 }
             } else if (strcmp(prop->name, "contrast") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_contrast = *(int *)prop->data;
                     emit contrastChanged();
                 }
             } else if (strcmp(prop->name, "brightness") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_brightness = *(int *)prop->data;
                     emit brightnessChanged();
                 }
             } else if (strcmp(prop->name, "gamma") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_gamma = *(int *)prop->data;
                     emit gammaChanged();
                 }
             } else if (strcmp(prop->name, "saturation") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    m_saturation = *(int *)prop->data;
                     emit saturationChanged();
                 }
             }
@@ -321,18 +465,18 @@ TracksModel *MpvObject::audioTracksModel() const
     return m_audioTracksModel;
 }
 
-QVariant MpvObject::command(const QVariant& params)
-{
-    return mpv::qt::command(mpv, params);
-}
-
-int MpvObject::setProperty(const QString& name, const QVariant& value)
+int MpvObject::setProperty(const QString &name, const QVariant &value)
 {
     return mpv::qt::set_property(mpv, name, value);
 }
 
-QVariant MpvObject::getProperty(const QString& name)
+QVariant MpvObject::getProperty(const QString &name)
 {
     auto value = mpv::qt::get_property(mpv, name);
     return value;
+}
+
+QVariant MpvObject::command(const QVariant &params)
+{
+    return mpv::qt::command(mpv, params);
 }

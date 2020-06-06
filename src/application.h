@@ -33,7 +33,7 @@ public slots:
     void addArgument(int key, const QString &value);
     void configureShortcuts();
     QString argument(int key);
-    QAction* action(const QString& name);
+    QAction* action(const QString &name);
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;
