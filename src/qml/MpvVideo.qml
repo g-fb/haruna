@@ -65,6 +65,9 @@ MpvObject {
         if (playList.tableView.rows <= 1) {
             setProperty("loop-file", "inf")
         }
+
+        setProperty("ab-loop-a", "no")
+        setProperty("ab-loop-b", "no")
     }
 
     onChapterChanged: {

@@ -474,5 +474,11 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_H);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("setLoop")) {
+        auto action = new QAction();
+        action->setText(i18n("Set Loop"));
+        m_collection.setDefaultShortcut(action, Qt::Key_L);
+        m_collection.addAction(actionName, action);
+    }
     m_collection.readSettings(m_shortcuts);
 }

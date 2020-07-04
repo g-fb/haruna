@@ -49,14 +49,8 @@ Slider {
         layer.effect: DropShadow { verticalOffset: 1; color: "#111"; radius: 5; spread: 0.3; samples: 17 }
     }
 
-    onPressedChanged: {
-        if (!pressed) {
-            mpv.setProperty("volume", value.toFixed(0))
-        }
-    }
-
     onValueChanged: {
-        mpv.setProperty("volume", value.toFixed(0))
+        mpv.volume = value.toFixed(0)
         AppSettings.volume = value.toFixed(0)
     }
 

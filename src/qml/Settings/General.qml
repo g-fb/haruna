@@ -72,14 +72,14 @@ Item {
             Layout.fillWidth: true
         }
 
-
-        ToolSeparator {
+        Item {
             Layout.columnSpan: 2
-            Layout.fillWidth: true
-            orientation: Qt.Horizontal
-            contentItem: Rectangle {
-                implicitHeight: parent.vertical ? 24 : 1
-                color: Kirigami.Theme.backgroundColor
+            height: 5
+            Rectangle {
+                y: 2
+                width: content.width
+                height: 1
+                color: Kirigami.Theme.alternateBackgroundColor
             }
         }
 
@@ -138,16 +138,6 @@ Item {
                 onValueChanged: AppSettings.seekBigStep = seekBigStep.value
             }
             Layout.fillWidth: true
-        }
-
-        ToolSeparator {
-            Layout.columnSpan: 2
-            Layout.fillWidth: true
-            orientation: Qt.Horizontal
-            contentItem: Rectangle {
-                implicitHeight: parent.vertical ? 24 : 1
-                color: Kirigami.Theme.backgroundColor
-            }
         }
 
         Item {

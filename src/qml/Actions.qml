@@ -987,4 +987,38 @@ Item {
 
         onTriggered: mpv.command(["screenshot"])
     }
+
+    Action {
+        id: setLoopAction
+        property var qaction: app.action("setLoop")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["setLoopAction"] = setLoopAction
+
+        onTriggered: {
+            var a = mpv.getProperty("ab-loop-a")
+            var b = mpv.getProperty("ab-loop-b")
+
+            var aIsSet = a !== "no"
+            var bIsSet = b !== "no"
+
+            if (!aIsSet && !bIsSet) {
+                mpv.setProperty("ab-loop-a", mpv.position)
+                footer.progressBar.loopIndicator.startPosition = mpv.position
+                osd.message("Loop start: " + app.formatTime(mpv.position))
+            } else if (aIsSet && !bIsSet) {
+                mpv.setProperty("ab-loop-b", mpv.position)
+                footer.progressBar.loopIndicator.endPosition = mpv.position
+                osd.message(`Loop: ${app.formatTime(a)} - ${app.formatTime(mpv.position)}`)
+            } else if (aIsSet && bIsSet) {
+                mpv.setProperty("ab-loop-a", "no")
+                mpv.setProperty("ab-loop-b", "no")
+                footer.progressBar.loopIndicator.startPosition = -1
+                footer.progressBar.loopIndicator.endPosition = -1
+                osd.message("Loop cleared")
+            }
+        }
+    }
 }

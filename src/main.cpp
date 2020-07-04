@@ -68,8 +68,8 @@ int main(int argc, char *argv[])
     std::setlocale(LC_NUMERIC, "C");
 
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
-    qmlRegisterInterface<QAction>("QAction");
-    qmlRegisterInterface<TracksModel>("TracksModel");
+    qRegisterMetaType<QAction*>();
+    qRegisterMetaType<TracksModel*>();
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();

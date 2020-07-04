@@ -15,6 +15,7 @@ import AppSettings 1.0
 Slider {
     id: root
 
+    property alias loopIndicator: loopIndicator
     property var chapters
     property bool seekStarted: false
 
@@ -32,10 +33,21 @@ Slider {
         color: Kirigami.Theme.alternateBackgroundColor
 
         Rectangle {
+            id: loopIndicator
+            property double startPosition: -1
+            property double endPosition: -1
+            width: endPosition === -1 ? 1 : (endPosition / mpv.duration * progressBarBackground.width) - x
+            height: parent.height
+            color: Qt.hsla(0, 0, 0, 0.4)
+            visible: startPosition !== -1
+            x: startPosition / mpv.duration * progressBarBackground.width
+            z: 110
+        }
+
+        Rectangle {
             width: visualPosition * parent.width
             height: parent.height
             color: Kirigami.Theme.highlightColor
-            radius: 0
         }
 
         ToolTip {
@@ -88,10 +100,8 @@ Slider {
         delegate: Shape {
             id: chapterMarkerShape
 
-            // modelData.time * 100 / mpv.duration is chapter-time percentage
-            //  multiplied with progressBarBackground.width / 100 is the percentage at which
-            // the chapter marker shoud be positioned on the progress bar
-            property int position: modelData.time * 100 / mpv.duration * progressBarBackground.width / 100
+            // position where the chapter marker shoud be positioned on the progress bar
+            property int position: modelData.time / mpv.duration * progressBarBackground.width
 
             antialiasing: true
             parent: progressBarBackground

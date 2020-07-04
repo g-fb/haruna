@@ -250,12 +250,12 @@ public:
     QString mouseScrollDownAction();
     void setMouseScrollDownAction(const QString &action);
 
-    QString playlistPosition();
-    void setPlaylistPosition(const QString &position);
-
     // *********************************************
     //   PLAYLIST
     // *********************************************
+    QString playlistPosition();
+    void setPlaylistPosition(const QString &position);
+
     int playlistRowHeight();
     void setPlaylistRowHeight(int height);
 
