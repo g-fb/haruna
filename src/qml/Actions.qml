@@ -1021,4 +1021,62 @@ Item {
             }
         }
     }
+
+    Action {
+        id: increaseSubtitleFontSizeAction
+        property var qaction: app.action("increaseSubtitleFontSize")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["increaseSubtitleFontSizeAction"] = increaseSubtitleFontSizeAction
+
+        onTriggered: {
+            mpv.command(["add", "sub-scale", "+0.1"])
+            osd.message(qsTr("Subtitle scale: " + mpv.getProperty("sub-scale").toFixed(1)))
+        }
+    }
+
+    Action {
+        id: decreaseSubtitleFontSizeAction
+        property var qaction: app.action("decreaseSubtitleFontSize")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["decreaseSubtitleFontSizeAction"] = decreaseSubtitleFontSizeAction
+
+        onTriggered: {
+            mpv.command(["add", "sub-scale", "-0.1"])
+            osd.message(qsTr("Subtitle scale: " + mpv.getProperty("sub-scale").toFixed(1)))
+        }
+    }
+
+    Action {
+        id: subtitlePositionUpAction
+        property var qaction: app.action("subtitlePositionUp")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["subtitlePositionUpAction"] = subtitlePositionUpAction
+
+        onTriggered: {
+            mpv.command(["add", "sub-pos", "-1"])
+        }
+    }
+
+    Action {
+        id: subtitlePositionDownAction
+        property var qaction: app.action("subtitlePositionDown")
+        text: qaction.text
+        icon.name: app.iconName(qaction.icon)
+        shortcut: qaction.shortcut
+
+        Component.onCompleted: list["subtitlePositionDownAction"] = subtitlePositionDownAction
+
+        onTriggered: {
+            mpv.command(["add", "sub-pos", "+1"])
+        }
+    }
 }

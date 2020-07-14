@@ -480,5 +480,29 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::Key_L);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("increaseSubtitleFontSize")) {
+        auto action = new QAction();
+        action->setText(i18n("Increase Subtitle Font Size"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_Z);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("decreaseSubtitleFontSize")) {
+        auto action = new QAction();
+        action->setText(i18n("Decrease Subtitle Font Size"));
+        m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_X);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("subtitlePositionUp")) {
+        auto action = new QAction();
+        action->setText(i18n("Move Subtitle Up"));
+        m_collection.setDefaultShortcut(action, Qt::Key_R);
+        m_collection.addAction(actionName, action);
+    }
+    if (actionName == QStringLiteral("subtitlePositionDown")) {
+        auto action = new QAction();
+        action->setText(i18n("Move Subtitle Down"));
+        m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_R);
+        m_collection.addAction(actionName, action);
+    }
     m_collection.readSettings(m_shortcuts);
 }
