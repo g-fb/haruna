@@ -5,9 +5,9 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.13
-import QtQuick.Controls 2.13
-import QtGraphicalEffects 1.13
+import QtQuick.Layouts 1.12
+import QtQuick.Controls 2.12
+import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
 
 Pane {

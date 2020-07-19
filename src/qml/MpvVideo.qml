@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import QtQuick 2.13
-import QtQuick.Window 2.13
+import QtQuick 2.12
+import QtQuick.Window 2.12
 import mpv 1.0
 import AppSettings 1.0
 
