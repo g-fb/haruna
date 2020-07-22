@@ -15,10 +15,19 @@
     <url type="bugtracker">https://github.com/g-fb/haruna/issues</url>
     <url type="donation">https://www.patreon.com/georgefb</url>
     <summary>A Qt/QML video player built on top of libmpv.</summary>
+    <developer_name>George Florea Bănuș</developer_name>
     <description>
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.4" date="2020-07-22">
+            <description>
+                <p>Added loop action (l key); first trigger sets loop start, second sets loop end, third clears the loop.</p>
+                <p>The loop section is highlighted in the progress bar.</p>
+                <p>Added actions to change subtitle size (ctrl+z and ctrl+x) and subtitle position (r and shift+r).</p>
+                <p>Fixed theme being broken sometimes.</p>
+            </description>
+        </release>
         <release version="0.1.3" date="2020-05-17">
             <description>
                 <p>Add action (s key) to take screenshots.</p>

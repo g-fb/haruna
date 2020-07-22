@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     KAboutData aboutData(
                 QStringLiteral("haruna"),
                 i18n("Haruna Video Player"),
-                QStringLiteral("0.1.3"),
+                QStringLiteral("0.1.4"),
                 i18n("A simple video player."),
                 KAboutLicense::GPL_V3,
                 i18n("(c) 2019"),
