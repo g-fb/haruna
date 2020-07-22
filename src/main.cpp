@@ -35,9 +35,11 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName("georgefb");
     QApplication::setOrganizationDomain("georgefb.com");
     QApplication::setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
-    QQuickStyle::setFallbackStyle(QStringLiteral("org.kde.desktop"));
 
     QApplication app(argc, argv);
+
+    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
+    QQuickStyle::setFallbackStyle(QStringLiteral("fusion"));
 
     KAboutData aboutData(
                 QStringLiteral("haruna"),
