@@ -20,6 +20,13 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.5" date="2020-07-26">
+            <description>
+                <p>Added setting to configure the version selected when playing online videos.</p>
+                <p>By default the best version is selected, but some videos can be very big requiring lots of bandwith and CPU power.</p>
+                <p>This setting lets you select a smaller version. Setting is in the Playback page.</p>
+            </description>
+        </release>
         <release version="0.1.4" date="2020-07-22">
             <description>
                 <p>Added loop action (l key); first trigger sets loop start, second sets loop end, third clears the loop.</p>
