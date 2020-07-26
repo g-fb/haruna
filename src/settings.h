@@ -179,6 +179,11 @@ class Settings : public QObject
                WRITE setPlaybackShowOsdOnSkipChapters
                NOTIFY playbackShowOsdOnSkipChaptersChanged)
 
+    Q_PROPERTY(QString playbackYtdlFormat
+               READ playbackYtdlFormat
+               WRITE setPlaybackYtdlFormat
+               NOTIFY playbackYtdlFormatChanged)
+
     // *********************************************
     //   VIEW
     // *********************************************
@@ -301,6 +306,9 @@ public:
     bool playbackShowOsdOnSkipChapters();
     void setPlaybackShowOsdOnSkipChapters(bool show);
 
+    QString playbackYtdlFormat();
+    void setPlaybackYtdlFormat(const QString &format);
+
     // *********************************************
     //   VIEW
     // *********************************************
@@ -368,6 +376,7 @@ signals:
     void playbackSkipChaptersChanged();
     void playbackChaptersToSkipChanged();
     void playbackShowOsdOnSkipChaptersChanged();
+    void playbackYtdlFormatChanged();
     // *********************************************
     //   VIEW
     // *********************************************

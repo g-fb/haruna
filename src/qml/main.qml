@@ -147,6 +147,7 @@ Kirigami.ApplicationWindow {
     }
 
     function openFile(path, startPlayback, loadSiblings) {
+        mpv.setProperty("ytdl-format", AppSettings.playbackYtdlFormat)
         mpv.command(["loadfile", path])
         mpv.setProperty("pause", !startPlayback)
         if (loadSiblings) {

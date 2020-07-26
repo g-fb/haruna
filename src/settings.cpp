@@ -42,6 +42,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},
         {"SkipChapters",          QVariant(false)},
+        {"YtdlFormat",            QVariant(QStringLiteral())},
         // audio
         {"PreferredLanguage",     QVariant(QStringLiteral())},
         {"PreferredTrack",        QVariant(0)},
@@ -478,6 +479,20 @@ void Settings::setPlaybackShowOsdOnSkipChapters(bool show)
     }
     set("Playback", "ShowOsdOnSkipChapters", QVariant(show).toString());
     emit playbackShowOsdOnSkipChaptersChanged();
+}
+
+QString Settings::playbackYtdlFormat()
+{
+    return get("Playback", "YtdlFormat").toString();
+}
+
+void Settings::setPlaybackYtdlFormat(const QString &format)
+{
+    if (format == playbackYtdlFormat()) {
+        return;
+    }
+    set("Playback", "YtdlFormat", format);
+    emit playbackYtdlFormatChanged();
 }
 
 // *********************************************
