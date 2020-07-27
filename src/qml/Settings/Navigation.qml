@@ -23,8 +23,8 @@ Flickable {
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.leftMargin: scrollbar.width
-        anchors.rightMargin: scrollbar.width
+        anchors.leftMargin: 5
+        anchors.rightMargin: scrollbar.visible ? scrollbar.width + 5 : 5
 
         ToolButton {
             id: general
@@ -51,11 +51,11 @@ Flickable {
             }
         }
         ToolButton {
-            id: colors
+            id: playback
 
-            text: "Color Adjustments"
+            text: "Playback"
             checkable: true
-            icon.name: "color-management"
+            icon.name: "media-playback-start"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
@@ -67,53 +67,7 @@ Flickable {
                 }
 
                 settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = colorAdjustmentsSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
-        }
-        ToolButton {
-            id: mouse
-
-            text: "Mouse"
-            checkable: true
-            icon.name: "input-mouse"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = mouseSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
-        }
-        ToolButton {
-            id: playlist
-
-            text: "Playlist"
-            checkable: true
-            icon.name: "view-media-playlist"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = playlistSettings
+                settingsPageLoader.sourceComponent = playbackSettings
                 settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this
@@ -166,11 +120,11 @@ Flickable {
             }
         }
         ToolButton {
-            id: playback
+            id: playlist
 
-            text: "Playback"
+            text: "Playlist"
             checkable: true
-            icon.name: "media-playback-start"
+            icon.name: "view-media-playlist"
             icon.width: root.iconSize
             icon.height: root.iconSize
             display: AbstractButton.TextUnderIcon
@@ -182,7 +136,53 @@ Flickable {
                 }
 
                 settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = playbackSettings
+                settingsPageLoader.sourceComponent = playlistSettings
+                settingsPageLoader.item.visible = true
+                active.checked = false
+                active = this
+            }
+        }
+        ToolButton {
+            id: mouse
+
+            text: "Mouse"
+            checkable: true
+            icon.name: "input-mouse"
+            icon.width: root.iconSize
+            icon.height: root.iconSize
+            display: AbstractButton.TextUnderIcon
+            Layout.fillWidth: true
+            onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = mouseSettings
+                settingsPageLoader.item.visible = true
+                active.checked = false
+                active = this
+            }
+        }
+        ToolButton {
+            id: colors
+
+            text: "Color Adjustments"
+            checkable: true
+            icon.name: "color-management"
+            icon.width: root.iconSize
+            icon.height: root.iconSize
+            display: AbstractButton.TextUnderIcon
+            Layout.fillWidth: true
+            onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = colorAdjustmentsSettings
                 settingsPageLoader.item.visible = true
                 active.checked = false
                 active = this

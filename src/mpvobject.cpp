@@ -157,7 +157,7 @@ void MpvObject::setPosition(double value)
 
 double MpvObject::remaining()
 {
-    return getProperty("time-pos").toDouble();
+    return getProperty("time-remaining").toDouble();
 }
 
 double MpvObject::duration()
