@@ -68,6 +68,12 @@ Pane {
         }
     }
     Component {
+        id: videoSettings
+        VideoSettings {
+            width: root.width * 0.7 - root.padding
+        }
+    }
+    Component {
         id: colorAdjustmentsSettings
         ColorAdjustments {
             width: root.width * 0.7 - root.padding

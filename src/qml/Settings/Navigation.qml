@@ -74,6 +74,29 @@ Flickable {
             }
         }
         ToolButton {
+            id: video
+
+            text: "Video"
+            checkable: true
+            icon.name: "video-x-generic"
+            icon.width: root.iconSize
+            icon.height: root.iconSize
+            display: AbstractButton.TextUnderIcon
+            Layout.fillWidth: true
+            onClicked: {
+                if (active === this) {
+                    checked = true
+                    return
+                }
+
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = videoSettings
+                settingsPageLoader.item.visible = true
+                active.checked = false
+                active = this
+            }
+        }
+        ToolButton {
             id: audio
 
             text: "Audio"

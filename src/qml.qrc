@@ -28,5 +28,6 @@
         <file>qml/Menus/ViewMenu.qml</file>
         <file>qml/Menus/TrackMenuItems.qml</file>
         <file>qml/Settings/SelectActionPopup.qml</file>
+        <file>qml/Settings/VideoSettings.qml</file>
     </qresource>
 </RCC>
