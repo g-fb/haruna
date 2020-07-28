@@ -17,12 +17,53 @@ Item {
 
     ColumnLayout {
         width: parent.width
+
+        RowLayout {
+            Label {
+                text: qsTr("Screenshots")
+            }
+            Rectangle {
+                height: 1
+                color: Kirigami.Theme.alternateBackgroundColor
+                Layout.fillWidth: true
+            }
+        }
+
+        // ------------------------------------
+        // Screenshot Format
+        // ------------------------------------
+        RowLayout {
+            Label { text: qsTr("Format") }
+
+            ComboBox {
+                id: screenshotFormat
+                textRole: "key"
+                valueRole: "value"
+                model: ListModel {
+                    id: leftButtonModel
+                    ListElement { key: "PNG"; value: "png" }
+                    ListElement { key: "JPG"; value: "jpg" }
+                    ListElement { key: "WebP"; value: "webp" }
+                }
+
+                onActivated: {
+                    VideoSettings.screenshotFormat = model.get(index).value
+                    mpv.setProperty("screenshot-format", VideoSettings.screenshotFormat)
+                }
+
+                Component.onCompleted: {
+                    let i = indexOfValue(VideoSettings.screenshotFormat)
+                    currentIndex = (i === -1) ? 0 : i
+                }
+            }
+        }
+
         // ------------------------------------
         // Screenshot template
         // ------------------------------------
         ColumnLayout {
             Label {
-                text: qsTr("Screenshot Template")
+                text: qsTr("Template")
             }
 
             TextField {
@@ -33,8 +74,6 @@ Item {
                 }
                 Layout.fillWidth: true
             }
-
         }
     }
-
 }

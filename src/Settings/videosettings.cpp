@@ -14,7 +14,8 @@
 VideoSettings::VideoSettings()
 {
     m_defaultSettings = {
-        {"ScreenshotTemplate",    QVariant(QStringLiteral("%x/screenshots/%n"))},
+        {"ScreenshotFormat",          QVariant(QStringLiteral("jpg"))},
+        {"ScreenshotTemplate",        QVariant(QStringLiteral("%x/screenshots/%n"))},
     };
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
 }
@@ -22,7 +23,7 @@ VideoSettings::VideoSettings()
 
 QString VideoSettings::screenshotTemplate()
 {
-    return get("General", "ScreenshotTemplate").toString();
+    return get("Video", "ScreenshotTemplate").toString();
 }
 
 void VideoSettings::setScreenshotTemplate(QString ssTemplate)
@@ -30,10 +31,23 @@ void VideoSettings::setScreenshotTemplate(QString ssTemplate)
     if (ssTemplate == screenshotTemplate()) {
         return;
     }
-    set("General", "ScreenshotTemplate", ssTemplate);
+    set("Video", "ScreenshotTemplate", ssTemplate);
     emit screenshotTemplateChanged();
 }
 
+QString VideoSettings::screenshotFormat()
+{
+    return get("Video", "ScreenshotFormat").toString();
+}
+
+void VideoSettings::setScreenshotFormat(QString format)
+{
+    if (format == screenshotFormat()) {
+        return;
+    }
+    set("Video", "ScreenshotFormat", format);
+    emit screenshotFormatChanged();
+}
 
 QVariant VideoSettings::get(const QString &group, const QString &key)
 {

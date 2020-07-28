@@ -21,11 +21,20 @@ class VideoSettings : public QObject
                WRITE setScreenshotTemplate
                NOTIFY screenshotTemplateChanged)
 
+    Q_PROPERTY(QString screenshotFormat
+               READ screenshotFormat
+               WRITE setScreenshotFormat
+               NOTIFY screenshotFormatChanged)
+
 public:
     VideoSettings();
 
     QString screenshotTemplate();
     void setScreenshotTemplate(QString ssTemplate);
+
+    QString screenshotFormat();
+    void setScreenshotFormat(QString format);
+
 
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
@@ -38,6 +47,7 @@ public:
 signals:
     void settingsChanged();
     void screenshotTemplateChanged();
+    void screenshotFormatChanged();
 
 public slots:
     QVariant get(const QString &group, const QString &key);
