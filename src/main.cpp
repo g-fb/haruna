@@ -13,6 +13,7 @@
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
 #include "settings.h"
+#include "Settings/videosettings.h"
 #include "worker.h"
 
 #include <QApplication>
@@ -113,6 +114,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
     qmlRegisterSingletonType<Settings>("AppSettings", 1, 0, "AppSettings", Settings::provider);
+    qmlRegisterSingletonType<VideoSettings>("VideoSettings", 1, 0, "VideoSettings", VideoSettings::provider);
     engine.load(url);
     return QApplication::exec();
 }

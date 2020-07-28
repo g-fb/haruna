@@ -8,6 +8,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import mpv 1.0
 import AppSettings 1.0
+import VideoSettings 1.0
 
 MpvObject {
     id: root
@@ -40,6 +41,7 @@ MpvObject {
     }
 
     onReady: {
+        setProperty("screenshot-template", VideoSettings.screenshotTemplate)
         const preferredAudioTrack = AppSettings.audioPreferredTrack
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
         setProperty("alang", AppSettings.audioPreferredLanguage)
