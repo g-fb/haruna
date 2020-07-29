@@ -42,6 +42,7 @@ MpvObject {
 
     onReady: {
         setProperty("screenshot-template", VideoSettings.screenshotTemplate)
+        setProperty("screenshot-format", VideoSettings.screenshotFormat)
         const preferredAudioTrack = AppSettings.audioPreferredTrack
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
         setProperty("alang", AppSettings.audioPreferredLanguage)
