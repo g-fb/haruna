@@ -20,6 +20,13 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.6" date="2020-07-29">
+            <description>
+                <p>Added setting to configure screenshots format and save rules.</p>
+                <p>Added help button to some settings pages explaining some of the more complex settings (screenshot template and youtube-dl format selection).</p>
+                <p>Changed settings navigation.</p>
+            </description>
+        </release>
         <release version="0.1.5" date="2020-07-26">
             <description>
                 <p>Added setting to configure the version selected when playing online videos.</p>
