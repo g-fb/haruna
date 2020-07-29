@@ -187,6 +187,7 @@ Pane {
         height: 600
         title: qsTr("Help")
         color: Kirigami.Theme.backgroundColor
+        onVisibleChanged: info.text = app.getFileContent(settingsPageLoader.item.helpFile)
 
         Flickable {
             id: infoFlickable
@@ -197,7 +198,6 @@ Pane {
                 id: info
 
                 width: parent.width
-                text: app.getFileContent(settingsPageLoader.item.helpFile)
                 color: Kirigami.Theme.textColor
                 readOnly: true
                 textFormat: Text.RichText

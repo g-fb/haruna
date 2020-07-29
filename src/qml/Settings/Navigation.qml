@@ -7,220 +7,101 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
+import org.kde.kirigami 2.11 as Kirigami
 
 Flickable {
     id: root
 
-    property int iconSize: 32
-    property var active: general
-
     clip: true
-    contentHeight: sidebar.height
     ScrollBar.vertical: ScrollBar { id: scrollbar }
 
-    ColumnLayout {
-        id: sidebar
-
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: 5
-        anchors.rightMargin: scrollbar.visible ? scrollbar.width + 5 : 5
-
-        ToolButton {
-            id: general
-
-            text: "General"
-            checkable: true
-            checked: true
-            icon.name: "configure"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === general) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = generalSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = general
-            }
+    ListModel {
+        id: settingsPagesModel
+        ListElement {
+            name: "General"
+            iconName: "configure"
         }
-        ToolButton {
-            id: playback
-
-            text: "Playback"
-            checkable: true
-            icon.name: "media-playback-start"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = playbackSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Playback"
+            iconName: "media-playback-start"
         }
-        ToolButton {
-            id: video
-
-            text: "Video"
-            checkable: true
-            icon.name: "video-x-generic"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = videoSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Video"
+            iconName: "video-x-generic"
         }
-        ToolButton {
-            id: audio
-
-            text: "Audio"
-            checkable: true
-            icon.name: "audio-speakers-symbolic"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = audioSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Audio"
+            iconName: "audio-speakers-symbolic"
         }
-        ToolButton {
-            id: subtitles
-
-            text: "Subtitles"
-            checkable: true
-            icon.name: "media-view-subtitles-symbolic"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = subtitlesSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Subtitles"
+            iconName: "media-view-subtitles-symbolic"
         }
-        ToolButton {
-            id: playlist
-
-            text: "Playlist"
-            checkable: true
-            icon.name: "view-media-playlist"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = playlistSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Playlist"
+            iconName: "view-media-playlist"
         }
-        ToolButton {
-            id: mouse
-
-            text: "Mouse"
-            checkable: true
-            icon.name: "input-mouse"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = mouseSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Mouse"
+            iconName: "input-mouse"
         }
-        ToolButton {
-            id: colors
-
-            text: "Color Adjustments"
-            checkable: true
-            icon.name: "color-management"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            onClicked: {
-                if (active === this) {
-                    checked = true
-                    return
-                }
-
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = colorAdjustmentsSettings
-                settingsPageLoader.item.visible = true
-                active.checked = false
-                active = this
-            }
+        ListElement {
+            name: "Color Adjustments"
+            iconName: "color-management"
         }
-        ToolButton {
-            id: shortcuts
+        ListElement {
+            name: "Shortcuts"
+            iconName: "configure-shortcuts"
+        }
+    }
 
-            text: "Shortcuts"
-            icon.name: "configure-shortcuts"
-            icon.width: root.iconSize
-            icon.height: root.iconSize
-            display: AbstractButton.TextUnderIcon
-            Layout.fillWidth: true
-            action: actions.configureShortcutsAction
+    ListView {
+        id: settingsPagesList
+
+        anchors.fill: parent
+        model: settingsPagesModel
+        delegate: Kirigami.BasicListItem {
+            text: qsTr(name)
+            icon: iconName
+            onClicked: {
+                let activeComponent;
+                switch (name) {
+                case "General":
+                    activeComponent = generalSettings
+                    break;
+                case "Playback":
+                    activeComponent = playbackSettings
+                    break;
+                case "Video":
+                    activeComponent = videoSettings
+                    break;
+                case "Audio":
+                    activeComponent = audioSettings
+                    break;
+                case "Subtitles":
+                    activeComponent = subtitlesSettings
+                    break;
+                case "Playlist":
+                    activeComponent = playlistSettings
+                    break;
+                case "Mouse":
+                    activeComponent = mouseSettings
+                    break;
+                case "Color Adjustments":
+                    activeComponent = colorAdjustmentsSettings
+                    break;
+                case "Shortcuts":
+                    // set visible true so since here we open another window
+                    // and if visible is not true the settings page
+                    // will be hidden until the opened window is closed
+                    settingsPageLoader.item.visible = true
+                    actions.configureShortcutsAction.trigger()
+                    return;
+                }
+                settingsPageLoader.item.visible = false
+                settingsPageLoader.sourceComponent = activeComponent
+                settingsPageLoader.item.visible = true
+            }
         }
     }
 }
