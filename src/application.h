@@ -34,6 +34,7 @@ public slots:
     void configureShortcuts();
     QString argument(int key);
     QAction* action(const QString &name);
+    QString getFileContent(QString file);
 private:
     void setupActions(const QString &actionName);
     KActionCollection m_collection;

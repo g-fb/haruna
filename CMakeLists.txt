@@ -71,6 +71,7 @@ set(${PROJECT_NAME}_SRC
     src/worker.cpp
     src/Settings/videosettings.cpp
     src/qml.qrc
+    help/help.qrc
 )
 
 add_subdirectory(src/playlist)

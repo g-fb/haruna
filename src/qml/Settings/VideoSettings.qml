@@ -13,6 +13,9 @@ import VideoSettings 1.0
 Item {
     id: root
 
+    property bool hasHelp: true
+    property string helpFile: ":/VideoSettings.html"
+
     anchors.fill: parent
 
     ColumnLayout {
@@ -33,6 +36,7 @@ Item {
         // Screenshot Format
         // ------------------------------------
         RowLayout {
+
             Label { text: qsTr("Format") }
 
             ComboBox {
@@ -62,6 +66,7 @@ Item {
         // Screenshot template
         // ------------------------------------
         ColumnLayout {
+
             Label {
                 text: qsTr("Template")
             }

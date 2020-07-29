@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>VideoSettings.html</file>
+        <file>PlaybackSettings.html</file>
+    </qresource>
+</RCC>

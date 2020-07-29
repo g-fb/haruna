@@ -14,7 +14,8 @@ import AppSettings 1.0
 Item {
     id: root
 
-    property alias contentHeight: content.height
+    property bool hasHelp: true
+    property string helpFile: ":/PlaybackSettings.html"
 
     visible: false
 
@@ -57,7 +58,7 @@ Item {
             // ------------------------------------
             Item { height: 20 }
 
-            Label { text: qsTr("Set youtube-dl format selection") }
+            Label { text: qsTr("Youtube-dl format selection") }
             RowLayout {
                 ComboBox {
                     id: ytdlFormatComboBox
@@ -72,7 +73,6 @@ Item {
                         ListElement { key: "720"; value: "bestvideo[height<=720]+bestaudio/best" }
                         ListElement { key: "480"; value: "bestvideo[height<=480]+bestaudio/best" }
                     }
-                    Layout.fillWidth: true
                     ToolTip {
                         text: qsTr("Selects the best video with a height lower than or equal to the selected value.")
                     }
@@ -91,12 +91,6 @@ Item {
                         let i = indexOfValue(AppSettings.playbackYtdlFormat)
                         currentIndex = (i === -1) ? 0 : i
                     }
-                }
-
-                Button {
-                    text: qsTr("More info")
-                    icon.name: "internet-web-browser"
-                    onClicked: Qt.openUrlExternally("https://github.com/ytdl-org/youtube-dl/blob/master/README.md#format-selection")
                 }
             }
             TextField {
@@ -119,15 +113,6 @@ Item {
             }
             TextEdit {
                 text: qsTr("Leave empty for default value: <i>bestvideo+bestaudio/best</i>")
-                color: Kirigami.Theme.textColor
-                readOnly: true
-                wrapMode: Text.WordWrap
-                textFormat: TextEdit.RichText
-                selectByMouse: true
-                Layout.fillWidth: true
-            }
-            TextEdit {
-                text: qsTr("Haruna uses youtube-dl to play online videos.\nSome sites offer multiple versions of the video/audio (different codecs, resolution).\nThis setting allows you to configure what version of the video/audio youtube-dl selects.")
                 color: Kirigami.Theme.textColor
                 readOnly: true
                 wrapMode: Text.WordWrap

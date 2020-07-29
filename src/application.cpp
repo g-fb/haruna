@@ -77,6 +77,15 @@ QAction *Application::action(const QString &name)
     return resultAction;
 }
 
+QString Application::getFileContent(QString file)
+{
+    QFile f(file);
+    f.open(QIODevice::ReadOnly);
+    QString content = f.readAll();
+    f.close();
+    return content;
+}
+
 void Application::configureShortcuts()
 {
     KShortcutsDialog dlg(KShortcutsEditor::ApplicationAction, KShortcutsEditor::LetterShortcutsAllowed, nullptr);

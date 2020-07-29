@@ -14,7 +14,8 @@ import AppSettings 1.0
 Item {
     id: root
 
-    property alias contentHeight: content.height
+    property bool hasHelp: false
+    property string helpFile: ""
 
     visible: false
 

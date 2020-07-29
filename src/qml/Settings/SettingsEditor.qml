@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import QtQuick 2.0
+import QtQuick 2.10
+import QtQuick.Window 2.1
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
@@ -40,23 +41,40 @@ Pane {
             Layout.fillHeight: true
         }
 
-        Flickable {
-            id: settingsPage
+        ColumnLayout {
+            spacing: 0
 
-            clip: true
-            height: root.height
-            contentHeight: settingsPageLoader.item.contentHeight
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            ScrollBar.vertical: ScrollBar { id: settingsPageScrollBar }
+            Flickable {
+                id: settingsPage
 
-            Loader {
-                id: settingsPageLoader
+                clip: true
+                height: root.height
+                contentHeight: root.height - root.topPadding - root.bottomPadding - settingsHelpButton.height
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.leftMargin: 10
+                Layout.rightMargin: 5
+                ScrollBar.vertical: ScrollBar { id: settingsPageScrollBar }
 
-                anchors.fill: parent
-                anchors.leftMargin: settingsPageScrollBar.width
-                anchors.rightMargin: settingsPageScrollBar.width
-                sourceComponent: generalSettings
+                Loader {
+                    id: settingsPageLoader
+
+                    anchors.leftMargin: settingsPageScrollBar.width
+                    anchors.rightMargin: settingsPageScrollBar.width
+                    sourceComponent: generalSettings
+                }
+            }
+
+            Button {
+                id: settingsHelpButton
+
+                text: qsTr("Help!")
+                icon.name: "system-help"
+                visible: settingsPageLoader.item.hasHelp
+                onClicked: settingsPageLoader.item.hasHelp ? helpWindow.show() : undefined
+                Layout.alignment: Qt.AlignBottom
+                Layout.leftMargin: 10
+                Layout.rightMargin: 5
             }
         }
     }
@@ -161,4 +179,40 @@ Pane {
             }
         }
     ]
+
+    Window {
+        id: helpWindow
+
+        width: 700
+        height: 600
+        title: qsTr("Help")
+        color: Kirigami.Theme.backgroundColor
+
+        Flickable {
+            id: infoFlickable
+            anchors.fill: parent
+            contentHeight: info.height
+            anchors.rightMargin: scrollBar.width
+            TextEdit {
+                id: info
+
+                width: parent.width
+                text: app.getFileContent(settingsPageLoader.item.helpFile)
+                color: Kirigami.Theme.textColor
+                readOnly: true
+                textFormat: Text.RichText
+                wrapMode: Text.WordWrap
+                selectByMouse: true
+                onLinkActivated: Qt.openUrlExternally(link)
+                onHoveredLinkChanged: hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                textMargin: scrollBar.width
+            }
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.right
+            }
+        }
+    }
 }
