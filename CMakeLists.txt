@@ -61,6 +61,7 @@ set_package_properties(KF5XmlGui PROPERTIES
 set(${PROJECT_NAME}_SRC
     src/main.cpp
     src/application.cpp
+    src/haction.cpp
     src/settings.cpp
     src/lockmanager.cpp
     src/mpvobject.cpp

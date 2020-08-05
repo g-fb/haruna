@@ -26,7 +26,6 @@ public:
 
 public slots:
     static QString formatTime(const double time);
-    static QString iconName(const QIcon& icon);
     static QUrl getPathFromArg(const QString &arg);
     static void hideCursor();
     static void showCursor();
