@@ -20,6 +20,11 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.7" date="2020-08-07">
+            <description>
+                <p>Fixed actions not working with non english languages.</p>
+            </description>
+        </release>
         <release version="0.1.6" date="2020-07-29">
             <description>
                 <p>Added setting to configure screenshots format and save rules.</p>
