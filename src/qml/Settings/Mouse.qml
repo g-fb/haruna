@@ -46,8 +46,8 @@ Item {
                 }
             }
             delegate: Kirigami.BasicListItem {
-                property alias actionLabel: actionLabel
-                property alias buttonLabel: buttonLabel
+                property string actionLabel: AppSettings.get("Mouse", modelData)
+                property string buttonLabel: modelData
 
                 width: content.width
                 height: 50
@@ -59,18 +59,14 @@ Item {
                     Layout.fillHeight: true
 
                     Label {
-                        id: buttonLabel
-
-                        text: modelData
+                        text: buttonLabel
                         padding: 10
                         Layout.preferredWidth: 100
                         Layout.fillHeight: true
                     }
 
                     Label {
-                        id: actionLabel
-
-                        text: AppSettings.get("Mouse", modelData)
+                        text: actionLabel
                         Layout.fillWidth: true
                     }
 
@@ -84,7 +80,7 @@ Item {
 
                 function openSelectActionPopup() {
                     buttonsView.index = model.index
-                    selectActionPopup.headerTitle = buttonLabel.text
+                    selectActionPopup.headerTitle = buttonLabel
                     selectActionPopup.open()
                 }
             }
@@ -92,8 +88,8 @@ Item {
                 target: selectActionPopup
                 onActionSelected: {
                     const item  = buttonsView.itemAtIndex(buttonsView.index)
-                    item.actionLabel.text = actionName
-                    AppSettings.set("Mouse", item.buttonLabel.text, actionName)
+                    item.actionLabel = actionName
+                    AppSettings.set("Mouse", item.buttonLabel, actionName)
                 }
             }
         }
