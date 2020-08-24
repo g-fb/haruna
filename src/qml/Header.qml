@@ -67,15 +67,16 @@ ToolBar {
             }
 
             ToolButton {
-                icon.name: "media-view-subtitles-symbolic"
+                id: subtitleMenuButton
+
+                property var model: 0
+
                 text: qsTr("Subtitles")
+                icon.name: "media-view-subtitles-symbolic"
 
                 onClicked: {
-                    if (primarySubtitleMenuInstantiator.model === 0) {
-                        primarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
-                    }
-                    if(secondarySubtitleMenuInstantiator.model === 0) {
-                        secondarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
+                    if (subtitleMenuButton.model === 0) {
+                        subtitleMenuButton.model = mpv.subtitleTracksModel()
                     }
 
                     subtitleMenu.visible = !subtitleMenu.visible
@@ -93,7 +94,7 @@ ToolBar {
 
                         Instantiator {
                             id: secondarySubtitleMenuInstantiator
-                            model: 0
+                            model: subtitleMenuButton.model
                             onObjectAdded: secondarySubtitleMenu.insertItem( index, object )
                             onObjectRemoved: secondarySubtitleMenu.removeItem( object )
                             delegate: MenuItem {
@@ -115,7 +116,7 @@ ToolBar {
 
                     Instantiator {
                         id: primarySubtitleMenuInstantiator
-                        model: 0
+                        model: subtitleMenuButton.model
                         onObjectAdded: subtitleMenu.addItem( object )
                         onObjectRemoved: subtitleMenu.removeItem( object )
                         delegate: MenuItem {
@@ -130,8 +131,8 @@ ToolBar {
             }
 
             ToolButton {
-                icon.name: "audio-volume-high"
                 text: qsTr("Audio")
+                icon.name: "audio-volume-high"
 
                 onClicked: {
                     if (audioMenuInstantiator.model === 0) {
