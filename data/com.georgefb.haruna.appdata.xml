@@ -20,6 +20,11 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.1.8" date="2020-08-24">
+            <description>
+                <p>Fixed crash when opening mouse settings.</p>
+            </description>
+        </release>
         <release version="0.1.7" date="2020-08-07">
             <description>
                 <p>Fixed actions not working with non english languages.</p>
