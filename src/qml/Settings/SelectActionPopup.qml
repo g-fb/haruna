@@ -11,10 +11,10 @@ Popup {
     signal actionSelected(string actionName)
 
     implicitHeight: parent.height * 0.9
-    implicitWidth: parent.width* 0.9
+    implicitWidth: parent.width * 0.9
     modal: true
     anchors.centerIn: parent
-    focus : true
+    focus: true
 
     onOpened: {
         filterActionsField.text = ""

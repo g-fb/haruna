@@ -177,7 +177,6 @@ MpvObject {
         onExited: hideCursorTimer.running = false
 
         onMouseXChanged: {
-            focus = true
             mx = mouseX
             if (playList.position === "right") {
                 if (mouseX > width - 50 && playList.tableView.rows > 1) {
@@ -205,7 +204,6 @@ MpvObject {
         }
 
         onMouseYChanged: {
-            focus = true
             my = mouseY
         }
 

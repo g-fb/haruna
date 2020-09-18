@@ -485,7 +485,6 @@ Item {
         Component.onCompleted: list["configureAction"] = configureAction
 
         onTriggered: {
-            console.log(shortcut)
             if (settingsEditor.state === "visible") {
                 settingsEditor.state = "hidden"
             } else {
