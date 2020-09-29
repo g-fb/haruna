@@ -65,7 +65,7 @@ MpvObject {
         header.audioTracks = getProperty("track-list").filter(track => track["type"] === "audio")
         header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
 
-        if (playList.tableView.rows <= 1) {
+        if (playList.tableView.count <= 1) {
             setProperty("loop-file", "inf")
         }
 
@@ -100,7 +100,7 @@ MpvObject {
 
     onEndOfFile: {
         const nextFileRow = playListModel.getPlayingVideo() + 1
-        if (nextFileRow < playList.tableView.rows) {
+        if (nextFileRow < playList.tableView.count) {
             const nextFile = playListModel.getPath(nextFileRow)
             window.openFile(nextFile, true, false)
             playListModel.setPlayingVideo(nextFileRow)
@@ -179,7 +179,7 @@ MpvObject {
         onMouseXChanged: {
             mx = mouseX
             if (playList.position === "right") {
-                if (mouseX > width - 50 && playList.tableView.rows > 1) {
+                if (mouseX > width - 50 && playList.tableView.count > 1) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "visible"
                     }
@@ -190,7 +190,7 @@ MpvObject {
                     }
                 }
             } else {
-                if (mouseX < 50 && playList.tableView.rows > 1) {
+                if (mouseX < 50 && playList.tableView.count > 1) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "visible"
                     }
@@ -281,26 +281,7 @@ MpvObject {
     }
 
     function setPlayListScrollPosition() {
-        const tableViewRows = playList.tableView.rows
-        if (tableViewRows < 1) {
-            return;
-        }
-        playList.tableView.contentY = 0
-        const currentItemIndex = playListModel.getPlayingVideo()
-        const currentItemPosition = currentItemIndex * playList.rowHeight + currentItemIndex * playList.rowSpacing
-        const itemsAfterCurrent = tableViewRows - currentItemIndex
-        // height of items bellow the current item
-        const heightBellow = itemsAfterCurrent * playList.rowHeight + itemsAfterCurrent * playList.rowSpacing
-        const playlistHeight = ((tableViewRows * playList.rowHeight) + (tableViewRows * playList.rowSpacing))
-        const isHidden = currentItemPosition > height
-
-        if (isHidden) {
-            if (heightBellow > height) {
-                playList.tableView.contentY = currentItemPosition
-            } else {
-                playList.tableView.contentY = playlistHeight - height
-            }
-        }
+        playList.tableView.positionViewAtIndex(playListModel.playingVideo, ListView.Beginning)
     }
 
 }

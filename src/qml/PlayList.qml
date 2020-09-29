@@ -9,6 +9,8 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
+import org.kde.kirigami 2.11 as Kirigami
+
 import AppSettings 1.0
 
 Rectangle {
@@ -26,28 +28,17 @@ Rectangle {
     x: position === "right" ? parent.width : -width
     y: 0
     state: "hidden"
+    color: Kirigami.Theme.backgroundColor
 
-    onWidthChanged: {
-        tableView.columnWidthProvider = (column) => tableView.columnWidths[column]
-    }
-
-    TableView {
+    ListView {
         id: tableView
 
-        property var columnWidths: [tableView.width * 0.8, tableView.width * 0.2]
-        property int rowFontSize: (window.isFullScreen() && playList.bigFont) ? 18 : 12
-        property int rowHeight: playList.rowHeight + rowFontSize * 0.5
-
-        anchors.fill: parent
-        anchors.rightMargin: scrollBar.width
-        boundsBehavior: Flickable.StopAtBounds
-        columnSpacing: 1
-        rowHeightProvider:  row => rowHeight
-        columnWidthProvider: column => columnWidths[column]
-        delegate: PlayListItem {}
-        rowSpacing: root.rowSpacing
         model: playListModel
-        contentHeight: rowHeight * rows + rowSpacing * rows
+        delegate: PlayListItem {}
+        anchors.fill: parent
+        anchors.rightMargin: scrollBar.visible ? scrollBar.width : 0
+        boundsBehavior: Flickable.StopAtBounds
+
         z: 20
         ScrollBar.vertical: ScrollBar {
             id: scrollBar

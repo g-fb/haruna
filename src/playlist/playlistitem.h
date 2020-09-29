@@ -26,9 +26,6 @@ public:
     QString duration() const;
     void setDuration(const QString &duration);
 
-    bool isHovered() const;
-    void setIsHovered(bool isHovered);
-
     bool isPlaying() const;
     void setIsPlaying(bool isPlaying);
 

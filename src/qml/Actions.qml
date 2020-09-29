@@ -166,7 +166,7 @@ Item {
 
         onTriggered: {
             const nextFileRow = playListModel.getPlayingVideo() + 1
-            if (nextFileRow < playList.tableView.rows) {
+            if (nextFileRow < playList.tableView.count) {
                 const nextFile = playListModel.getPath(nextFileRow)
                 window.openFile(nextFile, true, false)
                 playListModel.setPlayingVideo(nextFileRow)

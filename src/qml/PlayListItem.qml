@@ -11,71 +11,65 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
 
-Rectangle {
+Kirigami.BasicListItem {
     id: root
 
-    property string path: model.path
+    property bool isPlaying: model.isPlaying
 
-    color: {
-        if (model.isHovered && model.isPlaying) {
-            let color = Kirigami.Theme.backgroundColor
-            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.8)
-        } else if (model.isHovered && !model.isPlaying) {
-            let color = Kirigami.Theme.backgroundColor
-            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.8)
-        } else if (!model.isHovered && model.isPlaying) {
-            Kirigami.Theme.highlightColor
-        } else {
+    height: label.font.pointSize * 4
+    padding: 0
+    contentItem: Rectangle {
+        color: {
             let color = Kirigami.Theme.alternateBackgroundColor
-            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.7)
+            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.4)
         }
-    }
+        RowLayout {
+            anchors.fill: parent
+            Kirigami.Icon {
+                source: "media-playback-start"
+                width: 16
+                height: 16
+                visible: isPlaying
+                Layout.leftMargin: 10
+            }
 
-    Label {
-        id: label
+            Label {
+                id: label
 
-        anchors.fill: parent
-        color: Kirigami.Theme.textColor
-        horizontalAlignment: column === 0 ? Qt.AlignLeft : Qt.AlignCenter
-        verticalAlignment: Qt.AlignVCenter
-        elide: Text.ElideRight
-        font.bold: true
-        text: model.name
-        leftPadding: 10
-        rightPadding: 10
-        layer.enabled: true
-        font.pointSize: tableView.rowFontSize
-        ToolTip {
-            id: toolTip
-            delay: 250
-            visible: false
-            text: model.name
-            font.pointSize: label.font.pointSize + 2
-        }
-    }
+                color: Kirigami.Theme.textColor
+                horizontalAlignment: Qt.AlignLeft
+                verticalAlignment: Qt.AlignVCenter
+                elide: Text.ElideRight
+                font.pointSize: (window.isFullScreen() && playList.bigFont)
+                                ? Kirigami.Units.gridUnit
+                                : Kirigami.Units.gridUnit - 6
+                font.weight: isPlaying ? Font.ExtraBold : Font.Normal
+                text: model.name
+                layer.enabled: true
+                Layout.fillWidth: true
+                Layout.rightMargin: 10
+                Layout.leftMargin: isPlaying ? 0 : 10
+                ToolTip {
+                    id: toolTip
+                    delay: 250
+                    visible: false
+                    text: model.name
+                    font.pointSize: label.font.pointSize + 2
+                }
+            }
 
-    MouseArea {
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onEntered: {
-            playListModel.setHoveredVideo(row)
-            if (column === 0 && label.truncated) {
-                toolTip.visible = true
+            Label {
+                text: model.duration
+                font.pointSize: (window.isFullScreen() && playList.bigFont)
+                                ? Kirigami.Units.gridUnit - 4
+                                : Kirigami.Units.gridUnit - 6
+                horizontalAlignment: Qt.AlignCenter
+                Layout.margins: 10
             }
         }
-
-        onExited: {
-            playListModel.clearHoveredVideo(row)
-            toolTip.visible = false
-        }
-
-        onDoubleClicked: {
-            if (mouse.button === Qt.LeftButton) {
-                window.openFile(model.path, true, false)
-                playListModel.setPlayingVideo(row)
-            }
-        }
+    }
+    onDoubleClicked: {
+        window.openFile(model.path, true, false)
+        playListModel.setPlayingVideo(index)
     }
 }

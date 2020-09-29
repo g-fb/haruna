@@ -16,13 +16,13 @@
 #include <QUrl>
 
 PlayListModel::PlayListModel(QObject *parent)
-    : QAbstractTableModel(parent)
+    : QAbstractListModel(parent)
 {
     connect(this, &PlayListModel::videoAdded,
             Worker::instance(), &Worker::getVideoDuration);
     connect(Worker::instance(), &Worker::videoDuration, this, [ = ](int i, const QString &d) {
         m_playList[i]->setDuration(d);
-        dataChanged(index(i, 1), index(i, 1));
+        dataChanged(index(i, 0), index(i, 0));
     });
 }
 
@@ -34,14 +34,6 @@ int PlayListModel::rowCount(const QModelIndex &parent) const
     return m_playList.size();
 }
 
-int PlayListModel::columnCount(const QModelIndex &parent) const
-{
-    if (parent.isValid())
-        return 0;
-
-    return 2;
-}
-
 QVariant PlayListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || m_playList.empty())
@@ -50,15 +42,11 @@ QVariant PlayListModel::data(const QModelIndex &index, int role) const
     auto playListItem = m_playList.at(index.row()).get();
     switch (role) {
     case DisplayRole:
-        if (index.column() == 0) {
-            return QVariant(playListItem->fileName());
-        } else {
-            return QVariant(playListItem->duration());
-        }
+        return QVariant(playListItem->fileName());
     case PathRole:
         return QVariant(playListItem->filePath());
-    case HoverRole:
-        return QVariant(playListItem->isHovered());
+    case DurationRole:
+        return QVariant(playListItem->duration());
     case PlayingRole:
         return QVariant(playListItem->isPlaying());
     case FolderPathRole:
@@ -74,14 +62,16 @@ QHash<int, QByteArray> PlayListModel::roleNames() const
     roles[DisplayRole] = "name";
     roles[PathRole] = "path";
     roles[FolderPathRole] = "folderPath";
-    roles[HoverRole] = "isHovered";
+    roles[DurationRole] = "duration";
     roles[PlayingRole] = "isPlaying";
     return roles;
 }
 
 void PlayListModel::getVideos(QString path)
 {
+    beginResetModel();
     m_playList.clear();
+    endResetModel();
     m_playingVideo = -1;
     path = QUrl(path).toLocalFile().isEmpty() ? path : QUrl(path).toLocalFile();
     QFileInfo pathInfo(path);
@@ -102,7 +92,7 @@ void PlayListModel::getVideos(QString path)
     collator.setNumericMode(true);
     std::sort(videoFiles.begin(), videoFiles.end(), collator);
 
-    beginInsertRows(QModelIndex(), 0, videoFiles.count());
+    beginInsertRows(QModelIndex(), 0, videoFiles.count() - 1);
 
     for (int i = 0; i < videoFiles.count(); ++i) {
         QFileInfo fileInfo(videoFiles.at(i));
@@ -111,7 +101,6 @@ void PlayListModel::getVideos(QString path)
         video->setIndex(i);
         video->setFilePath(fileInfo.absoluteFilePath());
         video->setFolderPath(fileInfo.absolutePath());
-        video->setIsHovered(false);
         video->setIsPlaying(false);
         m_playList.emplace(i, video);
         if (path == videoFiles.at(i)) {
@@ -142,23 +131,12 @@ void PlayListModel::setPlayingVideo(int playingVideo)
 {
     if (m_playingVideo != -1) {
         m_playList[m_playingVideo]->setIsPlaying(false);
-        emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 1));
+        emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 0));
         m_playList[playingVideo]->setIsPlaying(true);
-        emit dataChanged(index(playingVideo, 0), index(playingVideo, 1));
+        emit dataChanged(index(playingVideo, 0), index(playingVideo, 0));
     } else {
         m_playList[playingVideo]->setIsPlaying(true);
     }
     m_playingVideo = playingVideo;
-}
-
-void PlayListModel::setHoveredVideo(int hoveredVideo)
-{
-    m_playList[hoveredVideo]->setIsHovered(true);
-    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 1));
-}
-
-void PlayListModel::clearHoveredVideo(int hoveredVideo)
-{
-    m_playList[hoveredVideo]->setIsHovered(false);
-    emit dataChanged(index(hoveredVideo, 0), index(hoveredVideo, 1));
+    emit playingVideoChanged();
 }

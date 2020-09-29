@@ -46,16 +46,6 @@ void PlayListItem::setDuration(const QString &duration)
     m_duration = duration;
 }
 
-bool PlayListItem::isHovered() const
-{
-    return m_isHovered;
-}
-
-void PlayListItem::setIsHovered(bool isHovered)
-{
-    m_isHovered = isHovered;
-}
-
 bool PlayListItem::isPlaying() const
 {
     return m_isPlaying;
