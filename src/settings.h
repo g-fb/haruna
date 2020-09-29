@@ -115,11 +115,6 @@ class Settings : public QObject
                WRITE setPlaylistRowHeight
                NOTIFY playlistRowHeightChanged)
 
-    Q_PROPERTY(int playlistRowSpacing
-               READ playlistRowSpacing
-               WRITE setPlaylistRowSpacing
-               NOTIFY playlistRowSpacingChanged)
-
     Q_PROPERTY(bool playlistCanToggleWithMouse
                READ playlistCanToggleWithMouse
                WRITE setPlaylistCanToggleWithMouse
@@ -264,9 +259,6 @@ public:
     int playlistRowHeight();
     void setPlaylistRowHeight(int height);
 
-    int playlistRowSpacing();
-    void setPlaylistRowSpacing(int spacing);
-
     bool playlistCanToggleWithMouse();
     void setPlaylistCanToggleWithMouse(bool toggleWithMouse);
 
@@ -356,7 +348,6 @@ signals:
     // *********************************************
     void playlistPositionChanged();
     void playlistRowHeightChanged();
-    void playlistRowSpacingChanged();
     void playlistCanToggleWithMouseChanged();
     void playlistBigFontFullscreenChanged();
     // *********************************************

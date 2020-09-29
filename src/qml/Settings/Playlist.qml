@@ -56,28 +56,13 @@ Item {
         }
 
         SpinBox {
-            from: 10
+            from: 0
             to: 100
             value: AppSettings.playlistRowHeight
             onValueChanged: {
                 AppSettings.playlistRowHeight = value
                 playList.rowHeight = value
                 playList.tableView.forceLayout()
-            }
-        }
-
-        Label {
-            text: qsTr("Row Spacing")
-            Layout.alignment: Qt.AlignRight
-        }
-
-        SpinBox {
-            from: 0
-            to: 100
-            value: AppSettings.playlistRowSpacing
-            onValueChanged: {
-                AppSettings.playlistRowSpacing = value
-                playList.rowSpacing = value
             }
         }
 

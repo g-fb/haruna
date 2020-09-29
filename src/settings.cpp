@@ -35,8 +35,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         // playlist
         {"CanToggleWithMouse",    QVariant(true)},
         {"Position",              QVariant(QStringLiteral("right"))},
-        {"RowHeight",             QVariant(50)},
-        {"RowSpacing",            QVariant(1)},
+        {"RowHeight",             QVariant(10)},
         {"BigFontFullscreen",     QVariant(true)},
         // playback
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
@@ -316,20 +315,6 @@ void Settings::setPlaylistRowHeight(int height)
     }
     set("Playlist", "RowHeight", QString::number(height));
     emit playlistRowHeightChanged();
-}
-
-int Settings::playlistRowSpacing()
-{
-    return get("Playlist", "RowSpacing").toInt();
-}
-
-void Settings::setPlaylistRowSpacing(int spacing)
-{
-    if (spacing == playlistRowSpacing()) {
-        return;
-    }
-    set("Playlist", "RowSpacing", QString::number(spacing));
-    emit playlistRowSpacingChanged();
 }
 
 bool Settings::playlistCanToggleWithMouse()

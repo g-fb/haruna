@@ -11,26 +11,28 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
 
+import AppSettings 1.0
+
 Kirigami.BasicListItem {
     id: root
 
     property bool isPlaying: model.isPlaying
 
-    height: label.font.pointSize * 4
+    height: label.font.pointSize * 3 + AppSettings.playlistRowHeight
     padding: 0
     contentItem: Rectangle {
         color: {
             let color = Kirigami.Theme.alternateBackgroundColor
-            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.4)
+            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.6)
         }
         RowLayout {
             anchors.fill: parent
             Kirigami.Icon {
                 source: "media-playback-start"
-                width: 16
-                height: 16
+                width: Kirigami.Units.iconSizes.small
+                height: Kirigami.Units.iconSizes.small
                 visible: isPlaying
-                Layout.leftMargin: 10
+                Layout.leftMargin: Kirigami.Units.largeSpacing
             }
 
             Label {
@@ -47,24 +49,30 @@ Kirigami.BasicListItem {
                 text: model.name
                 layer.enabled: true
                 Layout.fillWidth: true
-                Layout.rightMargin: 10
-                Layout.leftMargin: isPlaying ? 0 : 10
+                Layout.rightMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: isPlaying ? 0 : Kirigami.Units.largeSpacing
                 ToolTip {
                     id: toolTip
-                    delay: 250
-                    visible: false
+
+                    visible: labelMouseArea.containsMouse && label.truncated
                     text: model.name
                     font.pointSize: label.font.pointSize + 2
+                }
+                MouseArea {
+                    id: labelMouseArea
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    hoverEnabled: true
                 }
             }
 
             Label {
                 text: model.duration
                 font.pointSize: (window.isFullScreen() && playList.bigFont)
-                                ? Kirigami.Units.gridUnit - 4
+                                ? Kirigami.Units.gridUnit
                                 : Kirigami.Units.gridUnit - 6
                 horizontalAlignment: Qt.AlignCenter
-                Layout.margins: 10
+                Layout.margins: Kirigami.Units.largeSpacing
             }
         }
     }

@@ -20,7 +20,6 @@ Rectangle {
     property bool canToggleWithMouse: AppSettings.playlistCanToggleWithMouse
     property string position: AppSettings.playlistPosition
     property int rowHeight: AppSettings.playlistRowHeight
-    property int rowSpacing: AppSettings.playlistRowSpacing
     property int bigFont: AppSettings.playlistBigFontFullscreen
 
     height: mpv.height
