@@ -17,9 +17,11 @@ Kirigami.BasicListItem {
     id: root
 
     property bool isPlaying: model.isPlaying
+    property string rowNumber: (index + 1).toString()
 
     height: label.font.pointSize * 3 + AppSettings.playlistRowHeight
     padding: 0
+
     contentItem: Rectangle {
         color: {
             let color = Kirigami.Theme.alternateBackgroundColor
@@ -27,12 +29,36 @@ Kirigami.BasicListItem {
         }
         RowLayout {
             anchors.fill: parent
+            spacing: Kirigami.Units.largeSpacing
+            Label {
+                text: pad(root.rowNumber, playlistView.count.toString().length)
+                visible: AppSettings.playlistShowRowNumber
+                font.pointSize: (window.isFullScreen() && playList.bigFont)
+                                ? Kirigami.Units.gridUnit
+                                : Kirigami.Units.gridUnit - 6
+                horizontalAlignment: Qt.AlignCenter
+                Layout.leftMargin: Kirigami.Units.largeSpacing
+
+                function pad(number, length) {
+                    while (number.length < length)
+                        number = "0" + number;
+                    return number;
+                }
+
+            }
+
+            Rectangle {
+                width: 1
+                visible: AppSettings.playlistShowRowNumber
+                Layout.fillHeight: true
+            }
+
             Kirigami.Icon {
                 source: "media-playback-start"
                 width: Kirigami.Units.iconSizes.small
                 height: Kirigami.Units.iconSizes.small
                 visible: isPlaying
-                Layout.leftMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: AppSettings.playlistShowRowNumber ? 0 : Kirigami.Units.largeSpacing
             }
 
             Label {
@@ -49,8 +75,7 @@ Kirigami.BasicListItem {
                 text: model.name
                 layer.enabled: true
                 Layout.fillWidth: true
-                Layout.rightMargin: Kirigami.Units.largeSpacing
-                Layout.leftMargin: isPlaying ? 0 : Kirigami.Units.largeSpacing
+                Layout.leftMargin: AppSettings.playlistShowRowNumber || isPlaying ? 0 : Kirigami.Units.largeSpacing
                 ToolTip {
                     id: toolTip
 

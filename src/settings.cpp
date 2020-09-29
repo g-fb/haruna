@@ -34,6 +34,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"ScrollDown",            QVariant(QStringLiteral("volumeDownAction"))},
         // playlist
         {"CanToggleWithMouse",    QVariant(true)},
+        {"ShowRowNumber",         QVariant(true)},
         {"Position",              QVariant(QStringLiteral("right"))},
         {"RowHeight",             QVariant(10)},
         {"BigFontFullscreen",     QVariant(true)},
@@ -315,6 +316,20 @@ void Settings::setPlaylistRowHeight(int height)
     }
     set("Playlist", "RowHeight", QString::number(height));
     emit playlistRowHeightChanged();
+}
+
+bool Settings::playlistShowRowNumber()
+{
+    return get("Playlist", "ShowRowNumber").toBool();
+}
+
+void Settings::setPlaylistShowRowNumber(bool showRowNumber)
+{
+    if (showRowNumber == playlistShowRowNumber()) {
+        return;
+    }
+    set("Playlist", "ShowRowNumber", QVariant(showRowNumber).toString());
+    emit playlistShowRowNumberChanged();
 }
 
 bool Settings::playlistCanToggleWithMouse()

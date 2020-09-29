@@ -115,6 +115,11 @@ class Settings : public QObject
                WRITE setPlaylistRowHeight
                NOTIFY playlistRowHeightChanged)
 
+    Q_PROPERTY(bool playlistShowRowNumber
+               READ playlistShowRowNumber
+               WRITE setPlaylistShowRowNumber
+               NOTIFY playlistShowRowNumberChanged)
+
     Q_PROPERTY(bool playlistCanToggleWithMouse
                READ playlistCanToggleWithMouse
                WRITE setPlaylistCanToggleWithMouse
@@ -259,6 +264,9 @@ public:
     int playlistRowHeight();
     void setPlaylistRowHeight(int height);
 
+    bool playlistShowRowNumber();
+    void setPlaylistShowRowNumber(bool showRowNumber);
+
     bool playlistCanToggleWithMouse();
     void setPlaylistCanToggleWithMouse(bool toggleWithMouse);
 
@@ -348,6 +356,7 @@ signals:
     // *********************************************
     void playlistPositionChanged();
     void playlistRowHeightChanged();
+    void playlistShowRowNumberChanged();
     void playlistCanToggleWithMouseChanged();
     void playlistBigFontFullscreenChanged();
     // *********************************************

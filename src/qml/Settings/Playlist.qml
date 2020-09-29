@@ -67,6 +67,13 @@ Item {
         }
 
         CheckBox {
+            checked: AppSettings.playlistShowRowNumber
+            text: qsTr("Show row number")
+            Layout.columnSpan: 2
+            onCheckStateChanged: AppSettings.playlistShowRowNumber = checked
+        }
+
+        CheckBox {
             checked: AppSettings.playlistCanToggleWithMouse
             text: qsTr("Toggle with mouse")
             Layout.columnSpan: 2

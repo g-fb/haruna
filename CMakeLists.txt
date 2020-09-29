@@ -72,10 +72,10 @@ set(${PROJECT_NAME}_SRC
     src/worker.cpp
     src/Settings/videosettings.cpp
     src/qml.qrc
+    src/playlist/playlistitem.cpp
+    src/playlist/playlistmodel.cpp
     help/help.qrc
 )
-
-add_subdirectory(src/playlist)
 
 qt5_add_dbus_interface(${PROJECT_NAME}_SRC org.freedesktop.ScreenSaver.xml screensaverdbusinterface)
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
