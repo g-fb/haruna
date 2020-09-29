@@ -16,7 +16,7 @@ import AppSettings 1.0
 Rectangle {
     id: root
 
-    property alias tableView: tableView
+    property alias playlistView: playlistView
     property bool canToggleWithMouse: AppSettings.playlistCanToggleWithMouse
     property string position: AppSettings.playlistPosition
     property int rowHeight: AppSettings.playlistRowHeight
@@ -30,7 +30,7 @@ Rectangle {
     color: Kirigami.Theme.backgroundColor
 
     ListView {
-        id: tableView
+        id: playlistView
 
         model: playListModel
         delegate: PlayListItem {}
@@ -41,10 +41,10 @@ Rectangle {
         z: 20
         ScrollBar.vertical: ScrollBar {
             id: scrollBar
-            parent: tableView.parent
-            anchors.top: tableView.top
-            anchors.bottom: tableView.bottom
-            anchors.left: tableView.right
+            parent: playlistView.parent
+            anchors.top: playlistView.top
+            anchors.bottom: playlistView.bottom
+            anchors.left: playlistView.right
             z: 25
         }
     }
@@ -57,7 +57,7 @@ Rectangle {
 
     ShaderEffectSource {
         id: shaderEffect
-        anchors.fill: parent
+        anchors.fill: playlistView
         sourceItem: mpv
         sourceRect: position === "right"
                     ? Qt.rect(mpv.width - root.width, mpv.y, root.width, root.height)

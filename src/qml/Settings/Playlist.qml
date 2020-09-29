@@ -62,7 +62,7 @@ Item {
             onValueChanged: {
                 AppSettings.playlistRowHeight = value
                 playList.rowHeight = value
-                playList.tableView.forceLayout()
+                playList.playlistView.forceLayout()
             }
         }
 
@@ -83,7 +83,7 @@ Item {
             onCheckStateChanged: {
                 AppSettings.playlistBigFontFullscreen = checked
                 playList.bigFont = checked
-                playList.tableView.forceLayout()
+                playList.playlistView.forceLayout()
             }
         }
 

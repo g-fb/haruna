@@ -65,7 +65,7 @@ MpvObject {
         header.audioTracks = getProperty("track-list").filter(track => track["type"] === "audio")
         header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
 
-        if (playList.tableView.count <= 1) {
+        if (playList.playlistView.count <= 1) {
             setProperty("loop-file", "inf")
         }
 
@@ -100,7 +100,7 @@ MpvObject {
 
     onEndOfFile: {
         const nextFileRow = playListModel.getPlayingVideo() + 1
-        if (nextFileRow < playList.tableView.count) {
+        if (nextFileRow < playList.playlistView.count) {
             const nextFile = playListModel.getPath(nextFileRow)
             window.openFile(nextFile, true, false)
             playListModel.setPlayingVideo(nextFileRow)
@@ -179,7 +179,7 @@ MpvObject {
         onMouseXChanged: {
             mx = mouseX
             if (playList.position === "right") {
-                if (mouseX > width - 50 && playList.tableView.count > 1) {
+                if (mouseX > width - 50 && playList.playlistView.count > 1) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "visible"
                     }
@@ -190,7 +190,7 @@ MpvObject {
                     }
                 }
             } else {
-                if (mouseX < 50 && playList.tableView.count > 1) {
+                if (mouseX < 50 && playList.playlistView.count > 1) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "visible"
                     }
@@ -281,7 +281,7 @@ MpvObject {
     }
 
     function setPlayListScrollPosition() {
-        playList.tableView.positionViewAtIndex(playListModel.playingVideo, ListView.Beginning)
+        playList.playlistView.positionViewAtIndex(playListModel.playingVideo, ListView.Beginning)
     }
 
 }
