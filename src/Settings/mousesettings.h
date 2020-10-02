@@ -8,72 +8,72 @@
 class MouseSettings : public Settings
 {
     Q_OBJECT
-    Q_PROPERTY(QString mouseLeftAction
-               READ mouseLeftAction
-               WRITE setMouseLeftAction
-               NOTIFY mouseLeftActionChanged)
+    Q_PROPERTY(QString leftAction
+               READ leftAction
+               WRITE setLeftAction
+               NOTIFY leftActionChanged)
 
-    Q_PROPERTY(QString mouseLeftx2Action
-               READ mouseLeftx2Action
-               WRITE setMouseLeftx2Action
-               NOTIFY mouseLeftx2ActionChanged)
+    Q_PROPERTY(QString leftx2Action
+               READ leftx2Action
+               WRITE setLeftx2Action
+               NOTIFY leftx2ActionChanged)
 
-    Q_PROPERTY(QString mouseRightAction
-               READ mouseRightAction
-               WRITE setMouseRightAction
-               NOTIFY mouseRightActionChanged)
+    Q_PROPERTY(QString rightAction
+               READ rightAction
+               WRITE setRightAction
+               NOTIFY rightActionChanged)
 
-    Q_PROPERTY(QString mouseRightx2Action
-               READ mouseRightx2Action
-               WRITE setMouseRightx2Action
-               NOTIFY mouseRightx2ActionChanged)
+    Q_PROPERTY(QString rightx2Action
+               READ rightx2Action
+               WRITE setRightx2Action
+               NOTIFY rightx2ActionChanged)
 
-    Q_PROPERTY(QString mouseMiddleAction
-               READ mouseMiddleAction
-               WRITE setMouseMiddleAction
-               NOTIFY mouseMiddleActionChanged)
+    Q_PROPERTY(QString middleAction
+               READ middleAction
+               WRITE setMiddleAction
+               NOTIFY middleActionChanged)
 
-    Q_PROPERTY(QString mouseMiddlex2Action
-               READ mouseMiddlex2Action
-               WRITE setMouseMiddlex2Action
-               NOTIFY mouseMiddlex2ActionChanged)
+    Q_PROPERTY(QString middlex2Action
+               READ middlex2Action
+               WRITE setMiddlex2Action
+               NOTIFY middlex2ActionChanged)
 
-    Q_PROPERTY(QString mouseScrollUpAction
-               READ mouseScrollUpAction
-               WRITE setMouseScrollUpAction
-               NOTIFY mouseScrollUpActionChanged)
+    Q_PROPERTY(QString scrollUpAction
+               READ scrollUpAction
+               WRITE setScrollUpAction
+               NOTIFY scrollUpActionChanged)
 
-    Q_PROPERTY(QString mouseScrollDownAction
-               READ mouseScrollDownAction
-               WRITE setMouseScrollDownAction
-               NOTIFY mouseScrollDownActionChanged)
+    Q_PROPERTY(QString scrollDownAction
+               READ scrollDownAction
+               WRITE setScrollDownAction
+               NOTIFY scrollDownActionChanged)
 
 public:
     explicit MouseSettings(QObject *parent = nullptr);
 
-    QString mouseLeftAction();
-    void setMouseLeftAction(const QString &action);
+    QString leftAction();
+    void setLeftAction(const QString &action);
 
-    QString mouseLeftx2Action();
-    void setMouseLeftx2Action(const QString &action);
+    QString leftx2Action();
+    void setLeftx2Action(const QString &action);
 
-    QString mouseRightAction();
-    void setMouseRightAction(const QString &action);
+    QString rightAction();
+    void setRightAction(const QString &action);
 
-    QString mouseRightx2Action();
-    void setMouseRightx2Action(const QString &action);
+    QString rightx2Action();
+    void setRightx2Action(const QString &action);
 
-    QString mouseMiddleAction();
-    void setMouseMiddleAction(const QString &action);
+    QString middleAction();
+    void setMiddleAction(const QString &action);
 
-    QString mouseMiddlex2Action();
-    void setMouseMiddlex2Action(const QString &action);
+    QString middlex2Action();
+    void setMiddlex2Action(const QString &action);
 
-    QString mouseScrollUpAction();
-    void setMouseScrollUpAction(const QString &action);
+    QString scrollUpAction();
+    void setScrollUpAction(const QString &action);
 
-    QString mouseScrollDownAction();
-    void setMouseScrollDownAction(const QString &action);
+    QString scrollDownAction();
+    void setScrollDownAction(const QString &action);
 
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
@@ -85,14 +85,14 @@ public:
 
 signals:
     void settingsChanged();
-    void mouseLeftActionChanged();
-    void mouseLeftx2ActionChanged();
-    void mouseRightActionChanged();
-    void mouseRightx2ActionChanged();
-    void mouseMiddleActionChanged();
-    void mouseMiddlex2ActionChanged();
-    void mouseScrollUpActionChanged();
-    void mouseScrollDownActionChanged();
+    void leftActionChanged();
+    void leftx2ActionChanged();
+    void rightActionChanged();
+    void rightx2ActionChanged();
+    void middleActionChanged();
+    void middlex2ActionChanged();
+    void scrollUpActionChanged();
+    void scrollDownActionChanged();
 
 };
 

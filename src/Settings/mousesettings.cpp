@@ -20,114 +20,114 @@ MouseSettings::MouseSettings(QObject *parent)
     };
 }
 
-QString MouseSettings::mouseLeftAction()
+QString MouseSettings::leftAction()
 {
     return get("Mouse", "Left").toString();
 }
 
-void MouseSettings::setMouseLeftAction(const QString &action)
+void MouseSettings::setLeftAction(const QString &action)
 {
-    if (action == mouseLeftAction()) {
+    if (action == leftAction()) {
         return;
     }
     set("Mouse", "Left", action);
-    emit mouseLeftActionChanged();
+    emit leftActionChanged();
 }
 
-QString MouseSettings::mouseLeftx2Action()
+QString MouseSettings::leftx2Action()
 {
     return get("Mouse", "Left.x2").toString();
 }
 
-void MouseSettings::setMouseLeftx2Action(const QString &action)
+void MouseSettings::setLeftx2Action(const QString &action)
 {
-    if (action == mouseLeftx2Action()) {
+    if (action == leftx2Action()) {
         return;
     }
     set("Mouse", "Left.x2", action);
-    emit mouseLeftx2ActionChanged();
+    emit leftx2ActionChanged();
 }
 
-QString MouseSettings::mouseRightAction()
+QString MouseSettings::rightAction()
 {
     return get("Mouse", "Right").toString();
 }
 
-void MouseSettings::setMouseRightAction(const QString &action)
+void MouseSettings::setRightAction(const QString &action)
 {
-    if (action == mouseRightAction()) {
+    if (action == rightAction()) {
         return;
     }
     set("Mouse", "Right", action);
-    emit mouseRightActionChanged();
+    emit rightActionChanged();
 }
 
-QString MouseSettings::mouseRightx2Action()
+QString MouseSettings::rightx2Action()
 {
     return get("Mouse", "Right.x2").toString();
 }
 
-void MouseSettings::setMouseRightx2Action(const QString &action)
+void MouseSettings::setRightx2Action(const QString &action)
 {
-    if (action == mouseRightx2Action()) {
+    if (action == rightx2Action()) {
         return;
     }
     set("Mouse", "Right.x2", action);
-    emit mouseRightx2ActionChanged();
+    emit rightx2ActionChanged();
 }
 
-QString MouseSettings::mouseMiddleAction()
+QString MouseSettings::middleAction()
 {
     return get("Mouse", "Middle").toString();
 }
 
-void MouseSettings::setMouseMiddleAction(const QString &action)
+void MouseSettings::setMiddleAction(const QString &action)
 {
-    if (action == mouseMiddleAction()) {
+    if (action == middleAction()) {
         return;
     }
     set("Mouse", "Middle", action);
-    emit mouseMiddleActionChanged();
+    emit middleActionChanged();
 }
 
-QString MouseSettings::mouseMiddlex2Action()
+QString MouseSettings::middlex2Action()
 {
     return get("Mouse", "Middle.x2").toString();
 }
 
-void MouseSettings::setMouseMiddlex2Action(const QString &action)
+void MouseSettings::setMiddlex2Action(const QString &action)
 {
-    if (action == mouseMiddlex2Action()) {
+    if (action == middlex2Action()) {
         return;
     }
     set("Mouse", "Middle.x2", action);
-    emit mouseMiddlex2ActionChanged();
+    emit middlex2ActionChanged();
 }
 
-QString MouseSettings::mouseScrollUpAction()
+QString MouseSettings::scrollUpAction()
 {
     return get("Mouse", "ScrollUp").toString();
 }
 
-void MouseSettings::setMouseScrollUpAction(const QString &action)
+void MouseSettings::setScrollUpAction(const QString &action)
 {
-    if (&action == mouseScrollUpAction()) {
+    if (&action == scrollUpAction()) {
         return;
     }
     set("Mouse", "ScrollUp", action);
-    emit mouseScrollUpActionChanged();
+    emit scrollUpActionChanged();
 }
 
-QString MouseSettings::mouseScrollDownAction()
+QString MouseSettings::scrollDownAction()
 {
     return get("Mouse", "ScrollDown").toString();
 }
 
-void MouseSettings::setMouseScrollDownAction(const QString &action)
+void MouseSettings::setScrollDownAction(const QString &action)
 {
-    if (action == mouseScrollDownAction()) {
+    if (action == scrollDownAction()) {
         return;
     }
     set("Mouse", "ScrollDown", action);
-    emit mouseScrollDownActionChanged();
+    emit scrollDownActionChanged();
 }
