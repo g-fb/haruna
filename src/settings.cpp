@@ -23,15 +23,6 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"LastPlayedFile",        QVariant(QStringLiteral())},
         {"LastUrl",               QVariant(QStringLiteral())},
         {"Volume",                QVariant(75)},
-        // mouse actions
-        {"Left",                  QVariant(QStringLiteral())},
-        {"Left.x2",               QVariant(QStringLiteral("toggleFullscreenAction"))},
-        {"Middle",                QVariant(QStringLiteral("muteAction"))},
-        {"Middle.x2",             QVariant(QStringLiteral("configureAction"))},
-        {"Right",                 QVariant(QStringLiteral("playPauseAction"))},
-        {"Right.x2",              QVariant(QStringLiteral())},
-        {"ScrollUp",              QVariant(QStringLiteral("volumeUpAction"))},
-        {"ScrollDown",            QVariant(QStringLiteral("volumeDownAction"))},
         // playlist
         {"CanToggleWithMouse",    QVariant(true)},
         {"ShowRowNumber",         QVariant(true)},
@@ -170,121 +161,6 @@ void Settings::setLastUrl(const QString &url)
     }
     set("General", "LastUrl", url);
     emit lastUrlChanged();
-}
-
-// *********************************************
-//   MOUSE
-// *********************************************
-QString Settings::mouseLeftAction()
-{
-    return get("Mouse", "Left").toString();
-}
-
-void Settings::setMouseLeftAction(const QString &action)
-{
-    if (action == mouseLeftAction()) {
-        return;
-    }
-    set("Mouse", "Left", action);
-    emit mouseLeftActionChanged();
-}
-
-QString Settings::mouseLeftx2Action()
-{
-    return get("Mouse", "Left.x2").toString();
-}
-
-void Settings::setMouseLeftx2Action(const QString &action)
-{
-    if (action == mouseLeftx2Action()) {
-        return;
-    }
-    set("Mouse", "Left.x2", action);
-    emit mouseLeftx2ActionChanged();
-}
-
-QString Settings::mouseRightAction()
-{
-    return get("Mouse", "Right").toString();
-}
-
-void Settings::setMouseRightAction(const QString &action)
-{
-    if (action == mouseRightAction()) {
-        return;
-    }
-    set("Mouse", "Right", action);
-    emit mouseRightActionChanged();
-}
-
-QString Settings::mouseRightx2Action()
-{
-    return get("Mouse", "Right.x2").toString();
-}
-
-void Settings::setMouseRightx2Action(const QString &action)
-{
-    if (action == mouseRightx2Action()) {
-        return;
-    }
-    set("Mouse", "Right.x2", action);
-    emit mouseRightx2ActionChanged();
-}
-
-QString Settings::mouseMiddleAction()
-{
-    return get("Mouse", "Middle").toString();
-}
-
-void Settings::setMouseMiddleAction(const QString &action)
-{
-    if (action == mouseMiddleAction()) {
-        return;
-    }
-    set("Mouse", "Middle", action);
-    emit mouseMiddleActionChanged();
-}
-
-QString Settings::mouseMiddlex2Action()
-{
-    return get("Mouse", "Middle.x2").toString();
-}
-
-void Settings::setMouseMiddlex2Action(const QString &action)
-{
-    if (action == mouseMiddlex2Action()) {
-        return;
-    }
-    set("Mouse", "Middle.x2", action);
-    emit mouseMiddlex2ActionChanged();
-}
-
-QString Settings::mouseScrollUpAction()
-{
-    return get("Mouse", "ScrollUp").toString();
-}
-
-void Settings::setMouseScrollUpAction(const QString &action)
-{
-    if (&action == mouseScrollUpAction()) {
-        return;
-    }
-    set("Mouse", "ScrollUp", action);
-    emit mouseScrollUpActionChanged();
-}
-
-QString Settings::mouseScrollDownAction()
-{
-    return get("Mouse", "ScrollDown").toString();
-}
-
-void Settings::setMouseScrollDownAction(const QString &action)
-{
-    if (action == mouseScrollDownAction()) {
-        return;
-    }
-    set("Mouse", "ScrollDown", action);
-    emit mouseScrollDownActionChanged();
 }
 
 // *********************************************
