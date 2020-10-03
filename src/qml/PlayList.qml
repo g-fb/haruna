@@ -11,16 +11,16 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
 
-import AppSettings 1.0
+import PlaylistSettings 1.0
 
 Rectangle {
     id: root
 
     property alias playlistView: playlistView
-    property bool canToggleWithMouse: AppSettings.playlistCanToggleWithMouse
-    property string position: AppSettings.playlistPosition
-    property int rowHeight: AppSettings.playlistRowHeight
-    property int bigFont: AppSettings.playlistBigFontFullscreen
+    property bool canToggleWithMouse: PlaylistSettings.canToggleWithMouse
+    property string position: PlaylistSettings.position
+    property int rowHeight: PlaylistSettings.rowHeight
+    property int bigFont: PlaylistSettings.bigFontFullscreen
 
     height: mpv.height
     width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33

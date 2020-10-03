@@ -23,12 +23,6 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"LastPlayedFile",        QVariant(QStringLiteral())},
         {"LastUrl",               QVariant(QStringLiteral())},
         {"Volume",                QVariant(75)},
-        // playlist
-        {"CanToggleWithMouse",    QVariant(true)},
-        {"ShowRowNumber",         QVariant(true)},
-        {"Position",              QVariant(QStringLiteral("right"))},
-        {"RowHeight",             QVariant(10)},
-        {"BigFontFullscreen",     QVariant(true)},
         // playback
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},
@@ -161,79 +155,6 @@ void Settings::setLastUrl(const QString &url)
     }
     set("General", "LastUrl", url);
     emit lastUrlChanged();
-}
-
-// *********************************************
-//   PLAYLIST
-// *********************************************
-QString Settings::playlistPosition()
-{
-    return get("Playlist", "Position").toString();
-}
-
-void Settings::setPlaylistPosition(const QString &position)
-{
-    if (position == playlistPosition()) {
-        return;
-    }
-    set("Playlist", "Position", position);
-    emit playlistPositionChanged();
-}
-
-int Settings::playlistRowHeight()
-{
-    return get("Playlist", "RowHeight").toInt();
-}
-
-void Settings::setPlaylistRowHeight(int height)
-{
-    if (height == playlistRowHeight()) {
-        return;
-    }
-    set("Playlist", "RowHeight", QString::number(height));
-    emit playlistRowHeightChanged();
-}
-
-bool Settings::playlistShowRowNumber()
-{
-    return get("Playlist", "ShowRowNumber").toBool();
-}
-
-void Settings::setPlaylistShowRowNumber(bool showRowNumber)
-{
-    if (showRowNumber == playlistShowRowNumber()) {
-        return;
-    }
-    set("Playlist", "ShowRowNumber", QVariant(showRowNumber).toString());
-    emit playlistShowRowNumberChanged();
-}
-
-bool Settings::playlistCanToggleWithMouse()
-{
-    return get("Playlist", "CanToggleWithMouse").toBool();
-}
-
-void Settings::setPlaylistCanToggleWithMouse(bool toggleWithMouse)
-{
-    if (toggleWithMouse == playlistCanToggleWithMouse()) {
-        return;
-    }
-    set("Playlist", "CanToggleWithMouse", QVariant(toggleWithMouse).toString());
-    emit playlistCanToggleWithMouseChanged();
-}
-
-bool Settings::playlistBigFontFullscreen()
-{
-    return get("Playlist", "BigFontFullscreen").toBool();
-}
-
-void Settings::setPlaylistBigFontFullscreen(bool bigFont)
-{
-    if (bigFont == playlistBigFontFullscreen()) {
-        return;
-    }
-    set("Playlist", "BigFontFullscreen", QVariant(bigFont).toString());
-    emit playlistBigFontFullscreenChanged();
 }
 
 // *********************************************

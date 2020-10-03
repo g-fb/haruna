@@ -7,7 +7,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import AppSettings 1.0
+import PlaylistSettings 1.0
 
 Item {
     id: root
@@ -38,14 +38,14 @@ Item {
             }
             Component.onCompleted: {
                 for (let i = 0; i < model.count; ++i) {
-                    if (model.get(i).value === AppSettings.playlistPosition) {
+                    if (model.get(i).value === PlaylistSettings.position) {
                         currentIndex = i
                         break
                     }
                 }
             }
             onActivated: {
-                AppSettings.playlistPosition = model.get(index).value
+                PlaylistSettings.position = model.get(index).value
                 playList.position = model.get(index).value
             }
         }
@@ -58,37 +58,37 @@ Item {
         SpinBox {
             from: 0
             to: 100
-            value: AppSettings.playlistRowHeight
+            value: PlaylistSettings.rowHeight
             onValueChanged: {
-                AppSettings.playlistRowHeight = value
+                PlaylistSettings.rowHeight = value
                 playList.rowHeight = value
                 playList.playlistView.forceLayout()
             }
         }
 
         CheckBox {
-            checked: AppSettings.playlistShowRowNumber
+            checked: PlaylistSettings.showRowNumber
             text: qsTr("Show row number")
             Layout.columnSpan: 2
-            onCheckStateChanged: AppSettings.playlistShowRowNumber = checked
+            onCheckStateChanged: PlaylistSettings.showRowNumber = checked
         }
 
         CheckBox {
-            checked: AppSettings.playlistCanToggleWithMouse
+            checked: PlaylistSettings.canToggleWithMouse
             text: qsTr("Toggle with mouse")
             Layout.columnSpan: 2
             onCheckStateChanged: {
-                AppSettings.playlistCanToggleWithMouse = checked
+                PlaylistSettings.canToggleWithMouse = checked
                 playList.canToggleWithMouse = checked
             }
         }
 
         CheckBox {
             text: qsTr("Increase font size when fullscreen")
-            checked: AppSettings.playlistBigFontFullscreen
+            checked: PlaylistSettings.bigFontFullscreen
             Layout.columnSpan: 2
             onCheckStateChanged: {
-                AppSettings.playlistBigFontFullscreen = checked
+                PlaylistSettings.bigFontFullscreen = checked
                 playList.bigFont = checked
                 playList.playlistView.forceLayout()
             }

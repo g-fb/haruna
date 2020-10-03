@@ -60,34 +60,6 @@ class Settings : public QObject
                NOTIFY lastUrlChanged)
 
     // *********************************************
-    //   PLAYLIST
-    // *********************************************
-    Q_PROPERTY(QString playlistPosition
-               READ playlistPosition
-               WRITE setPlaylistPosition
-               NOTIFY playlistPositionChanged)
-
-    Q_PROPERTY(int playlistRowHeight
-               READ playlistRowHeight
-               WRITE setPlaylistRowHeight
-               NOTIFY playlistRowHeightChanged)
-
-    Q_PROPERTY(bool playlistShowRowNumber
-               READ playlistShowRowNumber
-               WRITE setPlaylistShowRowNumber
-               NOTIFY playlistShowRowNumberChanged)
-
-    Q_PROPERTY(bool playlistCanToggleWithMouse
-               READ playlistCanToggleWithMouse
-               WRITE setPlaylistCanToggleWithMouse
-               NOTIFY playlistCanToggleWithMouseChanged)
-
-    Q_PROPERTY(bool playlistBigFontFullscreen
-               READ playlistBigFontFullscreen
-               WRITE setPlaylistBigFontFullscreen
-               NOTIFY playlistBigFontFullscreenChanged)
-
-    // *********************************************
     //   AUDIO
     // *********************************************
     Q_PROPERTY(QString audioPreferredLanguage
@@ -186,24 +158,6 @@ public:
     void setLastUrl(const QString &url);
 
     // *********************************************
-    //   PLAYLIST
-    // *********************************************
-    QString playlistPosition();
-    void setPlaylistPosition(const QString &position);
-
-    int playlistRowHeight();
-    void setPlaylistRowHeight(int height);
-
-    bool playlistShowRowNumber();
-    void setPlaylistShowRowNumber(bool showRowNumber);
-
-    bool playlistCanToggleWithMouse();
-    void setPlaylistCanToggleWithMouse(bool toggleWithMouse);
-
-    bool playlistBigFontFullscreen();
-    void setPlaylistBigFontFullscreen(bool bigFont);
-
-    // *********************************************
     //   AUDIO
     // *********************************************
     QString audioPreferredLanguage();
@@ -269,14 +223,6 @@ signals:
     void volumeChanged();
     void lastPlayedFileChanged();
     void lastUrlChanged();
-    // *********************************************
-    //   PLAYLIST
-    // *********************************************
-    void playlistPositionChanged();
-    void playlistRowHeightChanged();
-    void playlistShowRowNumberChanged();
-    void playlistCanToggleWithMouseChanged();
-    void playlistBigFontFullscreenChanged();
     // *********************************************
     //   AUDIO
     // *********************************************
