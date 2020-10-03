@@ -6,7 +6,8 @@
 
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import AppSettings 1.0
+
+import GeneralSettings 1.0
 
 Item {
     id: root
@@ -97,7 +98,7 @@ Item {
 
         onTriggered: {
             const currentVolume = parseInt(mpv.getProperty("volume"))
-            const volumeStep = parseInt(AppSettings.volumeStep)
+            const volumeStep = parseInt(GeneralSettings.volumeStep)
             const newVolume = currentVolume + volumeStep
             if (currentVolume < 100) {
                 if (newVolume > 100) {
@@ -121,7 +122,7 @@ Item {
 
         onTriggered: {
             const currentVolume = parseInt(mpv.getProperty("volume"))
-            const volumeStep = parseInt(AppSettings.volumeStep)
+            const volumeStep = parseInt(GeneralSettings.volumeStep)
             const newVolume = currentVolume - volumeStep
             if (currentVolume >= 0) {
                 if (newVolume < 0) {
@@ -232,7 +233,7 @@ Item {
 
         Component.onCompleted: list["seekForwardSmallAction"] = seekForwardSmallAction
 
-        onTriggered: mpv.command(["seek", AppSettings.seekSmallStep, "exact"])
+        onTriggered: mpv.command(["seek", GeneralSettings.seekSmallStep, "exact"])
     }
 
     Action {
@@ -244,7 +245,7 @@ Item {
 
         Component.onCompleted: list["seekBackwardSmallAction"] = seekBackwardSmallAction
 
-        onTriggered: mpv.command(["seek", -AppSettings.seekSmallStep, "exact"])
+        onTriggered: mpv.command(["seek", -GeneralSettings.seekSmallStep, "exact"])
     }
 
     Action {
@@ -256,7 +257,7 @@ Item {
 
         Component.onCompleted: list["seekForwardMediumAction"] = seekForwardMediumAction
 
-        onTriggered: mpv.command(["seek", AppSettings.seekMediumStep, "exact"])
+        onTriggered: mpv.command(["seek", GeneralSettings.seekMediumStep, "exact"])
     }
 
     Action {
@@ -268,7 +269,7 @@ Item {
 
         Component.onCompleted: list["seekBackwardMediumAction"] = seekBackwardMediumAction
 
-        onTriggered: mpv.command(["seek", -AppSettings.seekMediumStep, "exact"])
+        onTriggered: mpv.command(["seek", -GeneralSettings.seekMediumStep, "exact"])
     }
 
     Action {
@@ -280,7 +281,7 @@ Item {
 
         Component.onCompleted: list["seekForwardBigAction"] = seekForwardBigAction
 
-        onTriggered: mpv.command(["seek", AppSettings.seekBigStep, "exact"])
+        onTriggered: mpv.command(["seek", GeneralSettings.seekBigStep, "exact"])
     }
 
     Action {
@@ -292,7 +293,7 @@ Item {
 
         Component.onCompleted: list["seekBackwardBigAction"] = seekBackwardBigAction
 
-        onTriggered: mpv.command(["seek", -AppSettings.seekBigStep, "exact"])
+        onTriggered: mpv.command(["seek", -GeneralSettings.seekBigStep, "exact"])
     }
 
     Action {
@@ -957,7 +958,7 @@ Item {
 
         onTriggered: {
             menuBar.visible = !menuBar.visible
-            AppSettings.viewIsMenuBarVisible = menuBar.visible
+            GeneralSettings.showMenuBar = menuBar.visible
         }
     }
 
@@ -972,7 +973,7 @@ Item {
 
         onTriggered: {
             header.visible = !header.visible
-            AppSettings.viewIsHeaderVisible = header.visible
+            GeneralSettings.showHeader = header.visible
         }
     }
 

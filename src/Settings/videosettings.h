@@ -7,15 +7,11 @@
 #ifndef VIDEOSETTINGS_H
 #define VIDEOSETTINGS_H
 
-#include <QObject>
-#include <QHash>
-#include <KSharedConfig>
-#include <QQmlEngine>
+#include "settings.h"
 
-class VideoSettings : public QObject
+class VideoSettings : public Settings
 {
     Q_OBJECT
-
     Q_PROPERTY(QString screenshotTemplate
                READ screenshotTemplate
                WRITE setScreenshotTemplate
@@ -27,7 +23,7 @@ class VideoSettings : public QObject
                NOTIFY screenshotFormatChanged)
 
 public:
-    VideoSettings();
+    explicit VideoSettings(QObject *parent = nullptr);
 
     QString screenshotTemplate();
     void setScreenshotTemplate(QString ssTemplate);
@@ -36,7 +32,7 @@ public:
     void setScreenshotFormat(QString format);
 
 
-    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static VideoSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
@@ -45,16 +41,9 @@ public:
     }
 
 signals:
-    void settingsChanged();
     void screenshotTemplateChanged();
     void screenshotFormatChanged();
 
-public slots:
-    QVariant get(const QString &group, const QString &key);
-    void set(const QString &group, const QString &key, const QString &value);
-private:
-    QHash<QString, QVariant> m_defaultSettings;
-    KSharedConfig::Ptr m_config;
 };
 
 #endif // VIDEOSETTINGS_H

@@ -11,8 +11,10 @@
 #include <KConfigGroup>
 #include <QVariant>
 
-VideoSettings::VideoSettings()
+VideoSettings::VideoSettings(QObject *parent)
+    : Settings(parent)
 {
+    CONFIG_GROUP = QStringLiteral("Video");
     m_defaultSettings = {
         {"ScreenshotFormat",          QVariant(QStringLiteral("jpg"))},
         {"ScreenshotTemplate",        QVariant(QStringLiteral("%x/screenshots/%n"))},
@@ -23,7 +25,7 @@ VideoSettings::VideoSettings()
 
 QString VideoSettings::screenshotTemplate()
 {
-    return get("Video", "ScreenshotTemplate").toString();
+    return get("ScreenshotTemplate").toString();
 }
 
 void VideoSettings::setScreenshotTemplate(QString ssTemplate)
@@ -31,13 +33,13 @@ void VideoSettings::setScreenshotTemplate(QString ssTemplate)
     if (ssTemplate == screenshotTemplate()) {
         return;
     }
-    set("Video", "ScreenshotTemplate", ssTemplate);
+    set("ScreenshotTemplate", ssTemplate);
     emit screenshotTemplateChanged();
 }
 
 QString VideoSettings::screenshotFormat()
 {
-    return get("Video", "ScreenshotFormat").toString();
+    return get("ScreenshotFormat").toString();
 }
 
 void VideoSettings::setScreenshotFormat(QString format)
@@ -45,19 +47,6 @@ void VideoSettings::setScreenshotFormat(QString format)
     if (format == screenshotFormat()) {
         return;
     }
-    set("Video", "ScreenshotFormat", format);
+    set("ScreenshotFormat", format);
     emit screenshotFormatChanged();
-}
-
-QVariant VideoSettings::get(const QString &group, const QString &key)
-{
-    return m_config->group(group).readEntry(key, m_defaultSettings[key]);
-}
-
-void VideoSettings::set(const QString &group, const QString &key, const QString &value)
-{
-    m_config->group(group).writeEntry(key, value);
-    m_config->sync();
-
-    emit settingsChanged();
 }

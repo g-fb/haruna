@@ -11,7 +11,9 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
 import Qt.labs.platform 1.0 as Platform
 import org.kde.kirigami 2.11 as Kirigami
-import AppSettings 1.0
+
+import GeneralSettings 1.0
+import PlaybackSettings 1.0
 
 import mpv 1.0
 import "Menus"
@@ -43,7 +45,7 @@ Kirigami.ApplicationWindow {
 
         hoverEnabled: true
         implicitHeight: 24
-        visible: !window.isFullScreen() && AppSettings.viewIsMenuBarVisible
+        visible: !window.isFullScreen() && GeneralSettings.showMenuBar
 
         FileMenu {}
         ViewMenu {}
@@ -114,12 +116,12 @@ Kirigami.ApplicationWindow {
             TextField {
                 id: openUrlTextField
                 Layout.fillWidth: true
-                Component.onCompleted: text = AppSettings.lastUrl
+                Component.onCompleted: text = GeneralSettings.lastUrl
 
                 Keys.onPressed: {
                     if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                         openFile(openUrlTextField.text, true, false)
-                        AppSettings.lastUrl = openUrlTextField.text
+                        GeneralSettings.lastUrl = openUrlTextField.text
                         openUrlPopup.close()
                         openUrlTextField.clear()
                         // clear playlist to prevent existing files in the playlist
@@ -137,7 +139,7 @@ Kirigami.ApplicationWindow {
 
                 onClicked: {
                     openFile(openUrlTextField.text, true, false)
-                    AppSettings.lastUrl = openUrlTextField.text
+                    GeneralSettings.lastUrl = openUrlTextField.text
                     openUrlPopup.close()
                     openUrlTextField.clear()
                     playList.playlistView.model = 0
@@ -147,7 +149,7 @@ Kirigami.ApplicationWindow {
     }
 
     function openFile(path, startPlayback, loadSiblings) {
-        mpv.setProperty("ytdl-format", AppSettings.playbackYtdlFormat)
+        mpv.setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         mpv.command(["loadfile", path])
         mpv.setProperty("pause", !startPlayback)
         if (loadSiblings) {
@@ -155,7 +157,7 @@ Kirigami.ApplicationWindow {
             playListModel.getVideos(path)
         }
 
-        AppSettings.lastPlayedFile = path
+        GeneralSettings.lastPlayedFile = path
     }
 
     function isFullScreen() {

@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.11 as Kirigami
-import AppSettings 1.0
+import MouseSettings 1.0
 
 Item {
     id: root
@@ -46,7 +46,7 @@ Item {
                 }
             }
             delegate: Kirigami.BasicListItem {
-                property string actionLabel: AppSettings.get("Mouse", modelData)
+                property string actionLabel: MouseSettings.get(modelData)
                 property string buttonLabel: modelData
 
                 width: content.width
@@ -89,7 +89,7 @@ Item {
                 onActionSelected: {
                     const item  = buttonsView.itemAtIndex(buttonsView.index)
                     item.actionLabel = actionName
-                    AppSettings.set("Mouse", item.buttonLabel, actionName)
+                    MouseSettings.set(item.buttonLabel, actionName)
                 }
             }
         }

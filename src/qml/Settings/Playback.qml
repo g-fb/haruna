@@ -9,7 +9,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.11 as Kirigami
 
-import AppSettings 1.0
+import PlaybackSettings 1.0
 
 Item {
     id: root
@@ -30,8 +30,8 @@ Item {
             CheckBox {
                 id: skipChaptersCheckBox
                 text: qsTr("Skip chapters")
-                checked: AppSettings.playbackSkipChapters
-                onCheckedChanged: AppSettings.playbackSkipChapters = checked
+                checked: PlaybackSettings.skipChapters
+                onCheckedChanged: PlaybackSettings.skipChapters = checked
             }
 
             Label {
@@ -40,17 +40,17 @@ Item {
             }
 
             TextField {
-                text: AppSettings.playbackChaptersToSkip
+                text: PlaybackSettings.chaptersToSkip
                 enabled: skipChaptersCheckBox.checked
                 Layout.fillWidth: true
-                onEditingFinished: AppSettings.playbackChaptersToSkip = text
+                onEditingFinished: PlaybackSettings.chaptersToSkip = text
             }
 
             CheckBox {
                 text: qsTr("Show an osd message when skipping chapters")
                 enabled: skipChaptersCheckBox.checked
-                checked: AppSettings.playbackShowOsdOnSkipChapters
-                onCheckedChanged: AppSettings.playbackShowOsdOnSkipChapters = checked
+                checked: PlaybackSettings.showOsdOnSkipChapters
+                onCheckedChanged: PlaybackSettings.showOsdOnSkipChapters = checked
             }
 
             // ------------------------------------
@@ -79,7 +79,7 @@ Item {
 
                     onActivated: {
                         if (index === 0) {
-                            ytdlFormatField.text = AppSettings.playbackYtdlFormat
+                            ytdlFormatField.text = PlaybackSettings.ytdlFormat
                         }
                         if(index > 0) {
                             ytdlFormatField.focus = true
@@ -88,16 +88,16 @@ Item {
                     }
 
                     Component.onCompleted: {
-                        let i = indexOfValue(AppSettings.playbackYtdlFormat)
+                        let i = indexOfValue(PlaybackSettings.ytdlFormat)
                         currentIndex = (i === -1) ? 0 : i
                     }
                 }
             }
             TextField {
                 id: ytdlFormatField
-                text: AppSettings.playbackYtdlFormat
+                text: PlaybackSettings.ytdlFormat
                 Layout.fillWidth: true
-                onEditingFinished: AppSettings.playbackYtdlFormat = text
+                onEditingFinished: PlaybackSettings.ytdlFormat = text
                 placeholderText: qsTr("bestvideo+bestaudio/best")
 
                 onTextChanged: {

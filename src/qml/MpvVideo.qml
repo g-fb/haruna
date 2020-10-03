@@ -7,7 +7,12 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import mpv 1.0
-import AppSettings 1.0
+
+import AudioSettings 1.0
+import GeneralSettings 1.0
+import MouseSettings 1.0
+import PlaybackSettings 1.0
+import SubtitlesSettings 1.0
 import VideoSettings 1.0
 
 MpvObject {
@@ -26,7 +31,7 @@ MpvObject {
     anchors.left: settingsEditor.right
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
-    volume: AppSettings.volume
+    volume: GeneralSettings.volume
 
     onSetSubtitle: {
         setProperty("sid", id)
@@ -43,21 +48,21 @@ MpvObject {
     onReady: {
         setProperty("screenshot-template", VideoSettings.screenshotTemplate)
         setProperty("screenshot-format", VideoSettings.screenshotFormat)
-        const preferredAudioTrack = AppSettings.audioPreferredTrack
+        const preferredAudioTrack = AudioSettings.preferredTrack
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
-        setProperty("alang", AppSettings.audioPreferredLanguage)
+        setProperty("alang", AudioSettings.preferredLanguage)
 
-        const preferredSubTrack = AppSettings.subtitlesPreferredTrack
+        const preferredSubTrack = SubtitlesSettings.preferredTrack
         setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)
-        setProperty("slang", AppSettings.subtitlesPreferredLanguage)
-        setProperty("sub-file-paths", AppSettings.subtitlesFolders.join(":"))
+        setProperty("slang", SubtitlesSettings.preferredLanguage)
+        setProperty("sub-file-paths", SubtitlesSettings.subtitlesFolders.join(":"))
 
         if (app.argument(0) !== "") {
             window.openFile(app.argument(0), true, true)
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
-            window.openFile(AppSettings.lastPlayedFile, false, true)
+            window.openFile(GeneralSettings.lastPlayedFile, false, true)
         }
     }
 
@@ -74,12 +79,12 @@ MpvObject {
     }
 
     onChapterChanged: {
-        if (!AppSettings.playbackSkipChapters) {
+        if (!PlaybackSettings.skipChapters) {
             return
         }
 
         const chapters = mpv.getProperty("chapter-list")
-        const chaptersToSkip = AppSettings.playbackChaptersToSkip
+        const chaptersToSkip = PlaybackSettings.chaptersToSkip
         if (chapters.length === 0 || chaptersToSkip === "") {
             return
         }
@@ -88,7 +93,7 @@ MpvObject {
         for (let i = 0; i < words.length; ++i) {
             if (chapters[mpv.chapter] && chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
                 actions.seekNextChapterAction.trigger()
-                if (AppSettings.playbackShowOsdOnSkipChapters) {
+                if (PlaybackSettings.showOsdOnSkipChapters) {
                     osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
                 }
                 // a chapter title can match multiple words
@@ -209,12 +214,12 @@ MpvObject {
 
         onWheel: {
             if (wheel.angleDelta.y > 0) {
-                if (AppSettings.mouseScrollUpAction) {
-                    actions.list[AppSettings.mouseScrollUpAction].trigger()
+                if (MouseSettings.scrollUpAction) {
+                    actions.list[MouseSettings.scrollUpAction].trigger()
                 }
             } else if (wheel.angleDelta.y) {
-                if (AppSettings.mouseScrollDownAction) {
-                    actions.list[AppSettings.mouseScrollDownAction].trigger()
+                if (MouseSettings.scrollDownAction) {
+                    actions.list[MouseSettings.scrollDownAction].trigger()
                 }
             }
         }
@@ -222,32 +227,32 @@ MpvObject {
         onPressed: {
             focus = true
             if (mouse.button === Qt.LeftButton) {
-                if (AppSettings.mouseLeftAction) {
-                    actions.list[AppSettings.mouseLeftAction].trigger()
+                if (MouseSettings.leftAction) {
+                    actions.list[MouseSettings.leftAction].trigger()
                 }
             } else if (mouse.button === Qt.MiddleButton) {
-                if (AppSettings.mouseMiddleAction) {
-                    actions.list[AppSettings.mouseMiddleAction].trigger()
+                if (MouseSettings.middleAction) {
+                    actions.list[MouseSettings.middleAction].trigger()
                 }
             } else if (mouse.button === Qt.RightButton) {
-                if (AppSettings.mouseRightAction) {
-                    actions.list[AppSettings.mouseRightAction].trigger()
+                if (MouseSettings.rightAction) {
+                    actions.list[MouseSettings.rightAction].trigger()
                 }
             }
         }
 
         onDoubleClicked: {
             if (mouse.button === Qt.LeftButton) {
-                if (AppSettings.mouseLeftx2Action) {
-                    actions.list[AppSettings.mouseLeftx2Action].trigger()
+                if (MouseSettings.leftx2Action) {
+                    actions.list[MouseSettings.leftx2Action].trigger()
                 }
             } else if (mouse.button === Qt.MiddleButton) {
-                if (AppSettings.mouseMiddlex2Action) {
-                    actions.list[AppSettings.mouseMiddlex2Action].trigger()
+                if (MouseSettings.middlex2Action) {
+                    actions.list[MouseSettings.middlex2Action].trigger()
                 }
             } else if (mouse.button === Qt.RightButton) {
-                if (AppSettings.mouseRightx2Action) {
-                    actions.list[AppSettings.mouseRightx2Action].trigger()
+                if (MouseSettings.rightx2Action) {
+                    actions.list[MouseSettings.rightx2Action].trigger()
                 }
             }
         }

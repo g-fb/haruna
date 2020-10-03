@@ -10,7 +10,8 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Shapes 1.12
 import org.kde.kirigami 2.11 as Kirigami
-import AppSettings 1.0
+
+import PlaybackSettings 1.0
 
 Slider {
     id: root
@@ -166,8 +167,8 @@ Slider {
             id: skipChaptersMenuItem
             text: qsTr("Skip Chapters")
             checkable: true
-            checked: AppSettings.playbackSkipChapters
-            onCheckedChanged: AppSettings.playbackSkipChapters = checked
+            checked: PlaybackSettings.skipChapters
+            onCheckedChanged: PlaybackSettings.skipChapters = checked
         }
 
         Instantiator {
