@@ -12,10 +12,10 @@
 #include "subtitlesfoldersmodel.h"
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
-#include "settings.h"
 #include "Settings/audiosettings.h"
 #include "Settings/generalsettings.h"
 #include "Settings/mousesettings.h"
+#include "Settings/playbacksettings.h"
 #include "Settings/playlistsettings.h"
 #include "Settings/subtitlessettings.h"
 #include "Settings/videosettings.h"
@@ -118,10 +118,10 @@ int main(int argc, char *argv[])
                                             QStringLiteral("LockManager should not be created in QML"));
 
     engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
-    qmlRegisterSingletonType<Settings>("AppSettings", 1, 0, "AppSettings", Settings::provider);
     qmlRegisterSingletonType<VideoSettings>("VideoSettings", 1, 0, "VideoSettings", VideoSettings::provider);
     qmlRegisterSingletonType<MouseSettings>("MouseSettings", 1, 0, "MouseSettings", MouseSettings::provider);
     qmlRegisterSingletonType<PlaylistSettings>("PlaylistSettings", 1, 0, "PlaylistSettings", PlaylistSettings::provider);
+    qmlRegisterSingletonType<PlaybackSettings>("PlaybackSettings", 1, 0, "PlaybackSettings", PlaybackSettings::provider);
     qmlRegisterSingletonType<GeneralSettings>("GeneralSettings", 1, 0, "GeneralSettings", GeneralSettings::provider);
     qmlRegisterSingletonType<AudioSettings>("AudioSettings", 1, 0, "AudioSettings", AudioSettings::provider);
     qmlRegisterSingletonType<SubtitlesSettings>("SubtitlesSettings", 1, 0, "SubtitlesSettings", SubtitlesSettings::provider);

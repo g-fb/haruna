@@ -73,6 +73,7 @@ set(${PROJECT_NAME}_SRC
     src/Settings/audiosettings.cpp
     src/Settings/generalsettings.cpp
     src/Settings/mousesettings.cpp
+    src/Settings/playbacksettings.cpp
     src/Settings/playlistsettings.cpp
     src/Settings/subtitlessettings.cpp
     src/Settings/videosettings.cpp

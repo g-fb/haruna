@@ -8,10 +8,10 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import mpv 1.0
 
-import AppSettings 1.0
 import AudioSettings 1.0
 import GeneralSettings 1.0
 import MouseSettings 1.0
+import PlaybackSettings 1.0
 import SubtitlesSettings 1.0
 import VideoSettings 1.0
 
@@ -79,12 +79,12 @@ MpvObject {
     }
 
     onChapterChanged: {
-        if (!AppSettings.playbackSkipChapters) {
+        if (!PlaybackSettings.skipChapters) {
             return
         }
 
         const chapters = mpv.getProperty("chapter-list")
-        const chaptersToSkip = AppSettings.playbackChaptersToSkip
+        const chaptersToSkip = PlaybackSettings.chaptersToSkip
         if (chapters.length === 0 || chaptersToSkip === "") {
             return
         }
@@ -93,7 +93,7 @@ MpvObject {
         for (let i = 0; i < words.length; ++i) {
             if (chapters[mpv.chapter] && chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
                 actions.seekNextChapterAction.trigger()
-                if (AppSettings.playbackShowOsdOnSkipChapters) {
+                if (PlaybackSettings.showOsdOnSkipChapters) {
                     osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
                 }
                 // a chapter title can match multiple words

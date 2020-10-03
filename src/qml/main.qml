@@ -12,8 +12,8 @@ import QtGraphicalEffects 1.12
 import Qt.labs.platform 1.0 as Platform
 import org.kde.kirigami 2.11 as Kirigami
 
-import AppSettings 1.0
 import GeneralSettings 1.0
+import PlaybackSettings 1.0
 
 import mpv 1.0
 import "Menus"
@@ -149,7 +149,7 @@ Kirigami.ApplicationWindow {
     }
 
     function openFile(path, startPlayback, loadSiblings) {
-        mpv.setProperty("ytdl-format", AppSettings.playbackYtdlFormat)
+        mpv.setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         mpv.command(["loadfile", path])
         mpv.setProperty("pause", !startPlayback)
         if (loadSiblings) {
@@ -157,7 +157,7 @@ Kirigami.ApplicationWindow {
             playListModel.getVideos(path)
         }
 
-        AppSettings.lastPlayedFile = path
+        GeneralSettings.lastPlayedFile = path
     }
 
     function isFullScreen() {
