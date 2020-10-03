@@ -1,7 +1,7 @@
 #ifndef SUBTITLESSETTINGS_H
 #define SUBTITLESSETTINGS_H
 
-#include "../settings.h"
+#include "settings.h"
 
 class SubtitlesSettings : public Settings
 {
@@ -40,10 +40,12 @@ public:
 
         return new SubtitlesSettings();
     }
+
 signals:
     void subtitlesFoldersChanged();
     void preferredLanguageChanged();
     void preferredTrackChanged();
+
 };
 
 #endif // SUBTITLESSETTINGS_H

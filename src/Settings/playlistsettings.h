@@ -1,7 +1,7 @@
 #ifndef PLAYLISTSETTINGS_H
 #define PLAYLISTSETTINGS_H
 
-#include "../settings.h"
+#include "settings.h"
 
 class PlaylistSettings : public Settings
 {

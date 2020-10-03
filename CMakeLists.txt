@@ -59,27 +59,27 @@ set_package_properties(KF5XmlGui PROPERTIES
     URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
 set(${PROJECT_NAME}_SRC
-    src/main.cpp
     src/application.cpp
     src/haction.cpp
-    src/settings.cpp
     src/lockmanager.cpp
+    src/main.cpp
     src/mpvobject.cpp
     src/qthelper.h
-    src/subtitlesfoldersmodel.cpp
-    src/track.cpp
-    src/tracksmodel.cpp
-    src/worker.cpp
+    src/playlist/playlistitem.cpp
+    src/playlist/playlistmodel.cpp
     src/Settings/audiosettings.cpp
     src/Settings/generalsettings.cpp
     src/Settings/mousesettings.cpp
     src/Settings/playbacksettings.cpp
     src/Settings/playlistsettings.cpp
+    src/Settings/settings.cpp
     src/Settings/subtitlessettings.cpp
     src/Settings/videosettings.cpp
+    src/subtitlesfoldersmodel.cpp
+    src/track.cpp
+    src/tracksmodel.cpp
+    src/worker.cpp
     src/qml.qrc
-    src/playlist/playlistitem.cpp
-    src/playlist/playlistmodel.cpp
     help/help.qrc
 )
 

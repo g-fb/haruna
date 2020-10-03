@@ -1,7 +1,7 @@
 #ifndef PLAYBACKSETTINGS_H
 #define PLAYBACKSETTINGS_H
 
-#include "../settings.h"
+#include "settings.h"
 
 class PlaybackSettings : public Settings
 {
@@ -48,11 +48,13 @@ public:
 
         return new PlaybackSettings();
     }
+
 signals:
     void skipChaptersChanged();
     void chaptersToSkipChanged();
     void showOsdOnSkipChaptersChanged();
     void ytdlFormatChanged();
+
 };
 
 #endif // PLAYBACKSETTINGS_H

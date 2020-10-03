@@ -1,7 +1,7 @@
 #ifndef AUDIOSETTINGS_H
 #define AUDIOSETTINGS_H
 
-#include "../settings.h"
+#include "settings.h"
 
 class AudioSettings : public Settings
 {
@@ -36,6 +36,7 @@ public:
 signals:
     void preferredLanguageChanged();
     void preferredTrackChanged();
+
 };
 
 #endif // AUDIOSETTINGS_H

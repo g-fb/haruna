@@ -46,7 +46,7 @@ Item {
                 }
             }
             delegate: Kirigami.BasicListItem {
-                property string actionLabel: MouseSettings.get("Mouse", modelData)
+                property string actionLabel: MouseSettings.get(modelData)
                 property string buttonLabel: modelData
 
                 width: content.width
@@ -89,7 +89,7 @@ Item {
                 onActionSelected: {
                     const item  = buttonsView.itemAtIndex(buttonsView.index)
                     item.actionLabel = actionName
-                    MouseSettings.set("Mouse", item.buttonLabel, actionName)
+                    MouseSettings.set(item.buttonLabel, actionName)
                 }
             }
         }

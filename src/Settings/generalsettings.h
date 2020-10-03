@@ -1,7 +1,7 @@
 #ifndef GENERALSETTINGS_H
 #define GENERALSETTINGS_H
 
-#include "../settings.h"
+#include "settings.h"
 
 class GeneralSettings : public Settings
 {

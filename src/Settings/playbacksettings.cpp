@@ -4,6 +4,7 @@
 PlaybackSettings::PlaybackSettings(QObject *parent)
     : Settings(parent)
 {
+    CONFIG_GROUP = QStringLiteral("Playback");
     m_defaultSettings = {
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},
@@ -14,20 +15,20 @@ PlaybackSettings::PlaybackSettings(QObject *parent)
 
 bool PlaybackSettings::skipChapters()
 {
-    return get("Playback", "SkipChapters").toBool();
+    return get("SkipChapters").toBool();
 }
 
 void PlaybackSettings::setSkipChapters(bool skip)
 {
     if (skip == skipChapters())
         return;
-    set("Playback", "SkipChapters", QVariant(skip).toString());
+    set("SkipChapters", QVariant(skip).toString());
     emit skipChaptersChanged();
 }
 
 QString PlaybackSettings::chaptersToSkip()
 {
-    return get("Playback", "SkipChaptersWordList").toString();
+    return get("SkipChaptersWordList").toString();
 }
 
 void PlaybackSettings::setChaptersToSkip(const QString &wordList)
@@ -35,13 +36,13 @@ void PlaybackSettings::setChaptersToSkip(const QString &wordList)
     if (wordList == chaptersToSkip()) {
         return;
     }
-    set("Playback", "SkipChaptersWordList", wordList);
+    set("SkipChaptersWordList", wordList);
     emit chaptersToSkipChanged();
 }
 
 bool PlaybackSettings::showOsdOnSkipChapters()
 {
-    return get("Playback", "ShowOsdOnSkipChapters").toBool();
+    return get("ShowOsdOnSkipChapters").toBool();
 }
 
 void PlaybackSettings::setShowOsdOnSkipChapters(bool show)
@@ -49,13 +50,13 @@ void PlaybackSettings::setShowOsdOnSkipChapters(bool show)
     if (show == showOsdOnSkipChapters()) {
         return;
     }
-    set("Playback", "ShowOsdOnSkipChapters", QVariant(show).toString());
+    set("ShowOsdOnSkipChapters", QVariant(show).toString());
     emit showOsdOnSkipChaptersChanged();
 }
 
 QString PlaybackSettings::ytdlFormat()
 {
-    return get("Playback", "YtdlFormat").toString();
+    return get("YtdlFormat").toString();
 }
 
 void PlaybackSettings::setYtdlFormat(const QString &format)
@@ -63,6 +64,6 @@ void PlaybackSettings::setYtdlFormat(const QString &format)
     if (format == ytdlFormat()) {
         return;
     }
-    set("Playback", "YtdlFormat", format);
+    set("YtdlFormat", format);
     emit ytdlFormatChanged();
 }

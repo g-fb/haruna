@@ -5,6 +5,7 @@
 SubtitlesSettings::SubtitlesSettings(QObject *parent)
     : Settings(parent)
 {
+    CONFIG_GROUP = QStringLiteral("Subtitles");
     m_defaultSettings = {
         {"SubtitlesFolders",  QVariant(QStringLiteral("subs"))},
         {"PreferredLanguage", QVariant(QStringLiteral())},
@@ -29,7 +30,7 @@ void SubtitlesSettings::setSubtitlesFolders(const QStringList &folders)
 
 QString SubtitlesSettings::preferredLanguage()
 {
-    return get("Subtitles", "PreferredLanguage").toString();
+    return get("PreferredLanguage").toString();
 }
 
 void SubtitlesSettings::setPreferredLanguage(const QString &language)
@@ -37,13 +38,13 @@ void SubtitlesSettings::setPreferredLanguage(const QString &language)
     if (language == preferredLanguage()) {
         return;
     }
-    set("Subtitles", "PreferredLanguage", language);
+    set("PreferredLanguage", language);
     emit preferredLanguageChanged();
 }
 
 int SubtitlesSettings::preferredTrack()
 {
-    return get("Subtitles", "PreferredTrack").toInt();
+    return get("PreferredTrack").toInt();
 }
 
 void SubtitlesSettings::setPreferredTrack(int track)
@@ -51,6 +52,6 @@ void SubtitlesSettings::setPreferredTrack(int track)
     if (track == preferredTrack()) {
         return;
     }
-    set("Subtitles", "PreferredTrack", QString::number(track));
+    set("PreferredTrack", QString::number(track));
     emit preferredTrackChanged();
 }

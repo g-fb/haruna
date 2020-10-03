@@ -1,9 +1,7 @@
 #ifndef MOUSESETTINGS_H
 #define MOUSESETTINGS_H
 
-#include "../settings.h"
-#include <KSharedConfig>
-#include <QQmlEngine>
+#include "settings.h"
 
 class MouseSettings : public Settings
 {

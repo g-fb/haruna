@@ -5,7 +5,7 @@
  */
 
 #include "settings.h"
-#include "_debug.h"
+#include "../_debug.h"
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -16,14 +16,14 @@ Settings::Settings(QObject *parent) : QObject(parent)
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
 }
 
-QVariant Settings::get(const QString &group, const QString &key)
+QVariant Settings::get(const QString &key)
 {
-    return m_config->group(group).readEntry(key, m_defaultSettings[key]);
+    return m_config->group(CONFIG_GROUP).readEntry(key, m_defaultSettings[key]);
 }
 
-void Settings::set(const QString &group, const QString &key, const QString &value)
+void Settings::set(const QString &key, const QString &value)
 {
-    m_config->group(group).writeEntry(key, value);
+    m_config->group(CONFIG_GROUP).writeEntry(key, value);
     m_config->sync();
 
     emit settingsChanged();

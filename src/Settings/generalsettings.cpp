@@ -4,6 +4,7 @@
 GeneralSettings::GeneralSettings(QObject *parent)
     : Settings(parent)
 {
+    CONFIG_GROUP = QStringLiteral("General");
     m_defaultSettings = {
         {"SeekSmallStep",  QVariant(5)},
         {"SeekMediumStep", QVariant(15)},
@@ -20,7 +21,7 @@ GeneralSettings::GeneralSettings(QObject *parent)
 
 int GeneralSettings::osdFontSize()
 {
-    return get("General", "OsdFontSize").toInt();
+    return get("OsdFontSize").toInt();
 }
 
 void GeneralSettings::setOsdFontSize(int fontSize)
@@ -28,13 +29,13 @@ void GeneralSettings::setOsdFontSize(int fontSize)
     if (fontSize == osdFontSize()) {
         return;
     }
-    set("General", "OsdFontSize", QString::number(fontSize));
+    set("OsdFontSize", QString::number(fontSize));
     emit osdFontSizeChanged();
 }
 
 int GeneralSettings::volumeStep()
 {
-    return get("General", "VolumeStep").toInt();
+    return get("VolumeStep").toInt();
 }
 
 void GeneralSettings::setVolumeStep(int step)
@@ -42,13 +43,13 @@ void GeneralSettings::setVolumeStep(int step)
     if (step == volumeStep()) {
         return;
     }
-    set("General", "VolumeStep", QString::number(step));
+    set("VolumeStep", QString::number(step));
     emit volumeStepChanged();
 }
 
 int GeneralSettings::seekSmallStep()
 {
-    return get("General", "SeekSmallStep").toInt();
+    return get("SeekSmallStep").toInt();
 }
 
 void GeneralSettings::setSeekSmallStep(int step)
@@ -56,13 +57,13 @@ void GeneralSettings::setSeekSmallStep(int step)
     if (step == seekSmallStep()) {
         return;
     }
-    set("General", "SeekSmallStep", QString::number(step));
+    set("SeekSmallStep", QString::number(step));
     emit seekSmallStep();
 }
 
 int GeneralSettings::seekMediumStep()
 {
-    return get("General", "SeekMediumStep").toInt();
+    return get("SeekMediumStep").toInt();
 }
 
 void GeneralSettings::setSeekMediumStep(int step)
@@ -70,13 +71,13 @@ void GeneralSettings::setSeekMediumStep(int step)
     if (step == seekMediumStep()) {
         return;
     }
-    set("General", "SeekMediumStep", QString::number(step));
+    set("SeekMediumStep", QString::number(step));
     emit seekMediumStep();
 }
 
 int GeneralSettings::seekBigStep()
 {
-    return get("General", "SeekBigStep").toInt();
+    return get("SeekBigStep").toInt();
 }
 
 void GeneralSettings::setSeekBigStep(int step)
@@ -84,13 +85,13 @@ void GeneralSettings::setSeekBigStep(int step)
     if (step == seekBigStep()) {
         return;
     }
-    set("General", "SeekBigStep", QString::number(step));
+    set("SeekBigStep", QString::number(step));
     emit seekBigStep();
 }
 
 int GeneralSettings::volume()
 {
-    return get("General", "Volume").toInt();
+    return get("Volume").toInt();
 }
 
 void GeneralSettings::setVolume(int vol)
@@ -98,13 +99,13 @@ void GeneralSettings::setVolume(int vol)
     if (vol == volume()) {
         return;
     }
-    set("General", "Volume", QString::number(vol));
+    set("Volume", QString::number(vol));
     emit volumeChanged();
 }
 
 QString GeneralSettings::lastPlayedFile()
 {
-    return get("General", "LastPlayedFile").toString();
+    return get("LastPlayedFile").toString();
 }
 
 void GeneralSettings::setLastPlayedFile(const QString &file)
@@ -112,13 +113,13 @@ void GeneralSettings::setLastPlayedFile(const QString &file)
     if (file == lastPlayedFile()) {
         return;
     }
-    set("General", "LastPlayedFile", file);
+    set("LastPlayedFile", file);
     emit lastPlayedFileChanged();
 }
 
 QString GeneralSettings::lastUrl()
 {
-    return get("General", "LastUrl").toString();
+    return get("LastUrl").toString();
 }
 
 void GeneralSettings::setLastUrl(const QString &url)
@@ -126,13 +127,13 @@ void GeneralSettings::setLastUrl(const QString &url)
     if (url == lastUrl()) {
         return;
     }
-    set("General", "LastUrl", url);
+    set("LastUrl", url);
     emit lastUrlChanged();
 }
 
 bool GeneralSettings::showMenuBar()
 {
-    return get("General", "ShowMenuBar").toBool();
+    return get("ShowMenuBar").toBool();
 }
 
 void GeneralSettings::setShowMenuBar(bool isVisible)
@@ -140,13 +141,13 @@ void GeneralSettings::setShowMenuBar(bool isVisible)
     if (isVisible == showMenuBar()) {
         return;
     }
-    set("General", "ShowMenuBar", QVariant(isVisible).toString());
+    set("ShowMenuBar", QVariant(isVisible).toString());
     emit showMenuBarChanged();
 }
 
 bool GeneralSettings::showHeader()
 {
-    return get("General", "ShowHeader").toBool();
+    return get("ShowHeader").toBool();
 }
 
 void GeneralSettings::setShowHeader(bool isVisible)
@@ -154,6 +155,6 @@ void GeneralSettings::setShowHeader(bool isVisible)
     if (isVisible == showHeader()) {
         return;
     }
-    set("General", "ShowHeader", QVariant(isVisible).toString());
+    set("ShowHeader", QVariant(isVisible).toString());
     emit showHeaderChanged();
 }
