@@ -10,6 +10,7 @@ import mpv 1.0
 import AppSettings 1.0
 import VideoSettings 1.0
 import MouseSettings 1.0
+import GeneralSettings 1.0
 
 MpvObject {
     id: root
@@ -27,7 +28,7 @@ MpvObject {
     anchors.left: settingsEditor.right
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
-    volume: AppSettings.volume
+    volume: GeneralSettings.volume
 
     onSetSubtitle: {
         setProperty("sid", id)
@@ -58,7 +59,7 @@ MpvObject {
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
-            window.openFile(AppSettings.lastPlayedFile, false, true)
+            window.openFile(GeneralSettings.lastPlayedFile, false, true)
         }
     }
 

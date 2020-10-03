@@ -13,6 +13,7 @@
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
 #include "settings.h"
+#include "Settings/generalsettings.h"
 #include "Settings/videosettings.h"
 #include "Settings/mousesettings.h"
 #include "Settings/playlistsettings.h"
@@ -119,6 +120,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<VideoSettings>("VideoSettings", 1, 0, "VideoSettings", VideoSettings::provider);
     qmlRegisterSingletonType<MouseSettings>("MouseSettings", 1, 0, "MouseSettings", MouseSettings::provider);
     qmlRegisterSingletonType<PlaylistSettings>("PlaylistSettings", 1, 0, "PlaylistSettings", PlaylistSettings::provider);
+    qmlRegisterSingletonType<GeneralSettings>("GeneralSettings", 1, 0, "GeneralSettings", GeneralSettings::provider);
     engine.load(url);
     return QApplication::exec();
 }

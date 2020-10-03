@@ -8,7 +8,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.11 as Kirigami
-import AppSettings 1.0
+
+import GeneralSettings 1.0
 
 Item {
     id: root
@@ -37,13 +38,13 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: AppSettings.osdFontSize
+                value: GeneralSettings.osdFontSize
                 onValueChanged: {
                     // runs on start-up so only execute when state is visible
                     if (root.visible) {
                         osd.label.font.pointSize = osdFontSize.value
                         osd.message("Test osd font size")
-                        AppSettings.osdFontSize = osdFontSize.value
+                        GeneralSettings.osdFontSize = osdFontSize.value
                     }
                 }
             }
@@ -63,10 +64,10 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: AppSettings.volumeStep
+                value: GeneralSettings.volumeStep
                 onValueChanged: {
                     if (root.visible) {
-                        AppSettings.volumeStep = volumeStep.value
+                        GeneralSettings.volumeStep = volumeStep.value
                     }
                 }
             }
@@ -97,8 +98,8 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: AppSettings.seekSmallStep
-                onValueChanged: AppSettings.seekSmallStep = seekSmallStep.value
+                value: GeneralSettings.seekSmallStep
+                onValueChanged: GeneralSettings.seekSmallStep = seekSmallStep.value
             }
             Layout.fillWidth: true
         }
@@ -116,8 +117,8 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: AppSettings.seekMediumStep
-                onValueChanged: AppSettings.seekMediumStep = seekMediumStep.value
+                value: GeneralSettings.seekMediumStep
+                onValueChanged: GeneralSettings.seekMediumStep = seekMediumStep.value
             }
             Layout.fillWidth: true
         }
@@ -135,8 +136,8 @@ Item {
                 editable: true
                 from: 0
                 to: 100
-                value: AppSettings.seekBigStep
-                onValueChanged: AppSettings.seekBigStep = seekBigStep.value
+                value: GeneralSettings.seekBigStep
+                onValueChanged: GeneralSettings.seekBigStep = seekBigStep.value
             }
             Layout.fillWidth: true
         }
@@ -145,6 +146,20 @@ Item {
             Layout.columnSpan: 2
             Layout.fillHeight: true
             Layout.fillWidth: true
+        }
+
+        CheckBox {
+            text: qsTr("Show MenuBar")
+            checked: GeneralSettings.showMenuBar
+            onCheckedChanged: GeneralSettings.showMenuBar = checked
+            Layout.columnSpan: 2
+        }
+
+        CheckBox {
+            text: qsTr("Show Header")
+            checked: GeneralSettings.showHeader
+            onCheckedChanged: GeneralSettings.showHeader = checked
+            Layout.columnSpan: 2
         }
 
     }

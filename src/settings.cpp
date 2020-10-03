@@ -14,15 +14,7 @@
 Settings::Settings(QObject *parent) : QObject(parent)
 {
     m_defaultSettings = {
-        {"SeekSmallStep",         QVariant(5)},
-        {"SeekMediumStep",        QVariant(15)},
-        {"SeekBigStep",           QVariant(30)},
-        {"VolumeStep",            QVariant(5)},
-        {"OsdFontSize",           QVariant(25)},
         {"SubtitlesFolders",      QVariant(QStringLiteral("subs"))},
-        {"LastPlayedFile",        QVariant(QStringLiteral())},
-        {"LastUrl",               QVariant(QStringLiteral())},
-        {"Volume",                QVariant(75)},
         // playback
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},
@@ -33,128 +25,10 @@ Settings::Settings(QObject *parent) : QObject(parent)
         {"PreferredTrack",        QVariant(0)},
         // subtitle
         {"PreferredLanguage",     QVariant(QStringLiteral())},
-        {"PreferredTrack",        QVariant(0)},
-        // view
-        {"IsMenuBarVisible",      QVariant(true)},
-        {"IsHeaderVisible",       QVariant(true)},
+        {"PreferredTrack",        QVariant(0)}
     };
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
-}
-
-// *********************************************
-//   GENERAL
-// *********************************************
-int Settings::osdFontSize()
-{
-    return get("General", "OsdFontSize").toInt();
-}
-
-void Settings::setOsdFontSize(int fontSize)
-{
-    if (fontSize == osdFontSize()) {
-        return;
-    }
-    set("General", "OsdFontSize", QString::number(fontSize));
-    emit osdFontSizeChanged();
-}
-
-int Settings::volumeStep()
-{
-    return get("General", "VolumeStep").toInt();
-}
-
-void Settings::setVolumeStep(int step)
-{
-    if (step == volumeStep()) {
-        return;
-    }
-    set("General", "VolumeStep", QString::number(step));
-    emit volumeStepChanged();
-}
-
-int Settings::seekSmallStep()
-{
-    return get("General", "SeekSmallStep").toInt();
-}
-
-void Settings::setSeekSmallStep(int step)
-{
-    if (step == seekSmallStep()) {
-        return;
-    }
-    set("General", "SeekSmallStep", QString::number(step));
-    emit seekSmallStep();
-}
-
-int Settings::seekMediumStep()
-{
-    return get("General", "SeekMediumStep").toInt();
-}
-
-void Settings::setSeekMediumStep(int step)
-{
-    if (step == seekMediumStep()) {
-        return;
-    }
-    set("General", "SeekMediumStep", QString::number(step));
-    emit seekMediumStep();
-}
-
-int Settings::seekBigStep()
-{
-    return get("General", "SeekBigStep").toInt();
-}
-
-void Settings::setSeekBigStep(int step)
-{
-    if (step == seekBigStep()) {
-        return;
-    }
-    set("General", "SeekBigStep", QString::number(step));
-    emit seekBigStep();
-}
-
-int Settings::volume()
-{
-    return get("General", "Volume").toInt();
-}
-
-void Settings::setVolume(int vol)
-{
-    if (vol == volume()) {
-        return;
-    }
-    set("General", "Volume", QString::number(vol));
-    emit volumeChanged();
-}
-
-QString Settings::lastPlayedFile()
-{
-    return get("General", "LastPlayedFile").toString();
-}
-
-void Settings::setLastPlayedFile(const QString &file)
-{
-    if (file == lastPlayedFile()) {
-        return;
-    }
-    set("General", "LastPlayedFile", file);
-    emit lastPlayedFileChanged();
-}
-
-QString Settings::lastUrl()
-{
-    return get("General", "LastUrl").toString();
-}
-
-void Settings::setLastUrl(const QString &url)
-{
-    if (url == lastUrl()) {
-        return;
-    }
-    set("General", "LastUrl", url);
-    emit lastUrlChanged();
 }
 
 // *********************************************
@@ -291,38 +165,6 @@ void Settings::setPlaybackYtdlFormat(const QString &format)
     set("Playback", "YtdlFormat", format);
     emit playbackYtdlFormatChanged();
 }
-
-// *********************************************
-//   VIEW
-// *********************************************
-bool Settings::viewIsMenuBarVisible()
-{
-    return get("View", "IsMenuBarVisible").toBool();
-}
-
-void Settings::setViewIsMenuBarVisible(bool isVisible)
-{
-    if (isVisible == viewIsMenuBarVisible()) {
-        return;
-    }
-    set("View", "IsMenuBarVisible", QVariant(isVisible).toString());
-    emit viewIsMenuBarVisibleChanged();
-}
-
-bool Settings::viewIsHeaderVisible()
-{
-    return get("View", "IsHeaderVisible").toBool();
-}
-
-void Settings::setViewIsHeaderVisible(bool isVisible)
-{
-    if (isVisible == viewIsHeaderVisible()) {
-        return;
-    }
-    set("View", "IsHeaderVisible", QVariant(isVisible).toString());
-    emit viewIsHeaderVisibleChanged();
-}
-
 
 QVariant Settings::get(const QString &group, const QString &key)
 {

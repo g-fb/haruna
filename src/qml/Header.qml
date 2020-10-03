@@ -9,7 +9,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQml 2.12
 import org.kde.kirigami 2.11 as Kirigami
-import AppSettings 1.0
+import GeneralSettings 1.0
 
 import "Menus"
 
@@ -20,7 +20,7 @@ ToolBar {
     property var subtitleTracks
 
     position: ToolBar.Header
-    visible: !window.isFullScreen() && AppSettings.viewIsHeaderVisible
+    visible: !window.isFullScreen() && GeneralSettings.showHeader
 
     RowLayout {
         id: headerRow

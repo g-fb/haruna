@@ -84,7 +84,6 @@ public:
     }
 
 signals:
-    void settingsChanged();
     void leftActionChanged();
     void leftx2ActionChanged();
     void rightActionChanged();

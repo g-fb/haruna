@@ -6,7 +6,9 @@
 
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+
 import AppSettings 1.0
+import GeneralSettings 1.0
 
 Item {
     id: root
@@ -97,7 +99,7 @@ Item {
 
         onTriggered: {
             const currentVolume = parseInt(mpv.getProperty("volume"))
-            const volumeStep = parseInt(AppSettings.volumeStep)
+            const volumeStep = parseInt(GeneralSettings.volumeStep)
             const newVolume = currentVolume + volumeStep
             if (currentVolume < 100) {
                 if (newVolume > 100) {
@@ -121,7 +123,7 @@ Item {
 
         onTriggered: {
             const currentVolume = parseInt(mpv.getProperty("volume"))
-            const volumeStep = parseInt(AppSettings.volumeStep)
+            const volumeStep = parseInt(GeneralSettings.volumeStep)
             const newVolume = currentVolume - volumeStep
             if (currentVolume >= 0) {
                 if (newVolume < 0) {
@@ -957,7 +959,7 @@ Item {
 
         onTriggered: {
             menuBar.visible = !menuBar.visible
-            AppSettings.viewIsMenuBarVisible = menuBar.visible
+            GeneralSettings.showMenuBar = menuBar.visible
         }
     }
 
@@ -972,7 +974,7 @@ Item {
 
         onTriggered: {
             header.visible = !header.visible
-            AppSettings.viewIsHeaderVisible = header.visible
+            GeneralSettings.showHeader = header.visible
         }
     }
 

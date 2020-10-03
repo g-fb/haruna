@@ -11,7 +11,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Shapes 1.12
 import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
-import AppSettings 1.0
+import GeneralSettings 1.0
 
 Slider {
     id: root
@@ -22,7 +22,7 @@ Slider {
     implicitWidth: 100
     implicitHeight: 25
     wheelEnabled: true
-    stepSize: AppSettings.volumeStep
+    stepSize: GeneralSettings.volumeStep
     leftPadding: 0
     rightPadding: 0
 
@@ -51,7 +51,7 @@ Slider {
 
     onValueChanged: {
         mpv.volume = value.toFixed(0)
-        AppSettings.volume = value.toFixed(0)
+        GeneralSettings.volume = value.toFixed(0)
     }
 
 }

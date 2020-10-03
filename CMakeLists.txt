@@ -70,6 +70,7 @@ set(${PROJECT_NAME}_SRC
     src/track.cpp
     src/tracksmodel.cpp
     src/worker.cpp
+    src/Settings/generalsettings.cpp
     src/Settings/mousesettings.cpp
     src/Settings/playlistsettings.cpp
     src/Settings/videosettings.cpp
