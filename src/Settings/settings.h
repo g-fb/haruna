@@ -15,11 +15,15 @@
 class Settings : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QUrl configFilePath READ configFilePath)
+    Q_PROPERTY(QUrl configFolderPath READ configFolderPath)
 public:
     explicit Settings(QObject *parent = nullptr);
 
     Q_INVOKABLE QVariant get(const QString &key);
     Q_INVOKABLE void set(const QString &key, const QString &value);
+    QUrl configFilePath();
+    QUrl configFolderPath();
 
 signals:
     void settingsChanged();

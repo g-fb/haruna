@@ -9,11 +9,31 @@
 
 #include <KConfig>
 #include <KConfigGroup>
+#include <QFileInfo>
 #include <QVariant>
 
 Settings::Settings(QObject *parent) : QObject(parent)
 {
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
+}
+
+QUrl Settings::configFilePath()
+{
+    auto configPath = QStandardPaths::writableLocation(m_config->locationType());
+    auto configFilePath = configPath.append(QStringLiteral("/")).append(m_config->name());
+    QUrl url(configFilePath);
+    url.setScheme("file");
+    return url;
+}
+
+QUrl Settings::configFolderPath()
+{
+    auto configPath = QStandardPaths::writableLocation(m_config->locationType());
+    auto configFilePath = configPath.append(QStringLiteral("/")).append(m_config->name());
+    QFileInfo fileInfo(configFilePath);
+    QUrl url(fileInfo.absolutePath());
+    url.setScheme("file");
+    return url;
 }
 
 QVariant Settings::get(const QString &key)

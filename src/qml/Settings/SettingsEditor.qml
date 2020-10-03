@@ -11,6 +11,8 @@ import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
 
+import GeneralSettings 1.0
+
 Pane {
     id: root
 
@@ -65,16 +67,42 @@ Pane {
                 }
             }
 
-            Button {
-                id: settingsHelpButton
+            RowLayout {
+                Button {
+                    id: settingsHelpButton
 
-                text: qsTr("Help!")
-                icon.name: "system-help"
-                visible: settingsPageLoader.item.hasHelp
-                onClicked: settingsPageLoader.item.hasHelp ? helpWindow.show() : undefined
-                Layout.alignment: Qt.AlignBottom
-                Layout.leftMargin: 10
-                Layout.rightMargin: 5
+                    text: qsTr("Help!")
+                    icon.name: "system-help"
+                    enabled: settingsPageLoader.item.hasHelp
+                    onClicked: settingsPageLoader.item.hasHelp ? helpWindow.show() : undefined
+                    Layout.alignment: Qt.AlignBottom
+                    Layout.leftMargin: 10
+                    Layout.rightMargin: 5
+                }
+
+                Button {
+                    id: openConfigButton
+
+                    text: qsTr("Open Config")
+                    icon.name: "folder"
+                    onClicked: openConfigMenu.visible ? openConfigMenu.close() : openConfigMenu.open()
+                    Layout.alignment: Qt.AlignBottom
+                    Layout.rightMargin: 5
+
+                    Menu {
+                        id: openConfigMenu
+
+                        MenuItem {
+                            text: qsTr("Folder")
+                            onTriggered: Qt.openUrlExternally(GeneralSettings.configFolderPath)
+                        }
+
+                        MenuItem {
+                            text: qsTr("File")
+                            onTriggered: Qt.openUrlExternally(GeneralSettings.configFilePath)
+                        }
+                    }
+                }
             }
         }
     }
