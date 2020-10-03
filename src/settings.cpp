@@ -32,37 +32,6 @@ Settings::Settings(QObject *parent) : QObject(parent)
 }
 
 // *********************************************
-//   AUDIO
-// *********************************************
-QString Settings::audioPreferredLanguage()
-{
-    return get("Audio", "PreferredLanguage").toString();
-}
-
-void Settings::setAudioPreferredLanguage(const QString &lang)
-{
-    if (lang == audioPreferredLanguage()) {
-        return;
-    }
-    set("Audio", "PreferredLanguage", lang);
-    emit audioPreferredLanguageChanged();
-}
-
-int Settings::audioPreferredTrack()
-{
-    return get("Audio", "PreferredTrack").toInt();
-}
-
-void Settings::setAudioPreferredTrack(int track)
-{
-    if (track == audioPreferredTrack()) {
-        return;
-    }
-    set("Audio", "PreferredTrack", QString::number(track));
-    emit audioPreferredTrackChanged();
-}
-
-// *********************************************
 //   SUBTITLES
 // *********************************************
 QStringList Settings::subtitlesFolders()

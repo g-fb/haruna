@@ -7,7 +7,9 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import mpv 1.0
+
 import AppSettings 1.0
+import AudioSettings 1.0
 import VideoSettings 1.0
 import MouseSettings 1.0
 import GeneralSettings 1.0
@@ -45,9 +47,9 @@ MpvObject {
     onReady: {
         setProperty("screenshot-template", VideoSettings.screenshotTemplate)
         setProperty("screenshot-format", VideoSettings.screenshotFormat)
-        const preferredAudioTrack = AppSettings.audioPreferredTrack
+        const preferredAudioTrack = AudioSettings.preferredTrack
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
-        setProperty("alang", AppSettings.audioPreferredLanguage)
+        setProperty("alang", AudioSettings.preferredLanguage)
 
         const preferredSubTrack = AppSettings.subtitlesPreferredTrack
         setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)

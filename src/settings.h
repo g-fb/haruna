@@ -18,15 +18,6 @@ class Settings : public QObject
     // *********************************************
     //   AUDIO
     // *********************************************
-    Q_PROPERTY(QString audioPreferredLanguage
-               READ audioPreferredLanguage
-               WRITE setAudioPreferredLanguage
-               NOTIFY audioPreferredLanguageChanged)
-
-    Q_PROPERTY(int audioPreferredTrack
-               READ audioPreferredTrack
-               WRITE setAudioPreferredTrack
-               NOTIFY audioPreferredTrackChanged)
 
     // *********************************************
     //   SUBTITLES
@@ -74,14 +65,6 @@ class Settings : public QObject
 public:
     explicit Settings(QObject *parent = nullptr);
 
-    // *********************************************
-    //   AUDIO
-    // *********************************************
-    QString audioPreferredLanguage();
-    void setAudioPreferredLanguage(const QString &lang);
-
-    int audioPreferredTrack();
-    void setAudioPreferredTrack(int track);
 
     // *********************************************
     //   SUBTITLES
@@ -123,8 +106,6 @@ signals:
     // *********************************************
     //   AUDIO
     // *********************************************
-    void audioPreferredLanguageChanged();
-    void audioPreferredTrackChanged();
     // *********************************************
     //   SUBTITLES
     // *********************************************
