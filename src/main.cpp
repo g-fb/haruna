@@ -15,9 +15,10 @@
 #include "settings.h"
 #include "Settings/audiosettings.h"
 #include "Settings/generalsettings.h"
-#include "Settings/videosettings.h"
 #include "Settings/mousesettings.h"
 #include "Settings/playlistsettings.h"
+#include "Settings/subtitlessettings.h"
+#include "Settings/videosettings.h"
 #include "worker.h"
 
 #include <QApplication>
@@ -123,6 +124,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<PlaylistSettings>("PlaylistSettings", 1, 0, "PlaylistSettings", PlaylistSettings::provider);
     qmlRegisterSingletonType<GeneralSettings>("GeneralSettings", 1, 0, "GeneralSettings", GeneralSettings::provider);
     qmlRegisterSingletonType<AudioSettings>("AudioSettings", 1, 0, "AudioSettings", AudioSettings::provider);
+    qmlRegisterSingletonType<SubtitlesSettings>("SubtitlesSettings", 1, 0, "SubtitlesSettings", SubtitlesSettings::provider);
     engine.load(url);
     return QApplication::exec();
 }

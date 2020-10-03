@@ -14,67 +14,14 @@
 Settings::Settings(QObject *parent) : QObject(parent)
 {
     m_defaultSettings = {
-        {"SubtitlesFolders",      QVariant(QStringLiteral("subs"))},
         // playback
         {"SkipChaptersWordList",  QVariant(QStringLiteral())},
         {"ShowOsdOnSkipChapters", QVariant(true)},
         {"SkipChapters",          QVariant(false)},
         {"YtdlFormat",            QVariant(QStringLiteral())},
-        // audio
-        {"PreferredLanguage",     QVariant(QStringLiteral())},
-        {"PreferredTrack",        QVariant(0)},
-        // subtitle
-        {"PreferredLanguage",     QVariant(QStringLiteral())},
-        {"PreferredTrack",        QVariant(0)}
     };
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
-}
-
-// *********************************************
-//   SUBTITLES
-// *********************************************
-QStringList Settings::subtitlesFolders()
-{
-    return m_config->group("Subtitles").readPathEntry("Folders", QStringList());
-}
-
-void Settings::setSubtitlesFolders(const QStringList &folders)
-{
-    if (folders == subtitlesFolders()) {
-        return;
-    }
-    m_config->group("Subtitles").writePathEntry("Folders", folders);
-    m_config->sync();
-    emit subtitlesFoldersChanged();
-}
-
-QString Settings::subtitlesPreferredLanguage()
-{
-    return get("Subtitles", "PreferredLanguage").toString();
-}
-
-void Settings::setSubtitlesPreferredLanguage(const QString &preferredLanguage)
-{
-    if (preferredLanguage == subtitlesPreferredLanguage()) {
-        return;
-    }
-    set("Subtitles", "PreferredLanguage", preferredLanguage);
-    emit subtitlesPreferredLanguageChanged();
-}
-
-int Settings::subtitlesPreferredTrack()
-{
-    return get("Subtitles", "PreferredTrack").toInt();
-}
-
-void Settings::setSubtitlesPreferredTrack(int preferredTrack)
-{
-    if (preferredTrack == subtitlesPreferredTrack()) {
-        return;
-    }
-    set("Subtitles", "PreferredTrack", QString::number(preferredTrack));
-    emit subtitlesPreferredTrackChanged();
 }
 
 // *********************************************

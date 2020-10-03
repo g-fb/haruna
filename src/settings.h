@@ -16,28 +16,6 @@ class Settings : public QObject
 {
     Q_OBJECT
     // *********************************************
-    //   AUDIO
-    // *********************************************
-
-    // *********************************************
-    //   SUBTITLES
-    // *********************************************
-    Q_PROPERTY(QStringList subtitlesFolders
-               READ subtitlesFolders
-               WRITE setSubtitlesFolders
-               NOTIFY subtitlesFoldersChanged)
-
-    Q_PROPERTY(QString subtitlesPreferredLanguage
-               READ subtitlesPreferredLanguage
-               WRITE setSubtitlesPreferredLanguage
-               NOTIFY subtitlesPreferredLanguageChanged)
-
-    Q_PROPERTY(int subtitlesPreferredTrack
-               READ subtitlesPreferredTrack
-               WRITE setSubtitlesPreferredTrack
-               NOTIFY subtitlesPreferredTrackChanged)
-
-    // *********************************************
     //   PLAYBACK
     // *********************************************
     Q_PROPERTY(bool playbackSkipChapters
@@ -65,19 +43,6 @@ class Settings : public QObject
 public:
     explicit Settings(QObject *parent = nullptr);
 
-
-    // *********************************************
-    //   SUBTITLES
-    // *********************************************
-    QStringList subtitlesFolders();
-    void setSubtitlesFolders(const QStringList &folders);
-
-    QString subtitlesPreferredLanguage();
-    void setSubtitlesPreferredLanguage(const QString &preferredLanguage);
-
-    int subtitlesPreferredTrack();
-    void setSubtitlesPreferredTrack(int preferredTrack);
-
     // *********************************************
     //   PLAYBACK
     // *********************************************
@@ -103,15 +68,6 @@ public:
 
 signals:
     void settingsChanged();
-    // *********************************************
-    //   AUDIO
-    // *********************************************
-    // *********************************************
-    //   SUBTITLES
-    // *********************************************
-    void subtitlesFoldersChanged();
-    void subtitlesPreferredLanguageChanged();
-    void subtitlesPreferredTrackChanged();
     // *********************************************
     //   PLAYBACK
     // *********************************************

@@ -74,6 +74,7 @@ set(${PROJECT_NAME}_SRC
     src/Settings/generalsettings.cpp
     src/Settings/mousesettings.cpp
     src/Settings/playlistsettings.cpp
+    src/Settings/subtitlessettings.cpp
     src/Settings/videosettings.cpp
     src/qml.qrc
     src/playlist/playlistitem.cpp

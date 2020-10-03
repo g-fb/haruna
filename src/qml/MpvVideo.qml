@@ -10,9 +10,10 @@ import mpv 1.0
 
 import AppSettings 1.0
 import AudioSettings 1.0
-import VideoSettings 1.0
-import MouseSettings 1.0
 import GeneralSettings 1.0
+import MouseSettings 1.0
+import SubtitlesSettings 1.0
+import VideoSettings 1.0
 
 MpvObject {
     id: root
@@ -51,10 +52,10 @@ MpvObject {
         setProperty("aid", preferredAudioTrack === 0 ? "auto" : preferredAudioTrack)
         setProperty("alang", AudioSettings.preferredLanguage)
 
-        const preferredSubTrack = AppSettings.subtitlesPreferredTrack
+        const preferredSubTrack = SubtitlesSettings.preferredTrack
         setProperty("sid", preferredSubTrack === 0 ? "auto" : preferredSubTrack)
-        setProperty("slang", AppSettings.subtitlesPreferredLanguage)
-        setProperty("sub-file-paths", AppSettings.subtitlesFolders.join(":"))
+        setProperty("slang", SubtitlesSettings.preferredLanguage)
+        setProperty("sub-file-paths", SubtitlesSettings.subtitlesFolders.join(":"))
 
         if (app.argument(0) !== "") {
             window.openFile(app.argument(0), true, true)
