@@ -14,6 +14,7 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 
+#include <KColorSchemeManager>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -26,6 +27,8 @@ Application::Application(QObject *parent)
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
+
+    m_schemes = new KColorSchemeManager();
 }
 
 QString Application::formatTime(const double time)
@@ -79,6 +82,16 @@ QString Application::getFileContent(QString file)
     QString content = f.readAll();
     f.close();
     return content;
+}
+
+QAbstractItemModel *Application::colorSchemesModel()
+{
+    return m_schemes->model();
+}
+
+void Application::activateColorScheme(const QString &name)
+{
+    m_schemes->activateScheme(m_schemes->indexForScheme(name));
 }
 
 void Application::configureShortcuts()

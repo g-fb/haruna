@@ -21,7 +21,8 @@ GeneralSettings::GeneralSettings(QObject *parent)
         {"LastUrl",        QVariant(QStringLiteral())},
         {"Volume",         QVariant(75)},
         {"ShowMenuBar",    QVariant(true)},
-        {"ShowHeader",     QVariant(true)}
+        {"ShowHeader",     QVariant(true)},
+        {"ColorScheme",    QVariant(QStringLiteral())}
     };
 }
 
@@ -161,6 +162,21 @@ void GeneralSettings::setShowHeader(bool isVisible)
     if (isVisible == showHeader()) {
         return;
     }
+
     set("ShowHeader", QVariant(isVisible).toString());
     emit showHeaderChanged();
+}
+
+QString GeneralSettings::colorScheme()
+{
+    return get("ColorScheme").toString();
+}
+
+void GeneralSettings::setColorScheme(const QString &scheme)
+{
+    if (scheme == colorScheme()) {
+        return;
+    }
+    set("ColorScheme", scheme);
+    emit colorSchemeChanged();
 }
