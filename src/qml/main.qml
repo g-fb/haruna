@@ -151,6 +151,8 @@ Kirigami.ApplicationWindow {
         }
     }
 
+    Component.onCompleted: app.activateColorScheme(GeneralSettings.colorScheme)
+
     function openFile(path, startPlayback, loadSiblings) {
         mpv.setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         mpv.command(["loadfile", path])

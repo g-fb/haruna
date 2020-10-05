@@ -11,15 +11,19 @@
 #include <QAction>
 #include <KActionCollection>
 #include <KSharedConfig>
+#include <QAbstractItemModel>
 
 class HarunaSettings;
 class KActionCollection;
 class KConfigDialog;
+class KColorSchemeManager;
 class QAction;
 
 class Application : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QAbstractItemModel* colorSchemesModel READ colorSchemesModel CONSTANT)
+
 public:
     explicit Application(QObject *parent = nullptr);
     ~Application() = default;
@@ -34,12 +38,16 @@ public slots:
     QString argument(int key);
     QAction* action(const QString &name);
     QString getFileContent(QString file);
+    void activateColorScheme(const QString &name);
 private:
+    QAbstractItemModel *colorSchemesModel();
     void setupActions(const QString &actionName);
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
     KConfigGroup *m_shortcuts;
     QMap<int, QString> m_args;
+    KColorSchemeManager *m_schemes;
+
 };
 
 #endif // APPLICATION_H

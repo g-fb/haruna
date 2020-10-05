@@ -64,6 +64,11 @@ class GeneralSettings : public Settings
                WRITE setShowHeader
                NOTIFY showHeaderChanged)
 
+    Q_PROPERTY(QString colorScheme
+               READ colorScheme
+               WRITE setColorScheme
+               NOTIFY colorSchemeChanged)
+
 public:
     explicit GeneralSettings(QObject *parent = nullptr);
 
@@ -97,6 +102,9 @@ public:
     bool showHeader();
     void setShowHeader(bool isVisible);
 
+    QString colorScheme();
+    void setColorScheme(const QString &scheme);
+
     static GeneralSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -116,6 +124,7 @@ signals:
     void lastUrlChanged();
     void showMenuBarChanged();
     void showHeaderChanged();
+    void colorSchemeChanged();
 
 };
 

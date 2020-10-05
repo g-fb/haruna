@@ -148,6 +148,17 @@ Item {
             Layout.fillWidth: true
         }
 
+        Item {
+            Layout.columnSpan: 2
+            height: 5
+            Rectangle {
+                y: 2
+                width: content.width
+                height: 1
+                color: Kirigami.Theme.alternateBackgroundColor
+            }
+        }
+
         CheckBox {
             text: qsTr("Show MenuBar")
             checked: GeneralSettings.showMenuBar
@@ -160,6 +171,36 @@ Item {
             checked: GeneralSettings.showHeader
             onCheckedChanged: GeneralSettings.showHeader = checked
             Layout.columnSpan: 2
+        }
+
+        Item {
+            Layout.columnSpan: 2
+            height: 5
+            Rectangle {
+                y: 2
+                width: content.width
+                height: 1
+                color: Kirigami.Theme.alternateBackgroundColor
+            }
+        }
+
+        Label {
+            text: qsTr("Color Scheme")
+            Layout.alignment: Qt.AlignRight
+        }
+
+        ComboBox {
+            id: colorThemeSwitcher
+
+            textRole: "display"
+            model: app.colorSchemesModel
+
+            onActivated: {
+                GeneralSettings.colorScheme = colorThemeSwitcher.textAt(index)
+                app.activateColorScheme(GeneralSettings.colorScheme)
+            }
+
+            Component.onCompleted: currentIndex = find(GeneralSettings.colorScheme)
         }
 
     }
