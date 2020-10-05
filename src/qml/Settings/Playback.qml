@@ -63,7 +63,6 @@ Item {
                 ComboBox {
                     id: ytdlFormatComboBox
                     textRole: "key"
-                    valueRole: "value"
                     model: ListModel {
                         id: leftButtonModel
                         ListElement { key: "Custom"; value: "" }

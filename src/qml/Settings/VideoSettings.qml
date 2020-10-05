@@ -42,7 +42,6 @@ Item {
             ComboBox {
                 id: screenshotFormat
                 textRole: "key"
-                valueRole: "value"
                 model: ListModel {
                     id: leftButtonModel
                     ListElement { key: "PNG"; value: "png" }

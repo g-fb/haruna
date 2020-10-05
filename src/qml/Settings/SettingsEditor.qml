@@ -25,6 +25,9 @@ Pane {
     rightPadding: 0
     state: "hidden"
     hoverEnabled: true
+    background: Rectangle {
+        color: Kirigami.Theme.backroundColor
+    }
 
     RowLayout {
         anchors.fill: parent
