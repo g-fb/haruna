@@ -26,7 +26,7 @@ Pane {
     state: "hidden"
     hoverEnabled: true
     background: Rectangle {
-        color: Kirigami.Theme.backroundColor
+        color: Kirigami.Theme.backgroundColor
     }
 
     RowLayout {

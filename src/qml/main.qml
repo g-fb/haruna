@@ -47,7 +47,7 @@ Kirigami.ApplicationWindow {
         implicitHeight: 24
         visible: !window.isFullScreen() && GeneralSettings.showMenuBar
         background: Rectangle {
-            color: Kirigami.Theme.backroundColor
+            color: Kirigami.Theme.backgroundColor
         }
 
         FileMenu {}
