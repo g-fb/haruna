@@ -36,6 +36,6 @@ these are just some features that set Haruna apart from others players
 # Screenshots
 
 Main Window
-![Haruna main window](./data/screenshots/1.%20haruna.png)
+![Haruna main window](./data/screenshots/haruna-dark.png)
 
 #### [More Screenshots](./Screenshots.md)
