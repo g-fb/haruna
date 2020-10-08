@@ -194,6 +194,23 @@ Item {
 
             textRole: "display"
             model: app.colorSchemesModel
+            delegate: ItemDelegate {
+                Kirigami.Theme.colorSet: Kirigami.Theme.View
+                width: parent.width
+                highlighted: model.display === GeneralSettings.colorScheme
+                contentItem: RowLayout {
+                    Kirigami.Icon {
+                        source: model.decoration
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                    }
+                    Label {
+                        text: model.display
+                        color: highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                        Layout.fillWidth: true
+                    }
+                }
+            }
 
             onActivated: {
                 GeneralSettings.colorScheme = colorThemeSwitcher.textAt(index)

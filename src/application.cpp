@@ -28,7 +28,7 @@ Application::Application(QObject *parent)
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
 
-    m_schemes = new KColorSchemeManager();
+    m_schemes = new KColorSchemeManager(this);
 }
 
 QString Application::formatTime(const double time)
