@@ -6,16 +6,19 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Screenshots
 
-Main Window
-![Haruna main window](./data/screenshots/haruna-dark.png)
+## Main Window
+#### Breeze Light
 ![Haruna main window](./data/screenshots/haruna-light.png)
+#### Breeze Dark
+![Haruna main window](./data/screenshots/haruna-dark.png)
+#### Nordic
 ![Haruna main window](./data/screenshots/haruna-nordic.png)
 
-Playlist
+## Playlist
 ![Haruna with playlist open](./data/screenshots/haruna-playlist.png)
 
-Settings
+## Settings
 ![Haruna with settings open](./data/screenshots/haruna-settings.png)
 
-Shortcuts Editor
+## Shortcuts Editor
 ![Haruna shortcuts editor](./data/screenshots/haruna-shortcuts-editor.png)
