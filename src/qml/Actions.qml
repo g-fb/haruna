@@ -9,55 +9,12 @@ import QtQuick.Controls 2.12
 
 import GeneralSettings 1.0
 
-Item {
+QtObject {
     id: root
+
     property var list: ({})
 
-    property alias configureAction: configureAction
-    property alias configureShortcutsAction: configureShortcutsAction
-    property alias openAction: openAction
-    property alias openUrlAction: openUrlAction
-    property alias playPauseAction: playPauseAction
-    property alias quitApplicationAction: quitApplicationAction
-
-    property alias seekForwardSmallAction: seekForwardSmallAction
-    property alias seekBackwardSmallAction: seekBackwardSmallAction
-    property alias seekForwardMediumAction: seekForwardMediumAction
-    property alias seekBackwardMediumAction: seekBackwardMediumAction
-    property alias seekForwardBigAction: seekForwardBigAction
-    property alias seekBackwardBigAction: seekBackwardBigAction
-    property alias seekPreviousChapterAction: seekPreviousChapterAction
-    property alias seekNextChapterAction: seekNextChapterAction
-    property alias seekNextSubtitleAction: seekNextSubtitleAction
-    property alias seekPreviousSubtitleAction: seekPrevSubtitleAction
-
-    property alias frameStepAction: frameStepAction
-    property alias frameBackStepAction: frameBackStepAction
-    property alias increasePlayBackSpeedAction: increasePlayBackSpeedAction
-    property alias decreasePlayBackSpeedAction: decreasePlayBackSpeedAction
-    property alias resetPlayBackSpeedAction: resetPlayBackSpeedAction
-    property alias volumeUpAction: volumeUpAction
-    property alias volumeDownAction: volumeDownAction
-    property alias muteAction: muteAction
-    property alias playNextAction: playNextAction
-    property alias playPreviousAction: playPreviousAction
-    property alias subtitleQuickenAction: subtitleQuickenAction
-    property alias subtitleDelayAction: subtitleDelayAction
-    property alias subtitleToggleAction: subtitleToggleAction
-
-    property alias contrastUpAction: contrastUpAction
-    property alias contrastDownAction: contrastDownAction
-    property alias brightnessUpAction: brightnessUpAction
-    property alias brightnessDownAction: brightnessDownAction
-    property alias gammaUpAction: gammaUpAction
-    property alias gammaDownAction: gammaDownAction
-    property alias saturationUpAction: saturationUpAction
-    property alias saturationDownAction: saturationDownAction
-
-    property alias toggleMenuBarAction: toggleMenuBarAction
-    property alias toggleHeaderAction: toggleHeaderAction
-
-    Action {
+    property Action openContextMenuAction: Action {
         id: openContextMenuAction
         property var qaction: app.action("openContextMenu")
         text: qaction.text
@@ -69,7 +26,7 @@ Item {
         onTriggered: mpvContextMenu.popup()
     }
 
-    Action {
+    property Action togglePlaylistAction: Action {
         id: togglePlaylistAction
         property var qaction: app.action("togglePlaylist")
         text: qaction.text
@@ -87,7 +44,7 @@ Item {
         }
     }
 
-    Action {
+    property Action volumeUpAction: Action {
         id: volumeUpAction
         property var qaction: app.action("volumeUp")
         text: qaction.text
@@ -111,7 +68,7 @@ Item {
         }
     }
 
-    Action {
+    property Action volumeDownAction: Action {
         id: volumeDownAction
         property var qaction: app.action("volumeDown")
         text: qaction.text
@@ -135,7 +92,7 @@ Item {
         }
     }
 
-    Action {
+    property Action muteAction: Action {
         id: muteAction
         property var qaction: app.action("mute")
         text: qaction.text
@@ -156,7 +113,7 @@ Item {
         }
     }
 
-    Action {
+    property Action playNextAction: Action {
         id: playNextAction
         property var qaction: app.action("playNext")
         text: qaction.text
@@ -175,7 +132,7 @@ Item {
         }
     }
 
-    Action {
+    property Action playPreviousAction: Action {
         id: playPreviousAction
         property var qaction: app.action("playPrevious")
         text: qaction.text
@@ -194,7 +151,7 @@ Item {
         }
     }
 
-    Action {
+    property Action openAction: Action {
         id: openAction
         property var qaction: app.action("openFile")
         text: qaction.text
@@ -206,7 +163,7 @@ Item {
         onTriggered: fileDialog.open()
     }
 
-    Action {
+    property Action openUrlAction: Action {
         id: openUrlAction
         property var qaction: app.action("openUrl")
         text: qaction.text
@@ -224,7 +181,7 @@ Item {
         }
     }
 
-    Action {
+    property Action seekForwardSmallAction: Action {
         id: seekForwardSmallAction
         property var qaction: app.action("seekForwardSmall")
         text: qaction.text
@@ -236,7 +193,7 @@ Item {
         onTriggered: mpv.command(["seek", GeneralSettings.seekSmallStep, "exact"])
     }
 
-    Action {
+    property Action seekBackwardSmallAction: Action {
         id: seekBackwardSmallAction
         property var qaction: app.action("seekBackwardSmall")
         text: qaction.text
@@ -248,7 +205,7 @@ Item {
         onTriggered: mpv.command(["seek", -GeneralSettings.seekSmallStep, "exact"])
     }
 
-    Action {
+    property Action seekForwardMediumAction: Action {
         id: seekForwardMediumAction
         property var qaction: app.action("seekForwardMedium")
         text: qaction.text
@@ -260,7 +217,7 @@ Item {
         onTriggered: mpv.command(["seek", GeneralSettings.seekMediumStep, "exact"])
     }
 
-    Action {
+    property Action seekBackwardMediumAction: Action {
         id: seekBackwardMediumAction
         property var qaction: app.action("seekBackwardMedium")
         text: qaction.text
@@ -272,7 +229,7 @@ Item {
         onTriggered: mpv.command(["seek", -GeneralSettings.seekMediumStep, "exact"])
     }
 
-    Action {
+    property Action seekForwardBigAction: Action {
         id: seekForwardBigAction
         property var qaction: app.action("seekForwardBig")
         text: qaction.text
@@ -284,7 +241,7 @@ Item {
         onTriggered: mpv.command(["seek", GeneralSettings.seekBigStep, "exact"])
     }
 
-    Action {
+    property Action seekBackwardBigAction: Action {
         id: seekBackwardBigAction
         property var qaction: app.action("seekBackwardBig")
         text: qaction.text
@@ -296,7 +253,7 @@ Item {
         onTriggered: mpv.command(["seek", -GeneralSettings.seekBigStep, "exact"])
     }
 
-    Action {
+    property Action seekPreviousChapterAction: Action {
         id: seekPreviousChapterAction
         property var qaction: app.action("seekPreviousChapter")
         text: qaction.text
@@ -310,7 +267,7 @@ Item {
         }
     }
 
-    Action {
+    property Action seekNextChapterAction: Action {
         id: seekNextChapterAction
         property var qaction: app.action("seekNextChapter")
         text: qaction.text
@@ -331,7 +288,7 @@ Item {
         }
     }
 
-    Action {
+    property Action seekNextSubtitleAction: Action {
         id: seekNextSubtitleAction
         property var qaction: app.action("seekNextSubtitle")
         text: qaction.text
@@ -349,7 +306,7 @@ Item {
         }
     }
 
-    Action {
+    property Action seekPrevSubtitleAction: Action {
         id: seekPrevSubtitleAction
         property var qaction: app.action("seekPreviousSubtitle")
         text: qaction.text
@@ -367,7 +324,7 @@ Item {
          }
     }
 
-    Action {
+    property Action frameStepAction: Action {
         id: frameStepAction
         property var qaction: app.action("frameStep")
         text: qaction.text
@@ -379,7 +336,7 @@ Item {
         onTriggered: mpv.command(["frame-step"])
     }
 
-    Action {
+    property Action frameBackStepAction: Action {
         id: frameBackStepAction
         property var qaction: app.action("frameBackStep")
         text: qaction.text
@@ -391,7 +348,7 @@ Item {
         onTriggered: mpv.command(["frame-back-step"])
     }
 
-    Action {
+    property Action increasePlayBackSpeedAction: Action {
         id: increasePlayBackSpeedAction
         property var qaction: app.action("increasePlayBackSpeed")
         text: qaction.text
@@ -406,7 +363,7 @@ Item {
         }
     }
 
-    Action {
+    property Action decreasePlayBackSpeedAction: Action {
         id: decreasePlayBackSpeedAction
         property var qaction: app.action("decreasePlayBackSpeed")
         text: qaction.text
@@ -421,7 +378,7 @@ Item {
         }
     }
 
-    Action {
+    property Action resetPlayBackSpeedAction: Action {
         id: resetPlayBackSpeedAction
         property var qaction: app.action("resetPlayBackSpeed")
         text: qaction.text
@@ -436,7 +393,7 @@ Item {
          }
     }
 
-    Action {
+    property Action playPauseAction: Action {
         id: playPauseAction
         text: qsTr("Play/Pause")
         icon.name: "media-playback-pause"
@@ -447,7 +404,7 @@ Item {
         onTriggered: mpv.setProperty("pause", !mpv.getProperty("pause"))
     }
 
-    Action {
+    property Action configureShortcutsAction: Action {
         id: configureShortcutsAction
         property var qaction: app.action("options_configure_keybinding")
         text: qaction.text
@@ -459,7 +416,7 @@ Item {
         onTriggered: qaction.trigger()
     }
 
-    Action {
+    property Action quitApplicationAction: Action {
         id: quitApplicationAction
         property var qaction: app.action("file_quit")
         text: qaction.text
@@ -476,7 +433,7 @@ Item {
         }
     }
 
-    Action {
+    property Action configureAction: Action {
         id: configureAction
         property var qaction: app.action("configure")
         text: qaction.text
@@ -494,7 +451,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitleQuickenAction: Action {
         id: subtitleQuickenAction
         property var qaction: app.action("subtitleQuicken")
         text: qaction.text
@@ -509,7 +466,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitleDelayAction: Action {
         id: subtitleDelayAction
         property var qaction: app.action("subtitleDelay")
         text: qaction.text
@@ -524,7 +481,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitleToggleAction: Action {
         id: subtitleToggleAction
         property var qaction: app.action("subtitleToggle")
         text: qaction.text
@@ -541,7 +498,7 @@ Item {
         }
     }
 
-    Action {
+    property Action audioCycleUpAction: Action {
         id: audioCycleUpAction
         property var qaction: app.action("audioCycleUp")
         text: qaction.text
@@ -570,7 +527,7 @@ Item {
         }
     }
 
-    Action {
+    property Action audioCycleDownAction: Action {
         id: audioCycleDownAction
         property var qaction: app.action("audioCycleDown")
         text: qaction.text
@@ -599,7 +556,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitleCycleUpAction: Action {
         id: subtitleCycleUpAction
         property var qaction: app.action("subtitleCycleUp")
         text: qaction.text
@@ -623,7 +580,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitleCycleDownAction: Action {
         id: subtitleCycleDownAction
         property var qaction: app.action("subtitleCycleDown")
         text: qaction.text
@@ -647,7 +604,7 @@ Item {
         }
     }
 
-    Action {
+    property Action contrastUpAction: Action {
         id: contrastUpAction
         property var qaction: app.action("contrastUp")
         text: qaction.text
@@ -662,7 +619,7 @@ Item {
             osd.message(`Contrast: ${contrast}`)
         }
     }
-    Action {
+    property Action contrastDownAction: Action {
         id: contrastDownAction
         property var qaction: app.action("contrastDown")
         text: qaction.text
@@ -677,7 +634,7 @@ Item {
             osd.message(`Contrast: ${contrast}`)
         }
     }
-    Action {
+    property Action contrastResetAction: Action {
         id: contrastResetAction
         property var qaction: app.action("contrastReset")
         text: qaction.text
@@ -692,7 +649,7 @@ Item {
         }
     }
 
-    Action {
+    property Action brightnessUpAction: Action {
         id: brightnessUpAction
         property var qaction: app.action("brightnessUp")
         text: qaction.text
@@ -707,7 +664,7 @@ Item {
             osd.message(`Brightness: ${brightness}`)
         }
     }
-    Action {
+    property Action brightnessDownAction: Action {
         id: brightnessDownAction
         property var qaction: app.action("brightnessDown")
         text: qaction.text
@@ -722,7 +679,7 @@ Item {
             osd.message(`Brightness: ${brightness}`)
         }
     }
-    Action {
+    property Action brightnessResetAction: Action {
         id: brightnessResetAction
         property var qaction: app.action("brightnessReset")
         text: qaction.text
@@ -736,7 +693,7 @@ Item {
             osd.message(`Brightness: 0`)
         }
     }
-    Action {
+    property Action gammaUpAction: Action {
         id: gammaUpAction
         property var qaction: app.action("gammaUp")
         text: qaction.text
@@ -751,7 +708,7 @@ Item {
             osd.message(`Gamma: ${gamma}`)
         }
     }
-    Action {
+    property Action gammaDownAction: Action {
         id: gammaDownAction
         property var qaction: app.action("gammaDown")
         text: qaction.text
@@ -766,7 +723,7 @@ Item {
             osd.message(`Gamma: ${gamma}`)
         }
     }
-    Action {
+    property Action gammaResetAction: Action {
         id: gammaResetAction
         property var qaction: app.action("gammaReset")
         text: qaction.text
@@ -780,7 +737,7 @@ Item {
             osd.message(`Gamma: 0`)
         }
     }
-    Action {
+    property Action saturationUpAction: Action {
         id: saturationUpAction
         property var qaction: app.action("saturationUp")
         text: qaction.text
@@ -795,7 +752,7 @@ Item {
             osd.message(`Saturation: ${saturation}`)
         }
     }
-    Action {
+    property Action saturationDownAction: Action {
         id: saturationDownAction
         property var qaction: app.action("saturationDown")
         text: qaction.text
@@ -810,7 +767,7 @@ Item {
             osd.message(`Saturation: ${saturation}`)
         }
     }
-    Action {
+    property Action saturationResetAction: Action {
         id: saturationResetAction
         property var qaction: app.action("saturationReset")
         text: qaction.text
@@ -825,7 +782,7 @@ Item {
         }
     }
 
-    Action {
+    property Action zoomInAction: Action {
         id: zoomInAction
         property var qaction: app.action("zoomIn")
         text: qaction.text
@@ -841,7 +798,7 @@ Item {
         }
     }
 
-    Action {
+    property Action zoomOutAction: Action {
         id: zoomOutAction
         property var qaction: app.action("zoomOut")
         text: qaction.text
@@ -856,7 +813,7 @@ Item {
             osd.message(`Zoom: ${zoom.toFixed(2)}`)
         }
     }
-    Action {
+    property Action zoomResetAction: Action {
         id: zoomResetAction
         property var qaction: app.action("zoomReset")
         text: qaction.text
@@ -872,7 +829,7 @@ Item {
     }
 
 
-    Action {
+    property Action videoPanXLeftAction: Action {
         id: videoPanXLeftAction
         property var qaction: app.action("videoPanXLeft")
         text: qaction.text
@@ -887,7 +844,7 @@ Item {
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
     }
-    Action {
+    property Action videoPanXRightAction: Action {
         id: videoPanXRightAction
         property var qaction: app.action("videoPanXRight")
         text: qaction.text
@@ -902,7 +859,7 @@ Item {
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
     }
-    Action {
+    property Action videoPanYUpAction: Action {
         id: videoPanYUpAction
         property var qaction: app.action("videoPanYUp")
         text: qaction.text
@@ -917,7 +874,7 @@ Item {
             osd.message(`Video pan x: ${pan.toFixed(2)}`)
         }
     }
-    Action {
+    property Action videoPanYDownAction: Action {
         id: videoPanYDownAction
         property var qaction: app.action("videoPanYDown")
         text: qaction.text
@@ -933,7 +890,7 @@ Item {
         }
     }
 
-    Action {
+    property Action toggleFullscreenAction: Action {
         id: toggleFullscreenAction
         property var qaction: app.action("toggleFullscreen")
         text: qaction.text
@@ -947,7 +904,7 @@ Item {
         }
     }
 
-    Action {
+    property Action toggleMenuBarAction: Action {
         id: toggleMenuBarAction
         property var qaction: app.action("toggleMenuBar")
         text: qaction.text
@@ -962,7 +919,7 @@ Item {
         }
     }
 
-    Action {
+    property Action toggleHeaderAction: Action {
         id: toggleHeaderAction
         property var qaction: app.action("toggleHeader")
         text: qaction.text
@@ -977,7 +934,7 @@ Item {
         }
     }
 
-    Action {
+    property Action screenshotAction: Action {
         id: screenshotAction
         property var qaction: app.action("screenshot")
         text: qaction.text
@@ -989,7 +946,7 @@ Item {
         onTriggered: mpv.command(["screenshot"])
     }
 
-    Action {
+    property Action setLoopAction: Action {
         id: setLoopAction
         property var qaction: app.action("setLoop")
         text: qaction.text
@@ -1023,7 +980,7 @@ Item {
         }
     }
 
-    Action {
+    property Action increaseSubtitleFontSizeAction: Action {
         id: increaseSubtitleFontSizeAction
         property var qaction: app.action("increaseSubtitleFontSize")
         text: qaction.text
@@ -1038,7 +995,7 @@ Item {
         }
     }
 
-    Action {
+    property Action decreaseSubtitleFontSizeAction: Action {
         id: decreaseSubtitleFontSizeAction
         property var qaction: app.action("decreaseSubtitleFontSize")
         text: qaction.text
@@ -1053,7 +1010,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitlePositionUpAction: Action {
         id: subtitlePositionUpAction
         property var qaction: app.action("subtitlePositionUp")
         text: qaction.text
@@ -1067,7 +1024,7 @@ Item {
         }
     }
 
-    Action {
+    property Action subtitlePositionDownAction: Action {
         id: subtitlePositionDownAction
         property var qaction: app.action("subtitlePositionDown")
         text: qaction.text
