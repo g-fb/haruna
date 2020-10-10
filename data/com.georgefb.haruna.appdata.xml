@@ -20,7 +20,7 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
-        <release version="0.2.0" date="2020-08-24">
+        <release version="0.2.0" date="2020-10-10">
             <description>
                 <p>Added option to change color scheme; Configure > General.</p>
                 <p>Added option to open config folder and file; Configure.</p>
@@ -30,7 +30,7 @@
                 <p>Lots of code refactoring.</p>
             </description>
         </release>
-        <release version="0.1.8" date="2020-10-10">
+        <release version="0.1.8" date="2020-08-24">
             <description>
             <p>Fixed crash when opening mouse settings.</p>
             </description>
