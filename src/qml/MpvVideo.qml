@@ -94,7 +94,7 @@ MpvObject {
             if (chapters[mpv.chapter] && chapters[mpv.chapter].title.toLowerCase().includes(words[i].trim())) {
                 actions.seekNextChapterAction.trigger()
                 if (PlaybackSettings.showOsdOnSkipChapters) {
-                    osd.message(`Skipped chapter: ${chapters[mpv.chapter].title}`)
+                    osd.message(qsTr("Skipped chapter: %1").arg(chapters[mpv.chapter-1].title))
                 }
                 // a chapter title can match multiple words
                 // return to prevent skipping multiple chapters
@@ -276,7 +276,7 @@ MpvObject {
             if (window.preFullScreenVisibility === Window.Windowed) {
                 window.showNormal()
             }
-            if (window.preFullScreenVisibility == Window.Maximized) {
+            if (window.preFullScreenVisibility === Window.Maximized) {
                 window.show()
                 window.showMaximized()
             }
