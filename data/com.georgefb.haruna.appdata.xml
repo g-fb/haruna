@@ -20,9 +20,19 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
-        <release version="0.1.8" date="2020-08-24">
+        <release version="0.2.0" date="2020-08-24">
             <description>
-                <p>Fixed crash when opening mouse settings.</p>
+                <p>Added option to change color scheme; Configure > General.</p>
+                <p>Added option to open config folder and file; Configure.</p>
+                <p>Added option to show row numbers in playlist; Configure > Playlist.</p>
+                <p>Improved theming on non KDE systems.</p>
+                <p>Removed playlist row spacing option.</p>
+                <p>Lots of code refactoring.</p>
+            </description>
+        </release>
+        <release version="0.1.8" date="2020-10-10">
+            <description>
+            <p>Fixed crash when opening mouse settings.</p>
             </description>
         </release>
         <release version="0.1.7" date="2020-08-07">
