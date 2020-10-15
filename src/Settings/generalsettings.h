@@ -105,7 +105,7 @@ public:
     QString colorScheme();
     void setColorScheme(const QString &scheme);
 
-    static GeneralSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

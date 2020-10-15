@@ -28,6 +28,8 @@ public:
     explicit Application(QObject *parent = nullptr);
     ~Application() = default;
 
+    void setupQmlSettingsTypes();
+
 public slots:
     static QString formatTime(const double time);
     static QUrl getPathFromArg(const QString &arg);

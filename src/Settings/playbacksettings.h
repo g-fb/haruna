@@ -47,7 +47,7 @@ public:
     QString ytdlFormat();
     void setYtdlFormat(const QString &format);
 
-    static PlaybackSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

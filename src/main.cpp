@@ -12,13 +12,6 @@
 #include "subtitlesfoldersmodel.h"
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
-#include "Settings/audiosettings.h"
-#include "Settings/generalsettings.h"
-#include "Settings/mousesettings.h"
-#include "Settings/playbacksettings.h"
-#include "Settings/playlistsettings.h"
-#include "Settings/subtitlessettings.h"
-#include "Settings/videosettings.h"
 #include "worker.h"
 
 #include <QApplication>
@@ -109,7 +102,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<PlayListModel>("PlayListModel", 1, 0, "PlayListModel",
                                                QStringLiteral("PlayListModel should not be created in QML"));
 
-    engine.rootContext()->setContextProperty(QStringLiteral("app"), myApp.release());
+    engine.rootContext()->setContextProperty(QStringLiteral("app"), myApp.get());
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
                                             QStringLiteral("Application should not be created in QML"));
 
@@ -118,13 +111,9 @@ int main(int argc, char *argv[])
                                             QStringLiteral("LockManager should not be created in QML"));
 
     engine.rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
-    qmlRegisterSingletonType<VideoSettings>("VideoSettings", 1, 0, "VideoSettings", VideoSettings::provider);
-    qmlRegisterSingletonType<MouseSettings>("MouseSettings", 1, 0, "MouseSettings", MouseSettings::provider);
-    qmlRegisterSingletonType<PlaylistSettings>("PlaylistSettings", 1, 0, "PlaylistSettings", PlaylistSettings::provider);
-    qmlRegisterSingletonType<PlaybackSettings>("PlaybackSettings", 1, 0, "PlaybackSettings", PlaybackSettings::provider);
-    qmlRegisterSingletonType<GeneralSettings>("GeneralSettings", 1, 0, "GeneralSettings", GeneralSettings::provider);
-    qmlRegisterSingletonType<AudioSettings>("AudioSettings", 1, 0, "AudioSettings", AudioSettings::provider);
-    qmlRegisterSingletonType<SubtitlesSettings>("SubtitlesSettings", 1, 0, "SubtitlesSettings", SubtitlesSettings::provider);
+
+    myApp.get()->setupQmlSettingsTypes();
+
     engine.load(url);
     return QApplication::exec();
 }

@@ -79,7 +79,7 @@ public:
     QString scrollDownAction();
     void setScrollDownAction(const QString &action);
 
-    static MouseSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

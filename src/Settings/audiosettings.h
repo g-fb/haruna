@@ -31,7 +31,7 @@ public:
     int preferredTrack();
     void setPreferredTrack(int track);
 
-    static AudioSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

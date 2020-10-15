@@ -39,7 +39,7 @@ public:
     int preferredTrack();
     void setPreferredTrack(int track);
 
-    static SubtitlesSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

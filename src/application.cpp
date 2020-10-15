@@ -7,6 +7,13 @@
 #include "_debug.h"
 #include "application.h"
 #include "haction.h"
+#include "Settings/audiosettings.h"
+#include "Settings/generalsettings.h"
+#include "Settings/mousesettings.h"
+#include "Settings/playbacksettings.h"
+#include "Settings/playlistsettings.h"
+#include "Settings/subtitlessettings.h"
+#include "Settings/videosettings.h"
 
 #include <QApplication>
 #include <QCoreApplication>
@@ -29,6 +36,17 @@ Application::Application(QObject *parent)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
 
     m_schemes = new KColorSchemeManager(this);
+}
+
+void Application::setupQmlSettingsTypes()
+{
+    qmlRegisterSingletonType<AudioSettings>("AudioSettings", 1, 0, "AudioSettings", &AudioSettings::provider);
+    qmlRegisterSingletonType<GeneralSettings>("GeneralSettings", 1, 0, "GeneralSettings", &GeneralSettings::provider);
+    qmlRegisterSingletonType<MouseSettings>("MouseSettings", 1, 0, "MouseSettings", &MouseSettings::provider);
+    qmlRegisterSingletonType<PlaybackSettings>("PlaybackSettings", 1, 0, "PlaybackSettings", &PlaybackSettings::provider);
+    qmlRegisterSingletonType<PlaylistSettings>("PlaylistSettings", 1, 0, "PlaylistSettings", &PlaylistSettings::provider);
+    qmlRegisterSingletonType<SubtitlesSettings>("SubtitlesSettings", 1, 0, "SubtitlesSettings", &SubtitlesSettings::provider);
+    qmlRegisterSingletonType<VideoSettings>("VideoSettings", 1, 0, "VideoSettings", &VideoSettings::provider);
 }
 
 QString Application::formatTime(const double time)

@@ -32,7 +32,7 @@ public:
     void setScreenshotFormat(QString format);
 
 
-    static VideoSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)

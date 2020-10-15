@@ -55,7 +55,7 @@ public:
     bool bigFontFullscreen();
     void setBigFontFullscreen(bool bigFont);
 
-    static PlaylistSettings *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
