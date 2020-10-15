@@ -9,9 +9,9 @@ import QtQuick.Window 2.1
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
-import org.kde.kirigami 2.11 as Kirigami
 
-import GeneralSettings 1.0
+import org.kde.kirigami 2.11 as Kirigami
+import com.georgefb.haruna 1.0 as Haruna
 
 Pane {
     id: root
@@ -97,12 +97,12 @@ Pane {
 
                         MenuItem {
                             text: qsTr("Folder")
-                            onTriggered: Qt.openUrlExternally(GeneralSettings.configFolderPath)
+                            onTriggered: Qt.openUrlExternally(Haruna.GeneralSettings.configFolderPath)
                         }
 
                         MenuItem {
                             text: qsTr("File")
-                            onTriggered: Qt.openUrlExternally(GeneralSettings.configFilePath)
+                            onTriggered: Qt.openUrlExternally(Haruna.GeneralSettings.configFilePath)
                         }
                     }
                 }

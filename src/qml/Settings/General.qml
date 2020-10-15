@@ -9,7 +9,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.11 as Kirigami
 
-import GeneralSettings 1.0
+import com.georgefb.haruna 1.0
 
 Item {
     id: root

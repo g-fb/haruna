@@ -10,10 +10,9 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
 import Qt.labs.platform 1.0 as Platform
-import org.kde.kirigami 2.11 as Kirigami
 
-import GeneralSettings 1.0
-import PlaybackSettings 1.0
+import org.kde.kirigami 2.11 as Kirigami
+import com.georgefb.haruna 1.0
 
 import mpv 1.0
 import "Menus"

@@ -8,12 +8,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import mpv 1.0
 
-import AudioSettings 1.0
-import GeneralSettings 1.0
-import MouseSettings 1.0
-import PlaybackSettings 1.0
-import SubtitlesSettings 1.0
-import VideoSettings 1.0
+import com.georgefb.haruna 1.0
 
 MpvObject {
     id: root

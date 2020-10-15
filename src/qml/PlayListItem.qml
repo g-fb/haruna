@@ -9,9 +9,9 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.12
-import org.kde.kirigami 2.11 as Kirigami
 
-import PlaylistSettings 1.0
+import org.kde.kirigami 2.11 as Kirigami
+import com.georgefb.haruna 1.0
 
 Kirigami.BasicListItem {
     id: root
