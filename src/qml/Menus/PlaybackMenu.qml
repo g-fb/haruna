@@ -42,7 +42,7 @@ Menu {
         MenuSeparator {}
 
         MenuItem { action: actions["seekNextSubtitleAction"] }
-        MenuItem { action: actions["seekPreviousSubtitleAction"] }
+        MenuItem { action: actions["seekPrevSubtitleAction"] }
 
         MenuSeparator {}
 
