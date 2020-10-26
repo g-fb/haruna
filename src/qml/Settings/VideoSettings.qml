@@ -45,19 +45,26 @@ Item {
                 textRole: "key"
                 model: ListModel {
                     id: leftButtonModel
-                    ListElement { key: "PNG"; value: "png" }
-                    ListElement { key: "JPG"; value: "jpg" }
-                    ListElement { key: "WebP"; value: "webp" }
+                    ListElement { key: "PNG"; }
+                    ListElement { key: "JPG"; }
+                    ListElement { key: "WebP"; }
                 }
 
                 onActivated: {
-                    VideoSettings.screenshotFormat = model.get(index).value
+                    VideoSettings.screenshotFormat = model.get(index).key
                     mpv.setProperty("screenshot-format", VideoSettings.screenshotFormat)
                 }
 
                 Component.onCompleted: {
-                    let i = indexOfValue(VideoSettings.screenshotFormat)
-                    currentIndex = (i === -1) ? 0 : i
+                    if (VideoSettings.screenshotFormat === "PNG") {
+                        currentIndex = 0
+                    }
+                    if (VideoSettings.screenshotFormat === "JPG") {
+                        currentIndex = 1
+                    }
+                    if (VideoSettings.screenshotFormat === "WebP") {
+                        currentIndex = 2
+                    }
                 }
             }
         }

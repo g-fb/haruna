@@ -62,6 +62,7 @@ Item {
             RowLayout {
                 ComboBox {
                     id: ytdlFormatComboBox
+                    property string hCurrentvalue: ""
                     textRole: "key"
                     model: ListModel {
                         id: leftButtonModel
@@ -77,6 +78,7 @@ Item {
                     }
 
                     onActivated: {
+                        hCurrentvalue = model.get(index).value
                         if (index === 0) {
                             ytdlFormatField.text = PlaybackSettings.ytdlFormat
                         }
@@ -84,11 +86,31 @@ Item {
                             ytdlFormatField.focus = true
                             ytdlFormatField.text = model.get(index).value
                         }
+                        PlaybackSettings.ytdlFormat = ytdlFormatField.text
                     }
 
                     Component.onCompleted: {
-                        let i = indexOfValue(PlaybackSettings.ytdlFormat)
+                        let i = hIndexOfValue(PlaybackSettings.ytdlFormat)
                         currentIndex = (i === -1) ? 0 : i
+                    }
+
+                    function hIndexOfValue(value) {
+                        if (value === "bestvideo[height<=2160]+bestaudio/best") {
+                            return 1
+                        }
+                        if (value === "bestvideo[height<=1440]+bestaudio/best") {
+                            return 2
+                        }
+                        if (value === "bestvideo[height<=1080]+bestaudio/best") {
+                            return 3
+                        }
+                        if (value === "bestvideo[height<=720]+bestaudio/best") {
+                            return 4
+                        }
+                        if (value === "bestvideo[height<=480]+bestaudio/best") {
+                            return 5
+                        }
+                        return 0
                     }
                 }
             }
@@ -100,12 +122,12 @@ Item {
                 placeholderText: qsTr("bestvideo+bestaudio/best")
 
                 onTextChanged: {
-                    if (ytdlFormatComboBox.currentValue !== ytdlFormatField.text) {
+                    if (ytdlFormatComboBox.hCurrentvalue !== ytdlFormatField.text) {
                         ytdlFormatComboBox.currentIndex = 0
                         return;
                     }
-                    if (ytdlFormatComboBox.indexOfValue(ytdlFormatField.text) !== -1) {
-                        ytdlFormatComboBox.currentIndex = ytdlFormatComboBox.indexOfValue(ytdlFormatField.text)
+                    if (ytdlFormatComboBox.hIndexOfValue(ytdlFormatField.text) !== -1) {
+                        ytdlFormatComboBox.currentIndex = ytdlFormatComboBox.hIndexOfValue(ytdlFormatField.text)
                         return;
                     }
                 }
