@@ -58,50 +58,6 @@ set_package_properties(KF5XmlGui PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
-set(${PROJECT_NAME}_SRC
-    src/application.cpp
-    src/haction.cpp
-    src/lockmanager.cpp
-    src/main.cpp
-    src/mpvobject.cpp
-    src/qthelper.h
-    src/playlist/playlistitem.cpp
-    src/playlist/playlistmodel.cpp
-    src/Settings/audiosettings.cpp
-    src/Settings/generalsettings.cpp
-    src/Settings/mousesettings.cpp
-    src/Settings/playbacksettings.cpp
-    src/Settings/playlistsettings.cpp
-    src/Settings/settings.cpp
-    src/Settings/subtitlessettings.cpp
-    src/Settings/videosettings.cpp
-    src/subtitlesfoldersmodel.cpp
-    src/track.cpp
-    src/tracksmodel.cpp
-    src/worker.cpp
-    src/qml.qrc
-    help/help.qrc
-)
-
-qt5_add_dbus_interface(${PROJECT_NAME}_SRC org.freedesktop.ScreenSaver.xml screensaverdbusinterface)
-add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
-target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt5::Core
-    Qt5::Quick
-    Qt5::QuickControls2
-
-    KF5::ConfigGui
-    KF5::CoreAddons
-    KF5::FileMetaData
-    KF5::I18n
-    KF5::XmlGui
-    mpv
-)
-
-ecm_install_icons(ICONS data/256-apps-com.georgefb.haruna.svg DESTINATION ${KDE_INSTALL_ICONDIR})
-install(TARGETS ${PROJECT_NAME} DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES data/com.georgefb.haruna.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
-install(PROGRAMS data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+add_subdirectory(src)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
