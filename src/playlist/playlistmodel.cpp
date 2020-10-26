@@ -6,8 +6,8 @@
 
 #include "playlistmodel.h"
 #include "playlistitem.h"
-#include "../_debug.h"
-#include <src/worker.h>
+#include "_debug.h"
+#include "worker.h"
 
 #include <QCollator>
 #include <QDirIterator>
