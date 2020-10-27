@@ -33,6 +33,7 @@ ToolBar {
         ToolButton {
             icon.name: "application-menu"
             visible: !menuBar.visible
+            focusPolicy: Qt.NoFocus
             onClicked: {
                 if (mpvContextMenu.visible) {
                     return
@@ -49,6 +50,7 @@ ToolBar {
             action: actions.playPauseAction
             text: ""
             icon.name: "media-playback-start"
+            focusPolicy: Qt.NoFocus
 
             ToolTip {
                 id: playPauseButtonToolTip
@@ -60,6 +62,7 @@ ToolBar {
             id: playPreviousFile
             action: actions.playPreviousAction
             text: ""
+            focusPolicy: Qt.NoFocus
 
             ToolTip {
                 text: qsTr("Play Previous File")
@@ -70,6 +73,7 @@ ToolBar {
             id: playNextFile
             action: actions.playNextAction
             text: ""
+            focusPolicy: Qt.NoFocus
 
             ToolTip {
                 text: qsTr("Play Next File")
@@ -114,6 +118,7 @@ ToolBar {
             id: mute
             action: actions.muteAction
             text: ""
+            focusPolicy: Qt.NoFocus
 
             ToolTip {
                 text: actions.muteAction.text

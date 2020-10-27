@@ -37,13 +37,16 @@ ToolBar {
                 action: actions.configureAction
                 checkable: true
                 checked: settingsEditor.state === "visible"
+                focusPolicy: Qt.NoFocus
             }
             ToolButton {
                 action: actions.openAction
+                focusPolicy: Qt.NoFocus
             }
 
             ToolButton {
                 action: actions.openUrlAction
+                focusPolicy: Qt.NoFocus
                 MouseArea {
                     anchors.fill: parent
                     acceptedButtons: Qt.MiddleButton
@@ -74,6 +77,7 @@ ToolBar {
 
                 text: qsTr("Subtitles")
                 icon.name: "media-view-subtitles-symbolic"
+                focusPolicy: Qt.NoFocus
 
                 onClicked: {
                     if (subtitleMenuButton.model === 0) {
@@ -134,6 +138,7 @@ ToolBar {
             ToolButton {
                 text: qsTr("Audio")
                 icon.name: "audio-volume-high"
+                focusPolicy: Qt.NoFocus
 
                 onClicked: {
                     if (audioMenuInstantiator.model === 0) {
@@ -175,6 +180,7 @@ ToolBar {
                 // doens't work on the first try in certain circumstances
                 text: actions.quitApplicationAction.text
                 icon: actions.quitApplicationAction.icon
+                focusPolicy: Qt.NoFocus
                 onClicked: actions.quitApplicationAction.trigger()
             }
         }
