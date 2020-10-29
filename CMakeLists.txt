@@ -60,7 +60,7 @@ set_package_properties(KF5XmlGui PROPERTIES
 
 add_subdirectory(src)
 
-install(PROGRAMS data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES data/com.georgefb.haruna.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 ecm_install_icons(ICONS data/256-apps-com.georgefb.haruna.svg DESTINATION ${KDE_INSTALL_ICONDIR})
 
