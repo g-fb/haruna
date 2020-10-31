@@ -29,8 +29,6 @@ Item {
         ListView {
             id: buttonsView
 
-            property int index: -1
-
             implicitHeight: 50 * (buttonsView.count + 1)
             model: ["Left", "Left.x2", "Middle", "Middle.x2", "Right", "Right.x2", "ScrollUp", "ScrollDown"]
             header: RowLayout {
@@ -47,6 +45,7 @@ Item {
                 }
             }
             delegate: Kirigami.BasicListItem {
+                id: delegate
                 property string actionLabel: MouseSettings.get(modelData)
                 property string buttonLabel: modelData
 
@@ -79,18 +78,20 @@ Item {
                     }
                 }
 
+                Connections {
+                    target: selectActionPopup
+                    onActionSelected: {
+                        if (selectActionPopup.buttonIndex === model.index) {
+                            delegate.actionLabel = actionName
+                            MouseSettings.set(delegate.buttonLabel, actionName)
+                        }
+                    }
+                }
+
                 function openSelectActionPopup() {
-                    buttonsView.index = model.index
+                    selectActionPopup.buttonIndex = model.index
                     selectActionPopup.headerTitle = buttonLabel
                     selectActionPopup.open()
-                }
-            }
-            Connections {
-                target: selectActionPopup
-                onActionSelected: {
-                    const item  = buttonsView.itemAtIndex(buttonsView.index)
-                    item.actionLabel = actionName
-                    MouseSettings.set(item.buttonLabel, actionName)
                 }
             }
         }

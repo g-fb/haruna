@@ -13,6 +13,7 @@ Popup {
     id: root
 
     property string headerTitle
+    property int buttonIndex: -1
 
     signal actionSelected(string actionName)
 
