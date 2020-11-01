@@ -76,14 +76,14 @@ Item {
                         Layout.alignment: Qt.AlignRight
                         onClicked: openSelectActionPopup()
                     }
-                }
 
-                Connections {
-                    target: selectActionPopup
-                    onActionSelected: {
-                        if (selectActionPopup.buttonIndex === model.index) {
-                            delegate.actionLabel = actionName
-                            MouseSettings.set(delegate.buttonLabel, actionName)
+                    Connections {
+                        target: selectActionPopup
+                        onActionSelected: {
+                            if (selectActionPopup.buttonIndex === model.index) {
+                                delegate.actionLabel = actionName
+                                MouseSettings.set(delegate.buttonLabel, actionName)
+                            }
                         }
                     }
                 }
