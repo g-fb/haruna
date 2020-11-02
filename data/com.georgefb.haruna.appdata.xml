@@ -20,6 +20,12 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.2.2" date="2020-10-10">
+            <description>
+                <p>Fix header and footer buttons triggering when pressing space key after they were clicked, resulting in both the button's action and the play/pause action (space key) being triggered.</p>
+                <p>Code refactoring to be compatible with qt 5.12.</p>
+            </description>
+        </release>
         <release version="0.2.0" date="2020-10-10">
             <description>
                 <p>Added option to change color scheme; Configure > General.</p>
