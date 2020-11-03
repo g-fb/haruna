@@ -126,8 +126,14 @@ QtObject {
             const nextFileRow = playListModel.getPlayingVideo() + 1
             if (nextFileRow < playList.playlistView.count) {
                 const nextFile = playListModel.getPath(nextFileRow)
-                window.openFile(nextFile, true, false)
+                mpv.command(["loadfile", nextFile])
                 playListModel.setPlayingVideo(nextFileRow)
+            } else {
+                // Last file in playlist
+                if (PlaylistSettings.repeat) {
+                    mpv.command(["loadfile", playListModel.getPath(0)])
+                    playListModel.setPlayingVideo(0)
+                }
             }
         }
     }
