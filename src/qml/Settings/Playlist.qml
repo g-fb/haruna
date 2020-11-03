@@ -33,7 +33,6 @@ Item {
             textRole: "key"
             Layout.fillWidth: true
             model: ListModel {
-                id: leftButtonModel
                 ListElement { key: "Left"; value: "left" }
                 ListElement { key: "Right"; value: "right" }
             }
@@ -65,6 +64,13 @@ Item {
                 playList.rowHeight = value
                 playList.playlistView.forceLayout()
             }
+        }
+
+        CheckBox {
+            checked: PlaylistSettings.repeat
+            text: qsTr("Repeat")
+            Layout.columnSpan: 2
+            onCheckStateChanged: PlaylistSettings.repeat = checked
         }
 
         CheckBox {

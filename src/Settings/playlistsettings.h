@@ -37,23 +37,31 @@ class PlaylistSettings : public Settings
                WRITE setBigFontFullscreen
                NOTIFY bigFontFullscreenChanged)
 
+    Q_PROPERTY(bool repeat
+               READ repeat
+               WRITE setRepeat
+               NOTIFY repeatChanged)
+
 public:
     explicit PlaylistSettings(QObject *parent = nullptr);
 
     QString position();
-    void setPosition(const QString &position);
+    void setPosition(const QString &value);
 
     int rowHeight();
-    void setRowHeight(int height);
+    void setRowHeight(int value);
 
     bool showRowNumber();
-    void setShowRowNumber(bool showRowNumber);
+    void setShowRowNumber(bool value);
 
     bool canToggleWithMouse();
-    void setCanToggleWithMouse(bool toggleWithMouse);
+    void setCanToggleWithMouse(bool value);
 
     bool bigFontFullscreen();
-    void setBigFontFullscreen(bool bigFont);
+    void setBigFontFullscreen(bool value);
+
+    bool repeat();
+    void setRepeat(bool value);
 
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
@@ -69,6 +77,7 @@ signals:
     void showRowNumberChanged();
     void canToggleWithMouseChanged();
     void bigFontFullscreenChanged();
+    void repeatChanged();
 
 };
 

@@ -16,6 +16,7 @@ PlaylistSettings::PlaylistSettings(QObject *parent)
         {"Position",           QVariant(QStringLiteral("right"))},
         {"RowHeight",          QVariant(10)},
         {"BigFontFullscreen",  QVariant(true)},
+        {"Repeat",             QVariant(true)},
     };
 }
 
@@ -24,12 +25,12 @@ QString PlaylistSettings::position()
     return get("Position").toString();
 }
 
-void PlaylistSettings::setPosition(const QString &pos)
+void PlaylistSettings::setPosition(const QString &value)
 {
-    if (pos == position()) {
+    if (value == position()) {
         return;
     }
-    set("Position", pos);
+    set("Position", value);
     emit positionChanged();
 }
 
@@ -38,12 +39,12 @@ int PlaylistSettings::rowHeight()
     return get("RowHeight").toInt();
 }
 
-void PlaylistSettings::setRowHeight(int height)
+void PlaylistSettings::setRowHeight(int value)
 {
-    if (height == rowHeight()) {
+    if (value == rowHeight()) {
         return;
     }
-    set("RowHeight", QString::number(height));
+    set("RowHeight", QString::number(value));
     emit rowHeightChanged();
 }
 
@@ -52,12 +53,12 @@ bool PlaylistSettings::showRowNumber()
     return get("ShowRowNumber").toBool();
 }
 
-void PlaylistSettings::setShowRowNumber(bool show)
+void PlaylistSettings::setShowRowNumber(bool value)
 {
-    if (show == showRowNumber()) {
+    if (value == showRowNumber()) {
         return;
     }
-    set("ShowRowNumber", QVariant(show).toString());
+    set("ShowRowNumber", QVariant(value).toString());
     emit showRowNumberChanged();
 }
 
@@ -66,12 +67,12 @@ bool PlaylistSettings::canToggleWithMouse()
     return get("CanToggleWithMouse").toBool();
 }
 
-void PlaylistSettings::setCanToggleWithMouse(bool toggleWithMouse)
+void PlaylistSettings::setCanToggleWithMouse(bool value)
 {
-    if (toggleWithMouse == canToggleWithMouse()) {
+    if (value == canToggleWithMouse()) {
         return;
     }
-    set("CanToggleWithMouse", QVariant(toggleWithMouse).toString());
+    set("CanToggleWithMouse", QVariant(value).toString());
     emit canToggleWithMouseChanged();
 }
 
@@ -80,11 +81,25 @@ bool PlaylistSettings::bigFontFullscreen()
     return get("BigFontFullscreen").toBool();
 }
 
-void PlaylistSettings::setBigFontFullscreen(bool bigFont)
+void PlaylistSettings::setBigFontFullscreen(bool value)
 {
-    if (bigFont == bigFontFullscreen()) {
+    if (value == bigFontFullscreen()) {
         return;
     }
-    set("BigFontFullscreen", QVariant(bigFont).toString());
+    set("BigFontFullscreen", QVariant(value).toString());
     emit bigFontFullscreenChanged();
+}
+
+bool PlaylistSettings::repeat()
+{
+    return get("Repeat").toBool();
+}
+
+void PlaylistSettings::setRepeat(bool value)
+{
+    if (value == repeat()) {
+        return;
+    }
+    set("Repeat", QVariant(value).toString());
+    emit repeatChanged();
 }
