@@ -86,6 +86,12 @@ class MpvObject : public QQuickFramebufferObject
                WRITE setSaturation
                NOTIFY saturationChanged)
 
+    Q_PROPERTY(double watchPercentage
+               MEMBER m_watchPercentage
+               READ watchPercentage
+               WRITE setWatchPercentage
+               NOTIFY watchPercentageChanged)
+
 
     QString mediaTitle();
 
@@ -123,6 +129,9 @@ class MpvObject : public QQuickFramebufferObject
     int saturation();
     void setSaturation(int value);
 
+    double watchPercentage();
+    void setWatchPercentage(double value);
+
 
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
@@ -159,6 +168,7 @@ signals:
     void saturationChanged();
     void fileLoaded();
     void endOfFile();
+    void watchPercentageChanged();
     void ready();
 
 private:
@@ -166,6 +176,8 @@ private:
     TracksModel *m_subtitleTracksModel;
     QMap<int, Track*> m_subtitleTracks;
     QMap<int, Track*> m_audioTracks;
+    QList<int> m_secondsWatched;
+    double m_watchPercentage;
 
     void loadTracks();
 };

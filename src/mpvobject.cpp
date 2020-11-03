@@ -296,6 +296,20 @@ void MpvObject::setSaturation(int value)
     emit saturationChanged();
 }
 
+double MpvObject::watchPercentage()
+{
+    return m_watchPercentage;
+}
+
+void MpvObject::setWatchPercentage(double value)
+{
+    if (m_watchPercentage == value) {
+        return;
+    }
+    m_watchPercentage = value;
+    emit watchPercentageChanged();
+}
+
 
 QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 {
@@ -334,6 +348,13 @@ void MpvObject::eventHandler()
 
             if (strcmp(prop->name, "time-pos") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
+                    int pos = getProperty("time-pos").toInt();
+                    double duration = getProperty("duration").toDouble();
+                    if (!m_secondsWatched.contains(pos)) {
+                        m_secondsWatched << pos;
+                        setWatchPercentage(m_secondsWatched.count() * 100 / duration);
+                    }
+
                     emit positionChanged();
                 }
             } else if (strcmp(prop->name, "media-title") == 0) {
