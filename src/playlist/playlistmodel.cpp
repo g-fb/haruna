@@ -95,13 +95,7 @@ void PlayListModel::getVideos(QString path)
     beginInsertRows(QModelIndex(), 0, videoFiles.count() - 1);
 
     for (int i = 0; i < videoFiles.count(); ++i) {
-        QFileInfo fileInfo(videoFiles.at(i));
-        auto video = std::make_shared<PlayListItem>();
-        video->setFileName(fileInfo.fileName());
-        video->setIndex(i);
-        video->setFilePath(fileInfo.absoluteFilePath());
-        video->setFolderPath(fileInfo.absolutePath());
-        video->setIsPlaying(false);
+        auto video = std::make_shared<PlayListItem>(videoFiles.at(i), i);
         m_playList.emplace(i, video);
         if (path == videoFiles.at(i)) {
             setPlayingVideo(i);

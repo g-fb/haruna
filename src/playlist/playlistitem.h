@@ -12,7 +12,7 @@
 class PlayListItem
 {
 public:
-    explicit PlayListItem() = default;
+    explicit PlayListItem(const QString &path, int i = 0);
 
     QString filePath() const;
     void setFilePath(const QString &filePath);

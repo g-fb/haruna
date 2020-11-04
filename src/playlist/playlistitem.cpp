@@ -6,6 +6,18 @@
 
 #include "playlistitem.h"
 
+#include <QFileInfo>
+
+PlayListItem::PlayListItem(const QString &path, int i)
+{
+    QFileInfo fileInfo(path);
+    setFileName(fileInfo.fileName());
+    setFilePath(fileInfo.absoluteFilePath());
+    setFolderPath(fileInfo.absolutePath());
+    setIndex(i);
+    setIsPlaying(false);
+}
+
 QString PlayListItem::filePath() const
 {
     return m_filePath;
