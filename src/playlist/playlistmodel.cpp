@@ -69,10 +69,7 @@ QHash<int, QByteArray> PlayListModel::roleNames() const
 
 void PlayListModel::getVideos(QString path)
 {
-    beginResetModel();
-    m_playList.clear();
-    endResetModel();
-    m_playingVideo = -1;
+    clear();
     path = QUrl(path).toLocalFile().isEmpty() ? path : QUrl(path).toLocalFile();
     QFileInfo pathInfo(path);
     QStringList videoFiles;
@@ -114,6 +111,14 @@ Playlist PlayListModel::items() const
 int PlayListModel::getPlayingVideo() const
 {
     return m_playingVideo;
+}
+
+void PlayListModel::clear()
+{
+    m_playingVideo = -1;
+    beginResetModel();
+    m_playList.clear();
+    endResetModel();
 }
 
 QString PlayListModel::getPath(int i)

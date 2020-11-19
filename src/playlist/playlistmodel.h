@@ -50,6 +50,7 @@ public slots:
     void getVideos(QString path);
     void setPlayingVideo(int playingVideo);
     int getPlayingVideo() const;
+    void clear();
 
 private:
     Playlist m_playList;

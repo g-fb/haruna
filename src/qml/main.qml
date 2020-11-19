@@ -128,7 +128,7 @@ Kirigami.ApplicationWindow {
                         openUrlTextField.clear()
                         // clear playlist to prevent existing files in the playlist
                         // to be loaded when playback ends
-                        playList.playlistView.model = 0
+                        playListModel.clear()
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -144,7 +144,7 @@ Kirigami.ApplicationWindow {
                     GeneralSettings.lastUrl = openUrlTextField.text
                     openUrlPopup.close()
                     openUrlTextField.clear()
-                    playList.playlistView.model = 0
+                    playListModel.clear()
                 }
             }
         }
