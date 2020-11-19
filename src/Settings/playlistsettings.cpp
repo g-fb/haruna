@@ -17,6 +17,7 @@ PlaylistSettings::PlaylistSettings(QObject *parent)
         {"RowHeight",          QVariant(10)},
         {"BigFontFullscreen",  QVariant(true)},
         {"Repeat",             QVariant(true)},
+        {"LoadSiblings",       QVariant(true)},
     };
 }
 
@@ -102,4 +103,18 @@ void PlaylistSettings::setRepeat(bool value)
     }
     set("Repeat", QVariant(value).toString());
     emit repeatChanged();
+}
+
+bool PlaylistSettings::loadSiblings()
+{
+    return get("LoadSiblings").toBool();
+}
+
+void PlaylistSettings::setLoadSiblings(bool value)
+{
+    if (value == loadSiblings()) {
+        return;
+    }
+    set("LoadSiblings", QVariant(value).toString());
+    emit loadSiblingsChanged();
 }

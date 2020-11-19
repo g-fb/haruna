@@ -67,6 +67,13 @@ Item {
         }
 
         CheckBox {
+            checked: PlaylistSettings.loadSiblings
+            text: qsTr("Auto load videos from same folder")
+            Layout.columnSpan: 2
+            onCheckStateChanged: PlaylistSettings.loadSiblings = checked
+        }
+
+        CheckBox {
             checked: PlaylistSettings.repeat
             text: qsTr("Repeat")
             Layout.columnSpan: 2

@@ -42,6 +42,11 @@ class PlaylistSettings : public Settings
                WRITE setRepeat
                NOTIFY repeatChanged)
 
+    Q_PROPERTY(bool loadSiblings
+               READ loadSiblings
+               WRITE setLoadSiblings
+               NOTIFY loadSiblingsChanged)
+
 public:
     explicit PlaylistSettings(QObject *parent = nullptr);
 
@@ -63,6 +68,9 @@ public:
     bool repeat();
     void setRepeat(bool value);
 
+    bool loadSiblings();
+    void setLoadSiblings(bool value);
+
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -78,6 +86,7 @@ signals:
     void canToggleWithMouseChanged();
     void bigFontFullscreenChanged();
     void repeatChanged();
+    void loadSiblingsChanged();
 
 };
 

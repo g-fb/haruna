@@ -53,11 +53,11 @@ MpvObject {
         setProperty("sub-file-paths", SubtitlesSettings.subtitlesFolders.join(":"))
 
         if (app.argument(0) !== "") {
-            window.openFile(app.argument(0), true, true)
+            window.openFile(app.argument(0), true, PlaylistSettings.loadSiblings)
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
-            window.openFile(GeneralSettings.lastPlayedFile, false, true)
+            window.openFile(GeneralSettings.lastPlayedFile, false, PlaylistSettings.loadSiblings)
         }
     }
 
@@ -265,7 +265,7 @@ MpvObject {
         keys: ["text/uri-list"]
 
         onDropped: {
-            window.openFile(drop.urls[0], true, true)
+            window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
         }
     }
 

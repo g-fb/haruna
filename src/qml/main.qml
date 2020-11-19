@@ -93,7 +93,7 @@ Kirigami.ApplicationWindow {
         fileMode: Platform.FileDialog.OpenFile
 
         onAccepted: {
-            openFile(fileDialog.file.toString(), true, true)
+            openFile(fileDialog.file.toString(), true, PlaylistSettings.loadSiblings)
             // the timer scrolls the playlist to the playing file
             // once the table view rows are loaded
             mpv.scrollPositionTimer.start()
@@ -126,9 +126,6 @@ Kirigami.ApplicationWindow {
                         GeneralSettings.lastUrl = openUrlTextField.text
                         openUrlPopup.close()
                         openUrlTextField.clear()
-                        // clear playlist to prevent existing files in the playlist
-                        // to be loaded when playback ends
-                        playListModel.clear()
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -144,7 +141,6 @@ Kirigami.ApplicationWindow {
                     GeneralSettings.lastUrl = openUrlTextField.text
                     openUrlPopup.close()
                     openUrlTextField.clear()
-                    playListModel.clear()
                 }
             }
         }
@@ -153,6 +149,7 @@ Kirigami.ApplicationWindow {
     Component.onCompleted: app.activateColorScheme(GeneralSettings.colorScheme)
 
     function openFile(path, startPlayback, loadSiblings) {
+        playListModel.clear()
         mpv.setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         mpv.command(["loadfile", path])
         mpv.setProperty("pause", !startPlayback)
