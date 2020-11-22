@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
-    QQuickStyle::setFallbackStyle(QStringLiteral("fusion"));
+    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
     KAboutData aboutData(
                 QStringLiteral("haruna"),
