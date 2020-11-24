@@ -21,6 +21,8 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 
+#include <KAboutApplicationDialog>
+#include <KAboutData>
 #include <KColorSchemeManager>
 #include <KConfig>
 #include <KConfigGroup>
@@ -124,6 +126,16 @@ void Application::configureShortcuts()
     dlg.configure(false);
 }
 
+void Application::aboutApplication()
+{
+    static QPointer<QDialog> dialog;
+    if (!dialog) {
+        dialog = new KAboutApplicationDialog(KAboutData::applicationData(), nullptr);
+        dialog->setAttribute(Qt::WA_DeleteOnClose);
+    }
+    dialog->show();
+}
+
 void Application::setupActions(const QString &actionName)
 {
     if (actionName == QStringLiteral("screenshot")) {
@@ -188,12 +200,22 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_O);
         m_collection.addAction(actionName, action);
     }
+
     if (actionName == QStringLiteral("openUrl")) {
         auto action = new HAction();
         action->setText(i18n("Open Url"));
         action->setIcon(QIcon::fromTheme("internet-services"));
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_O);
         m_collection.addAction(actionName, action);
+    }
+
+    if (actionName == QStringLiteral("aboutHaruna")) {
+        auto action = new HAction();
+        action->setText(i18n("About Haruna"));
+        action->setIcon(QIcon::fromTheme("help-about-symbolic"));
+        m_collection.setDefaultShortcut(action, Qt::Key_F1);
+        m_collection.addAction(actionName, action);
+        connect(action, &QAction::triggered, this, &Application::aboutApplication);
     }
 
     // mpv actions

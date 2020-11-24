@@ -176,7 +176,7 @@ QtObject {
         shortcut: qaction.shortcutName()
         icon.name: qaction.iconName()
 
-        Component.onCompleted: list["openUrlAction"] = openAction
+        Component.onCompleted: list["openUrlAction"] = openUrlAction
 
         onTriggered: {
             if (openUrlPopup.visible) {
@@ -185,6 +185,18 @@ QtObject {
                 openUrlPopup.open()
             }
         }
+    }
+
+    property Action aboutHarunaAction: Action {
+        id: aboutHarunaAction
+        property var qaction: app.action("aboutHaruna")
+        text: qaction.text
+        shortcut: qaction.shortcutName()
+        icon.name: qaction.iconName()
+
+        Component.onCompleted: list["aboutHarunaAction"] = aboutHarunaAction
+
+        onTriggered: qaction.trigger()
     }
 
     property Action seekForwardSmallAction: Action {

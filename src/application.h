@@ -43,13 +43,13 @@ public slots:
     void activateColorScheme(const QString &name);
 private:
     QAbstractItemModel *colorSchemesModel();
+    void aboutApplication();
     void setupActions(const QString &actionName);
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
     KConfigGroup *m_shortcuts;
     QMap<int, QString> m_args;
     KColorSchemeManager *m_schemes;
-
 };
 
 #endif // APPLICATION_H
