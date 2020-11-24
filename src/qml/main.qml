@@ -55,6 +55,7 @@ Kirigami.ApplicationWindow {
         SubtitlesMenu {}
         AudioMenu {}
         SettingsMenu {}
+        HelpMenu {}
     }
 
     Menu {
@@ -68,6 +69,7 @@ Kirigami.ApplicationWindow {
         SubtitlesMenu {}
         AudioMenu {}
         SettingsMenu {}
+        HelpMenu {}
     }
 
     Actions { id: actions }
