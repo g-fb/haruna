@@ -68,6 +68,10 @@ Slider {
 
             onClicked: {
                 if (mouse.button === Qt.MiddleButton) {
+                    if (!GeneralSettings.showChapterMarkers) {
+                        return
+                    }
+
                     const time = mouseX * 100 / progressBarBackground.width * root.to / 100
                     const chapters = mpv.getProperty("chapter-list")
                     const nextChapter = chapters.findIndex(chapter => chapter.time > time)
