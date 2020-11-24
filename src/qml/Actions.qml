@@ -931,10 +931,7 @@ QtObject {
 
         Component.onCompleted: list["toggleMenuBarAction"] = toggleMenuBarAction
 
-        onTriggered: {
-            menuBar.visible = !menuBar.visible
-            GeneralSettings.showMenuBar = menuBar.visible
-        }
+        onTriggered: GeneralSettings.showMenuBar = !menuBar.visible
     }
 
     property Action toggleHeaderAction: Action {
@@ -946,10 +943,7 @@ QtObject {
 
         Component.onCompleted: list["toggleHeaderAction"] = toggleHeaderAction
 
-        onTriggered: {
-            header.visible = !header.visible
-            GeneralSettings.showHeader = header.visible
-        }
+        onTriggered: GeneralSettings.showHeader = !header.visible
     }
 
     property Action screenshotAction: Action {
