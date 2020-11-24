@@ -40,21 +40,20 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
-    KAboutData aboutData(
-                QStringLiteral("haruna"),
-                i18n("Haruna Video Player"),
-                QStringLiteral("0.2.2"),
-                i18n("A simple video player."),
-                KAboutLicense::GPL_V3,
-                i18n("(c) 2019"),
-                i18n("TO DO..."),
-                QStringLiteral("http://georgefb.com/haruna"),
-                QStringLiteral("georgefb899@gmail.com"));
+    KAboutData aboutData(QStringLiteral("haruna"),
+                         i18n("Haruna Video Player"),
+                         QStringLiteral("0.2.2"));
+    aboutData.setShortDescription(i18n("A simple video player."));
+    aboutData.setLicense(KAboutLicense::GPL_V3);
+    aboutData.setCopyrightStatement(i18n("(c) 2019"));
+    aboutData.setOtherText(i18n("TO DO..."));
+    aboutData.setHomepage(QStringLiteral("https://github.com/g-fb/haruna"));
+    aboutData.setBugAddress(QStringLiteral("https://github.com/g-fb/haruna/issues").toUtf8());
 
     aboutData.addAuthor(i18n("George Florea Bănuș"),
                         i18n("Developer"),
                         QStringLiteral("georgefb899@gmail.com"),
-                        QStringLiteral("http://georgefb.com"));
+                        QStringLiteral("https://georgefb.com"));
 
     KAboutData::setApplicationData(aboutData);
 
