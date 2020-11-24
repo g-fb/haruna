@@ -64,6 +64,11 @@ class GeneralSettings : public Settings
                WRITE setShowHeader
                NOTIFY showHeaderChanged)
 
+    Q_PROPERTY(bool showChapterMarkers
+               READ showChapterMarkers
+               WRITE setShowChapterMarkers
+               NOTIFY showChapterMarkersChanged)
+
     Q_PROPERTY(QString colorScheme
                READ colorScheme
                WRITE setColorScheme
@@ -102,6 +107,9 @@ public:
     bool showHeader();
     void setShowHeader(bool isVisible);
 
+    bool showChapterMarkers();
+    void setShowChapterMarkers(bool isVisible);
+
     QString colorScheme();
     void setColorScheme(const QString &scheme);
 
@@ -125,6 +133,7 @@ signals:
     void showMenuBarChanged();
     void showHeaderChanged();
     void colorSchemeChanged();
+    void showChapterMarkersChanged();
 
 };
 

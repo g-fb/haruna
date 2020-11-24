@@ -173,6 +173,13 @@ Item {
             Layout.columnSpan: 2
         }
 
+        CheckBox {
+            text: qsTr("Show Chapter Markers")
+            checked: GeneralSettings.showChapterMarkers
+            onCheckedChanged: GeneralSettings.showChapterMarkers = checked
+            Layout.columnSpan: 2
+        }
+
         Item {
             Layout.columnSpan: 2
             height: 5

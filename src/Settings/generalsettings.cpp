@@ -22,6 +22,7 @@ GeneralSettings::GeneralSettings(QObject *parent)
         {"Volume",         QVariant(75)},
         {"ShowMenuBar",    QVariant(true)},
         {"ShowHeader",     QVariant(true)},
+        {"ShowChapterMarkers", QVariant(true)},
         {"ColorScheme",    QVariant(QStringLiteral())}
     };
 }
@@ -165,6 +166,21 @@ void GeneralSettings::setShowHeader(bool isVisible)
 
     set("ShowHeader", QVariant(isVisible).toString());
     emit showHeaderChanged();
+}
+
+bool GeneralSettings::showChapterMarkers()
+{
+    return get("ShowChapterMarkers").toBool();
+}
+
+void GeneralSettings::setShowChapterMarkers(bool isVisible)
+{
+    if (isVisible == showChapterMarkers()) {
+        return;
+    }
+
+    set("ShowChapterMarkers", QVariant(isVisible).toString());
+    emit showChapterMarkersChanged();
 }
 
 QString GeneralSettings::colorScheme()

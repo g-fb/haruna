@@ -9,8 +9,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Shapes 1.12
-import org.kde.kirigami 2.11 as Kirigami
 
+import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
 
 Slider {
@@ -95,17 +95,16 @@ Slider {
     }
 
     // create markers for the chapters
-    Instantiator {
+    Repeater {
         id: chaptersInstantiator
-        model: chapters
+        model: GeneralSettings.showChapterMarkers ? chapters : 0
         delegate: Shape {
             id: chapterMarkerShape
 
-            // position where the chapter marker shoud be positioned on the progress bar
+            // where the chapter marker shoud be positioned on the progress bar
             property int position: modelData.time / mpv.duration * progressBarBackground.width
 
             antialiasing: true
-            parent: progressBarBackground
             ShapePath {
                 id: shape
                 strokeWidth: 1
