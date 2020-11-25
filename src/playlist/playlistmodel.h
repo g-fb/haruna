@@ -28,7 +28,8 @@ public:
     explicit PlayListModel(QObject *parent = nullptr);
 
     enum {
-        DisplayRole = Qt::UserRole,
+        NameRole = Qt::UserRole,
+        TitleRole,
         DurationRole,
         PathRole,
         FolderPathRole,
@@ -38,7 +39,6 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
-
 
 signals:
     void videoAdded(int index, QString path);

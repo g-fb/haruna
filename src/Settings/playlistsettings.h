@@ -47,6 +47,11 @@ class PlaylistSettings : public Settings
                WRITE setLoadSiblings
                NOTIFY loadSiblingsChanged)
 
+    Q_PROPERTY(bool showMediaTitle
+               READ showMediaTitle
+               WRITE setShowMediaTitle
+               NOTIFY showMediaTitleChanged)
+
 public:
     explicit PlaylistSettings(QObject *parent = nullptr);
 
@@ -71,6 +76,9 @@ public:
     bool loadSiblings();
     void setLoadSiblings(bool value);
 
+    bool showMediaTitle();
+    void setShowMediaTitle(bool value);
+
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -87,7 +95,7 @@ signals:
     void bigFontFullscreenChanged();
     void repeatChanged();
     void loadSiblingsChanged();
-
+    void showMediaTitleChanged();
 };
 
 #endif // PLAYLISTSETTINGS_H

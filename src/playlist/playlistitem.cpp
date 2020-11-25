@@ -18,6 +18,16 @@ PlayListItem::PlayListItem(const QString &path, int i)
     setIsPlaying(false);
 }
 
+QString PlayListItem::mediaTitle() const
+{
+    return m_mediaTitle;
+}
+
+void PlayListItem::setMediaTitle(const QString &title)
+{
+    m_mediaTitle = title;
+}
+
 QString PlayListItem::filePath() const
 {
     return m_filePath;

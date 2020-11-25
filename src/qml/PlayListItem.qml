@@ -73,7 +73,7 @@ Kirigami.BasicListItem {
                                 ? Kirigami.Units.gridUnit
                                 : Kirigami.Units.gridUnit - 6
                 font.weight: isPlaying ? Font.ExtraBold : Font.Normal
-                text: model.name
+                text: PlaylistSettings.showMediaTitle ? model.title : model.name
                 layer.enabled: true
                 Layout.fillWidth: true
                 Layout.leftMargin: PlaylistSettings.showRowNumber || isPlaying ? 0 : Kirigami.Units.largeSpacing

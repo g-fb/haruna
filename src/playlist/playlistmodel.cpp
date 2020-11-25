@@ -23,9 +23,14 @@ PlayListModel::PlayListModel(QObject *parent)
             Worker::instance(), &Worker::getMetaData);
 
     connect(Worker::instance(), &Worker::metaDataReady, this, [ = ](int i, KFileMetaData::PropertyMap metaData) {
-        auto d = metaData[KFileMetaData::Property::Duration].toInt();
-        m_playList[i]->setDuration(Application::formatTime(d));
+        auto duration = metaData[KFileMetaData::Property::Duration].toInt();
+        auto title = metaData[KFileMetaData::Property::Title].toString();
+
+        m_playList[i]->setDuration(Application::formatTime(duration));
+        m_playList[i]->setMediaTitle(title);
+
         dataChanged(index(i, 0), index(i, 0));
+
     });
 }
 
@@ -44,8 +49,12 @@ QVariant PlayListModel::data(const QModelIndex &index, int role) const
 
     auto playListItem = m_playList.at(index.row()).get();
     switch (role) {
-    case DisplayRole:
+    case NameRole:
         return QVariant(playListItem->fileName());
+    case TitleRole:
+        return playListItem->mediaTitle().isEmpty()
+                ? QVariant(playListItem->fileName())
+                : QVariant(playListItem->mediaTitle());
     case PathRole:
         return QVariant(playListItem->filePath());
     case DurationRole:
@@ -62,7 +71,8 @@ QVariant PlayListModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> PlayListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[DisplayRole] = "name";
+    roles[NameRole] = "name";
+    roles[TitleRole] = "title";
     roles[PathRole] = "path";
     roles[FolderPathRole] = "folderPath";
     roles[DurationRole] = "duration";

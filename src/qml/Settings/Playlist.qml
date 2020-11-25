@@ -67,6 +67,13 @@ Item {
         }
 
         CheckBox {
+            checked: PlaylistSettings.showMediaTitle
+            text: qsTr("Show media title instead of file name")
+            Layout.columnSpan: 2
+            onCheckStateChanged: PlaylistSettings.showMediaTitle = checked
+        }
+
+        CheckBox {
             checked: PlaylistSettings.loadSiblings
             text: qsTr("Auto load videos from same folder")
             Layout.columnSpan: 2

@@ -29,35 +29,22 @@ Rectangle {
     state: "hidden"
     color: Kirigami.Theme.backgroundColor
 
-    ListView {
-        id: playlistView
-
-        model: playListModel
-        delegate: PlayListItem {}
+    ScrollView {
+        id: playlistScrollView
         anchors.fill: parent
-        anchors.rightMargin: scrollBar.visible ? scrollBar.width : 0
-        boundsBehavior: Flickable.StopAtBounds
-
         z: 20
-        ScrollBar.vertical: ScrollBar {
-            id: scrollBar
-            parent: playlistView.parent
-            anchors.top: playlistView.top
-            anchors.bottom: playlistView.bottom
-            anchors.left: playlistView.right
-            z: 25
-        }
-    }
 
-    MouseArea {
-        anchors.fill: parent
-        onWheel: wheel.accepted = true
-        hoverEnabled: true
+        ListView {
+            id: playlistView
+
+            model: playListModel
+            delegate: PlayListItem {}
+        }
     }
 
     ShaderEffectSource {
         id: shaderEffect
-        anchors.fill: playlistView
+        anchors.fill: playlistScrollView
         sourceItem: mpv
         sourceRect: position === "right"
                     ? Qt.rect(mpv.width - root.width, mpv.y, root.width, root.height)

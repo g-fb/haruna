@@ -18,6 +18,7 @@ PlaylistSettings::PlaylistSettings(QObject *parent)
         {"BigFontFullscreen",  QVariant(true)},
         {"Repeat",             QVariant(true)},
         {"LoadSiblings",       QVariant(true)},
+        {"ShowMediaTitle",     QVariant(true)},
     };
 }
 
@@ -117,4 +118,18 @@ void PlaylistSettings::setLoadSiblings(bool value)
     }
     set("LoadSiblings", QVariant(value).toString());
     emit loadSiblingsChanged();
+}
+
+bool PlaylistSettings::showMediaTitle()
+{
+    return get("ShowMediaTitle").toBool();
+}
+
+void PlaylistSettings::setShowMediaTitle(bool value)
+{
+    if (value == showMediaTitle()) {
+        return;
+    }
+    set("ShowMediaTitle", QVariant(value).toString());
+    emit showMediaTitleChanged();
 }

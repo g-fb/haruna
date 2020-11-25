@@ -14,6 +14,9 @@ class PlayListItem
 public:
     explicit PlayListItem(const QString &path, int i = 0);
 
+    QString mediaTitle() const;
+    void setMediaTitle(const QString &title);
+
     QString filePath() const;
     void setFilePath(const QString &filePath);
 
@@ -33,6 +36,7 @@ public:
     void setIndex(int index);
 
 private:
+    QString m_mediaTitle;
     QString m_filePath;
     QString m_fileName;
     QString m_folderPath;
