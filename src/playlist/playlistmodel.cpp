@@ -7,6 +7,7 @@
 #include "playlistmodel.h"
 #include "playlistitem.h"
 #include "_debug.h"
+#include "application.h"
 #include "worker.h"
 
 #include <QCollator>
@@ -19,9 +20,11 @@ PlayListModel::PlayListModel(QObject *parent)
     : QAbstractListModel(parent)
 {
     connect(this, &PlayListModel::videoAdded,
-            Worker::instance(), &Worker::getVideoDuration);
-    connect(Worker::instance(), &Worker::videoDuration, this, [ = ](int i, const QString &d) {
-        m_playList[i]->setDuration(d);
+            Worker::instance(), &Worker::getMetaData);
+
+    connect(Worker::instance(), &Worker::metaDataReady, this, [ = ](int i, KFileMetaData::PropertyMap metaData) {
+        auto d = metaData[KFileMetaData::Property::Duration].toInt();
+        m_playList[i]->setDuration(Application::formatTime(d));
         dataChanged(index(i, 0), index(i, 0));
     });
 }

@@ -8,6 +8,7 @@
 #define WORKER_H
 
 #include <QObject>
+#include <KFileMetaData/Properties>
 
 class Worker : public QObject
 {
@@ -18,11 +19,12 @@ public:
 
     static Worker* instance();
 
-
 signals:
-    void videoDuration(int index, QString duration);
+    void metaDataReady(int index, KFileMetaData::PropertyMap metadata);
+
 public slots:
-    void getVideoDuration(int index, const QString &path);
+    void getMetaData(int index, const QString &path);
+
 private:
     static Worker *sm_worker;
 };

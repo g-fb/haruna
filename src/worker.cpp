@@ -6,7 +6,6 @@
 
 #include "_debug.h"
 #include "worker.h"
-#include "application.h"
 
 #include <QMimeDatabase>
 #include <QThread>
@@ -23,7 +22,7 @@ Worker* Worker::instance()
     return sm_worker;
 }
 
-void Worker::getVideoDuration(int index, const QString &path)
+void Worker::getMetaData(int index, const QString &path)
 {
     QMimeDatabase db;
     QMimeType type = db.mimeTypeForFile(path);
@@ -34,7 +33,6 @@ void Worker::getVideoDuration(int index, const QString &path)
     KFileMetaData::Extractor* ex = extractors.first();
     ex->extract(&result);
     auto properties = result.properties();
-    int duration = properties[KFileMetaData::Property::Duration].toInt();
 
-    emit videoDuration(index, Application::formatTime(duration));
+    emit metaDataReady(index, properties);
 }

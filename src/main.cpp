@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
     qRegisterMetaType<QAction*>();
     qRegisterMetaType<TracksModel*>();
+    qRegisterMetaType<KFileMetaData::PropertyMap>("KFileMetaData::PropertyMap");
 
     std::unique_ptr<Application> myApp = std::make_unique<Application>();
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
