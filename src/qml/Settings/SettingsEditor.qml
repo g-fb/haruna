@@ -220,15 +220,18 @@ Pane {
         color: Kirigami.Theme.backgroundColor
         onVisibleChanged: info.text = app.getFileContent(settingsPageLoader.item.helpFile)
 
-        Flickable {
-            id: infoFlickable
+        ScrollView {
+            id: scrollView
+
             anchors.fill: parent
-            contentHeight: info.height
-            anchors.rightMargin: scrollBar.width
-            TextEdit {
+
+            TextArea {
                 id: info
 
-                width: parent.width
+                background: Rectangle {
+                    color: Kirigami.Theme.backgroundColor
+                    border.color: "transparent"
+                }
                 color: Kirigami.Theme.textColor
                 readOnly: true
                 textFormat: Text.RichText
@@ -236,13 +239,6 @@ Pane {
                 selectByMouse: true
                 onLinkActivated: Qt.openUrlExternally(link)
                 onHoveredLinkChanged: hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                textMargin: scrollBar.width
-            }
-            ScrollBar.vertical: ScrollBar {
-                id: scrollBar
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.left: parent.right
             }
         }
     }
