@@ -39,6 +39,7 @@ class MpvObject : public QQuickFramebufferObject
 
     Q_PROPERTY(bool pause
                READ pause
+               WRITE setPause
                NOTIFY pauseChanged)
 
     Q_PROPERTY(int volume
@@ -100,7 +101,9 @@ class MpvObject : public QQuickFramebufferObject
 
     double remaining();
     double duration();
+
     bool pause();
+    void setPause(bool value);
     
     int volume();
     void setVolume(int value);

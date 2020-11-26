@@ -170,6 +170,15 @@ bool MpvObject::pause()
     return getProperty("pause").toBool();
 }
 
+void MpvObject::setPause(bool value)
+{
+    if (value == pause()) {
+        return;
+    }
+    setProperty("pause", value);
+    emit pauseChanged();
+}
+
 int MpvObject::volume()
 {
     return getProperty("volume").toInt();
