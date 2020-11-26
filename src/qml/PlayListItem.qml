@@ -103,7 +103,7 @@ Kirigami.BasicListItem {
         }
     }
     onDoubleClicked: {
-        mpv.command(["loadfile", model.path])
+        mpv.file = model.path
         playListModel.setPlayingVideo(index)
     }
 }

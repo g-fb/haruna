@@ -152,15 +152,12 @@ Kirigami.ApplicationWindow {
 
     function openFile(path, startPlayback, loadSiblings) {
         playListModel.clear()
-        mpv.setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
-        mpv.command(["loadfile", path])
-        mpv.setProperty("pause", !startPlayback)
+        mpv.file = path
+        mpv.pause = !startPlayback
         if (loadSiblings) {
             // get video files from same folder as the opened file
             playListModel.getVideos(path)
         }
-
-        GeneralSettings.lastPlayedFile = path
     }
 
     function isFullScreen() {

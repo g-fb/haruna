@@ -15,6 +15,7 @@ MpvObject {
 
     property int mx
     property int my
+    property string file
     property alias scrollPositionTimer: scrollPositionTimer
 
     signal setSubtitle(int id)
@@ -27,6 +28,12 @@ MpvObject {
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
     volume: GeneralSettings.volume
+
+    onFileChanged: {
+        setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
+        command(["loadfile", file])
+        GeneralSettings.lastPlayedFile = file
+    }
 
     onSetSubtitle: {
         setProperty("sid", id)
