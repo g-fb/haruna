@@ -12,6 +12,7 @@
 #include <KActionCollection>
 #include <KSharedConfig>
 #include <QAbstractItemModel>
+#include <KAboutData>
 
 class HarunaSettings;
 class KActionCollection;
@@ -41,10 +42,15 @@ public slots:
     QAction* action(const QString &name);
     QString getFileContent(QString file);
     void activateColorScheme(const QString &name);
+
 private:
     QAbstractItemModel *colorSchemesModel();
+    void registerQmlTypes();
     void aboutApplication();
+    void setupAboutData();
+    void setupCommandLineParser();
     void setupActions(const QString &actionName);
+    KAboutData m_aboutData;
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
     KConfigGroup *m_shortcuts;

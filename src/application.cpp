@@ -7,6 +7,7 @@
 #include "_debug.h"
 #include "application.h"
 #include "haction.h"
+#include "worker.h"
 #include "Settings/audiosettings.h"
 #include "Settings/generalsettings.h"
 #include "Settings/mousesettings.h"
@@ -16,6 +17,7 @@
 #include "Settings/videosettings.h"
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFileInfo>
@@ -28,6 +30,13 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KShortcutsDialog>
+#include <QThread>
+
+
+#include <KFileMetaData/Properties>
+#include "mpvobject.h"
+#include "tracksmodel.h"
+
 
 Application::Application(QObject *parent)
     : m_collection(parent)
@@ -38,6 +47,23 @@ Application::Application(QObject *parent)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
 
     m_schemes = new KColorSchemeManager(this);
+
+    auto worker = Worker::instance();
+    auto thread = new QThread();
+    worker->moveToThread(thread);
+    QObject::connect(thread, &QThread::finished,
+                     worker, &Worker::deleteLater);
+    QObject::connect(thread, &QThread::finished,
+                     thread, &QThread::deleteLater);
+    thread->start();
+
+    // Qt sets the locale in the QGuiApplication constructor, but libmpv
+    // requires the LC_NUMERIC category to be set to "C", so change it back.
+    std::setlocale(LC_NUMERIC, "C");
+
+    setupAboutData();
+    setupCommandLineParser();
+    registerQmlTypes();
 }
 
 void Application::setupQmlSettingsTypes()
@@ -109,6 +135,15 @@ QAbstractItemModel *Application::colorSchemesModel()
     return m_schemes->model();
 }
 
+void Application::registerQmlTypes()
+{
+    qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
+    qRegisterMetaType<QAction*>();
+    qRegisterMetaType<TracksModel*>();
+    qRegisterMetaType<KFileMetaData::PropertyMap>("KFileMetaData::PropertyMap");
+
+}
+
 void Application::activateColorScheme(const QString &name)
 {
     m_schemes->activateScheme(m_schemes->indexForScheme(name));
@@ -134,6 +169,41 @@ void Application::aboutApplication()
         dialog->setAttribute(Qt::WA_DeleteOnClose);
     }
     dialog->show();
+}
+
+void Application::setupAboutData()
+{
+    m_aboutData = KAboutData(QStringLiteral("haruna"),
+                         i18n("Haruna Video Player"),
+                         QStringLiteral("0.2.2"));
+    m_aboutData.setShortDescription(i18n("A simple video player."));
+    m_aboutData.setLicense(KAboutLicense::GPL_V3);
+    m_aboutData.setCopyrightStatement(i18n("(c) 2019"));
+    m_aboutData.setOtherText(i18n("TO DO..."));
+    m_aboutData.setHomepage(QStringLiteral("https://github.com/g-fb/haruna"));
+    m_aboutData.setBugAddress(QStringLiteral("https://github.com/g-fb/haruna/issues").toUtf8());
+
+    m_aboutData.addAuthor(i18n("George Florea Bănuș"),
+                        i18n("Developer"),
+                        QStringLiteral("georgefb899@gmail.com"),
+                        QStringLiteral("https://georgefb.com"));
+
+    KAboutData::setApplicationData(m_aboutData);
+
+}
+
+void Application::setupCommandLineParser()
+{
+    QCommandLineParser parser;
+    m_aboutData.setupCommandLine(&parser);
+    parser.addPositionalArgument(QStringLiteral("file"), i18n("File to open"));
+    parser.process(*QApplication::instance());
+    m_aboutData.processCommandLine(&parser);
+
+    for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
+        addArgument(i, parser.positionalArguments().at(i));
+    }
+
 }
 
 void Application::setupActions(const QString &actionName)
