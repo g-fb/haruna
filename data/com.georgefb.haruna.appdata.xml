@@ -20,6 +20,18 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.3.0" date="2020-11-30">
+            <description>
+                <ul>
+                    <li>Added option to repeat playlist.</li>
+                    <li>Added option to disable adding videos from same folder to playlist.</li>
+                    <li>Added option to show media title instead of file name in playlist.</li>
+                    <li>Added about window, can be opened from help menu or F1 key.</li>
+                    <li>Added option to hide chapter markers.</li>
+                    <li>Fixed menu bar and tool bar not hiding in fullscreen sometimes.</li>
+                </ul>
+            </description>
+        </release>
         <release version="0.2.2" date="2020-10-10">
             <description>
                 <p>Fix header and footer buttons triggering when pressing space key after they were clicked, resulting in both the button's action and the play/pause action (space key) being triggered.</p>
