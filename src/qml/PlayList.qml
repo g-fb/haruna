@@ -31,8 +31,10 @@ Rectangle {
 
     ScrollView {
         id: playlistScrollView
-        anchors.fill: parent
+
         z: 20
+        anchors.fill: parent
+        ScrollBar.horizontal.policy: ScrollBar.AsNeeded
 
         ListView {
             id: playlistView
