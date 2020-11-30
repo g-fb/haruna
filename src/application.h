@@ -8,13 +8,13 @@
 #define APPLICATION_H
 
 #include <QObject>
+#include <QAbstractItemModel>
+#include <QAction>
 #include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QAction>
+#include <KAboutData>
 #include <KActionCollection>
 #include <KSharedConfig>
-#include <QAbstractItemModel>
-#include <KAboutData>
 
 class HarunaSettings;
 class KActionCollection;

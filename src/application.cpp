@@ -7,7 +7,8 @@
 #include "_debug.h"
 #include "application.h"
 #include "haction.h"
-#include "worker.h"
+#include "lockmanager.h"
+#include "mpvobject.h"
 #include "Settings/audiosettings.h"
 #include "Settings/generalsettings.h"
 #include "Settings/mousesettings.h"
@@ -15,42 +16,35 @@
 #include "Settings/playlistsettings.h"
 #include "Settings/subtitlessettings.h"
 #include "Settings/videosettings.h"
+#include "playlist/playlistitem.h"
+#include "playlist/playlistmodel.h"
+#include "subtitlesfoldersmodel.h"
+#include "tracksmodel.h"
+#include "worker.h"
 
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCoreApplication>
+#include <QGuiApplication>
 #include <QDir>
 #include <QFileInfo>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QQuickItem>
+#include <QQuickStyle>
+#include <QQuickView>
 #include <QStandardPaths>
+#include <QThread>
 
 #include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KColorSchemeManager>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KFileMetaData/Properties>
+#include <KI18n/KLocalizedString>
 #include <KLocalizedString>
 #include <KShortcutsDialog>
-#include <QThread>
-
-
-
-#include <QApplication>
-#include <QGuiApplication>
-#include <QQuickItem>
-#include <QQuickStyle>
-#include <QQuickView>
-
-#include <KI18n/KLocalizedString>
-
-#include <KFileMetaData/Properties>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include "mpvobject.h"
-#include "tracksmodel.h"
-#include "lockmanager.h"
-#include "subtitlesfoldersmodel.h"
-#include "playlist/playlistitem.h"
-#include "playlist/playlistmodel.h"
 
 static QApplication *createApplication(int &argc, char **argv, const QString &applicationName)
 {
