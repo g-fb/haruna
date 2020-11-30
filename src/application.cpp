@@ -33,19 +33,49 @@
 #include <QThread>
 
 
+
+#include <QApplication>
+#include <QGuiApplication>
+#include <QQuickItem>
+#include <QQuickStyle>
+#include <QQuickView>
+
+#include <KI18n/KLocalizedString>
+
 #include <KFileMetaData/Properties>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include "mpvobject.h"
 #include "tracksmodel.h"
+#include "lockmanager.h"
+#include "subtitlesfoldersmodel.h"
+#include "playlist/playlistitem.h"
+#include "playlist/playlistmodel.h"
 
-
-Application::Application(QObject *parent)
-    : m_collection(parent)
+static QApplication *createApplication(int &argc, char **argv, const QString &applicationName)
 {
-    Q_UNUSED(parent)
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setOrganizationName("georgefb");
+    QApplication::setApplicationName(applicationName);
+    QApplication::setOrganizationDomain("georgefb.com");
+    QApplication::setApplicationDisplayName("Haruna - Video Player");
+    QApplication::setApplicationVersion("0.2.2");
+    QApplication::setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
+
+    QApplication *app = new QApplication(argc, argv);
+    return app;
+}
+
+Application::Application(int &argc, char **argv, const QString &applicationName)
+    : m_app(createApplication(argc, argv, applicationName))
+    , m_collection(this)
+{
+    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
+    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
-
     m_schemes = new KColorSchemeManager(this);
 
     auto worker = Worker::instance();
@@ -64,6 +94,48 @@ Application::Application(QObject *parent)
     setupAboutData();
     setupCommandLineParser();
     registerQmlTypes();
+    setupQmlSettingsTypes();
+
+
+    std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
+    std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
+    std::unique_ptr<PlayListModel> playListModel = std::make_unique<PlayListModel>();
+
+
+    m_engine = new QQmlApplicationEngine(this);
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
+
+    QObject::connect(m_engine, &QQmlApplicationEngine::objectCreated, m_app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl) {
+            QCoreApplication::exit(-1);
+        }
+    }, Qt::QueuedConnection);
+
+    m_engine->rootContext()->setContextProperty("playListModel", playListModel.release());
+    qmlRegisterUncreatableType<PlayListModel>("PlayListModel", 1, 0, "PlayListModel",
+                                               QStringLiteral("PlayListModel should not be created in QML"));
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("app"), this);
+    qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
+                                            QStringLiteral("Application should not be created in QML"));
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("lockManager"), lockManager.release());
+    qmlRegisterUncreatableType<LockManager>("LockManager", 1, 0, "LockManager",
+                                            QStringLiteral("LockManager should not be created in QML"));
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
+
+    m_engine->load(url);
+}
+
+Application::~Application()
+{
+    delete m_engine;
+}
+
+int Application::run()
+{
+    return m_app->exec();
 }
 
 void Application::setupQmlSettingsTypes()
@@ -197,7 +269,7 @@ void Application::setupCommandLineParser()
     QCommandLineParser parser;
     m_aboutData.setupCommandLine(&parser);
     parser.addPositionalArgument(QStringLiteral("file"), i18n("File to open"));
-    parser.process(*QApplication::instance());
+    parser.process(*m_app);
     m_aboutData.processCommandLine(&parser);
 
     for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
@@ -219,7 +291,7 @@ void Application::setupActions(const QString &actionName)
         auto action = new HAction();
         action->setText(i18n("Quit"));
         action->setIcon(QIcon::fromTheme("application-exit"));
-        connect(action, &QAction::triggered, QApplication::instance(), &QApplication::quit);
+        connect(action, &QAction::triggered, m_app, &QApplication::quit);
         m_collection.setDefaultShortcut(action, Qt::CTRL + Qt::Key_Q);
         m_collection.addAction(actionName, action);
     }

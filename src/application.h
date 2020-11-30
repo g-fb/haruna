@@ -8,6 +8,8 @@
 #define APPLICATION_H
 
 #include <QObject>
+#include <QApplication>
+#include <QQmlApplicationEngine>
 #include <QAction>
 #include <KActionCollection>
 #include <KSharedConfig>
@@ -26,11 +28,12 @@ class Application : public QObject
     Q_PROPERTY(QAbstractItemModel* colorSchemesModel READ colorSchemesModel CONSTANT)
 
 public:
-    explicit Application(QObject *parent = nullptr);
-    ~Application() = default;
+    explicit Application(int &argc, char **argv, const QString &applicationName);
+    ~Application();
 
     void setupQmlSettingsTypes();
 
+    int run();
 public slots:
     static QString formatTime(const double time);
     static QUrl getPathFromArg(const QString &arg);
@@ -50,6 +53,8 @@ private:
     void setupAboutData();
     void setupCommandLineParser();
     void setupActions(const QString &actionName);
+    QApplication *m_app;
+    QQmlApplicationEngine *m_engine;
     KAboutData m_aboutData;
     KActionCollection m_collection;
     KSharedConfig::Ptr m_config;
