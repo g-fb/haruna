@@ -61,6 +61,8 @@ private:
     KConfigGroup *m_shortcuts;
     QMap<int, QString> m_args;
     KColorSchemeManager *m_schemes;
+    void setupQmlContextProperties();
+    void setupWorkerThread();
 };
 
 #endif // APPLICATION_H

@@ -63,6 +63,9 @@ static QApplication *createApplication(int &argc, char **argv, const QString &ap
     QApplication::setApplicationVersion("0.2.2");
     QApplication::setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
 
+    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
+    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
+
     QApplication *app = new QApplication(argc, argv);
     return app;
 }
@@ -71,21 +74,11 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     : m_app(createApplication(argc, argv, applicationName))
     , m_collection(this)
 {
-    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
-    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
-
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
 
-    auto worker = Worker::instance();
-    auto thread = new QThread();
-    worker->moveToThread(thread);
-    QObject::connect(thread, &QThread::finished,
-                     worker, &Worker::deleteLater);
-    QObject::connect(thread, &QThread::finished,
-                     thread, &QThread::deleteLater);
-    thread->start();
+    setupWorkerThread();
 
     // Qt sets the locale in the QGuiApplication constructor, but libmpv
     // requires the LC_NUMERIC category to be set to "C", so change it back.
@@ -96,20 +89,57 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     registerQmlTypes();
     setupQmlSettingsTypes();
 
-
-    std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
-    std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
-    std::unique_ptr<PlayListModel> playListModel = std::make_unique<PlayListModel>();
-
-
     m_engine = new QQmlApplicationEngine(this);
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
-
-    QObject::connect(m_engine, &QQmlApplicationEngine::objectCreated, m_app, [url](QObject *obj, const QUrl &objUrl) {
+    auto onObjectCreated = [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl) {
             QCoreApplication::exit(-1);
         }
-    }, Qt::QueuedConnection);
+    };
+    QObject::connect(m_engine, &QQmlApplicationEngine::objectCreated,
+                     m_app, onObjectCreated, Qt::QueuedConnection);
+    setupQmlContextProperties();
+    m_engine->load(url);
+}
+
+Application::~Application()
+{
+    delete m_engine;
+}
+
+int Application::run()
+{
+    return m_app->exec();
+}
+
+void Application::setupWorkerThread()
+{
+    auto worker = Worker::instance();
+    auto thread = new QThread();
+    worker->moveToThread(thread);
+    QObject::connect(thread, &QThread::finished,
+                     worker, &Worker::deleteLater);
+    QObject::connect(thread, &QThread::finished,
+                     thread, &QThread::deleteLater);
+    thread->start();
+}
+
+void Application::setupQmlSettingsTypes()
+{
+    qmlRegisterSingletonType<AudioSettings>("com.georgefb.haruna", 1, 0, "AudioSettings", &AudioSettings::provider);
+    qmlRegisterSingletonType<GeneralSettings>("com.georgefb.haruna", 1, 0, "GeneralSettings", &GeneralSettings::provider);
+    qmlRegisterSingletonType<MouseSettings>("com.georgefb.haruna", 1, 0, "MouseSettings", &MouseSettings::provider);
+    qmlRegisterSingletonType<PlaybackSettings>("com.georgefb.haruna", 1, 0, "PlaybackSettings", &PlaybackSettings::provider);
+    qmlRegisterSingletonType<PlaylistSettings>("com.georgefb.haruna", 1, 0, "PlaylistSettings", &PlaylistSettings::provider);
+    qmlRegisterSingletonType<SubtitlesSettings>("com.georgefb.haruna", 1, 0, "SubtitlesSettings", &SubtitlesSettings::provider);
+    qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", &VideoSettings::provider);
+}
+
+void Application::setupQmlContextProperties()
+{
+    std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
+    std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
+    std::unique_ptr<PlayListModel> playListModel = std::make_unique<PlayListModel>();
 
     m_engine->rootContext()->setContextProperty("playListModel", playListModel.release());
     qmlRegisterUncreatableType<PlayListModel>("PlayListModel", 1, 0, "PlayListModel",
@@ -124,29 +154,6 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
                                             QStringLiteral("LockManager should not be created in QML"));
 
     m_engine->rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
-
-    m_engine->load(url);
-}
-
-Application::~Application()
-{
-    delete m_engine;
-}
-
-int Application::run()
-{
-    return m_app->exec();
-}
-
-void Application::setupQmlSettingsTypes()
-{
-    qmlRegisterSingletonType<AudioSettings>("com.georgefb.haruna", 1, 0, "AudioSettings", &AudioSettings::provider);
-    qmlRegisterSingletonType<GeneralSettings>("com.georgefb.haruna", 1, 0, "GeneralSettings", &GeneralSettings::provider);
-    qmlRegisterSingletonType<MouseSettings>("com.georgefb.haruna", 1, 0, "MouseSettings", &MouseSettings::provider);
-    qmlRegisterSingletonType<PlaybackSettings>("com.georgefb.haruna", 1, 0, "PlaybackSettings", &PlaybackSettings::provider);
-    qmlRegisterSingletonType<PlaylistSettings>("com.georgefb.haruna", 1, 0, "PlaylistSettings", &PlaylistSettings::provider);
-    qmlRegisterSingletonType<SubtitlesSettings>("com.georgefb.haruna", 1, 0, "SubtitlesSettings", &SubtitlesSettings::provider);
-    qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", &VideoSettings::provider);
 }
 
 QString Application::formatTime(const double time)
