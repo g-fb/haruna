@@ -20,6 +20,13 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
+        <release version="0.3.1" date="2020-12-01">
+            <description>
+                <ul>
+                    <li>Hide playlist horizontal scroll bar.</li>
+                </ul>
+            </description>
+        </release>
         <release version="0.3.0" date="2020-11-30">
             <description>
                 <ul>

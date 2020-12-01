@@ -55,7 +55,7 @@ static QApplication *createApplication(int &argc, char **argv, const QString &ap
     QApplication::setApplicationName(applicationName);
     QApplication::setOrganizationDomain("georgefb.com");
     QApplication::setApplicationDisplayName("Haruna - Video Player");
-    QApplication::setApplicationVersion("0.3.0");
+    QApplication::setApplicationVersion("0.3.1");
     QApplication::setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
 
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
