@@ -67,6 +67,13 @@ Item {
         }
 
         CheckBox {
+            checked: PlaylistSettings.showThumbnails
+            text: qsTr("Show thumbnails")
+            Layout.columnSpan: 2
+            onCheckStateChanged: PlaylistSettings.showThumbnails = checked
+        }
+
+        CheckBox {
             checked: PlaylistSettings.showMediaTitle
             text: qsTr("Show media title instead of file name")
             Layout.columnSpan: 2

@@ -52,6 +52,11 @@ class PlaylistSettings : public Settings
                WRITE setShowMediaTitle
                NOTIFY showMediaTitleChanged)
 
+    Q_PROPERTY(bool showThumbnails
+               READ showThumbnails
+               WRITE setShowThumbnails
+               NOTIFY showThumbnailsChanged)
+
 public:
     explicit PlaylistSettings(QObject *parent = nullptr);
 
@@ -79,6 +84,9 @@ public:
     bool showMediaTitle();
     void setShowMediaTitle(bool value);
 
+    bool showThumbnails();
+    void setShowThumbnails(bool value);
+
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -96,6 +104,7 @@ signals:
     void repeatChanged();
     void loadSiblingsChanged();
     void showMediaTitleChanged();
+    void showThumbnailsChanged();
 };
 
 #endif // PLAYLISTSETTINGS_H

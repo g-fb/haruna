@@ -19,6 +19,7 @@ PlaylistSettings::PlaylistSettings(QObject *parent)
         {"Repeat",             QVariant(true)},
         {"LoadSiblings",       QVariant(true)},
         {"ShowMediaTitle",     QVariant(true)},
+        {"ShowThumbnails",     QVariant(false)},
     };
 }
 
@@ -132,4 +133,18 @@ void PlaylistSettings::setShowMediaTitle(bool value)
     }
     set("ShowMediaTitle", QVariant(value).toString());
     emit showMediaTitleChanged();
+}
+
+bool PlaylistSettings::showThumbnails()
+{
+    return get("ShowThumbnails").toBool();
+}
+
+void PlaylistSettings::setShowThumbnails(bool value)
+{
+    if (value == showThumbnails()) {
+        return;
+    }
+    set("ShowThumbnails", QVariant(value).toString());
+    emit showThumbnailsChanged();
 }
