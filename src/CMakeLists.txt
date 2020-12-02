@@ -23,6 +23,7 @@ add_executable(haruna
     Settings/subtitlessettings.cpp
     Settings/videosettings.cpp
     subtitlesfoldersmodel.cpp
+    thumbnailimageprovider.cpp
     track.cpp
     tracksmodel.cpp
     worker.cpp
@@ -39,6 +40,10 @@ target_link_libraries(haruna PRIVATE
     KF5::CoreAddons
     KF5::FileMetaData
     KF5::I18n
+    KF5::KIOCore
+    KF5::KIOFileWidgets
+    KF5::KIOWidgets
+    KF5::KIONTLM
     KF5::XmlGui
     mpv
 )

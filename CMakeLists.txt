@@ -58,6 +58,11 @@ set_package_properties(KF5XmlGui PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
+find_package(KF5KIO REQUIRED)
+set_package_properties(KF5KIO PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/kio/html/index.html")
+
 add_subdirectory(src)
 
 install(FILES data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})

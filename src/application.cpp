@@ -19,6 +19,7 @@
 #include "playlist/playlistitem.h"
 #include "playlist/playlistmodel.h"
 #include "subtitlesfoldersmodel.h"
+#include "thumbnailimageprovider.h"
 #include "tracksmodel.h"
 #include "worker.h"
 
@@ -93,6 +94,7 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     };
     QObject::connect(m_engine, &QQmlApplicationEngine::objectCreated,
                      m_app, onObjectCreated, Qt::QueuedConnection);
+    m_engine->addImageProvider("thumbnail", new ThumbnailImageProvider());
     setupQmlContextProperties();
     m_engine->load(url);
 }
