@@ -30,5 +30,6 @@
         <file>qml/Settings/SelectActionPopup.qml</file>
         <file>qml/Settings/VideoSettings.qml</file>
         <file>qml/Menus/HelpMenu.qml</file>
+        <file>qml/PlayListItemWithThumbnail.qml</file>
     </qresource>
 </RCC>
