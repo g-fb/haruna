@@ -23,7 +23,7 @@ Kirigami.BasicListItem {
 
     contentItem: Rectangle {
         color: {
-            let color = Kirigami.Theme.alternateBackgroundColor
+            let color = model.isPlaying ? Kirigami.Theme.highlightColor : Kirigami.Theme.alternateBackgroundColor
             Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.6)
         }
         RowLayout {
