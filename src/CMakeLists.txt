@@ -5,7 +5,10 @@
 #
 
 qt5_add_dbus_interface(haruna_screensaver_inhibit_SRCS ../org.freedesktop.ScreenSaver.xml screensaverdbusinterface)
-add_executable(haruna
+add_executable(haruna)
+
+target_sources(haruna
+    PRIVATE
     application.cpp
     haction.cpp
     lockmanager.cpp
@@ -29,8 +32,11 @@ add_executable(haruna
     worker.cpp
     qml.qrc
     ../help/help.qrc
-    ${haruna_screensaver_inhibit_SRCS})
+    ${haruna_screensaver_inhibit_SRCS}
+)
+
 target_compile_definitions(haruna PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
 target_link_libraries(haruna PRIVATE
     Qt5::Core
     Qt5::Quick
