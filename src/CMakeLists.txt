@@ -38,8 +38,8 @@ target_sources(haruna
 
 target_include_directories(haruna
     PRIVATE
-    src/settings
-    src/playlist
+    settings
+    playlist
 )
 
 target_compile_definitions(haruna PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
