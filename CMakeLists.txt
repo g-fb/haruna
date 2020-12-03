@@ -63,10 +63,9 @@ set_package_properties(KF5KIO PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kio/html/index.html")
 
-add_subdirectory(src)
+option(InstallColorSchemes "Installs breeze color schemes." OFF)
 
-install(FILES data/com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES data/com.georgefb.haruna.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
-ecm_install_icons(ICONS data/256-apps-com.georgefb.haruna.svg DESTINATION ${KDE_INSTALL_ICONDIR})
+add_subdirectory(data)
+add_subdirectory(src)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
