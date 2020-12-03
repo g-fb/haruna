@@ -5,6 +5,7 @@
 #
 
 qt5_add_dbus_interface(haruna_screensaver_inhibit_SRCS ../org.freedesktop.ScreenSaver.xml screensaverdbusinterface)
+
 add_executable(haruna)
 
 target_sources(haruna
@@ -33,6 +34,12 @@ target_sources(haruna
     qml.qrc
     ../help/help.qrc
     ${haruna_screensaver_inhibit_SRCS}
+)
+
+target_include_directories(haruna
+    PRIVATE
+    src/settings
+    src/playlist
 )
 
 target_compile_definitions(haruna PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
