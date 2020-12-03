@@ -220,23 +220,45 @@ Pane {
         color: Kirigami.Theme.backgroundColor
         onVisibleChanged: info.text = app.getFileContent(settingsPageLoader.item.helpFile)
 
-        ScrollView {
+        Flickable {
             id: scrollView
 
+            property int scrollStepSize: 100
+
             anchors.fill: parent
+            contentHeight: info.height
+
+            ScrollBar.vertical: ScrollBar {
+                id: scrollbar
+                policy: ScrollBar.AlwaysOn
+                stepSize: scrollView.scrollStepSize/scrollView.contentHeight
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onWheel: {
+                    if (wheel.angleDelta.y > 0) {
+                        scrollbar.decrease()
+                    } else {
+                        scrollbar.increase()
+                    }
+                }
+            }
 
             TextArea {
                 id: info
 
                 background: Rectangle {
-                    color: Kirigami.Theme.backgroundColor
+                    color: "transparent"
                     border.color: "transparent"
                 }
+                width: parent.width
                 color: Kirigami.Theme.textColor
                 readOnly: true
                 textFormat: Text.RichText
                 wrapMode: Text.WordWrap
                 selectByMouse: true
+                rightPadding: scrollbar.width
                 onLinkActivated: Qt.openUrlExternally(link)
                 onHoveredLinkChanged: hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
             }
