@@ -17,14 +17,14 @@ target_sources(haruna
     qthelper.h
     playlist/playlistitem.cpp
     playlist/playlistmodel.cpp
-    Settings/audiosettings.cpp
-    Settings/generalsettings.cpp
-    Settings/mousesettings.cpp
-    Settings/playbacksettings.cpp
-    Settings/playlistsettings.cpp
-    Settings/settings.cpp
-    Settings/subtitlessettings.cpp
-    Settings/videosettings.cpp
+    settings/audiosettings.cpp
+    settings/generalsettings.cpp
+    settings/mousesettings.cpp
+    settings/playbacksettings.cpp
+    settings/playlistsettings.cpp
+    settings/settings.cpp
+    settings/subtitlessettings.cpp
+    settings/videosettings.cpp
     subtitlesfoldersmodel.cpp
     thumbnailimageprovider.cpp
     track.cpp
