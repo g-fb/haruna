@@ -151,7 +151,7 @@ QtObject {
             if (playListModel.getPlayingVideo() !== 0) {
                 const previousFileRow = playListModel.getPlayingVideo() - 1
                 const previousFile = playListModel.getPath(previousFileRow)
-                window.openFile(previousFile, true, false)
+                mpv.command(["loadfile", previousFile])
                 playListModel.setPlayingVideo(previousFileRow)
             }
         }
