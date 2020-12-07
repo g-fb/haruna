@@ -123,13 +123,13 @@ void Application::setupWorkerThread()
 
 void Application::setupQmlSettingsTypes()
 {
-    qmlRegisterSingletonType<AudioSettings>("com.georgefb.haruna", 1, 0, "AudioSettings", &AudioSettings::provider);
-    qmlRegisterSingletonType<GeneralSettings>("com.georgefb.haruna", 1, 0, "GeneralSettings", &GeneralSettings::provider);
-    qmlRegisterSingletonType<MouseSettings>("com.georgefb.haruna", 1, 0, "MouseSettings", &MouseSettings::provider);
-    qmlRegisterSingletonType<PlaybackSettings>("com.georgefb.haruna", 1, 0, "PlaybackSettings", &PlaybackSettings::provider);
-    qmlRegisterSingletonType<PlaylistSettings>("com.georgefb.haruna", 1, 0, "PlaylistSettings", &PlaylistSettings::provider);
-    qmlRegisterSingletonType<SubtitlesSettings>("com.georgefb.haruna", 1, 0, "SubtitlesSettings", &SubtitlesSettings::provider);
-    qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", &VideoSettings::provider);
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "AudioSettings", AudioSettings::self());
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "GeneralSettings", GeneralSettings::self());
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "MouseSettings", MouseSettings::self());
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "PlaybackSettings", PlaybackSettings::self());
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "PlaylistSettings", PlaylistSettings::self());
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "SubtitlesSettings", SubtitlesSettings::self());
+    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "VideoSettings", VideoSettings::self());
 }
 
 void Application::setupQmlContextProperties()

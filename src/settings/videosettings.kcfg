@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name="georgefb/haruna.conf" />
+  <group name="Video">
+    <entry name="ScreenshotFormat" type="String">
+      <label>Screenshot format</label>
+      <default>jpg</default>
+    </entry>
+    <entry name="ScreenshotTemplate" type="String">
+      <label>Screenshot template</label>
+      <default>%x/screenshots/%n</default>
+    </entry>
+  </group>
+</kcfg>

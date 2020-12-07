@@ -46,6 +46,7 @@ Item {
             }
             onActivated: {
                 PlaylistSettings.position = model.get(index).value
+                PlaylistSettings.save()
                 playList.position = model.get(index).value
             }
         }
@@ -61,6 +62,7 @@ Item {
             value: PlaylistSettings.rowHeight
             onValueChanged: {
                 PlaylistSettings.rowHeight = value
+                PlaylistSettings.save()
                 playList.rowHeight = value
                 playList.playlistView.forceLayout()
             }
@@ -70,35 +72,50 @@ Item {
             checked: PlaylistSettings.showThumbnails
             text: qsTr("Show thumbnails")
             Layout.columnSpan: 2
-            onCheckStateChanged: PlaylistSettings.showThumbnails = checked
+            onCheckStateChanged: {
+                PlaylistSettings.showThumbnails = checked
+                PlaylistSettings.save()
+            }
         }
 
         CheckBox {
             checked: PlaylistSettings.showMediaTitle
             text: qsTr("Show media title instead of file name")
             Layout.columnSpan: 2
-            onCheckStateChanged: PlaylistSettings.showMediaTitle = checked
+            onCheckStateChanged: {
+                PlaylistSettings.showMediaTitle = checked
+                PlaylistSettings.save()
+            }
         }
 
         CheckBox {
             checked: PlaylistSettings.loadSiblings
             text: qsTr("Auto load videos from same folder")
             Layout.columnSpan: 2
-            onCheckStateChanged: PlaylistSettings.loadSiblings = checked
+            onCheckStateChanged: {
+                PlaylistSettings.loadSiblings = checked
+                PlaylistSettings.save()
+            }
         }
 
         CheckBox {
             checked: PlaylistSettings.repeat
             text: qsTr("Repeat")
             Layout.columnSpan: 2
-            onCheckStateChanged: PlaylistSettings.repeat = checked
+            onCheckStateChanged: {
+                PlaylistSettings.repeat = checked
+                PlaylistSettings.save()
+            }
         }
 
         CheckBox {
             checked: PlaylistSettings.showRowNumber
             text: qsTr("Show row number")
             Layout.columnSpan: 2
-            onCheckStateChanged: PlaylistSettings.showRowNumber = checked
+            onCheckStateChanged: {
+                PlaylistSettings.showRowNumber = checked
+                PlaylistSettings.save()
+            }
         }
 
         CheckBox {
@@ -107,6 +124,7 @@ Item {
             Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.canToggleWithMouse = checked
+                PlaylistSettings.save()
                 playList.canToggleWithMouse = checked
             }
         }
@@ -117,6 +135,7 @@ Item {
             Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.bigFontFullscreen = checked
+                PlaylistSettings.save()
                 playList.bigFont = checked
                 playList.playlistView.forceLayout()
             }

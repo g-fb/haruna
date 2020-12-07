@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name="georgefb/haruna.conf" />
+  <group name="Playback">
+    <entry name="SkipChapters" type="bool">
+      <label>Skip chapters</label>
+      <default>false</default>
+    </entry>
+    <entry name="ChaptersToSkip" type="String">
+      <label>Chapters to skip</label>
+    </entry>
+    <entry name="ShowOsdOnSkipChapters" type="bool">
+      <label>Show osd on skip chapters</label>
+      <default>true</default>
+    </entry>
+    <entry name="YtdlFormat" type="String">
+      <label>Ytdl format selection</label>
+    </entry>
+  </group>
+</kcfg>

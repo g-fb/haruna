@@ -45,6 +45,7 @@ Item {
                         osd.label.font.pointSize = osdFontSize.value
                         osd.message("Test osd font size")
                         GeneralSettings.osdFontSize = osdFontSize.value
+                        GeneralSettings.save()
                     }
                 }
             }
@@ -68,6 +69,7 @@ Item {
                 onValueChanged: {
                     if (root.visible) {
                         GeneralSettings.volumeStep = volumeStep.value
+                        GeneralSettings.save()
                     }
                 }
             }
@@ -99,7 +101,10 @@ Item {
                 from: 0
                 to: 100
                 value: GeneralSettings.seekSmallStep
-                onValueChanged: GeneralSettings.seekSmallStep = seekSmallStep.value
+                onValueChanged: {
+                    GeneralSettings.seekSmallStep = seekSmallStep.value
+                    GeneralSettings.save()
+                }
             }
             Layout.fillWidth: true
         }
@@ -118,7 +123,10 @@ Item {
                 from: 0
                 to: 100
                 value: GeneralSettings.seekMediumStep
-                onValueChanged: GeneralSettings.seekMediumStep = seekMediumStep.value
+                onValueChanged: {
+                    GeneralSettings.seekMediumStep = seekMediumStep.value
+                    GeneralSettings.save()
+                }
             }
             Layout.fillWidth: true
         }
@@ -137,7 +145,10 @@ Item {
                 from: 0
                 to: 100
                 value: GeneralSettings.seekBigStep
-                onValueChanged: GeneralSettings.seekBigStep = seekBigStep.value
+                onValueChanged: {
+                    GeneralSettings.seekBigStep = seekBigStep.value
+                    GeneralSettings.save()
+                }
             }
             Layout.fillWidth: true
         }
@@ -162,21 +173,30 @@ Item {
         CheckBox {
             text: qsTr("Show MenuBar")
             checked: GeneralSettings.showMenuBar
-            onCheckedChanged: GeneralSettings.showMenuBar = checked
+            onCheckedChanged: {
+                GeneralSettings.showMenuBar = checked
+                GeneralSettings.save()
+            }
             Layout.columnSpan: 2
         }
 
         CheckBox {
             text: qsTr("Show Header")
             checked: GeneralSettings.showHeader
-            onCheckedChanged: GeneralSettings.showHeader = checked
+            onCheckedChanged: {
+                GeneralSettings.showHeader = checked
+                GeneralSettings.save()
+            }
             Layout.columnSpan: 2
         }
 
         CheckBox {
             text: qsTr("Show Chapter Markers")
             checked: GeneralSettings.showChapterMarkers
-            onCheckedChanged: GeneralSettings.showChapterMarkers = checked
+            onCheckedChanged: {
+                GeneralSettings.showChapterMarkers = checked
+                GeneralSettings.save()
+            }
             Layout.columnSpan: 2
         }
 
@@ -203,7 +223,7 @@ Item {
             model: app.colorSchemesModel
             delegate: ItemDelegate {
                 Kirigami.Theme.colorSet: Kirigami.Theme.View
-                width: colorThemeSwitcher.width
+                width: parent.width
                 highlighted: model.display === GeneralSettings.colorScheme
                 contentItem: RowLayout {
                     Kirigami.Icon {
@@ -221,6 +241,7 @@ Item {
 
             onActivated: {
                 GeneralSettings.colorScheme = colorThemeSwitcher.textAt(index)
+                GeneralSettings.save()
                 app.activateColorScheme(GeneralSettings.colorScheme)
             }
 

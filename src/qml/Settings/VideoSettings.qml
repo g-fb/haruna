@@ -52,6 +52,7 @@ Item {
 
                 onActivated: {
                     VideoSettings.screenshotFormat = model.get(index).key
+                    VideoSettings.save()
                     mpv.setProperty("screenshot-format", VideoSettings.screenshotFormat)
                 }
 
@@ -82,6 +83,7 @@ Item {
                 text: VideoSettings.screenshotTemplate
                 onEditingFinished: {
                     VideoSettings.screenshotTemplate = text
+                    VideoSettings.save()
                     mpv.setProperty("screenshot-template", VideoSettings.screenshotTemplate)
                 }
                 Layout.fillWidth: true

@@ -44,9 +44,11 @@ Item {
                     Layout.fillWidth: true
                 }
             }
+
             delegate: Kirigami.BasicListItem {
                 id: delegate
-                property string actionLabel: MouseSettings.get(modelData)
+                property string actionLabel: MouseSettings[delegate.buttonLabel]
+
                 property string buttonLabel: modelData
 
                 width: content.width
@@ -82,7 +84,8 @@ Item {
                         onActionSelected: {
                             if (selectActionPopup.buttonIndex === model.index) {
                                 delegate.actionLabel = actionName
-                                MouseSettings.set(delegate.buttonLabel, actionName)
+                                MouseSettings[delegate.buttonLabel] = actionName
+                                MouseSettings.save()
                             }
                         }
                     }

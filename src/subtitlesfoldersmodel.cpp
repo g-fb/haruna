@@ -6,6 +6,7 @@
 
 #include "_debug.h"
 #include "subtitlesfoldersmodel.h"
+#include "subtitlessettings.h"
 
 #include <KConfig>
 #include <KConfigDialog>
@@ -51,8 +52,9 @@ void SubtitlesFoldersModel::updateFolder(const QString &folder, int row)
     // remove empty strings
     // removing directly from m_list messes with the ui logic
     newList.removeAll(QString(""));
-    m_config->group("Subtitles").writePathEntry("Folders", newList);
-    m_config->sync();
+
+    SubtitlesSettings::self()->setSubtitlesFolders(newList);
+    SubtitlesSettings::self()->save();
 }
 
 void SubtitlesFoldersModel::deleteFolder(int row)

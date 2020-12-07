@@ -31,7 +31,10 @@ Item {
                 id: skipChaptersCheckBox
                 text: qsTr("Skip chapters")
                 checked: PlaybackSettings.skipChapters
-                onCheckedChanged: PlaybackSettings.skipChapters = checked
+                onCheckedChanged: {
+                    PlaybackSettings.skipChapters = checked
+                    PlaybackSettings.save()
+                }
             }
 
             Label {
@@ -43,14 +46,20 @@ Item {
                 text: PlaybackSettings.chaptersToSkip
                 enabled: skipChaptersCheckBox.checked
                 Layout.fillWidth: true
-                onEditingFinished: PlaybackSettings.chaptersToSkip = text
+                onEditingFinished: {
+                    PlaybackSettings.chaptersToSkip = text
+                    PlaybackSettings.save()
+                }
             }
 
             CheckBox {
                 text: qsTr("Show an osd message when skipping chapters")
                 enabled: skipChaptersCheckBox.checked
                 checked: PlaybackSettings.showOsdOnSkipChapters
-                onCheckedChanged: PlaybackSettings.showOsdOnSkipChapters = checked
+                onCheckedChanged: {
+                    PlaybackSettings.showOsdOnSkipChapters = checked
+                    PlaybackSettings.save()
+                }
             }
 
             // ------------------------------------
@@ -87,6 +96,7 @@ Item {
                             ytdlFormatField.text = model.get(index).value
                         }
                         PlaybackSettings.ytdlFormat = ytdlFormatField.text
+                        PlaybackSettings.save()
                     }
 
                     Component.onCompleted: {
@@ -118,7 +128,10 @@ Item {
                 id: ytdlFormatField
                 text: PlaybackSettings.ytdlFormat
                 Layout.fillWidth: true
-                onEditingFinished: PlaybackSettings.ytdlFormat = text
+                onEditingFinished: {
+                    PlaybackSettings.ytdlFormat = text
+                    PlaybackSettings.save()
+                }
                 placeholderText: qsTr("bestvideo+bestaudio/best")
 
                 onTextChanged: {

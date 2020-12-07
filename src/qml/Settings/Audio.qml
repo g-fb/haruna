@@ -34,6 +34,7 @@ Item {
             Layout.fillWidth: true
             onTextEdited: {
                 AudioSettings.preferredLanguage = text
+                AudioSettings.save()
                 mpv.setProperty("alang", text)
             }
         }
@@ -49,14 +50,13 @@ Item {
             value: AudioSettings.preferredTrack
             editable: true
             onValueChanged: {
-                if (value === 0) {
-                    AudioSettings.preferredTrack = value
-                    mpv.setProperty("aid", "auto")
-                    return
-                }
-
                 AudioSettings.preferredTrack = value
-                mpv.setProperty("aid", value)
+                AudioSettings.save()
+                if (value === 0) {
+                    mpv.setProperty("aid", "auto")
+                } else {
+                    mpv.setProperty("aid", value)
+                }
             }
         }
     }

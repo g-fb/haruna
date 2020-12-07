@@ -41,6 +41,7 @@ Item {
             Layout.fillWidth: true
             onTextEdited: {
                 SubtitlesSettings.preferredLanguage = text
+                SubtitlesSettings.save()
                 mpv.setProperty("slang", text)
             }
         }
@@ -56,6 +57,7 @@ Item {
             editable: true
             onValueChanged: {
                 SubtitlesSettings.preferredTrack = value
+                SubtitlesSettings.save()
                 if (value === 0) {
                     mpv.setProperty("sid", "auto")
                 } else {

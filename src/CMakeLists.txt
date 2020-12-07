@@ -18,14 +18,6 @@ target_sources(haruna
     qthelper.h
     playlist/playlistitem.cpp
     playlist/playlistmodel.cpp
-    settings/audiosettings.cpp
-    settings/generalsettings.cpp
-    settings/mousesettings.cpp
-    settings/playbacksettings.cpp
-    settings/playlistsettings.cpp
-    settings/settings.cpp
-    settings/subtitlessettings.cpp
-    settings/videosettings.cpp
     subtitlesfoldersmodel.cpp
     thumbnailimageprovider.cpp
     track.cpp
@@ -36,11 +28,15 @@ target_sources(haruna
     ${haruna_screensaver_inhibit_SRCS}
 )
 
-target_include_directories(haruna
-    PRIVATE
-    settings
-    playlist
-)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/audiosettings.kcfgc)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/generalsettings.kcfgc)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/mousesettings.kcfgc)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/playbacksettings.kcfgc)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/playlistsettings.kcfgc)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/subtitlessettings.kcfgc)
+kconfig_add_kcfg_files(haruna GENERATE_MOC settings/videosettings.kcfgc)
+
+target_include_directories(haruna PRIVATE playlist)
 
 target_compile_definitions(haruna PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
@@ -49,6 +45,7 @@ target_link_libraries(haruna PRIVATE
     Qt5::Quick
     Qt5::QuickControls2
 
+    KF5::ConfigCore
     KF5::ConfigGui
     KF5::CoreAddons
     KF5::FileMetaData

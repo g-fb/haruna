@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name="georgefb/haruna.conf" />
+  <group name="Mouse">
+    <entry name="LeftAction" type="String">
+      <label>Action for left click</label>
+    </entry>
+    <entry name="Leftx2Action" type="String">
+      <label>Action for left double click</label>
+      <default>toggleFullscreenAction</default>
+    </entry>
+    <entry name="MiddleAction" type="String">
+      <label>Action for middle click</label>
+      <default>muteAction</default>
+    </entry>
+    <entry name="Middlex2Action" type="String">
+      <label>Action for middle double click</label>
+      <default>configureAction</default>
+    </entry>
+    <entry name="RightAction" type="String">
+      <label>Action for right click</label>
+      <default>playPauseAction</default>
+    </entry>
+    <entry name="Rightx2Action" type="String">
+      <label>Action for right double click</label>
+    </entry>
+    <entry name="ScrollUpAction" type="String">
+      <label>Action for scroll up</label>
+      <default>volumeUpAction</default>
+    </entry>
+    <entry name="ScrollDownAction" type="String">
+      <label>Action for scroll down</label>
+      <default>volumeDownAction</default>
+    </entry>
+  </group>
+</kcfg>
