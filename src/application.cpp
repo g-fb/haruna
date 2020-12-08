@@ -37,6 +37,7 @@
 #include <QQuickView>
 #include <QStandardPaths>
 #include <QThread>
+#include <QQmlEngine>
 
 #include <KAboutApplicationDialog>
 #include <KAboutData>
@@ -123,13 +124,26 @@ void Application::setupWorkerThread()
 
 void Application::setupQmlSettingsTypes()
 {
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "AudioSettings", AudioSettings::self());
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "GeneralSettings", GeneralSettings::self());
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "MouseSettings", MouseSettings::self());
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "PlaybackSettings", PlaybackSettings::self());
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "PlaylistSettings", PlaylistSettings::self());
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "SubtitlesSettings", SubtitlesSettings::self());
-    qmlRegisterSingletonInstance("com.georgefb.haruna", 1, 0, "VideoSettings", VideoSettings::self());
+    auto audioProvider = [=](QQmlEngine *, QJSEngine *) { return AudioSettings::self(); };
+    qmlRegisterSingletonType<AudioSettings>("com.georgefb.haruna", 1, 0, "AudioSettings", audioProvider);
+
+    auto generalProvider = [=](QQmlEngine *, QJSEngine *) { return GeneralSettings::self(); };
+    qmlRegisterSingletonType<GeneralSettings>("com.georgefb.haruna", 1, 0, "GeneralSettings", generalProvider);
+
+    auto mouseProvider = [=](QQmlEngine *, QJSEngine *) { return MouseSettings::self(); };
+    qmlRegisterSingletonType<MouseSettings>("com.georgefb.haruna", 1, 0, "MouseSettings", mouseProvider);
+
+    auto playbackProvider = [=](QQmlEngine *, QJSEngine *) { return PlaybackSettings::self(); };
+    qmlRegisterSingletonType<PlaybackSettings>("com.georgefb.haruna", 1, 0, "PlaybackSettings", playbackProvider);
+
+    auto playlistProvider = [=](QQmlEngine *, QJSEngine *) { return PlaylistSettings::self(); };
+    qmlRegisterSingletonType<PlaylistSettings>("com.georgefb.haruna", 1, 0, "PlaylistSettings", playlistProvider);
+
+    auto subtitlesProvider = [=](QQmlEngine *, QJSEngine *) { return SubtitlesSettings::self(); };
+    qmlRegisterSingletonType<SubtitlesSettings>("com.georgefb.haruna", 1, 0, "SubtitlesSettings", subtitlesProvider);
+
+    auto videoProvider = [=](QQmlEngine *, QJSEngine *) { return VideoSettings::self(); };
+    qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", videoProvider);
 }
 
 void Application::setupQmlContextProperties()
