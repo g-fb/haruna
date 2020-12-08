@@ -30,7 +30,7 @@ Item {
             id: buttonsView
 
             implicitHeight: 50 * (buttonsView.count + 1)
-            model: ["Left", "Left.x2", "Middle", "Middle.x2", "Right", "Right.x2", "ScrollUp", "ScrollDown"]
+            model: ["left", "leftx2", "middle", "middlex2", "right", "rightx2", "scrollUp", "scrollDown"]
             header: RowLayout {
                 Kirigami.ListSectionHeader {
                     text: qsTr("Button")
@@ -47,8 +47,7 @@ Item {
 
             delegate: Kirigami.BasicListItem {
                 id: delegate
-                property string actionLabel: MouseSettings[delegate.buttonLabel]
-
+                property string actionLabel: MouseSettings[modelData]
                 property string buttonLabel: modelData
 
                 width: content.width
