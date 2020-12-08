@@ -33,6 +33,7 @@ MpvObject {
         setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         command(["loadfile", file])
         GeneralSettings.lastPlayedFile = file
+        GeneralSettings.save()
     }
 
     onSetSubtitle: {
