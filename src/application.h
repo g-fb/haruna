@@ -32,6 +32,7 @@ public:
     ~Application();
 
     void setupQmlSettingsTypes();
+    static QString version();
 
     int run();
 public slots:

@@ -57,7 +57,7 @@ static QApplication *createApplication(int &argc, char **argv, const QString &ap
     QApplication::setApplicationName(applicationName);
     QApplication::setOrganizationDomain("georgefb.com");
     QApplication::setApplicationDisplayName("Haruna - Video Player");
-    QApplication::setApplicationVersion("0.3.1");
+    QApplication::setApplicationVersion(Application::version());
     QApplication::setWindowIcon(QIcon::fromTheme("com.georgefb.haruna"));
 
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
@@ -144,6 +144,11 @@ void Application::setupQmlSettingsTypes()
 
     auto videoProvider = [=](QQmlEngine *, QJSEngine *) { return VideoSettings::self(); };
     qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", videoProvider);
+}
+
+QString Application::version()
+{
+    return QStringLiteral("0.4.0");
 }
 
 void Application::setupQmlContextProperties()
@@ -264,8 +269,8 @@ void Application::aboutApplication()
 void Application::setupAboutData()
 {
     m_aboutData = KAboutData(QStringLiteral("haruna"),
-                         i18n("Haruna Video Player"),
-                         QStringLiteral("0.2.2"));
+                             i18n("Haruna Video Player"),
+                             Application::version());
     m_aboutData.setShortDescription(i18n("A simple video player."));
     m_aboutData.setLicense(KAboutLicense::GPL_V3);
     m_aboutData.setCopyrightStatement(i18n("(c) 2019"));
