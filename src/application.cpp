@@ -148,7 +148,7 @@ void Application::setupQmlSettingsTypes()
 
 QString Application::version()
 {
-    return QStringLiteral("0.4.0");
+    return QStringLiteral("0.4.1");
 }
 
 void Application::setupQmlContextProperties()
