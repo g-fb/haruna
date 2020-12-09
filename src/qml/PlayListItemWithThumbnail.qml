@@ -11,6 +11,7 @@ import QtGraphicalEffects 1.12
 
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
+import "Components" as HC
 
 Kirigami.BasicListItem {
     id: root
@@ -111,8 +112,10 @@ Kirigami.BasicListItem {
                 Layout.leftMargin: PlaylistSettings.showRowNumber ? 0 : Kirigami.Units.largeSpacing
             }
 
-            Label {
+            HC.Label {
                 id: label
+
+                toolTipFontSize: label.font.pointSize + 2
 
                 color: Kirigami.Theme.textColor
                 horizontalAlignment: Qt.AlignLeft
@@ -125,26 +128,11 @@ Kirigami.BasicListItem {
                 font.weight: isPlaying ? Font.ExtraBold : Font.Normal
                 text: PlaylistSettings.showMediaTitle ? model.title : model.name
                 layer.enabled: true
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.topMargin: Kirigami.Units.largeSpacing
                 Layout.bottomMargin: Kirigami.Units.largeSpacing
                 Layout.leftMargin: PlaylistSettings.showRowNumber || isPlaying ? 0 : Kirigami.Units.largeSpacing
-
-                ToolTip {
-                    visible: labelMouseArea.containsMouse && label.truncated
-                    text: PlaylistSettings.showMediaTitle ? model.title : model.name
-                    font.pointSize: label.font.pointSize + 2
-                }
-
-                MouseArea {
-                    id: labelMouseArea
-
-                    anchors.fill: parent
-                    acceptedButtons: Qt.NoButton
-                    hoverEnabled: true
-                }
             }
 
             Label {

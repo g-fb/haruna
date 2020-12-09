@@ -8,6 +8,9 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
+import org.kde.kirigami 2.11 as Kirigami
+import "Components" as HC
+
 ToolBar {
     id: root
 
@@ -85,33 +88,15 @@ ToolBar {
             Layout.fillWidth: true
         }
 
-        Label {
+        HC.Label {
             id: timeInfo
 
-            text: timeInfoTextMetrics.text
-            font.pointSize: timeInfoTextMetrics.font.pointSize
+            text: app.formatTime(mpv.position) + " / " + app.formatTime(mpv.duration)
+            font.pointSize: Kirigami.Units.gridUnit - 4
+            toolTipText: qsTr("Remaining: ") + app.formatTime(mpv.remaining)
+            toolTipFontSize: timeInfo.font.pointSize + 2
+            alwaysShowToolTip: true
             horizontalAlignment: Qt.AlignHCenter
-            Layout.preferredWidth: timeInfoTextMetrics.width + 50
-
-            TextMetrics {
-                id: timeInfoTextMetrics
-
-                text: app.formatTime(mpv.position) + " / " + app.formatTime(mpv.duration)
-                font.pointSize: 14
-            }
-
-            ToolTip {
-                text: qsTr("Remaining: ") + app.formatTime(mpv.remaining)
-                visible: timeInfoMouseArea.containsMouse
-                timeout: -1
-            }
-
-
-            MouseArea {
-                id: timeInfoMouseArea
-                anchors.fill: parent
-                hoverEnabled: true
-            }
         }
 
         ToolButton {
