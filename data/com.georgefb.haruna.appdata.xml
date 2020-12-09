@@ -20,12 +20,14 @@
         <p>A Qt/QML video player built on top of libmpv.</p>
     </description>
     <releases>
-        <release version="0.4.1" date="2020-12-08">
+        <release version="0.4.2" date="2020-12-09">
             <description>
                 <ul>
-                    <li>Added option to show thumbnails in playlist.</li>
-                    <li>Highlight playing video in playlist.</li>
-                    <li>Fixed a bug in the action responsible for playing previous file.</li>
+                    <li>0.4.2: Fixed mouse actions.</li>
+                    <li>0.4.1: Fixed last played file not saving.</li>
+                    <li>0.4.0: Added option to show thumbnails in playlist.</li>
+                    <li>0.4.0: Highlight playing video in playlist.</li>
+                    <li>0.4.0: Fixed a bug in the action responsible for playing previous file.</li>
                 </ul>
             </description>
         </release>
