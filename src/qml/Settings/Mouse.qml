@@ -26,11 +26,48 @@ Item {
         width: parent.width
         spacing: 20
 
+        ListModel {
+            id: mouseActionsModel
+
+            ListElement {
+                label: "Left"
+                key: "left"
+            }
+            ListElement {
+                label: "Left.x2"
+                key: "leftx2"
+            }
+            ListElement {
+                label: "Right"
+                key: "right"
+            }
+            ListElement {
+                label: "Right.x2"
+                key: "rightx2"
+            }
+            ListElement {
+                label: "Middle"
+                key: "middle"
+            }
+            ListElement {
+                label: "Middle.x2"
+                key: "middlex2"
+            }
+            ListElement {
+                label: "ScrollUp"
+                key: "scrollUp"
+            }
+            ListElement {
+                label: "ScrollDown"
+                key: "scrollDown"
+            }
+        }
+
         ListView {
             id: buttonsView
 
             implicitHeight: 50 * (buttonsView.count + 1)
-            model: ["left", "leftx2", "middle", "middlex2", "right", "rightx2", "scrollUp", "scrollDown"]
+            model: mouseActionsModel
             header: RowLayout {
                 Kirigami.ListSectionHeader {
                     text: qsTr("Button")
@@ -47,8 +84,6 @@ Item {
 
             delegate: Kirigami.BasicListItem {
                 id: delegate
-                property string actionLabel: MouseSettings[modelData]
-                property string buttonLabel: modelData
 
                 width: content.width
                 height: 50
@@ -60,14 +95,14 @@ Item {
                     Layout.fillHeight: true
 
                     Label {
-                        text: buttonLabel
+                        text: model.label
                         padding: 10
                         Layout.preferredWidth: 100
                         Layout.fillHeight: true
                     }
 
                     Label {
-                        text: actionLabel
+                        text: MouseSettings[model.key]
                         Layout.fillWidth: true
                     }
 
@@ -82,8 +117,7 @@ Item {
                         target: selectActionPopup
                         onActionSelected: {
                             if (selectActionPopup.buttonIndex === model.index) {
-                                delegate.actionLabel = actionName
-                                MouseSettings[delegate.buttonLabel] = actionName
+                                MouseSettings[model.key] = actionName
                                 MouseSettings.save()
                             }
                         }
@@ -92,7 +126,7 @@ Item {
 
                 function openSelectActionPopup() {
                     selectActionPopup.buttonIndex = model.index
-                    selectActionPopup.headerTitle = buttonLabel
+                    selectActionPopup.headerTitle = model.label
                     selectActionPopup.open()
                 }
             }
