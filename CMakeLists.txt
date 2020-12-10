@@ -21,44 +21,44 @@ include(KDEInstallDirs)
 include(ECMInstallIcons)
 include(FeatureSummary)
 
-find_package(Qt5Core REQUIRED)
+find_package(Qt5Core)
 set_package_properties(Qt5Core PROPERTIES
     TYPE REQUIRED)
 
-find_package(Qt5Quick REQUIRED)
+find_package(Qt5Quick)
 set_package_properties(Qt5Quick PROPERTIES
     TYPE REQUIRED)
 
-find_package(Qt5QuickControls2 REQUIRED)
+find_package(Qt5QuickControls2)
 set_package_properties(Qt5QuickControls2 PROPERTIES
     TYPE REQUIRED)
 
-find_package(KF5Config REQUIRED)
+find_package(KF5Config)
 set_package_properties(KF5Config PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kconfig/html/index.html")
 
-find_package(KF5CoreAddons REQUIRED)
+find_package(KF5CoreAddons)
 set_package_properties(KF5CoreAddons PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kcoreaddons/html/index.html")
 
-find_package(KF5FileMetaData REQUIRED)
+find_package(KF5FileMetaData)
 set_package_properties(KF5FileMetaData PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kfilemetadata/html/index.html")
 
-find_package(KF5I18n REQUIRED)
+find_package(KF5I18n)
 set_package_properties(KF5I18n PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/ki18n/html/index.html")
 
-find_package(KF5XmlGui REQUIRED)
+find_package(KF5XmlGui)
 set_package_properties(KF5XmlGui PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
-find_package(KF5KIO REQUIRED)
+find_package(KF5KIO)
 set_package_properties(KF5KIO PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kio/html/index.html")
