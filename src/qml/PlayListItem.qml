@@ -93,6 +93,7 @@ Kirigami.BasicListItem {
     }
     onDoubleClicked: {
         mpv.file = model.path
+        mpv.pause = false
         playListModel.setPlayingVideo(index)
     }
 }

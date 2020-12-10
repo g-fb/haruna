@@ -21,6 +21,7 @@ QQC2.Label {
         id: mouseArea
 
         anchors.fill: parent
+        acceptedButtons: Qt.NoButton
         hoverEnabled: true
     }
 }
