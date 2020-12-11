@@ -53,6 +53,11 @@ set_package_properties(KF5I18n PROPERTIES
     TYPE REQUIRED
     URL "https://api.kde.org/frameworks/ki18n/html/index.html")
 
+find_package(KF5IconThemes)
+set_package_properties(KF5IconThemes PROPERTIES
+    TYPE REQUIRED
+    URL "https://api.kde.org/frameworks/kiconthemes/html/index.html")
+
 find_package(KF5XmlGui)
 set_package_properties(KF5XmlGui PROPERTIES
     TYPE REQUIRED
