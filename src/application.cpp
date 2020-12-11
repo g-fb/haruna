@@ -77,7 +77,7 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
 
     if (GeneralSettings::useBreezeTheme()) {
         QApplication::setStyle("Breeze");
-        QIcon::setThemeName("Breeze");
+        QIcon::setThemeName("breeze");
     }
 
     setupWorkerThread();
