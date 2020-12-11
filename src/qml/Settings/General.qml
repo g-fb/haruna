@@ -248,6 +248,19 @@ Item {
             Component.onCompleted: currentIndex = find(GeneralSettings.colorScheme)
         }
 
+        CheckBox {
+            text: qsTr("Use Breeze theme")
+            checked: GeneralSettings.useBreezeTheme
+            onCheckedChanged: {
+                GeneralSettings.useBreezeTheme = checked
+                GeneralSettings.save()
+            }
+            Layout.columnSpan: 2
+
+            ToolTip {
+                text: qsTr("Sets the icon theme and GUI style to breeze.\nRequires restart.")
+            }
+        }
     }
 
     Connections {

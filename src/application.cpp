@@ -75,6 +75,11 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
 
+    if (GeneralSettings::useBreezeTheme()) {
+        QApplication::setStyle("Breeze");
+        QIcon::setThemeName("Breeze");
+    }
+
     setupWorkerThread();
 
     // Qt sets the locale in the QGuiApplication constructor, but libmpv
@@ -298,7 +303,6 @@ void Application::setupCommandLineParser()
     for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
         addArgument(i, parser.positionalArguments().at(i));
     }
-
 }
 
 void Application::setupActions(const QString &actionName)

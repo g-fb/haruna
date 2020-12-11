@@ -40,6 +40,10 @@
     <entry name="ColorScheme" type="String">
       <label>Color scheme</label>
     </entry>
+    <entry name="UseBreezeTheme" type="bool">
+      <label>Sets Breeze icon theme and GUI style.</label>
+      <default>true</default>
+    </entry>
     <entry name="Volume" type="Int">
       <label>Volume</label>
       <default>80</default>
