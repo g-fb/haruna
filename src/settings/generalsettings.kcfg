@@ -4,6 +4,7 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="georgefb/haruna.conf" />
+  <include>QStandardPaths</include>
   <group name="General">
     <entry name="OsdFontSize" type="Int">
       <label>Osd font size</label>
@@ -50,6 +51,16 @@
     </entry>
     <entry name="LastPlayedFile" type="String">
       <label>Last played file</label>
+    </entry>
+    <entry name="FileDialogLocation" type="String">
+      <label>File default dialog location</label>
+    </entry>
+    <entry name="FileDialogLastLocation" type="String">
+      <label>File dialog last location</label>
+      <code>
+        QString videoFolder = QStandardPaths::writableLocation(QStandardPaths::MoviesLocation);
+      </code>
+      <default code="true">videoFolder</default>
     </entry>
     <entry name="LastUrl" type="String">
       <label>Last url</label>

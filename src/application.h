@@ -33,6 +33,8 @@ public:
 
     void setupQmlSettingsTypes();
     static QString version();
+    Q_INVOKABLE QUrl parentUrl(const QString &path);
+    Q_INVOKABLE QUrl pathToUrl(const QString &path);
 
     int run();
 public slots:

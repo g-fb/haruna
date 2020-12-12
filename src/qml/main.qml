@@ -90,7 +90,12 @@ Kirigami.ApplicationWindow {
 
     Platform.FileDialog {
         id: fileDialog
-        folder: Platform.StandardPaths.writableLocation(Platform.StandardPaths.MoviesLocation)
+
+        property url location: GeneralSettings.fileDialogLocation
+                               ? app.pathToUrl(GeneralSettings.fileDialogLocation)
+                               : app.pathToUrl(GeneralSettings.fileDialogLastLocation)
+
+        folder: location
         title: "Select file"
         fileMode: Platform.FileDialog.OpenFile
 
@@ -100,6 +105,9 @@ Kirigami.ApplicationWindow {
             // once the table view rows are loaded
             mpv.scrollPositionTimer.start()
             mpv.focus = true
+
+            GeneralSettings.fileDialogLastLocation = app.parentUrl(fileDialog.file)
+            GeneralSettings.save()
         }
         onRejected: mpv.focus = true
     }

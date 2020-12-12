@@ -156,6 +156,35 @@ QString Application::version()
     return QStringLiteral("0.4.2");
 }
 
+QUrl Application::parentUrl(const QString &path)
+{
+    QUrl url(path);
+    if (!url.isValid()) {
+        return QStandardPaths::writableLocation(QStandardPaths::MoviesLocation);
+    }
+    QFileInfo fileInfo;
+    if (url.isLocalFile()) {
+        fileInfo.setFile(url.toLocalFile());
+    } else {
+        fileInfo.setFile(url.toString());
+    }
+    QUrl parentFolderUrl(fileInfo.absolutePath());
+    parentFolderUrl.setScheme("file");
+
+    return parentFolderUrl;
+}
+
+QUrl Application::pathToUrl(const QString &path)
+{
+    QUrl url(path);
+    if (!url.isValid()) {
+        return QUrl();
+    }
+    url.setScheme("file");
+
+    return url;
+}
+
 void Application::setupQmlContextProperties()
 {
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();

@@ -153,6 +153,30 @@ Item {
             Layout.fillWidth: true
         }
 
+        Label {
+            text: qsTr("File dialog default location")
+            Layout.alignment: Qt.AlignRight
+        }
+
+        Item {
+            height: fileDialogLocation.height
+            Layout.fillWidth: true
+
+            TextField {
+                id: fileDialogLocation
+
+                text: GeneralSettings.fileDialogLocation
+                onEditingFinished: {
+                    GeneralSettings.fileDialogLocation = fileDialogLocation.text
+                    GeneralSettings.save()
+                }
+
+                ToolTip {
+                    text: qsTr("If empty the file dialog will remember the last opened location.")
+                }
+            }
+        }
+
         Item {
             Layout.columnSpan: 2
             Layout.fillHeight: true
