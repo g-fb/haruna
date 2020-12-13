@@ -171,7 +171,10 @@ Slider {
             text: qsTr("Skip Chapters")
             checkable: true
             checked: PlaybackSettings.skipChapters
-            onCheckedChanged: PlaybackSettings.skipChapters = checked
+            onCheckedChanged: {
+                PlaybackSettings.skipChapters = checked
+                PlaybackSettings.save()
+            }
         }
 
         Instantiator {
