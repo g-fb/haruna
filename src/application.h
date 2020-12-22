@@ -27,13 +27,17 @@ class Application : public QObject
     Q_OBJECT
     Q_PROPERTY(QAbstractItemModel* colorSchemesModel READ colorSchemesModel CONSTANT)
     Q_PROPERTY(bool isBreezeStyleAvailable MEMBER m_isBreezeStyleAvailable CONSTANT)
+    Q_PROPERTY(QUrl configFilePath READ configFilePath CONSTANT)
+    Q_PROPERTY(QUrl configFolderPath READ configFolderPath CONSTANT)
 
 public:
     explicit Application(int &argc, char **argv, const QString &applicationName);
     ~Application();
 
-    void setupQmlSettingsTypes();
     static QString version();
+    void setupQmlSettingsTypes();
+    QUrl configFilePath();
+    QUrl configFolderPath();
     Q_INVOKABLE QUrl parentUrl(const QString &path);
     Q_INVOKABLE QUrl pathToUrl(const QString &path);
 

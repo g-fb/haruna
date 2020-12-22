@@ -156,6 +156,25 @@ void Application::setupQmlSettingsTypes()
     qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", videoProvider);
 }
 
+QUrl Application::configFilePath()
+{
+    auto configPath = QStandardPaths::writableLocation(m_config->locationType());
+    auto configFilePath = configPath.append(QStringLiteral("/")).append(m_config->name());
+    QUrl url(configFilePath);
+    url.setScheme("file");
+    return url;
+}
+
+QUrl Application::configFolderPath()
+{
+    auto configPath = QStandardPaths::writableLocation(m_config->locationType());
+    auto configFilePath = configPath.append(QStringLiteral("/")).append(m_config->name());
+    QFileInfo fileInfo(configFilePath);
+    QUrl url(fileInfo.absolutePath());
+    url.setScheme("file");
+    return url;
+}
+
 QString Application::version()
 {
     return QStringLiteral("0.4.2");

@@ -97,12 +97,12 @@ Pane {
 
                         MenuItem {
                             text: qsTr("Folder")
-                            onTriggered: Qt.openUrlExternally(Haruna.GeneralSettings.configFolderPath)
+                            onTriggered: Qt.openUrlExternally(app.configFolderPath)
                         }
 
                         MenuItem {
                             text: qsTr("File")
-                            onTriggered: Qt.openUrlExternally(Haruna.GeneralSettings.configFilePath)
+                            onTriggered: Qt.openUrlExternally(app.configFilePath)
                         }
                     }
                 }
