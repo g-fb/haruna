@@ -75,9 +75,11 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
 
-    if (GeneralSettings::useBreezeTheme()) {
-        QApplication::setStyle("Breeze");
+    if (GeneralSettings::useBreezeIconTheme()) {
         QIcon::setThemeName("breeze");
+    }
+    if (GeneralSettings::useBreezeGuiStyle()) {
+        QApplication::setStyle("Breeze");
     }
 
     setupWorkerThread();

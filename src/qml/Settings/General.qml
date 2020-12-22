@@ -273,16 +273,29 @@ Item {
         }
 
         CheckBox {
-            text: qsTr("Use Breeze theme")
-            checked: GeneralSettings.useBreezeTheme
+            text: qsTr("Use Breeze icon theme")
+            checked: GeneralSettings.useBreezeIconTheme
             onCheckedChanged: {
-                GeneralSettings.useBreezeTheme = checked
+                GeneralSettings.useBreezeIconTheme = checked
                 GeneralSettings.save()
             }
             Layout.columnSpan: 2
 
             ToolTip {
-                text: qsTr("Sets the icon theme and GUI style to breeze.\nRequires restart.")
+                text: qsTr("Sets the icon theme to breeze.\nRequires restart.")
+            }
+        }
+        CheckBox {
+            text: qsTr("Use Breeze GUI style")
+            checked: GeneralSettings.useBreezeGuiStyle
+            onCheckedChanged: {
+                GeneralSettings.useBreezeGuiStyle = checked
+                GeneralSettings.save()
+            }
+            Layout.columnSpan: 2
+
+            ToolTip {
+                text: qsTr("Sets the GUI style to breeze.\nRequires restart.")
             }
         }
     }
