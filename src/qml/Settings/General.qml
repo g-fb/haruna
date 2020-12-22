@@ -288,6 +288,7 @@ Item {
         CheckBox {
             text: qsTr("Use Breeze GUI style")
             checked: GeneralSettings.useBreezeGuiStyle
+            enabled: app.isBreezeStyleAvailable
             onCheckedChanged: {
                 GeneralSettings.useBreezeGuiStyle = checked
                 GeneralSettings.save()
@@ -295,7 +296,9 @@ Item {
             Layout.columnSpan: 2
 
             ToolTip {
-                text: qsTr("Sets the GUI style to breeze.\nRequires restart.")
+                text: parent.enabled
+                      ? qsTr("Sets the GUI style to breeze.\nRequires restart.")
+                      : qsTr("Breeze style is not installed, check help page for more information.")
             }
         }
     }

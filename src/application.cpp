@@ -36,6 +36,7 @@
 #include <QQuickStyle>
 #include <QQuickView>
 #include <QStandardPaths>
+#include <QStyleFactory>
 #include <QThread>
 #include <QQmlEngine>
 
@@ -74,6 +75,8 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
+
+    m_isBreezeStyleAvailable = QStyleFactory::keys().contains(QStringLiteral("Breeze"));
 
     if (GeneralSettings::useBreezeIconTheme()) {
         QIcon::setThemeName("breeze");

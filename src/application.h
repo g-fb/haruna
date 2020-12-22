@@ -26,6 +26,7 @@ class Application : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QAbstractItemModel* colorSchemesModel READ colorSchemesModel CONSTANT)
+    Q_PROPERTY(bool isBreezeStyleAvailable MEMBER m_isBreezeStyleAvailable CONSTANT)
 
 public:
     explicit Application(int &argc, char **argv, const QString &applicationName);
@@ -64,6 +65,7 @@ private:
     KConfigGroup *m_shortcuts;
     QMap<int, QString> m_args;
     KColorSchemeManager *m_schemes;
+    bool m_isBreezeStyleAvailable {false};
     void setupQmlContextProperties();
     void setupWorkerThread();
 };
