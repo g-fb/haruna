@@ -14,8 +14,8 @@ import com.georgefb.haruna 1.0
 Item {
     id: root
 
-    property bool hasHelp: false
-    property string helpFile: ""
+    property bool hasHelp: true
+    property string helpFile: ":/GeneralSettings.html"
 
     visible: false
 
@@ -296,10 +296,27 @@ Item {
             Layout.columnSpan: 2
 
             ToolTip {
-                text: parent.enabled
-                      ? qsTr("Sets the GUI style to breeze.\nRequires restart.")
-                      : qsTr("Breeze style is not installed, check help page for more information.")
+                text: qsTr("Sets the GUI style to breeze.\nRequires restart.")
             }
+        }
+
+        TextArea {
+            text: qsTr("Breeze style is not installed.")
+            visible: !app.isBreezeStyleAvailable
+            width: parent.width
+            color: Kirigami.Theme.textColor
+            readOnly: true
+            textFormat: Text.RichText
+            wrapMode: Text.WordWrap
+            selectByMouse: true
+            rightPadding: scrollbar.width
+            onLinkActivated: Qt.openUrlExternally(link)
+            onHoveredLinkChanged: hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+            background: Rectangle {
+                color: "transparent"
+                border.color: "transparent"
+            }
+            Layout.columnSpan: 2
         }
     }
 
