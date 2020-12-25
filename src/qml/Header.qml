@@ -81,7 +81,7 @@ ToolBar {
 
                 onClicked: {
                     if (subtitleMenuButton.model === 0) {
-                        subtitleMenuButton.model = mpv.subtitleTracksModel()
+                        subtitleMenuButton.model = mpv.subtitleTracksModel
                     }
 
                     subtitleMenu.visible = !subtitleMenu.visible
@@ -142,7 +142,7 @@ ToolBar {
 
                 onClicked: {
                     if (audioMenuInstantiator.model === 0) {
-                        audioMenuInstantiator.model = mpv.audioTracksModel()
+                        audioMenuInstantiator.model = mpv.audioTracksModel
                     }
                     audioMenu.visible = !audioMenu.visible
                 }

@@ -12,14 +12,17 @@
 #include <mpv/client.h>
 #include <mpv/render_gl.h>
 #include "qthelper.h"
+#include "tracksmodel.h"
 
 class MpvRenderer;
 class Track;
-class TracksModel;
 
 class MpvObject : public QQuickFramebufferObject
 {
     Q_OBJECT
+    Q_PROPERTY(TracksModel* audioTracksModel READ audioTracksModel)
+    Q_PROPERTY(TracksModel* subtitleTracksModel READ subtitleTracksModel)
+
     Q_PROPERTY(QString mediaTitle
                READ mediaTitle
                NOTIFY mediaTitleChanged)
@@ -135,24 +138,23 @@ class MpvObject : public QQuickFramebufferObject
     double watchPercentage();
     void setWatchPercentage(double value);
 
-
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
 
     friend class MpvRenderer;
+
 public:
     MpvObject(QQuickItem * parent = 0);
     virtual ~MpvObject();
     virtual Renderer *createRenderer() const;
 
+    Q_INVOKABLE QVariant getProperty(const QString &name);
+    Q_INVOKABLE QVariant command(const QVariant &params);
+
 public slots:
     static void on_mpv_events(void *ctx);
     void eventHandler();
     int setProperty(const QString &name, const QVariant &value);
-    QVariant getProperty(const QString &name);
-    QVariant command(const QVariant &params);
-    TracksModel *audioTracksModel() const;
-    TracksModel *subtitleTracksModel() const;
 
 signals:
     void mediaTitleChanged();
@@ -175,6 +177,8 @@ signals:
     void ready();
 
 private:
+    TracksModel *audioTracksModel() const;
+    TracksModel *subtitleTracksModel() const;
     TracksModel *m_audioTracksModel;
     TracksModel *m_subtitleTracksModel;
     QMap<int, Track*> m_subtitleTracks;

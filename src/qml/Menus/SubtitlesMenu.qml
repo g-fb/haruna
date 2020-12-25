@@ -17,7 +17,7 @@ Menu {
         id: primarySubtitleMenu
 
         title: qsTr("Primary Subtitle")
-        onOpened: primarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
+        onOpened: primarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel
 
         Instantiator {
             id: primarySubtitleMenuInstantiator
@@ -38,7 +38,7 @@ Menu {
         id: secondarySubtitleMenu
 
         title: qsTr("Secondary Subtitle")
-        onOpened: secondarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel()
+        onOpened: secondarySubtitleMenuInstantiator.model = mpv.subtitleTracksModel
 
         Instantiator {
             id: secondarySubtitleMenuInstantiator

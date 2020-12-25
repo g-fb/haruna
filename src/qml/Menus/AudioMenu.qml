@@ -34,7 +34,7 @@ Menu {
         Connections {
             target: mpv
             onFileLoaded: {
-                audioMenuInstantiator.model = mpv.audioTracksModel()
+                audioMenuInstantiator.model = mpv.audioTracksModel
             }
         }
     }
