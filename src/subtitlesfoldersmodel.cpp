@@ -59,16 +59,16 @@ void SubtitlesFoldersModel::updateFolder(const QString &folder, int row)
 
 void SubtitlesFoldersModel::deleteFolder(int row)
 {
-    emit beginRemoveRows(QModelIndex(), row, row);
+    beginRemoveRows(QModelIndex(), row, row);
     m_list.removeAt(row);
-    emit endRemoveRows();
+    endRemoveRows();
     m_config->group("Subtitles").writePathEntry("Folders", m_list);
     m_config->sync();
 }
 
 void SubtitlesFoldersModel::addFolder()
 {
-    emit beginInsertRows(QModelIndex(), m_list.size(), m_list.size());
+    beginInsertRows(QModelIndex(), m_list.size(), m_list.size());
     m_list.append(QStringLiteral());
-    emit endInsertRows();
+    endInsertRows();
 }

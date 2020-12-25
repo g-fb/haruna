@@ -29,7 +29,7 @@ PlayListModel::PlayListModel(QObject *parent)
         m_playList[i]->setDuration(Application::formatTime(duration));
         m_playList[i]->setMediaTitle(title);
 
-        dataChanged(index(i, 0), index(i, 0));
+        emit dataChanged(index(i, 0), index(i, 0));
 
     });
 }

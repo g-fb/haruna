@@ -40,19 +40,18 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual QHash<int, QByteArray> roleNames() const override;
 
+    Q_INVOKABLE QString getPath(int i);
+    Q_INVOKABLE void setPlayingVideo(int playingVideo);
+    Q_INVOKABLE int getPlayingVideo() const;
+    Q_INVOKABLE void getVideos(QString path);
+    Q_INVOKABLE void clear();
+
 signals:
     void videoAdded(int index, QString path);
     void playingVideoChanged();
 
-public slots:
-    Playlist items() const;
-    QString getPath(int i);
-    void getVideos(QString path);
-    void setPlayingVideo(int playingVideo);
-    int getPlayingVideo() const;
-    void clear();
-
 private:
+    Playlist items() const;
     Playlist m_playList;
     int m_playingVideo = -1;
 };
