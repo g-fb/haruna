@@ -20,8 +20,8 @@ class Track;
 class MpvObject : public QQuickFramebufferObject
 {
     Q_OBJECT
-    Q_PROPERTY(TracksModel* audioTracksModel READ audioTracksModel)
-    Q_PROPERTY(TracksModel* subtitleTracksModel READ subtitleTracksModel)
+    Q_PROPERTY(TracksModel* audioTracksModel READ audioTracksModel NOTIFY audioTracksModelChanged)
+    Q_PROPERTY(TracksModel* subtitleTracksModel READ subtitleTracksModel NOTIFY subtitleTracksModelChanged)
 
     Q_PROPERTY(QString mediaTitle
                READ mediaTitle
@@ -152,7 +152,7 @@ public:
     Q_INVOKABLE QVariant command(const QVariant &params);
 
 public slots:
-    static void on_mpv_events(void *ctx);
+    static void mpvEvents(void *ctx);
     void eventHandler();
     int setProperty(const QString &name, const QVariant &value);
 
@@ -175,6 +175,8 @@ signals:
     void endOfFile();
     void watchPercentageChanged();
     void ready();
+    void audioTracksModelChanged();
+    void subtitleTracksModelChanged();
 
 private:
     TracksModel *audioTracksModel() const;

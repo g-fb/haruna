@@ -125,7 +125,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("could not initialize mpv context");
 
-    mpv_set_wakeup_callback(mpv, MpvObject::on_mpv_events, this);
+    mpv_set_wakeup_callback(mpv, MpvObject::mpvEvents, this);
 }
 
 MpvObject::~MpvObject()
@@ -327,7 +327,7 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
     return new MpvRenderer(const_cast<MpvObject *>(this));
 }
 
-void MpvObject::on_mpv_events(void *ctx)
+void MpvObject::mpvEvents(void *ctx)
 {
     QMetaObject::invokeMethod(static_cast<MpvObject*>(ctx), "eventHandler", Qt::QueuedConnection);
 }
@@ -483,6 +483,9 @@ void MpvObject::loadTracks()
     }
     m_subtitleTracksModel->setTracks(m_subtitleTracks);
     m_audioTracksModel->setTracks(m_audioTracks);
+
+    emit audioTracksModelChanged();
+    emit subtitleTracksModelChanged();
 }
 
 TracksModel *MpvObject::subtitleTracksModel() const
