@@ -26,7 +26,6 @@ void ThumbnailResponse::getPreview(const QString &id, const QSize &requestedSize
     auto file = QUrl::fromPercentEncoding(id.toUtf8()).toUtf8();
     if(QFile(file).exists()) {
         QMimeDatabase db;
-        QMimeType mimetypes = db.mimeTypeForFile(file);
         QString mimetype = db.mimeTypeForFile(file).name();
 
         QStringList allPlugins{KIO::PreviewJob::availablePlugins()};
