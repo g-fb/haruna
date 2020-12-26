@@ -441,10 +441,10 @@ void MpvObject::loadTracks()
     none->setTitle("None");
     m_subtitleTracks.insert(0, none);
 
-    QVariant tracks = getProperty("track-list");
+    const QList<QVariant> tracks = getProperty("track-list").toList();
     int subIndex = 1;
     int audioIndex = 0;
-    for (const auto &track : tracks.toList()) {
+    for (const auto &track : tracks) {
         const auto t = track.toMap();
         if (track.toMap()["type"] == "sub") {
             auto track = new Track();

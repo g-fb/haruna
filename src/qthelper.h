@@ -158,13 +158,15 @@ private:
             if (!list)
                 goto fail;
             list->num = qmap.size();
-            for (int n = 0; n < qmap.size(); n++) {
-                list->keys[n] = dup_qstring(qmap.keys()[n]);
+            int n = 0;
+            for (auto it = qmap.constKeyValueBegin(); it != qmap.constKeyValueEnd(); ++it) {
+                list->keys[n] = dup_qstring(it->first);
                 if (!list->keys[n]) {
                     free_node(dst);
                     goto fail;
                 }
-                set(&list->values[n], qmap.values()[n]);
+                set(&list->values[n], it->second);
+                ++n;
             }
         } else {
             goto fail;
