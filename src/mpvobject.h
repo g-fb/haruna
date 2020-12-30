@@ -96,6 +96,11 @@ class MpvObject : public QQuickFramebufferObject
                WRITE setWatchPercentage
                NOTIFY watchPercentageChanged)
 
+    Q_PROPERTY(bool hwDecoding
+               READ hwDecoding
+               WRITE setHWDecoding
+               NOTIFY hwDecodingChanged)
+
 
     QString mediaTitle();
 
@@ -138,6 +143,9 @@ class MpvObject : public QQuickFramebufferObject
     double watchPercentage();
     void setWatchPercentage(double value);
 
+    bool hwDecoding();
+    void setHWDecoding(bool value);
+
     mpv_handle *mpv;
     mpv_render_context *mpv_gl;
 
@@ -177,6 +185,7 @@ signals:
     void ready();
     void audioTracksModelChanged();
     void subtitleTracksModelChanged();
+    void hwDecodingChanged();
 
 private:
     TracksModel *audioTracksModel() const;

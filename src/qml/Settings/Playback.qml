@@ -28,6 +28,17 @@ Item {
         ColumnLayout {
 
             CheckBox {
+                id: hwDecodingCheckBox
+                text: qsTr("Use hardware decoding")
+                checked: PlaybackSettings.useHWDecoding
+                onCheckedChanged: {
+                    mpv.hwDecoding = checked
+                    PlaybackSettings.useHWDecoding = checked
+                    PlaybackSettings.save()
+                }
+            }
+
+            CheckBox {
                 id: skipChaptersCheckBox
                 text: qsTr("Skip chapters")
                 checked: PlaybackSettings.skipChapters

@@ -6,6 +6,7 @@
 
 #include "_debug.h"
 #include "mpvobject.h"
+#include "playbacksettings.h"
 #include "track.h"
 #include "tracksmodel.h"
 
@@ -96,7 +97,12 @@ MpvObject::MpvObject(QQuickItem * parent)
 //    setProperty("terminal", "yes");
 //    setProperty("msg-level", "all=v");
 
-    setProperty("hwdec", "auto");
+    if (PlaybackSettings::useHWDecoding()) {
+        setProperty("hwdec", "yes");
+    } else {
+        setProperty("hwdec", "no");
+    }
+
     setProperty("screenshot-template", "%x/screenshots/%n");
     setProperty("sub-auto", "exact");
 
@@ -332,6 +338,24 @@ void MpvObject::setWatchPercentage(double value)
     emit watchPercentageChanged();
 }
 
+bool MpvObject::hwDecoding()
+{
+    if (getProperty("hwdec") == "yes") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void MpvObject::setHWDecoding(bool value)
+{
+    if (value) {
+        setProperty("hwdec", "yes");
+    } else  {
+        setProperty("hwdec", "no");
+    }
+    emit hwDecodingChanged();
+}
 
 QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 {
