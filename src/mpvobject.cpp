@@ -95,8 +95,10 @@ MpvObject::MpvObject(QQuickItem * parent)
 
 //    setProperty("terminal", "yes");
 //    setProperty("msg-level", "all=v");
+
     setProperty("hwdec", "auto");
     setProperty("screenshot-template", "%x/screenshots/%n");
+    setProperty("sub-auto", "exact");
 
     mpv_observe_property(mpv, 0, "media-title", MPV_FORMAT_STRING);
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
@@ -112,7 +114,6 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "saturation", MPV_FORMAT_INT64);
-    setProperty("sub-auto", "exact");
 
     QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     QString watchLaterPath = configPath.append("/georgefb/watch-later");
@@ -126,6 +127,18 @@ MpvObject::MpvObject(QQuickItem * parent)
         throw std::runtime_error("could not initialize mpv context");
 
     mpv_set_wakeup_callback(mpv, MpvObject::mpvEvents, this);
+
+    connect(this, &MpvObject::fileLoaded,
+            this, &MpvObject::loadTracks);
+
+    connect(this, &MpvObject::positionChanged, this, [this]() {
+        int pos = getProperty("time-pos").toInt();
+        double duration = getProperty("duration").toDouble();
+        if (!m_secondsWatched.contains(pos)) {
+            m_secondsWatched << pos;
+            setWatchPercentage(m_secondsWatched.count() * 100 / duration);
+        }
+    });
 }
 
 MpvObject::~MpvObject()
@@ -341,7 +354,6 @@ void MpvObject::eventHandler()
         }
         switch (event->event_id) {
         case MPV_EVENT_FILE_LOADED: {
-            loadTracks();
             emit fileLoaded();
             break;
         }
@@ -357,13 +369,6 @@ void MpvObject::eventHandler()
 
             if (strcmp(prop->name, "time-pos") == 0) {
                 if (prop->format == MPV_FORMAT_DOUBLE) {
-                    int pos = getProperty("time-pos").toInt();
-                    double duration = getProperty("duration").toDouble();
-                    if (!m_secondsWatched.contains(pos)) {
-                        m_secondsWatched << pos;
-                        setWatchPercentage(m_secondsWatched.count() * 100 / duration);
-                    }
-
                     emit positionChanged();
                 }
             } else if (strcmp(prop->name, "media-title") == 0) {
