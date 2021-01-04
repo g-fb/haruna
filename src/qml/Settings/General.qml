@@ -7,9 +7,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import org.kde.kirigami 2.11 as Kirigami
 
+import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
+
+import "../Components"
 
 Item {
     id: root
@@ -74,17 +76,6 @@ Item {
                 }
             }
             Layout.fillWidth: true
-        }
-
-        Item {
-            Layout.columnSpan: 2
-            height: 5
-            Rectangle {
-                y: 2
-                width: content.width
-                height: 1
-                color: Kirigami.Theme.alternateBackgroundColor
-            }
         }
 
         // Seek Small Step
@@ -177,21 +168,9 @@ Item {
             }
         }
 
-        Item {
+        SettingsHeader {
+            text: qsTr("Interface")
             Layout.columnSpan: 2
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-        Item {
-            Layout.columnSpan: 2
-            height: 5
-            Rectangle {
-                y: 2
-                width: content.width
-                height: 1
-                color: Kirigami.Theme.alternateBackgroundColor
-            }
         }
 
         CheckBox {
@@ -201,7 +180,8 @@ Item {
                 GeneralSettings.showMenuBar = checked
                 GeneralSettings.save()
             }
-            Layout.columnSpan: 2
+            Layout.row: 8
+            Layout.column: 1
         }
 
         CheckBox {
@@ -211,7 +191,8 @@ Item {
                 GeneralSettings.showHeader = checked
                 GeneralSettings.save()
             }
-            Layout.columnSpan: 2
+            Layout.row: 9
+            Layout.column: 1
         }
 
         CheckBox {
@@ -221,7 +202,8 @@ Item {
                 GeneralSettings.showChapterMarkers = checked
                 GeneralSettings.save()
             }
-            Layout.columnSpan: 2
+            Layout.row: 10
+            Layout.column: 1
         }
 
         Item {
@@ -279,7 +261,8 @@ Item {
                 GeneralSettings.useBreezeIconTheme = checked
                 GeneralSettings.save()
             }
-            Layout.columnSpan: 2
+            Layout.row: 14
+            Layout.column: 1
 
             ToolTip {
                 text: qsTr("Sets the icon theme to breeze.\nRequires restart.")
@@ -293,7 +276,8 @@ Item {
                 GeneralSettings.useBreezeGuiStyle = checked
                 GeneralSettings.save()
             }
-            Layout.columnSpan: 2
+            Layout.row: 15
+            Layout.column: 1
 
             ToolTip {
                 text: qsTr("Sets the GUI style to breeze.\nRequires restart.")

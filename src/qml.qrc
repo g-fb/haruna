@@ -32,5 +32,6 @@
         <file>qml/Menus/HelpMenu.qml</file>
         <file>qml/PlayListItemWithThumbnail.qml</file>
         <file>qml/Components/Label.qml</file>
+        <file>qml/Components/SettingsHeader.qml</file>
     </qresource>
 </RCC>
