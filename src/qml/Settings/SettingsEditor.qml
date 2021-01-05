@@ -49,25 +49,17 @@ Pane {
         ColumnLayout {
             spacing: 0
 
-            Flickable {
-                id: settingsPage
+            Loader {
+                id: settingsPageLoader
 
-                clip: true
-                height: root.height
-                contentHeight: root.height - root.topPadding - root.bottomPadding - settingsHelpButton.height
+                sourceComponent: generalSettings
+
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.leftMargin: 10
-                Layout.rightMargin: 5
-                ScrollBar.vertical: ScrollBar { id: settingsPageScrollBar }
-
-                Loader {
-                    id: settingsPageLoader
-
-                    anchors.leftMargin: settingsPageScrollBar.width
-                    anchors.rightMargin: settingsPageScrollBar.width
-                    sourceComponent: generalSettings
-                }
+                Layout.leftMargin: Kirigami.Units.largeSpacing
+                Layout.topMargin: Kirigami.Units.largeSpacing
+                Layout.rightMargin: 0
+                Layout.bottomMargin: Kirigami.Units.largeSpacing
             }
 
             RowLayout {

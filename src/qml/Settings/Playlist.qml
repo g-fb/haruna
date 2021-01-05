@@ -8,20 +8,24 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
+import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
 
-Item {
+import "../Components"
+
+SettingsFlickable {
     id: root
 
     property bool hasHelp: false
     property string helpFile: ""
 
     visible: false
+    contentHeight: content.implicitHeight
 
     GridLayout {
         id: content
 
-        width: parent.width
+        anchors.fill: parent
         columns: 2
 
         Label {
@@ -141,5 +145,9 @@ Item {
             }
         }
 
+        Item {
+            width: Kirigami.Units.gridUnit
+            height: Kirigami.Units.gridUnit
+        }
     }
 }

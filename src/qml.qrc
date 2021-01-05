@@ -33,5 +33,6 @@
         <file>qml/PlayListItemWithThumbnail.qml</file>
         <file>qml/Components/Label.qml</file>
         <file>qml/Components/SettingsHeader.qml</file>
+        <file>qml/Components/SettingsFlickable.qml</file>
     </qresource>
 </RCC>

@@ -8,19 +8,24 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
-Item {
+import org.kde.kirigami 2.11 as Kirigami
+
+import "../Components"
+
+SettingsFlickable {
     id: root
 
     property bool hasHelp: false
     property string helpFile: ""
 
     visible: false
+    contentHeight: content.implicitHeight
 
     ColumnLayout {
         id: content
 
-        width: parent.width
-        spacing: 30
+        anchors.fill: parent
+        spacing: Kirigami.Units.largeSpacing
 
         ////////////////////////////////////////////////////////
         //
@@ -138,8 +143,18 @@ Item {
             }
         }
 
+        Item {
+            width: Kirigami.Units.gridUnit
+            height: Kirigami.Units.gridUnit
+        }
+
         Label {
             text: qsTr("Middle click on the sliders to reset them")
+        }
+
+        Item {
+            width: Kirigami.Units.gridUnit
+            height: Kirigami.Units.gridUnit
         }
     }
 }

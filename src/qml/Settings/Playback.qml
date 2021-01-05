@@ -7,23 +7,26 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import org.kde.kirigami 2.11 as Kirigami
 
+import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
 
-Item {
+import "../Components"
+
+SettingsFlickable {
     id: root
 
     property bool hasHelp: true
     property string helpFile: ":/PlaybackSettings.html"
 
     visible: false
+    contentHeight: content.implicitHeight
 
     ColumnLayout {
         id: content
 
-        width: parent.width
-        spacing: 25
+        anchors.fill: parent
+        spacing: Kirigami.Units.largeSpacing
 
         ColumnLayout {
 
@@ -76,9 +79,15 @@ Item {
             // ------------------------------------
             // Youtube-dl format settings
             // ------------------------------------
-            Item { height: 20 }
 
-            Label { text: qsTr("Youtube-dl format selection") }
+            SettingsHeader {
+                text: qsTr("Youtube-dl")
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+            }
+
+
+            Label { text: qsTr("Format selection") }
             RowLayout {
                 ComboBox {
                     id: ytdlFormatComboBox
@@ -168,6 +177,11 @@ Item {
             // ------------------------------------
             // END - Youtube-dl format settings
             // ------------------------------------
+        }
+
+        Item {
+            width: Kirigami.Units.gridUnit
+            height: Kirigami.Units.gridUnit
         }
     }
 }

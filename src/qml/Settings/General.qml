@@ -13,18 +13,19 @@ import com.georgefb.haruna 1.0
 
 import "../Components"
 
-Item {
+SettingsFlickable {
     id: root
 
     property bool hasHelp: true
     property string helpFile: ":/GeneralSettings.html"
 
     visible: false
+    contentHeight: content.implicitHeight
 
     GridLayout {
         id: content
 
-        width: parent.width
+        anchors.fill: parent
         columns: 2
 
         // OSD Font Size
@@ -145,7 +146,7 @@ Item {
         }
 
         Label {
-            text: qsTr("File dialog default location")
+            text: qsTr("File dialog location")
             Layout.alignment: Qt.AlignRight
         }
 
@@ -171,6 +172,7 @@ Item {
         SettingsHeader {
             text: qsTr("Interface")
             Layout.columnSpan: 2
+            Layout.fillWidth: true
         }
 
         CheckBox {
@@ -204,17 +206,6 @@ Item {
             }
             Layout.row: 10
             Layout.column: 1
-        }
-
-        Item {
-            Layout.columnSpan: 2
-            height: 5
-            Rectangle {
-                y: 2
-                width: content.width
-                height: 1
-                color: Kirigami.Theme.alternateBackgroundColor
-            }
         }
 
         Label {
@@ -301,6 +292,11 @@ Item {
                 border.color: "transparent"
             }
             Layout.columnSpan: 2
+        }
+
+        Item {
+            width: Kirigami.Units.gridUnit
+            height: Kirigami.Units.gridUnit
         }
     }
 
