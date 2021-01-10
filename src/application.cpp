@@ -329,10 +329,9 @@ void Application::setupAboutData()
     m_aboutData = KAboutData(QStringLiteral("haruna"),
                              i18n("Haruna Video Player"),
                              Application::version());
-    m_aboutData.setShortDescription(i18n("A simple video player."));
+    m_aboutData.setShortDescription(i18n("A configurable video player."));
     m_aboutData.setLicense(KAboutLicense::GPL_V3);
-    m_aboutData.setCopyrightStatement(i18n("(c) 2019"));
-    m_aboutData.setOtherText(i18n("TO DO..."));
+    m_aboutData.setCopyrightStatement(i18n("(c) 2019-2021"));
     m_aboutData.setHomepage(QStringLiteral("https://github.com/g-fb/haruna"));
     m_aboutData.setBugAddress(QStringLiteral("https://github.com/g-fb/haruna/issues").toUtf8());
 
@@ -342,7 +341,6 @@ void Application::setupAboutData()
                         QStringLiteral("https://georgefb.com"));
 
     KAboutData::setApplicationData(m_aboutData);
-
 }
 
 void Application::setupCommandLineParser()
