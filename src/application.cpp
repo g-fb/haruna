@@ -177,7 +177,7 @@ QUrl Application::configFolderPath()
 
 QString Application::version()
 {
-    return QStringLiteral("0.4.2");
+    return QStringLiteral("0.5.0");
 }
 
 QUrl Application::parentUrl(const QString &path)
