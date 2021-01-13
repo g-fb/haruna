@@ -160,12 +160,12 @@ private:
             list->num = qmap.size();
             int n = 0;
             for (auto it = qmap.constKeyValueBegin(); it != qmap.constKeyValueEnd(); ++it) {
-                list->keys[n] = dup_qstring(it->first);
+                list->keys[n] = dup_qstring(it.operator*().first);
                 if (!list->keys[n]) {
                     free_node(dst);
                     goto fail;
                 }
-                set(&list->values[n], it->second);
+                set(&list->values[n], it.operator*().second);
                 ++n;
             }
         } else {
