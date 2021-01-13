@@ -13,48 +13,45 @@ import QtGraphicalEffects 1.12
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0 as Haruna
 
-Pane {
+Window {
     id: root
 
     signal skipChaptersChanged(bool checked)
 
-    x: -width; y: 0; z: 50
-    width: 600
+    width: 700
     height: mpv.height
-    leftPadding: 0
-    rightPadding: 0
-    state: "hidden"
-    hoverEnabled: true
-    background: Rectangle {
-        color: Kirigami.Theme.backgroundColor
-    }
+    color: Kirigami.Theme.backgroundColor
 
     RowLayout {
         anchors.fill: parent
+        anchors.bottomMargin: Kirigami.Units.largeSpacing
         spacing: 0
 
         Navigation {
             id: nav
 
-            width: root.width * 0.3 - root.padding
+            width: Math.round(root.width * 0.3)
             Layout.fillHeight: true
-        }
 
-        Rectangle {
-            width: 1
-            color: Kirigami.Theme.alternateBackgroundColor
-            Layout.fillHeight: true
+            Rectangle {
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                width: 1
+                color: Kirigami.Theme.alternateBackgroundColor
+            }
+
         }
 
         ColumnLayout {
             spacing: 0
+            width: Math.round(root.width * 0.7) - 1
 
             Loader {
                 id: settingsPageLoader
 
                 sourceComponent: generalSettings
 
-                Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.leftMargin: Kirigami.Units.largeSpacing
                 Layout.topMargin: Kirigami.Units.largeSpacing
@@ -105,103 +102,52 @@ Pane {
     Component {
         id: generalSettings
         General {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: videoSettings
         VideoSettings {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: colorAdjustmentsSettings
         ColorAdjustments {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: mouseSettings
         Mouse {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: playlistSettings
         Playlist {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: audioSettings
         Audio {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: subtitlesSettings
         Subtitles {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
     Component {
         id: playbackSettings
         Playback {
-            width: root.width * 0.7 - root.padding
+            width: root.width * 0.7
         }
     }
 
-    states: [
-        State {
-            name: "hidden"
-            PropertyChanges { target: root; x: -width }
-            PropertyChanges { target: root; visible: false }
-        },
-        State {
-            name : "visible"
-            PropertyChanges { target: root; x: 0 }
-            PropertyChanges { target: root; visible: true }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "visible"
-            to: "hidden"
-
-            SequentialAnimation {
-                NumberAnimation {
-                    target: root
-                    property: "x"
-                    duration: 150
-                    easing.type: Easing.InQuad
-                }
-                PropertyAction {
-                    target: root
-                    property: "visible"
-                    value: false
-                }
-            }
-        },
-        Transition {
-            from: "hidden"
-            to: "visible"
-
-            SequentialAnimation {
-                PropertyAction {
-                    target: root
-                    property: "visible"
-                    value: true
-                }
-                NumberAnimation {
-                    target: root
-                    property: "x"
-                    duration: 150
-                    easing.type: Easing.OutQuad
-                }
-            }
-        }
-    ]
 
     Window {
         id: helpWindow
