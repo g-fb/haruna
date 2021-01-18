@@ -788,5 +788,11 @@ void Application::setupActions(const QString &actionName)
         m_collection.setDefaultShortcut(action, Qt::SHIFT + Qt::Key_R);
         m_collection.addAction(actionName, action);
     }
+    if (actionName == QStringLiteral("toggleDeinterlacing")) {
+        auto action = new HAction();
+        action->setText(i18n("Toggle deinterlacing"));
+        m_collection.setDefaultShortcut(action, Qt::Key_D);
+        m_collection.addAction(actionName, action);
+    }
     m_collection.readSettings(m_shortcuts);
 }

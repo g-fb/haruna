@@ -1045,4 +1045,18 @@ QtObject {
             mpv.command(["add", "sub-pos", "+1"])
         }
     }
+
+    property Action toggleDeinterlacingAction: Action {
+        id: toggleDeinterlacingAction
+        property var qaction: app.action("toggleDeinterlacing")
+        text: qaction.text
+        icon.name: qaction.iconName()
+        shortcut: qaction.shortcutName()
+
+        Component.onCompleted: list["toggleDeinterlacingAction"] = toggleDeinterlacingAction
+
+        onTriggered: {
+            mpv.setProperty("deinterlace", !mpv.getProperty("deinterlace"))
+        }
+    }
 }
