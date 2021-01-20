@@ -279,7 +279,6 @@ MpvObject {
 
     function toggleFullScreen() {
         if (!window.isFullScreen()) {
-            settingsEditor.state = "hidden"
             window.showFullScreen()
         } else {
             if (window.preFullScreenVisibility === Window.Windowed) {

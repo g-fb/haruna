@@ -35,8 +35,6 @@ ToolBar {
 
             ToolButton {
                 action: actions.configureAction
-                checkable: true
-                checked: settingsEditor.state === "visible"
                 focusPolicy: Qt.NoFocus
             }
             ToolButton {
