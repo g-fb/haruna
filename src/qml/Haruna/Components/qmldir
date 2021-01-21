@@ -1,5 +1,6 @@
 module Haruna.Components
 Label 1.0 Label.qml
+ImageAdjustmentSlider 1.0 ImageAdjustmentSlider.qml
 SettingsBasePage 1.0 SettingsBasePage.qml
 SettingsHeader 1.0 SettingsHeader.qml
 SubtitlesFolders 1.0 SubtitlesFolders.qml

@@ -94,7 +94,7 @@ SettingsBasePage {
         }
 
         SettingsHeader {
-            text: qsTr("Color adjustments")
+            text: qsTr("Image adjustments")
             Layout.columnSpan: 2
             Layout.fillWidth: true
         }
@@ -104,157 +104,68 @@ SettingsBasePage {
         // CONTRAST
         // ------------------------------------
         Label {
-            text: qsTr("Contrast %1").arg(contrastSlider.value.toFixed(0))
-            width: contrastTextMetrics.width
-            Layout.preferredWidth: contrastTextMetrics.width
+            text: qsTr("Contrast")
             Layout.alignment: Qt.AlignRight
-            Layout.topMargin: Kirigami.Units.largeSpacing
-
-            TextMetrics {
-                id:contrastTextMetrics
-                text: qsTr("Contrast 0000")
-            }
-
         }
 
-        Slider {
+        ImageAdjustmentSlider {
             id: contrastSlider
-            from: -100
-            to: 100
+
             value: mpv.contrast
-            wheelEnabled: true
-            stepSize: 1
-            Layout.fillWidth: true
+            onSliderValueChanged: mpv.contrast = value.toFixed(0)
+
             Layout.topMargin: Kirigami.Units.largeSpacing
-            onValueChanged: {
-                mpv.contrast = contrastSlider.value.toFixed(0)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.MiddleButton
-                onClicked: contrastSlider.value = 0
-            }
-
-            Component.onCompleted: background.activeControl = ""
         }
 
         // ------------------------------------
         // BRIGHTNESS
         // ------------------------------------
         Label {
-            text: qsTr("Brightness %1").arg(brightnessSlider.value.toFixed(0))
-            width: brightnessTextMetrics.width
-            Layout.preferredWidth: brightnessTextMetrics.width
+            text: qsTr("Brightness")
             Layout.alignment: Qt.AlignRight
-            Layout.topMargin: Kirigami.Units.largeSpacing
-
-            TextMetrics {
-                id: brightnessTextMetrics
-                text: qsTr("Brightness 0000")
-            }
         }
 
-        Slider {
+        ImageAdjustmentSlider {
             id: brightnessSlider
-            from: -100
-            to: 100
+
             value: mpv.brightness
-            wheelEnabled: true
-            stepSize: 1
-            Layout.fillWidth: true
+            onSliderValueChanged: mpv.brightness = value.toFixed(0)
+
             Layout.topMargin: Kirigami.Units.largeSpacing
-            onValueChanged: {
-                mpv.brightness = brightnessSlider.value.toFixed(0)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.MiddleButton
-                onClicked: brightnessSlider.value = 0
-            }
-
-            Component.onCompleted: background.activeControl = ""
         }
 
         // ------------------------------------
         // GAMMA
         // ------------------------------------
         Label {
-            text: qsTr("Gamma %1").arg(gammaSlider.value.toFixed(0))
-            width: gammaTextMetrics.width
-            Layout.preferredWidth: gammaTextMetrics.width
+            text: qsTr("Gamma")
             Layout.alignment: Qt.AlignRight
-            Layout.topMargin: Kirigami.Units.largeSpacing
-
-            TextMetrics {
-                id: gammaTextMetrics
-                text: qsTr("Gamma 0000")
-            }
-
         }
 
-        height: gammaSlider.height
-
-        Slider {
+        ImageAdjustmentSlider {
             id: gammaSlider
-            from: -100
-            to: 100
+
             value: mpv.gamma
-            wheelEnabled: true
-            stepSize: 1
-            Layout.fillWidth: true
+            onSliderValueChanged: mpv.gamma = value.toFixed(0)
+
             Layout.topMargin: Kirigami.Units.largeSpacing
-            onValueChanged: {
-                mpv.gamma = gammaSlider.value.toFixed(0)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.MiddleButton
-                onClicked: gammaSlider.value = 0
-            }
-
-            Component.onCompleted: background.activeControl = ""
         }
 
         // ------------------------------------
         // SATURATION
         // ------------------------------------
         Label {
-            text: qsTr("Saturation %1").arg(saturationSlider.value.toFixed(0))
-            width: saturationTextMetrics.width
-            Layout.preferredWidth: saturationTextMetrics.width
+            text: qsTr("Saturation")
             Layout.alignment: Qt.AlignRight
-            Layout.topMargin: Kirigami.Units.largeSpacing
-
-            TextMetrics {
-                id: saturationTextMetrics
-                text: qsTr("Saturation 0000")
-            }
-
         }
 
-        Slider {
+        ImageAdjustmentSlider {
             id: saturationSlider
-            from: -100
-            to: 100
+
             value: mpv.saturation
-            wheelEnabled: true
-            stepSize: 1
-            Layout.fillWidth: true
+            onSliderValueChanged: mpv.saturation = value.toFixed(0)
+
             Layout.topMargin: Kirigami.Units.largeSpacing
-            onValueChanged: {
-                mpv.saturation = saturationSlider.value.toFixed(0)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.MiddleButton
-                onClicked: saturationSlider.value = 0
-            }
-
-            Component.onCompleted: background.activeControl = ""
         }
 
         Label {
