@@ -4,24 +4,35 @@ import QtQuick.Controls 2.12
 
 import org.kde.kirigami 2.11 as Kirigami
 
-RowLayout {
+ColumnLayout {
     id: root
 
     property string text: ""
+    property int topMargin: Kirigami.Units.gridUnit
 
-    Rectangle {
-        height: 1
-        color: Kirigami.Theme.alternateBackgroundColor
-        Layout.fillWidth: true
+    spacing: 0
+
+    Item {
+        width: 1
+        height: root.topMargin
+        visible: root.topMargin > 0
     }
 
-    Kirigami.Heading {
-        text: root.text
-    }
+    RowLayout {
+        Rectangle {
+            width: Kirigami.Units.gridUnit
+            height: 1
+            color: Kirigami.Theme.alternateBackgroundColor
+        }
 
-    Rectangle {
-        height: 1
-        color: Kirigami.Theme.alternateBackgroundColor
-        Layout.fillWidth: true
+        Kirigami.Heading {
+            text: root.text
+        }
+
+        Rectangle {
+            height: 1
+            color: Kirigami.Theme.alternateBackgroundColor
+            Layout.fillWidth: true
+        }
     }
 }
