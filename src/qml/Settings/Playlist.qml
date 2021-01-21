@@ -30,7 +30,6 @@ SettingsBasePage {
 
         ComboBox {
             textRole: "key"
-            Layout.fillWidth: true
             model: ListModel {
                 ListElement { key: "Left"; value: "left" }
                 ListElement { key: "Right"; value: "right" }
@@ -67,60 +66,60 @@ SettingsBasePage {
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             checked: PlaylistSettings.showThumbnails
             text: qsTr("Show thumbnails")
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.showThumbnails = checked
                 PlaylistSettings.save()
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             checked: PlaylistSettings.showMediaTitle
             text: qsTr("Show media title instead of file name")
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.showMediaTitle = checked
                 PlaylistSettings.save()
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             checked: PlaylistSettings.loadSiblings
             text: qsTr("Auto load videos from same folder")
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.loadSiblings = checked
                 PlaylistSettings.save()
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             checked: PlaylistSettings.repeat
             text: qsTr("Repeat")
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.repeat = checked
                 PlaylistSettings.save()
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             checked: PlaylistSettings.showRowNumber
             text: qsTr("Show row number")
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.showRowNumber = checked
                 PlaylistSettings.save()
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             checked: PlaylistSettings.canToggleWithMouse
             text: qsTr("Toggle with mouse")
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.canToggleWithMouse = checked
                 PlaylistSettings.save()
@@ -128,10 +127,10 @@ SettingsBasePage {
             }
         }
 
+        Item { width: 1; height: 1 }
         CheckBox {
             text: qsTr("Increase font size when fullscreen")
             checked: PlaylistSettings.bigFontFullscreen
-            Layout.columnSpan: 2
             onCheckStateChanged: {
                 PlaylistSettings.bigFontFullscreen = checked
                 PlaylistSettings.save()

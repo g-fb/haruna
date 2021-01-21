@@ -18,10 +18,10 @@ SettingsBasePage {
     hasHelp: true
     helpFile: ":/PlaybackSettings.html"
 
-    ColumnLayout {
+    GridLayout {
         id: content
 
-        spacing: Kirigami.Units.largeSpacing
+        columns: 2
 
         CheckBox {
             id: hwDecodingCheckBox
@@ -32,6 +32,7 @@ SettingsBasePage {
                 PlaybackSettings.useHWDecoding = checked
                 PlaybackSettings.save()
             }
+            Layout.columnSpan: 2
         }
 
         CheckBox {
@@ -42,11 +43,13 @@ SettingsBasePage {
                 PlaybackSettings.skipChapters = checked
                 PlaybackSettings.save()
             }
+            Layout.columnSpan: 2
         }
 
         Label {
             text: qsTr("Skip chapters containing the following words")
             enabled: skipChaptersCheckBox.checked
+            Layout.columnSpan: 2
         }
 
         TextField {
@@ -57,6 +60,7 @@ SettingsBasePage {
                 PlaybackSettings.chaptersToSkip = text
                 PlaybackSettings.save()
             }
+            Layout.columnSpan: 2
         }
 
         CheckBox {
@@ -67,21 +71,26 @@ SettingsBasePage {
                 PlaybackSettings.showOsdOnSkipChapters = checked
                 PlaybackSettings.save()
             }
+            Layout.columnSpan: 2
         }
 
         // ------------------------------------
         // Youtube-dl format settings
         // ------------------------------------
 
-//        SettingsHeader {
-//            text: qsTr("Youtube-dl")
-//            Layout.columnSpan: 2
-//            Layout.fillWidth: true
-//        }
+        SettingsHeader {
+            text: qsTr("Youtube-dl")
+            Layout.columnSpan: 2
+            Layout.fillWidth: true
+        }
 
+        Label {
+            text: qsTr("Format selection")
+            Layout.alignment: Qt.AlignRight
+        }
 
-        Label { text: qsTr("Format selection") }
-        RowLayout {
+        Item {
+            height: ytdlFormatComboBox.height
             ComboBox {
                 id: ytdlFormatComboBox
                 property string hCurrentvalue: ""
@@ -136,11 +145,12 @@ SettingsBasePage {
                     return 0
                 }
             }
+            Layout.fillWidth: true
         }
+
         TextField {
             id: ytdlFormatField
             text: PlaybackSettings.ytdlFormat
-            Layout.fillWidth: true
             onEditingFinished: {
                 PlaybackSettings.ytdlFormat = text
                 PlaybackSettings.save()
@@ -157,6 +167,9 @@ SettingsBasePage {
                     return;
                 }
             }
+
+            Layout.fillWidth: true
+            Layout.columnSpan: 2
         }
         TextEdit {
             text: qsTr("Leave empty for default value: <i>bestvideo+bestaudio/best</i>")
@@ -166,6 +179,7 @@ SettingsBasePage {
             textFormat: TextEdit.RichText
             selectByMouse: true
             Layout.fillWidth: true
+            Layout.columnSpan: 2
         }
         // ------------------------------------
         // END - Youtube-dl format settings

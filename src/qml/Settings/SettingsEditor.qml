@@ -16,8 +16,8 @@ import com.georgefb.haruna 1.0 as Haruna
 Kirigami.ApplicationWindow {
     id: root
 
-    width: 750
-    height: 500
+    width: 800
+    height: 600
     title: qsTr("Haruna Settings")
     visible: true
     pageStack.initialPage: "qrc:/Navigation.qml"
