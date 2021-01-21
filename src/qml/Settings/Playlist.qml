@@ -51,7 +51,7 @@ SettingsBasePage {
         }
 
         Label {
-            text: qsTr("Row Height")
+            text: qsTr("Row height")
             Layout.alignment: Qt.AlignRight
         }
 

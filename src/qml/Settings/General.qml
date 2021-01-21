@@ -77,7 +77,7 @@ SettingsBasePage {
 
         // Seek Small Step
         Label {
-            text: qsTr("Seek Small Step")
+            text: qsTr("Seek small step")
             Layout.alignment: Qt.AlignRight
         }
 
@@ -99,7 +99,7 @@ SettingsBasePage {
 
         // Seek Medium Step
         Label {
-            text: qsTr("Seek Medium Step")
+            text: qsTr("Seek medium step")
             Layout.alignment: Qt.AlignRight
         }
 
@@ -121,7 +121,7 @@ SettingsBasePage {
 
         // Seek Big Step
         Label {
-            text: qsTr("Seek Big Step")
+            text: qsTr("Seek big step")
             Layout.alignment: Qt.AlignRight
         }
 
@@ -194,7 +194,7 @@ SettingsBasePage {
         }
 
         CheckBox {
-            text: qsTr("Show Chapter Markers")
+            text: qsTr("Show chapter markers")
             checked: GeneralSettings.showChapterMarkers
             onCheckedChanged: {
                 GeneralSettings.showChapterMarkers = checked
@@ -205,7 +205,7 @@ SettingsBasePage {
         }
 
         Label {
-            text: qsTr("Color Scheme")
+            text: qsTr("Color scheme")
             Layout.alignment: Qt.AlignRight
         }
 
