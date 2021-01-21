@@ -66,11 +66,6 @@ Kirigami.Page
             iconName: "input-mouse"
             page: "qrc:/Mouse.qml"
         }
-        ListElement {
-            name: "Color Adjustments"
-            iconName: "color-management"
-            page: "qrc:/ColorAdjustments.qml"
-        }
     }
 
     ListView {
