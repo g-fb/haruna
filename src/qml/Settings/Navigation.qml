@@ -9,49 +9,67 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import org.kde.kirigami 2.11 as Kirigami
 
-Flickable {
-    id: root
+Kirigami.Page
+{
+    padding: 0
 
-    clip: true
-    ScrollBar.vertical: ScrollBar { id: scrollbar }
+    Component.onCompleted: applicationWindow().pageStack.columnView.columnWidth = 250
+
+
+    footer: ToolBar {
+        RowLayout {
+            anchors.fill: parent
+
+            ToolButton {
+                text: qsTr("Configure shortcuts")
+                icon.name: "configure-shortcuts"
+                onClicked: appActions.configureShortcutsAction.trigger()
+                Layout.fillWidth: true
+            }
+        }
+    }
 
     ListModel {
         id: settingsPagesModel
         ListElement {
             name: "General"
             iconName: "configure"
+            page: "qrc:/General.qml"
         }
         ListElement {
             name: "Playback"
             iconName: "media-playback-start"
+            page: "qrc:/Playback.qml"
         }
         ListElement {
             name: "Video"
             iconName: "video-x-generic"
+            page: "qrc:/VideoSettings.qml"
         }
         ListElement {
             name: "Audio"
             iconName: "audio-speakers-symbolic"
+            page: "qrc:/Audio.qml"
         }
         ListElement {
             name: "Subtitles"
             iconName: "media-view-subtitles-symbolic"
+            page: "qrc:/Subtitles.qml"
         }
         ListElement {
             name: "Playlist"
             iconName: "view-media-playlist"
+            page: "qrc:/Playlist.qml"
         }
         ListElement {
             name: "Mouse"
             iconName: "input-mouse"
+            page: "qrc:/Mouse.qml"
         }
         ListElement {
             name: "Color Adjustments"
             iconName: "color-management"
-        }
-        ListElement {
-            name: "Shortcuts"
-            iconName: "configure-shortcuts"
+            page: "qrc:/ColorAdjustments.qml"
         }
     }
 
@@ -63,45 +81,7 @@ Flickable {
         delegate: Kirigami.BasicListItem {
             text: qsTr(name)
             icon: iconName
-            onClicked: {
-                let activeComponent;
-                switch (name) {
-                case "General":
-                    activeComponent = generalSettings
-                    break;
-                case "Playback":
-                    activeComponent = playbackSettings
-                    break;
-                case "Video":
-                    activeComponent = videoSettings
-                    break;
-                case "Audio":
-                    activeComponent = audioSettings
-                    break;
-                case "Subtitles":
-                    activeComponent = subtitlesSettings
-                    break;
-                case "Playlist":
-                    activeComponent = playlistSettings
-                    break;
-                case "Mouse":
-                    activeComponent = mouseSettings
-                    break;
-                case "Color Adjustments":
-                    activeComponent = colorAdjustmentsSettings
-                    break;
-                case "Shortcuts":
-                    // set visible true so since here we open another window
-                    // and if visible is not true the settings page
-                    // will be hidden until the opened window is closed
-                    settingsPageLoader.item.visible = true
-                    actions.configureShortcutsAction.trigger()
-                    return;
-                }
-                settingsPageLoader.item.visible = false
-                settingsPageLoader.sourceComponent = activeComponent
-                settingsPageLoader.item.visible = true
-            }
+            onClicked: applicationWindow().pageStack.push(model.page)
         }
     }
 }

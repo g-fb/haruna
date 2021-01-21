@@ -11,21 +11,19 @@ import QtQuick.Controls 2.12
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
 
-import "../Components"
+import Haruna.Components 1.0
 
-SettingsFlickable {
+SettingsBasePage {
     id: root
 
-    property bool hasHelp: true
-    property string helpFile: ":/GeneralSettings.html"
+    hasHelp: true
+    helpFile: ":/GeneralSettings.html"
 
     visible: false
-    contentHeight: content.implicitHeight
 
     GridLayout {
         id: content
 
-        anchors.fill: parent
         columns: 2
 
         // OSD Font Size
@@ -298,10 +296,5 @@ SettingsFlickable {
             width: Kirigami.Units.gridUnit
             height: Kirigami.Units.gridUnit
         }
-    }
-
-    Connections {
-        target: settingsEditor
-        onVisibleChanged: visible = settingsEditor.visible
     }
 }

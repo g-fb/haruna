@@ -10,22 +10,19 @@ import QtQuick.Controls 2.12
 
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
+import Haruna.Components 1.0
 
-import "../Components"
-
-SettingsFlickable {
+SettingsBasePage {
     id: root
 
-    property bool hasHelp: true
-    property string helpFile: ":/VideoSettings.html"
+    hasHelp: true
+    helpFile: ":/VideoSettings.html"
 
     visible: false
     contentHeight: content.implicitHeight
 
     ColumnLayout {
         id: content
-
-        anchors.fill: parent
 
         RowLayout {
             Label {

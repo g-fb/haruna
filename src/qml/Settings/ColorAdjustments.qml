@@ -9,14 +9,13 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
 import org.kde.kirigami 2.11 as Kirigami
+import Haruna.Components 1.0
 
-import "../Components"
-
-SettingsFlickable {
+SettingsBasePage {
     id: root
 
-    property bool hasHelp: false
-    property string helpFile: ""
+    hasHelp: false
+    helpFile: ""
 
     visible: false
     contentHeight: content.implicitHeight
@@ -24,7 +23,6 @@ SettingsFlickable {
     ColumnLayout {
         id: content
 
-        anchors.fill: parent
         spacing: Kirigami.Units.largeSpacing
 
         ////////////////////////////////////////////////////////

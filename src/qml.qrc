@@ -11,15 +11,15 @@
         <file>qml/Actions.qml</file>
         <file>qml/VolumeSlider.qml</file>
         <file>qml/Settings/SettingsEditor.qml</file>
-        <file>qml/Settings/SubtitlesFolders.qml</file>
-        <file>qml/Settings/General.qml</file>
-        <file>qml/Settings/ColorAdjustments.qml</file>
-        <file>qml/Settings/Mouse.qml</file>
-        <file>qml/Settings/Navigation.qml</file>
-        <file>qml/Settings/Playlist.qml</file>
-        <file>qml/Settings/Audio.qml</file>
-        <file>qml/Settings/Subtitles.qml</file>
-        <file>qml/Settings/Playback.qml</file>
+        <file>qml/Haruna/Components/SubtitlesFolders.qml</file>
+        <file alias="General.qml">qml/Settings/General.qml</file>
+        <file alias="ColorAdjustments.qml">qml/Settings/ColorAdjustments.qml</file>
+        <file alias="Mouse.qml">qml/Settings/Mouse.qml</file>
+        <file alias="Navigation.qml">qml/Settings/Navigation.qml</file>
+        <file alias="Playlist.qml">qml/Settings/Playlist.qml</file>
+        <file alias="Audio.qml">qml/Settings/Audio.qml</file>
+        <file alias="Subtitles.qml">qml/Settings/Subtitles.qml</file>
+        <file alias="Playback.qml">qml/Settings/Playback.qml</file>
         <file>qml/Menus/FileMenu.qml</file>
         <file>qml/Menus/PlaybackMenu.qml</file>
         <file>qml/Menus/SubtitlesMenu.qml</file>
@@ -27,12 +27,13 @@
         <file>qml/Menus/AudioMenu.qml</file>
         <file>qml/Menus/ViewMenu.qml</file>
         <file>qml/Menus/TrackMenuItems.qml</file>
-        <file>qml/Settings/SelectActionPopup.qml</file>
-        <file>qml/Settings/VideoSettings.qml</file>
+        <file>qml/Haruna/Components/SelectActionPopup.qml</file>
+        <file alias="VideoSettings.qml">qml/Settings/VideoSettings.qml</file>
         <file>qml/Menus/HelpMenu.qml</file>
         <file>qml/PlayListItemWithThumbnail.qml</file>
-        <file>qml/Components/Label.qml</file>
-        <file>qml/Components/SettingsHeader.qml</file>
-        <file>qml/Components/SettingsFlickable.qml</file>
+        <file>qml/Haruna/Components/Label.qml</file>
+        <file>qml/Haruna/Components/SettingsHeader.qml</file>
+        <file>qml/Haruna/Components/SettingsBasePage.qml</file>
+        <file>qml/Haruna/Components/qmldir</file>
     </qresource>
 </RCC>

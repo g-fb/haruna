@@ -78,16 +78,26 @@ Popup {
         ListView {
             id: actionsListView
 
-            property var actionsList: Object.keys(actions.list).sort()
+            property var actionsList: Object.keys(appActions.list).sort()
 
             implicitHeight: 30 * model.count
             model: actionsList
             spacing: 1
             clip: true
+            currentIndex: focus ? 0 : -1
+            delegate: Kirigami.BasicListItem {
+                height: 30
+                width: root.width
+                label: modelData
+                reserveSpaceForIcon: false
+                onDoubleClicked: actionSelected(modelData)
+                Keys.onEnterPressed: actionSelected(modelData)
+                Keys.onReturnPressed: actionSelected(modelData)
+            }
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignTop
-            currentIndex: focus ? 0 : -1
             KeyNavigation.up: clearActionButton
             KeyNavigation.down: filterActionsField
             Keys.onPressed: {
@@ -99,15 +109,6 @@ Popup {
                     actionsListView.currentIndex = 0
                     actionsListView.positionViewAtIndex(actionsListView.currentIndex,ListView.Center)
                 }
-            }
-            delegate: Kirigami.BasicListItem {
-                height: 30
-                width: root.width
-                label: modelData
-                reserveSpaceForIcon: false
-                onDoubleClicked: actionSelected(modelData)
-                Keys.onEnterPressed: actionSelected(modelData)
-                Keys.onReturnPressed: actionSelected(modelData)
             }
         }
     }

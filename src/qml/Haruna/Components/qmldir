@@ -1,0 +1,6 @@
+module Haruna.Components
+Label 1.0 Label.qml
+SettingsBasePage 1.0 SettingsBasePage.qml
+SettingsHeader 1.0 SettingsHeader.qml
+SubtitlesFolders 1.0 SubtitlesFolders.qml
+SelectActionPopup 1.0 SelectActionPopup.qml

@@ -9,7 +9,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 import org.kde.kirigami 2.11 as Kirigami
-import "Components" as HC
+import Haruna.Components 1.0 as HC
 
 ToolBar {
     id: root

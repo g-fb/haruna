@@ -10,14 +10,13 @@ import QtQuick.Controls 2.12
 
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
+import Haruna.Components 1.0
 
-import "../Components"
-
-SettingsFlickable {
+SettingsBasePage {
     id: root
 
-    property bool hasHelp: true
-    property string helpFile: ":/PlaybackSettings.html"
+    hasHelp: true
+    helpFile: ":/PlaybackSettings.html"
 
     visible: false
     contentHeight: content.implicitHeight
@@ -25,7 +24,6 @@ SettingsFlickable {
     ColumnLayout {
         id: content
 
-        anchors.fill: parent
         spacing: Kirigami.Units.largeSpacing
 
         CheckBox {
@@ -78,11 +76,11 @@ SettingsFlickable {
         // Youtube-dl format settings
         // ------------------------------------
 
-        SettingsHeader {
-            text: qsTr("Youtube-dl")
-            Layout.columnSpan: 2
-            Layout.fillWidth: true
-        }
+//        SettingsHeader {
+//            text: qsTr("Youtube-dl")
+//            Layout.columnSpan: 2
+//            Layout.fillWidth: true
+//        }
 
 
         Label { text: qsTr("Format selection") }

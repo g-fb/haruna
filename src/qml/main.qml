@@ -73,6 +73,7 @@ Kirigami.ApplicationWindow {
     }
 
     Actions { id: actions }
+    Actions { id: appActions }
 
     SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
