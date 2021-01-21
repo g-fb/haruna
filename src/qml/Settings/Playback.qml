@@ -18,9 +18,6 @@ SettingsBasePage {
     hasHelp: true
     helpFile: ":/PlaybackSettings.html"
 
-    visible: false
-    contentHeight: content.implicitHeight
-
     ColumnLayout {
         id: content
 

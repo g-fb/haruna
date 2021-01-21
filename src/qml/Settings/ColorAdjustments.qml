@@ -17,9 +17,6 @@ SettingsBasePage {
     hasHelp: false
     helpFile: ""
 
-    visible: false
-    contentHeight: content.implicitHeight
-
     ColumnLayout {
         id: content
 

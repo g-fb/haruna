@@ -18,9 +18,6 @@ SettingsBasePage {
     hasHelp: false
     helpFile: ""
 
-    visible: false
-    contentHeight: content.implicitHeight
-
     GridLayout {
         id: content
 

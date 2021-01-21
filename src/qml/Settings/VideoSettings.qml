@@ -18,9 +18,6 @@ SettingsBasePage {
     hasHelp: true
     helpFile: ":/VideoSettings.html"
 
-    visible: false
-    contentHeight: content.implicitHeight
-
     ColumnLayout {
         id: content
 

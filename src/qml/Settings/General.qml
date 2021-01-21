@@ -19,8 +19,6 @@ SettingsBasePage {
     hasHelp: true
     helpFile: ":/GeneralSettings.html"
 
-    visible: false
-
     GridLayout {
         id: content
 
