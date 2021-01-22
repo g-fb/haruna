@@ -174,6 +174,11 @@ ToolBar {
             Layout.alignment: Qt.AlignRight
 
             ToolButton {
+                action: actions.togglePlaylistAction
+                visible: !PlaylistSettings.canToggleWithMouse
+            }
+
+            ToolButton {
                 // using `action: actions.quitApplicationAction` breaks the action
                 // doens't work on the first try in certain circumstances
                 text: actions.quitApplicationAction.text
