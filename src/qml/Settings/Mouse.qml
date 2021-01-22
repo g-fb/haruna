@@ -32,7 +32,7 @@ SettingsBasePage {
                 key: "left"
             }
             ListElement {
-                label: "Left.x2"
+                label: "Left double click"
                 key: "leftx2"
             }
             ListElement {
@@ -40,7 +40,7 @@ SettingsBasePage {
                 key: "right"
             }
             ListElement {
-                label: "Right.x2"
+                label: "Right double click"
                 key: "rightx2"
             }
             ListElement {
@@ -48,7 +48,7 @@ SettingsBasePage {
                 key: "middle"
             }
             ListElement {
-                label: "Middle.x2"
+                label: "Middle double click"
                 key: "middlex2"
             }
             ListElement {
@@ -62,62 +62,32 @@ SettingsBasePage {
         }
 
         ListView {
-            id: buttonsView
+            id: mouseButtonsListView
 
-            implicitHeight: 50 * (buttonsView.count + 1)
+            property int delegateHeight
+
+            implicitHeight: delegateHeight * (mouseButtonsListView.count + 1)
             model: mouseActionsModel
-            header: RowLayout {
-                Kirigami.ListSectionHeader {
-                    text: qsTr("Button")
-                    Layout.leftMargin: 5
-                    Layout.preferredWidth: 100
-                }
-
-                Kirigami.ListSectionHeader {
-                    text: qsTr("Action")
-                    Layout.leftMargin: 5
-                    Layout.fillWidth: true
-                }
-            }
 
             delegate: Kirigami.BasicListItem {
                 id: delegate
 
+                label: model.label
+                subtitle: MouseSettings[model.key] ? MouseSettings[model.key] : "No action set"
+                icon: MouseSettings[model.key] ? "checkmark" : ""
+                reserveSpaceForIcon: true
                 width: content.width
-                height: 50
+                highlighted: false
 
-                onDoubleClicked: openSelectActionPopup()
+                onClicked: openSelectActionPopup()
+                Component.onCompleted: mouseButtonsListView.delegateHeight = height
 
-                contentItem: RowLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    Label {
-                        text: model.label
-                        padding: 10
-                        Layout.preferredWidth: 100
-                        Layout.fillHeight: true
-                    }
-
-                    Label {
-                        text: MouseSettings[model.key]
-                        Layout.fillWidth: true
-                    }
-
-                    Button {
-                        flat: true
-                        icon.name: "configure"
-                        Layout.alignment: Qt.AlignRight
-                        onClicked: openSelectActionPopup()
-                    }
-
-                    Connections {
-                        target: selectActionPopup
-                        onActionSelected: {
-                            if (selectActionPopup.buttonIndex === model.index) {
-                                MouseSettings[model.key] = actionName
-                                MouseSettings.save()
-                            }
+                Connections {
+                    target: selectActionPopup
+                    onActionSelected: {
+                        if (selectActionPopup.buttonIndex === model.index) {
+                            MouseSettings[model.key] = actionName
+                            MouseSettings.save()
                         }
                     }
                 }
@@ -128,12 +98,7 @@ SettingsBasePage {
                     selectActionPopup.open()
                 }
             }
-        }
 
-        Label {
-            text: qsTr("Double click to edit actions")
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignTop
         }
 
         Item {

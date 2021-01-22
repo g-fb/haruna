@@ -23,6 +23,7 @@ Kirigami.ApplicationWindow {
 
     property var configure: app.action("configure")
     property int preFullScreenVisibility
+    property var appActions: actions.list
 
     visible: true
     title: mpv.mediaTitle || qsTr("Haruna")
@@ -72,12 +73,11 @@ Kirigami.ApplicationWindow {
         HelpMenu {}
     }
 
-    Actions { id: actions }
-    Actions { id: appActions }
-
     SystemPalette { id: systemPalette; colorGroup: SystemPalette.Active }
 
     SettingsEditor { id: settingsEditor }
+
+    Actions { id: actions }
 
     MpvVideo {
         id: mpv

@@ -78,7 +78,7 @@ Popup {
         ListView {
             id: actionsListView
 
-            property var actionsList: Object.keys(appActions.list).sort()
+            property var actionsList: Object.keys(window.appActions).sort()
 
             implicitHeight: 30 * model.count
             model: actionsList
