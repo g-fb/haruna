@@ -34,19 +34,23 @@ SettingsBasePage {
             height: osdFontSize.height
             SpinBox {
                 id: osdFontSize
+
+                // used to prevent osd showing when opening the page
+                property bool completed: false
+
                 editable: true
                 from: 0
                 to: 100
                 value: GeneralSettings.osdFontSize
                 onValueChanged: {
-                    // runs on start-up so only execute when state is visible
-                    if (root.visible) {
+                    if (completed) {
                         osd.label.font.pointSize = osdFontSize.value
                         osd.message("Test osd font size")
                         GeneralSettings.osdFontSize = osdFontSize.value
                         GeneralSettings.save()
                     }
                 }
+                Component.onCompleted: completed = true
             }
             Layout.fillWidth: true
         }
