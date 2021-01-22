@@ -39,9 +39,12 @@ Rectangle {
             id: playlistView
 
             model: playListModel
+            spacing: 1
             delegate: PlaylistSettings.showThumbnails
                       ? playListItemWithThumbnail
                       : playListItemSimple
+
+            HoverHandler{}
         }
     }
 
