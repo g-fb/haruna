@@ -24,7 +24,7 @@ MpvObject {
 
     width: parent.width
     height: parent.height - footer.height
-    anchors.left: settingsEditor.right
+    anchors.left: parent.left
     anchors.right: parent.right
     anchors.fill: window.isFullScreen() ? parent : undefined
     volume: GeneralSettings.volume
