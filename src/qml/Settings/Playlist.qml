@@ -68,6 +68,20 @@ SettingsBasePage {
 
         Item { width: 1; height: 1 }
         CheckBox {
+            checked: PlaylistSettings.overlayVideo
+            text: qsTr("Overlay video")
+            onCheckStateChanged: {
+                PlaylistSettings.overlayVideo = checked
+                PlaylistSettings.save()
+            }
+
+            ToolTip {
+                text: qsTr("When checked the playlist goes on top of the video\nWhen unchecked the video is resized")
+            }
+        }
+
+        Item { width: 1; height: 1 }
+        CheckBox {
             checked: PlaylistSettings.showThumbnails
             text: qsTr("Show thumbnails")
             onCheckStateChanged: {

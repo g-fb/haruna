@@ -21,10 +21,9 @@ ToolBar {
     property alias playPauseButton: playPauseButton
     property alias volume: volume
 
-    y: mpv.height
     anchors.left: parent.left
     anchors.right: parent.right
-    anchors.bottom: isFullScreen() ? mpv.bottom : window.bottom
+    anchors.bottom: isFullScreen() ? mpv.bottom : parent.bottom
     padding: 5
     position: ToolBar.Footer
     hoverEnabled: true

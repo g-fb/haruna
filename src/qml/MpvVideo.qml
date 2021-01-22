@@ -23,10 +23,10 @@ MpvObject {
     signal setAudio(int id)
 
     width: parent.width
-    height: parent.height - footer.height
+    height: window.isFullScreen() ? parent.height : parent.height - footer.height
     anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.fill: window.isFullScreen() ? parent : undefined
+    anchors.right: PlaylistSettings.overlayVideo ? parent.right : playList.left
+    anchors.top: parent.top
     volume: GeneralSettings.volume
 
     onFileChanged: {
@@ -198,7 +198,7 @@ MpvObject {
                         playList.state = "visible"
                     }
                 }
-                if (mouseX < width - playList.width) {
+                if (mouseX < width - 50) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "hidden"
                     }

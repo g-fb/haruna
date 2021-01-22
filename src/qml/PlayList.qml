@@ -57,6 +57,8 @@ Rectangle {
 
     ShaderEffectSource {
         id: shaderEffect
+
+        visible: PlaylistSettings.overlayVideo
         anchors.fill: playlistScrollView
         sourceItem: mpv
         sourceRect: position === "right"
@@ -65,6 +67,7 @@ Rectangle {
     }
 
     FastBlur {
+        visible: PlaylistSettings.overlayVideo
         anchors.fill: shaderEffect
         radius: 100
         source: shaderEffect
