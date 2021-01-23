@@ -35,5 +35,6 @@
         <file>qml/Haruna/Components/SettingsBasePage.qml</file>
         <file>qml/Haruna/Components/qmldir</file>
         <file>qml/Haruna/Components/ImageAdjustmentSlider.qml</file>
+        <file>qml/PlayListItemCompact.qml</file>
     </qresource>
 </RCC>

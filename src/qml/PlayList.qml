@@ -16,13 +16,21 @@ Rectangle {
     id: root
 
     property alias playlistView: playlistView
+    property string style: PlaylistSettings.style
     property bool canToggleWithMouse: PlaylistSettings.canToggleWithMouse
     property string position: PlaylistSettings.position
     property int rowHeight: PlaylistSettings.rowHeight
     property int bigFont: PlaylistSettings.bigFontFullscreen
 
     height: mpv.height
-    width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33
+    width: {
+        if (style === "compact") {
+            return Kirigami.Units.gridUnit * 20
+        } else {
+            const w = Kirigami.Units.gridUnit * 30
+            return (parent.width * 0.33) < w ? w : parent.width * 0.33
+        }
+    }
     x: position === "right" ? parent.width : -width
     y: 0
     state: "hidden"
@@ -40,9 +48,19 @@ Rectangle {
 
             model: playListModel
             spacing: 1
-            delegate: PlaylistSettings.showThumbnails
-                      ? playListItemWithThumbnail
-                      : playListItemSimple
+            delegate: {
+                switch (root.style) {
+                case "default":
+                    playListItemSimple
+                    break
+                case "withThumbnails":
+                    playListItemWithThumbnail
+                    break
+                case "compact":
+                    playListItemCompact
+                    break
+                }
+            }
 
             HoverHandler{}
         }
@@ -56,6 +74,11 @@ Rectangle {
     Component {
         id: playListItemSimple
         PlayListItem {}
+    }
+
+    Component {
+        id: playListItemCompact
+        PlayListItemCompact {}
     }
 
     ShaderEffectSource {
