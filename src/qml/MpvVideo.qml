@@ -24,8 +24,12 @@ MpvObject {
 
     width: parent.width
     height: window.isFullScreen() ? parent.height : parent.height - footer.height
-    anchors.left: parent.left
-    anchors.right: PlaylistSettings.overlayVideo ? parent.right : playList.left
+    anchors.left: PlaylistSettings.overlayVideo
+                  ? parent.left
+                  : (PlaylistSettings.position === "left" ? playList.right : parent.left)
+    anchors.right: PlaylistSettings.overlayVideo
+                   ? parent.right
+                   : (PlaylistSettings.position === "right" ? playList.left : parent.right)
     anchors.top: parent.top
     volume: GeneralSettings.volume
 
@@ -209,7 +213,7 @@ MpvObject {
                         playList.state = "visible"
                     }
                 }
-                if (mouseX > playList.width) {
+                if (mouseX > 50) {
                     if (playList.canToggleWithMouse) {
                         playList.state = "hidden"
                     }

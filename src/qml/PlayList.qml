@@ -108,7 +108,7 @@ Rectangle {
         },
         State {
             name : "visible"
-            PropertyChanges { target: root; x: position === "right" ? parent.width - root.width : mpv.x }
+            PropertyChanges { target: root; x: position === "right" ? parent.width - root.width : 0 }
             PropertyChanges { target: root; visible: true }
         }
     ]
