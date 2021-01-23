@@ -49,6 +49,13 @@ ToolBar {
         }
 
         ToolButton {
+            action: actions.togglePlaylistAction
+            visible: window.isFullScreen()
+                     && !PlaylistSettings.canToggleWithMouse
+                     && PlaylistSettings.position === "left"
+        }
+
+        ToolButton {
             id: playPauseButton
             action: actions.playPauseAction
             text: ""
@@ -114,7 +121,9 @@ ToolBar {
 
         ToolButton {
             action: actions.togglePlaylistAction
-            visible: window.isFullScreen() && !PlaylistSettings.canToggleWithMouse
+            visible: window.isFullScreen()
+                     && !PlaylistSettings.canToggleWithMouse
+                     && PlaylistSettings.position === "right"
         }
     }
 }

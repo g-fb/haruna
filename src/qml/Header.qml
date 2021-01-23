@@ -34,9 +34,11 @@ ToolBar {
             Layout.alignment: Qt.AlignLeft
 
             ToolButton {
-                action: actions.configureAction
-                focusPolicy: Qt.NoFocus
+                action: actions.togglePlaylistAction
+                visible: !PlaylistSettings.canToggleWithMouse
+                         && PlaylistSettings.position === "left"
             }
+
             ToolButton {
                 action: actions.openAction
                 focusPolicy: Qt.NoFocus
@@ -174,8 +176,14 @@ ToolBar {
             Layout.alignment: Qt.AlignRight
 
             ToolButton {
+                action: actions.configureAction
+                focusPolicy: Qt.NoFocus
+            }
+
+            ToolButton {
                 action: actions.togglePlaylistAction
                 visible: !PlaylistSettings.canToggleWithMouse
+                         && PlaylistSettings.position === "right"
             }
 
             ToolButton {
