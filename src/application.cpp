@@ -391,7 +391,7 @@ void Application::setupActions(const QString &actionName)
 
     if (actionName == QStringLiteral("togglePlaylist")) {
         auto action = new HAction();
-        action->setText(i18n("Toggle Playlist"));
+        action->setText(i18n("Playlist"));
         action->setIcon(QIcon::fromTheme("view-media-playlist"));
         m_collection.setDefaultShortcut(action, Qt::Key_P);
         m_collection.addAction(actionName, action);
