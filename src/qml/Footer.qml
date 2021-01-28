@@ -29,6 +29,14 @@ ToolBar {
     hoverEnabled: true
     visible: !window.isFullScreen() || mpv.my > window.height - footer.height
 
+    Component {
+        id: togglePlaylistButton
+
+        ToolButton {
+            action: actions.togglePlaylistAction
+        }
+    }
+
     RowLayout {
         id: footerRow
         anchors.fill: parent
@@ -48,11 +56,9 @@ ToolBar {
             }
         }
 
-        ToolButton {
-            action: actions.togglePlaylistAction
-            visible: window.isFullScreen()
-                     && !PlaylistSettings.canToggleWithMouse
-                     && PlaylistSettings.position === "left"
+        Loader {
+            sourceComponent: togglePlaylistButton
+            visible: !PlaylistSettings.canToggleWithMouse && PlaylistSettings.position === "left"
         }
 
         ToolButton {
@@ -119,11 +125,10 @@ ToolBar {
 
         VolumeSlider { id: volume }
 
-        ToolButton {
-            action: actions.togglePlaylistAction
-            visible: window.isFullScreen()
-                     && !PlaylistSettings.canToggleWithMouse
-                     && PlaylistSettings.position === "right"
+        Loader {
+            sourceComponent: togglePlaylistButton
+            visible: !PlaylistSettings.canToggleWithMouse && PlaylistSettings.position === "right"
         }
+
     }
 }
