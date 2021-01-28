@@ -16,7 +16,6 @@ Rectangle {
     id: root
 
     property alias playlistView: playlistView
-    property string style: PlaylistSettings.style
     property bool canToggleWithMouse: PlaylistSettings.canToggleWithMouse
     property string position: PlaylistSettings.position
     property int rowHeight: PlaylistSettings.rowHeight
@@ -24,7 +23,7 @@ Rectangle {
 
     height: mpv.height
     width: {
-        if (style === "compact") {
+        if (PlaylistSettings.style === "compact") {
             return Kirigami.Units.gridUnit * 20
         } else {
             const w = Kirigami.Units.gridUnit * 30
@@ -49,7 +48,7 @@ Rectangle {
             model: playListModel
             spacing: 1
             delegate: {
-                switch (root.style) {
+                switch (PlaylistSettings.style) {
                 case "default":
                     playListItemSimple
                     break

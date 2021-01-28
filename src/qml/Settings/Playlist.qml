@@ -90,7 +90,6 @@ SettingsBasePage {
             onActivated: {
                 PlaylistSettings.style = model.get(index).value
                 PlaylistSettings.save()
-                playList.style = model.get(index).value
             }
         }
 
