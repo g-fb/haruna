@@ -1057,6 +1057,7 @@ QtObject {
 
         onTriggered: {
             mpv.setProperty("deinterlace", !mpv.getProperty("deinterlace"))
+            osd.message(`Deinterlace: ${mpv.getProperty("deinterlace")}`)
         }
     }
 }
