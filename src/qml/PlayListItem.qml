@@ -18,15 +18,18 @@ Kirigami.BasicListItem {
 
     property bool isPlaying: model.isPlaying
     property string rowNumber: (index + 1).toString()
+    property var alpha: PlaylistSettings.overlayVideo ? 0.6 : 1
 
     height: label.font.pointSize * 3 + PlaylistSettings.rowHeight
     padding: 0
+    backgroundColor: {
+        let color = model.isPlaying ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
+        Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, alpha)
+    }
 
     contentItem: Rectangle {
-        color: {
-            let color = model.isPlaying ? Kirigami.Theme.highlightColor : Kirigami.Theme.alternateBackgroundColor
-            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.6)
-        }
+        anchors.fill: parent
+        color: "transparent"
         RowLayout {
             anchors.fill: parent
             spacing: Kirigami.Units.largeSpacing

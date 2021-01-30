@@ -18,9 +18,14 @@ Kirigami.BasicListItem {
 
     property bool isPlaying: model.isPlaying
     property string rowNumber: (index + 1).toString()
+    property var alpha: PlaylistSettings.overlayVideo ? 0.6 : 1
 
     height: (Kirigami.Units.gridUnit - 6) * 8 + PlaylistSettings.rowHeight
     padding: 0
+    backgroundColor: {
+        let color = model.isPlaying ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
+        Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, alpha)
+    }
 
     onDoubleClicked: {
         mpv.file = model.path
@@ -30,10 +35,7 @@ Kirigami.BasicListItem {
 
     contentItem: Rectangle {
         anchors.fill: parent
-        color: {
-            let color = model.isPlaying ? Kirigami.Theme.highlightColor : Kirigami.Theme.alternateBackgroundColor
-            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.6)
-        }
+        color: "transparent"
         RowLayout {
             anchors.fill: parent
             anchors.rightMargin: Kirigami.Units.largeSpacing

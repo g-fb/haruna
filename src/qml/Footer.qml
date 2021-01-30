@@ -9,6 +9,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 import org.kde.kirigami 2.11 as Kirigami
+import com.georgefb.haruna 1.0
 import Haruna.Components 1.0 as HC
 
 ToolBar {
@@ -20,14 +21,21 @@ ToolBar {
     property alias playPauseButton: playPauseButton
     property alias volume: volume
 
-    y: mpv.height
     anchors.left: parent.left
     anchors.right: parent.right
-    anchors.bottom: isFullScreen() ? mpv.bottom : window.bottom
+    anchors.bottom: isFullScreen() ? mpv.bottom : parent.bottom
     padding: 5
     position: ToolBar.Footer
     hoverEnabled: true
     visible: !window.isFullScreen() || mpv.my > window.height - footer.height
+
+    Component {
+        id: togglePlaylistButton
+
+        ToolButton {
+            action: actions.togglePlaylistAction
+        }
+    }
 
     RowLayout {
         id: footerRow
@@ -46,6 +54,11 @@ ToolBar {
                 const menuHeight = mpvContextMenu.count * mpvContextMenu.itemAt(0).height
                 mpvContextMenu.popup(footer, 0, -menuHeight)
             }
+        }
+
+        Loader {
+            sourceComponent: togglePlaylistButton
+            visible: !PlaylistSettings.canToggleWithMouse && PlaylistSettings.position === "left"
         }
 
         ToolButton {
@@ -111,5 +124,11 @@ ToolBar {
         }
 
         VolumeSlider { id: volume }
+
+        Loader {
+            sourceComponent: togglePlaylistButton
+            visible: !PlaylistSettings.canToggleWithMouse && PlaylistSettings.position === "right"
+        }
+
     }
 }

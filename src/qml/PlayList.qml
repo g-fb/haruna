@@ -22,7 +22,14 @@ Rectangle {
     property int bigFont: PlaylistSettings.bigFontFullscreen
 
     height: mpv.height
-    width: (parent.width * 0.33) < 550 ? 550 : parent.width * 0.33
+    width: {
+        if (PlaylistSettings.style === "compact") {
+            return Kirigami.Units.gridUnit * 20
+        } else {
+            const w = Kirigami.Units.gridUnit * 30
+            return (parent.width * 0.33) < w ? w : parent.width * 0.33
+        }
+    }
     x: position === "right" ? parent.width : -width
     y: 0
     state: "hidden"
@@ -39,9 +46,22 @@ Rectangle {
             id: playlistView
 
             model: playListModel
-            delegate: PlaylistSettings.showThumbnails
-                      ? playListItemWithThumbnail
-                      : playListItemSimple
+            spacing: 1
+            delegate: {
+                switch (PlaylistSettings.style) {
+                case "default":
+                    playListItemSimple
+                    break
+                case "withThumbnails":
+                    playListItemWithThumbnail
+                    break
+                case "compact":
+                    playListItemCompact
+                    break
+                }
+            }
+
+            HoverHandler{}
         }
     }
 
@@ -55,8 +75,15 @@ Rectangle {
         PlayListItem {}
     }
 
+    Component {
+        id: playListItemCompact
+        PlayListItemCompact {}
+    }
+
     ShaderEffectSource {
         id: shaderEffect
+
+        visible: PlaylistSettings.overlayVideo
         anchors.fill: playlistScrollView
         sourceItem: mpv
         sourceRect: position === "right"
@@ -65,6 +92,7 @@ Rectangle {
     }
 
     FastBlur {
+        visible: PlaylistSettings.overlayVideo
         anchors.fill: shaderEffect
         radius: 100
         source: shaderEffect
@@ -79,7 +107,7 @@ Rectangle {
         },
         State {
             name : "visible"
-            PropertyChanges { target: root; x: position === "right" ? parent.width - root.width : mpv.x }
+            PropertyChanges { target: root; x: position === "right" ? parent.width - root.width : 0 }
             PropertyChanges { target: root; visible: true }
         }
     ]

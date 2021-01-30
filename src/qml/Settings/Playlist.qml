@@ -58,6 +58,7 @@ SettingsBasePage {
             from: 0
             to: 100
             value: PlaylistSettings.rowHeight
+            enabled: PlaylistSettings.style === "compact" ? false : true
             onValueChanged: {
                 PlaylistSettings.rowHeight = value
                 PlaylistSettings.save()
@@ -66,13 +67,43 @@ SettingsBasePage {
             }
         }
 
+        Label {
+            text: qsTr("Playlist style")
+            Layout.alignment: Qt.AlignRight
+        }
+
+        ComboBox {
+            textRole: "display"
+            model: ListModel {
+                ListElement { display: "Default"; value: "default" }
+                ListElement { display: "WithThumbnails"; value: "withThumbnails" }
+                ListElement { display: "Compact"; value: "compact" }
+            }
+            Component.onCompleted: {
+                for (let i = 0; i < model.count; ++i) {
+                    if (model.get(i).value === PlaylistSettings.style) {
+                        currentIndex = i
+                        break
+                    }
+                }
+            }
+            onActivated: {
+                PlaylistSettings.style = model.get(index).value
+                PlaylistSettings.save()
+            }
+        }
+
         Item { width: 1; height: 1 }
         CheckBox {
-            checked: PlaylistSettings.showThumbnails
-            text: qsTr("Show thumbnails")
+            checked: PlaylistSettings.overlayVideo
+            text: qsTr("Overlay video")
             onCheckStateChanged: {
-                PlaylistSettings.showThumbnails = checked
+                PlaylistSettings.overlayVideo = checked
                 PlaylistSettings.save()
+            }
+
+            ToolTip {
+                text: qsTr("When checked the playlist goes on top of the video\nWhen unchecked the video is resized")
             }
         }
 
@@ -131,6 +162,7 @@ SettingsBasePage {
         CheckBox {
             text: qsTr("Increase font size when fullscreen")
             checked: PlaylistSettings.bigFontFullscreen
+            enabled: PlaylistSettings.style === "compact" ? false : true
             onCheckStateChanged: {
                 PlaylistSettings.bigFontFullscreen = checked
                 PlaylistSettings.save()
