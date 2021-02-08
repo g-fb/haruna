@@ -208,6 +208,7 @@ private:
     PlayListModel *m_playlistModel;
 
     void loadTracks();
+    void getYouTubePlaylist();
 };
 
 class MpvRenderer : public QQuickFramebufferObject::Renderer
