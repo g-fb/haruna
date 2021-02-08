@@ -92,11 +92,15 @@ QOpenGLFramebufferObject * MpvRenderer::createFramebufferObject(const QSize &siz
 
 void MpvObject::getYouTubePlaylist()
 {
+    // mpv populates it's own playlist with the youtube playlist items
+    // if playlist/count is bigger than 1 we have a youtube playlist
     if (getProperty("playlist/count").toInt() > 1
             && getProperty("path").toString().startsWith("https://youtu.be")) {
 
         m_playlistModel->clear();
 
+        // use youtube-dl to get the required playlist info as json
+        // mpv playlist property lacks the duration of the video
         auto ytdlProcess = new QProcess();
         ytdlProcess->setProgram("youtube-dl");
         ytdlProcess->setArguments(QStringList() << "-J" << "--flat-playlist" << "https://www.youtube.com/playlist?list=PL6CJYn40gN6hdNC1IGQZfVI707dh9DPRc");
@@ -104,6 +108,7 @@ void MpvObject::getYouTubePlaylist()
 
         QObject::connect(ytdlProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished,
                          this, [=](int, QProcess::ExitStatus) {
+            // use the json to populate the playlist model
             using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
             Playlist m_playList;
 
@@ -126,6 +131,7 @@ void MpvObject::getYouTubePlaylist()
                 playlistFileContent += QString("%1,%2,%3\n").arg(url).arg(title).arg(QString::number(duration));
             }
 
+            // save playlist to disk
             m_playlistModel->saveYouTubePlaylist(playlistFileContent);
             m_playlistModel->setPlayList(m_playList);
         });
