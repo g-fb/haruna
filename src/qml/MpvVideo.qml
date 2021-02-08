@@ -36,7 +36,11 @@ MpvObject {
     onFileChanged: {
         setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         command(["loadfile", file])
-        GeneralSettings.lastPlayedFile = file
+
+        if (!isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
+            GeneralSettings.lastPlayedFile = file
+        }
+        GeneralSettings.lastPlaylistIndex = playlistModel.getPlayingVideo()
         GeneralSettings.save()
     }
 
@@ -69,7 +73,16 @@ MpvObject {
         } else {
             // open last played file, paused and
             // at the position when player was closed or last saved
-            window.openFile(GeneralSettings.lastPlayedFile, false, PlaylistSettings.loadSiblings)
+            if (isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
+                // if last file was a video from a youtube playlist, restore the
+                // cached playlist and load the last played video from that playlist
+                playlistModel.loadYouTubePlaylist()
+                mpv.command(["loadfile", playlistModel.getPath(GeneralSettings.lastPlaylistIndex)])
+                playlistModel.setPlayingVideo(GeneralSettings.lastPlaylistIndex)
+            } else {
+                // file is local, open normally
+                window.openFile(GeneralSettings.lastPlayedFile, false, PlaylistSettings.loadSiblings)
+            }
         }
     }
 
@@ -111,16 +124,16 @@ MpvObject {
     }
 
     onEndOfFile: {
-        const nextFileRow = playListModel.getPlayingVideo() + 1
+        const nextFileRow = playlistModel.getPlayingVideo() + 1
         if (nextFileRow < playList.playlistView.count) {
-            const nextFile = playListModel.getPath(nextFileRow)
-            mpv.command(["loadfile", nextFile])
-            playListModel.setPlayingVideo(nextFileRow)
+            const nextFile = playlistModel.getPath(nextFileRow)
+            playlistModel.setPlayingVideo(nextFileRow)
+            file = nextFile
         } else {
             // Last file in playlist
             if (PlaylistSettings.repeat) {
-                mpv.command(["loadfile", playListModel.getPath(0)])
-                playListModel.setPlayingVideo(0)
+                playlistModel.setPlayingVideo(0)
+                file = playlistModel.getPath(0)
             }
         }
     }
@@ -298,7 +311,11 @@ MpvObject {
     }
 
     function setPlayListScrollPosition() {
-        playList.playlistView.positionViewAtIndex(playListModel.playingVideo, ListView.Beginning)
+        playList.playlistView.positionViewAtIndex(mpv.playlistModel.playingVideo, ListView.Beginning)
+    }
+
+    function isYoutubePlaylist(path) {
+        return path.includes("youtube.com/playlist?list")
     }
 
 }

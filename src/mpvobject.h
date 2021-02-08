@@ -1,4 +1,4 @@
-/*
+﻿/*
  * SPDX-FileCopyrightText: 2020 George Florea Bănuș <georgefb899@gmail.com>
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -12,6 +12,7 @@
 #include <mpv/client.h>
 #include <mpv/render_gl.h>
 #include "qthelper.h"
+#include "playlistmodel.h"
 #include "tracksmodel.h"
 
 class MpvRenderer;
@@ -101,6 +102,13 @@ class MpvObject : public QQuickFramebufferObject
                WRITE setHWDecoding
                NOTIFY hwDecodingChanged)
 
+    Q_PROPERTY(PlayListModel* playlistModel
+               READ playlistModel
+               WRITE setPlaylistModel
+               NOTIFY playlistModelChanged)
+
+    PlayListModel *playlistModel();
+    void setPlaylistModel(PlayListModel *model);
 
     QString mediaTitle();
 
@@ -186,6 +194,7 @@ signals:
     void audioTracksModelChanged();
     void subtitleTracksModelChanged();
     void hwDecodingChanged();
+    void playlistModelChanged();
 
 private:
     TracksModel *audioTracksModel() const;
@@ -196,6 +205,7 @@ private:
     QMap<int, Track*> m_audioTracks;
     QList<int> m_secondsWatched;
     double m_watchPercentage;
+    PlayListModel *m_playlistModel;
 
     void loadTracks();
 };

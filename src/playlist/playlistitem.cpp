@@ -4,16 +4,26 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include "_debug.h"
 #include "playlistitem.h"
 
 #include <QFileInfo>
+#include <QUrl>
 
 PlayListItem::PlayListItem(const QString &path, int i)
 {
-    QFileInfo fileInfo(path);
-    setFileName(fileInfo.fileName());
-    setFilePath(fileInfo.absoluteFilePath());
-    setFolderPath(fileInfo.absolutePath());
+    QUrl url(path);
+
+    if (url.scheme().startsWith("http")) {
+        setFilePath(url.toString());
+        setFileName(QStringLiteral());
+        setFolderPath(QStringLiteral());
+    } else {
+        QFileInfo fileInfo(path);
+        setFileName(fileInfo.fileName());
+        setFilePath(fileInfo.absoluteFilePath());
+        setFolderPath(fileInfo.absolutePath());
+    }
     setIndex(i);
     setIsPlaying(false);
 }

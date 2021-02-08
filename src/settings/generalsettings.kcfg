@@ -54,6 +54,9 @@
     <entry name="LastPlayedFile" type="String">
       <label>Last played file</label>
     </entry>
+    <entry name="LastPlaylistIndex" type="Int">
+      <default>0</default>
+    </entry>
     <entry name="FileDialogLocation" type="String">
       <label>File default dialog location</label>
     </entry>

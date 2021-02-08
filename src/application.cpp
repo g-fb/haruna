@@ -214,11 +214,6 @@ void Application::setupQmlContextProperties()
 {
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
     std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
-    std::unique_ptr<PlayListModel> playListModel = std::make_unique<PlayListModel>();
-
-    m_engine->rootContext()->setContextProperty("playListModel", playListModel.release());
-    qmlRegisterUncreatableType<PlayListModel>("PlayListModel", 1, 0, "PlayListModel",
-                                               QStringLiteral("PlayListModel should not be created in QML"));
 
     m_engine->rootContext()->setContextProperty(QStringLiteral("app"), this);
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",

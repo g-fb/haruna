@@ -45,7 +45,7 @@ Rectangle {
         ListView {
             id: playlistView
 
-            model: playListModel
+            model: mpv.playlistModel
             spacing: 1
             delegate: {
                 switch (PlaylistSettings.style) {

@@ -160,12 +160,12 @@ Kirigami.ApplicationWindow {
     Component.onCompleted: app.activateColorScheme(GeneralSettings.colorScheme)
 
     function openFile(path, startPlayback, loadSiblings) {
-        playListModel.clear()
+        mpv.playlistModel.clear()
         mpv.file = path
         mpv.pause = !startPlayback
         if (loadSiblings) {
             // get video files from same folder as the opened file
-            playListModel.getVideos(path)
+            mpv.playlistModel.getVideos(path)
         }
     }
 

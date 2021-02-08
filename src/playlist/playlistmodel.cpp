@@ -19,6 +19,7 @@
 PlayListModel::PlayListModel(QObject *parent)
     : QAbstractListModel(parent)
 {
+    m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     connect(this, &PlayListModel::videoAdded,
             Worker::instance(), &Worker::getMetaData);
 
@@ -121,6 +122,28 @@ Playlist PlayListModel::items() const
     return m_playList;
 }
 
+QString PlayListModel::configFolder()
+{
+
+    auto configPath = QStandardPaths::writableLocation(m_config->locationType());
+    auto configFilePath = configPath.append(QStringLiteral("/")).append(m_config->name());
+    QFileInfo fileInfo(configFilePath);
+
+    return fileInfo.absolutePath();
+}
+
+Playlist PlayListModel::getPlayList() const
+{
+    return m_playList;
+}
+
+void PlayListModel::setPlayList(const Playlist &playList)
+{
+    beginInsertRows(QModelIndex(), 0, playList.size() - 1);
+    m_playList = playList;
+    endInsertRows();
+}
+
 int PlayListModel::getPlayingVideo() const
 {
     return m_playingVideo;
@@ -132,6 +155,38 @@ void PlayListModel::clear()
     beginResetModel();
     m_playList.clear();
     endResetModel();
+}
+
+void PlayListModel::saveYouTubePlaylist(QString content)
+{
+    QFile file(configFolder().append("/playlist.csv"));
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream out(&file);
+        out << content;
+    }
+    file.close();
+}
+
+void PlayListModel::loadYouTubePlaylist()
+{
+    clear();
+    QFile file(configFolder().append("/playlist.csv"));
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream stream(&file);
+        QString line;
+        int i {0};
+        while (stream.readLineInto(&line)) {
+            beginInsertRows(QModelIndex(), i, i);
+            QStringList info = line.split(",");
+            auto video = std::make_shared<PlayListItem>(info[0], i);
+            video->setMediaTitle(info[1]);
+            video->setDuration(Application::formatTime(info[2].toDouble()));
+            m_playList.emplace(i, video);
+            endInsertRows();
+            ++i;
+        }
+        file.close();
+    }
 }
 
 QString PlayListModel::getPath(int i)

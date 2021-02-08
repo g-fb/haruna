@@ -28,9 +28,9 @@ Kirigami.BasicListItem {
     }
 
     onDoubleClicked: {
+        mpv.playlistModel.setPlayingVideo(index)
         mpv.file = model.path
         mpv.pause = false
-        playListModel.setPlayingVideo(index)
     }
 
     contentItem: Rectangle {

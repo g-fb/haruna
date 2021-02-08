@@ -8,6 +8,7 @@
 #define PLAYLISTMODEL_H
 
 #include <QAbstractTableModel>
+#include <KSharedConfig>
 #include <map>
 #include <memory>
 
@@ -45,6 +46,11 @@ public:
     Q_INVOKABLE int getPlayingVideo() const;
     Q_INVOKABLE void getVideos(QString path);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void saveYouTubePlaylist(QString content);
+    Q_INVOKABLE void loadYouTubePlaylist();
+
+    Playlist getPlayList() const;
+    void setPlayList(const Playlist &playList);
 
 signals:
     void videoAdded(int index, QString path);
@@ -52,8 +58,10 @@ signals:
 
 private:
     Playlist items() const;
+    QString configFolder();
     Playlist m_playList;
     int m_playingVideo = -1;
+    KSharedConfig::Ptr m_config;
 };
 
 #endif // PLAYLISTMODEL_H

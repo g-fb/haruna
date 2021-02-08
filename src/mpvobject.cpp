@@ -6,14 +6,20 @@
 
 #include "_debug.h"
 #include "mpvobject.h"
+#include "application.h"
 #include "playbacksettings.h"
+#include "playlistitem.h"
 #include "track.h"
 #include "tracksmodel.h"
 
 #include <QDir>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QObject>
 #include <QOpenGLContext>
 #include <QOpenGLFramebufferObject>
+#include <QProcess>
 #include <QQuickWindow>
 #include <QStandardPaths>
 #include <QtGlobal>
@@ -90,6 +96,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     , mpv_gl(nullptr)
     , m_audioTracksModel(new TracksModel)
     , m_subtitleTracksModel(new TracksModel)
+    , m_playlistModel(new PlayListModel)
 {
     if (!mpv)
         throw std::runtime_error("could not create mpv context");
@@ -145,6 +152,47 @@ MpvObject::MpvObject(QQuickItem * parent)
             setWatchPercentage(m_secondsWatched.count() * 100 / duration);
         }
     });
+
+    connect(this, &MpvObject::fileLoaded, this, [=]() {
+        if (getProperty("playlist/count").toInt() > 1
+                && getProperty("path").toString().startsWith("https://youtu.be")) {
+
+            m_playlistModel->clear();
+
+            auto ytdlProcess = new QProcess();
+            ytdlProcess->setProgram("youtube-dl");
+            ytdlProcess->setArguments(QStringList() << "-J" << "--flat-playlist" << "https://www.youtube.com/playlist?list=PL6CJYn40gN6hdNC1IGQZfVI707dh9DPRc");
+            ytdlProcess->start();
+
+            QObject::connect(ytdlProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished,
+                             this, [=](int, QProcess::ExitStatus) {
+                using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
+                Playlist m_playList;
+
+                QString json = ytdlProcess->readAllStandardOutput();
+                QJsonObject obj;
+                QJsonValue entries = QJsonDocument::fromJson(json.toUtf8())["entries"];
+
+                QString playlistFileContent;
+
+                for (int i = 0; i < entries.toArray().size(); ++i) {
+                    auto url = QString("https://youtu.be/%1").arg(entries[i]["id"].toString());
+                    auto title = entries[i]["title"].toString();
+                    auto duration = entries[i]["duration"].toDouble();
+
+                    auto video = std::make_shared<PlayListItem>(url, i);
+                    video->setMediaTitle(title);
+                    video->setDuration(Application::formatTime(duration));
+                    m_playList.emplace(i, video);
+
+                    playlistFileContent += QString("%1,%2,%3\n").arg(url).arg(title).arg(QString::number(duration));
+                }
+
+                m_playlistModel->saveYouTubePlaylist(playlistFileContent);
+                m_playlistModel->setPlayList(m_playList);
+            });
+        }
+    });
 }
 
 MpvObject::~MpvObject()
@@ -154,6 +202,16 @@ MpvObject::~MpvObject()
         mpv_render_context_free(mpv_gl);
     }
     mpv_terminate_destroy(mpv);
+}
+
+PlayListModel *MpvObject::playlistModel()
+{
+    return m_playlistModel;
+}
+
+void MpvObject::setPlaylistModel(PlayListModel *model)
+{
+    m_playlistModel = model;
 }
 
 QString MpvObject::mediaTitle()

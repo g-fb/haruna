@@ -123,16 +123,16 @@ QtObject {
         Component.onCompleted: list["playNextAction"] = playNextAction
 
         onTriggered: {
-            const nextFileRow = playListModel.getPlayingVideo() + 1
+            const nextFileRow = mpv.playlistModel.getPlayingVideo() + 1
             if (nextFileRow < playList.playlistView.count) {
-                const nextFile = playListModel.getPath(nextFileRow)
+                const nextFile = mpv.playlistModel.getPath(nextFileRow)
                 mpv.command(["loadfile", nextFile])
-                playListModel.setPlayingVideo(nextFileRow)
+                mpv.playlistModel.setPlayingVideo(nextFileRow)
             } else {
                 // Last file in playlist
                 if (PlaylistSettings.repeat) {
-                    mpv.command(["loadfile", playListModel.getPath(0)])
-                    playListModel.setPlayingVideo(0)
+                    mpv.command(["loadfile", mpv.playlistModel.getPath(0)])
+                    mpv.playlistModel.setPlayingVideo(0)
                 }
             }
         }
@@ -148,11 +148,11 @@ QtObject {
         Component.onCompleted: list["playPreviousAction"] = playPreviousAction
 
         onTriggered: {
-            if (playListModel.getPlayingVideo() !== 0) {
-                const previousFileRow = playListModel.getPlayingVideo() - 1
-                const previousFile = playListModel.getPath(previousFileRow)
+            if (mpv.playlistModel.getPlayingVideo() !== 0) {
+                const previousFileRow = mpv.playlistModel.getPlayingVideo() - 1
+                const previousFile = mpv.playlistModel.getPath(previousFileRow)
                 mpv.command(["loadfile", previousFile])
-                playListModel.setPlayingVideo(previousFileRow)
+                mpv.playlistModel.setPlayingVideo(previousFileRow)
             }
         }
     }
