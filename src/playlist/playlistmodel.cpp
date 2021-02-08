@@ -151,42 +151,10 @@ int PlayListModel::getPlayingVideo() const
 
 void PlayListModel::clear()
 {
-    m_playingVideo = -1;
+    m_playingVideo = 0;
     beginResetModel();
     m_playList.clear();
     endResetModel();
-}
-
-void PlayListModel::saveYouTubePlaylist(QString content)
-{
-    QFile file(configFolder().append("/playlist.csv"));
-    if (file.open(QIODevice::WriteOnly)) {
-        QTextStream out(&file);
-        out << content;
-    }
-    file.close();
-}
-
-void PlayListModel::loadYouTubePlaylist()
-{
-    clear();
-    QFile file(configFolder().append("/playlist.csv"));
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream stream(&file);
-        QString line;
-        int i {0};
-        while (stream.readLineInto(&line)) {
-            beginInsertRows(QModelIndex(), i, i);
-            QStringList info = line.split(",");
-            auto video = std::make_shared<PlayListItem>(info[0], i);
-            video->setMediaTitle(info[1]);
-            video->setDuration(Application::formatTime(info[2].toDouble()));
-            m_playList.emplace(i, video);
-            endInsertRows();
-            ++i;
-        }
-        file.close();
-    }
 }
 
 QString PlayListModel::getPath(int i)
@@ -196,14 +164,14 @@ QString PlayListModel::getPath(int i)
 
 void PlayListModel::setPlayingVideo(int playingVideo)
 {
-    if (m_playingVideo != -1) {
-        m_playList[m_playingVideo]->setIsPlaying(false);
-        emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 0));
-        m_playList[playingVideo]->setIsPlaying(true);
-        emit dataChanged(index(playingVideo, 0), index(playingVideo, 0));
-    } else {
-        m_playList[playingVideo]->setIsPlaying(true);
-    }
+    // unset current playing video
+    m_playList[m_playingVideo]->setIsPlaying(false);
+    emit dataChanged(index(m_playingVideo, 0), index(m_playingVideo, 0));
+
+    // set new playing video
+    m_playList[playingVideo]->setIsPlaying(true);
+    emit dataChanged(index(playingVideo, 0), index(playingVideo, 0));
+
     m_playingVideo = playingVideo;
     emit playingVideoChanged();
 }

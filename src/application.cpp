@@ -210,6 +210,11 @@ QUrl Application::pathToUrl(const QString &path)
     return url;
 }
 
+bool Application::isYoutubePlaylist(const QString &path)
+{
+    return path.contains("youtube.com/playlist?list");
+}
+
 void Application::setupQmlContextProperties()
 {
     std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();

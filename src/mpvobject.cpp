@@ -90,54 +90,6 @@ QOpenGLFramebufferObject * MpvRenderer::createFramebufferObject(const QSize &siz
     return QQuickFramebufferObject::Renderer::createFramebufferObject(size);
 }
 
-void MpvObject::getYouTubePlaylist()
-{
-    // mpv populates it's own playlist with the youtube playlist items
-    // if playlist/count is bigger than 1 we have a youtube playlist
-    if (getProperty("playlist/count").toInt() > 1
-            && getProperty("path").toString().startsWith("https://youtu.be")) {
-
-        m_playlistModel->clear();
-
-        // use youtube-dl to get the required playlist info as json
-        // mpv playlist property lacks the duration of the video
-        auto ytdlProcess = new QProcess();
-        ytdlProcess->setProgram("youtube-dl");
-        ytdlProcess->setArguments(QStringList() << "-J" << "--flat-playlist" << "https://www.youtube.com/playlist?list=PL6CJYn40gN6hdNC1IGQZfVI707dh9DPRc");
-        ytdlProcess->start();
-
-        QObject::connect(ytdlProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished,
-                         this, [=](int, QProcess::ExitStatus) {
-            // use the json to populate the playlist model
-            using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
-            Playlist m_playList;
-
-            QString json = ytdlProcess->readAllStandardOutput();
-            QJsonObject obj;
-            QJsonValue entries = QJsonDocument::fromJson(json.toUtf8())["entries"];
-
-            QString playlistFileContent;
-
-            for (int i = 0; i < entries.toArray().size(); ++i) {
-                auto url = QString("https://youtu.be/%1").arg(entries[i]["id"].toString());
-                auto title = entries[i]["title"].toString();
-                auto duration = entries[i]["duration"].toDouble();
-
-                auto video = std::make_shared<PlayListItem>(url, i);
-                video->setMediaTitle(title);
-                video->setDuration(Application::formatTime(duration));
-                m_playList.emplace(i, video);
-
-                playlistFileContent += QString("%1,%2,%3\n").arg(url).arg(title).arg(QString::number(duration));
-            }
-
-            // save playlist to disk
-            m_playlistModel->saveYouTubePlaylist(playlistFileContent);
-            m_playlistModel->setPlayList(m_playList);
-        });
-    }
-}
-
 MpvObject::MpvObject(QQuickItem * parent)
     : QQuickFramebufferObject(parent)
     , mpv{mpv_create()}
@@ -192,8 +144,11 @@ MpvObject::MpvObject(QQuickItem * parent)
     connect(this, &MpvObject::fileLoaded,
             this, &MpvObject::loadTracks);
 
-    connect(this, &MpvObject::fileLoaded,
-            this, &MpvObject::getYouTubePlaylist);
+    connect(this, &MpvObject::fileChanged, this, [=]() {
+        if (Application::isYoutubePlaylist(file())) {
+            getYouTubePlaylist(file());
+        }
+    });
 
     connect(this, &MpvObject::positionChanged, this, [this]() {
         int pos = getProperty("time-pos").toInt();
@@ -222,6 +177,20 @@ PlayListModel *MpvObject::playlistModel()
 void MpvObject::setPlaylistModel(PlayListModel *model)
 {
     m_playlistModel = model;
+}
+
+QString MpvObject::file()
+{
+    return m_file;
+}
+
+void MpvObject::setFile(const QString value)
+{
+    if (value == file()) {
+        return;
+    }
+    m_file = value;
+    emit fileChanged();
 }
 
 QString MpvObject::mediaTitle()
@@ -593,6 +562,48 @@ TracksModel *MpvObject::subtitleTracksModel() const
 TracksModel *MpvObject::audioTracksModel() const
 {
     return m_audioTracksModel;
+}
+
+void MpvObject::getYouTubePlaylist(const QString &path)
+{
+    m_playlistModel->clear();
+
+    // use youtube-dl to get the required playlist info as json
+    auto ytdlProcess = new QProcess();
+    ytdlProcess->setProgram("youtube-dl");
+    ytdlProcess->setArguments(QStringList() << "-J" << "--flat-playlist" << path);
+    ytdlProcess->start();
+
+    QObject::connect(ytdlProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished,
+                     this, [=](int, QProcess::ExitStatus) {
+        // use the json to populate the playlist model
+        using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
+        Playlist m_playList;
+
+        QString json = ytdlProcess->readAllStandardOutput();
+        QJsonObject obj;
+        QJsonValue entries = QJsonDocument::fromJson(json.toUtf8())["entries"];
+
+        QString playlistFileContent;
+
+        for (int i = 0; i < entries.toArray().size(); ++i) {
+            auto url = QString("https://youtu.be/%1").arg(entries[i]["id"].toString());
+            auto title = entries[i]["title"].toString();
+            auto duration = entries[i]["duration"].toDouble();
+
+            auto video = std::make_shared<PlayListItem>(url, i);
+            video->setMediaTitle(title);
+            video->setDuration(Application::formatTime(duration));
+            m_playList.emplace(i, video);
+
+            playlistFileContent += QString("%1,%2,%3\n").arg(url).arg(title).arg(QString::number(duration));
+        }
+
+        // save playlist to disk
+        m_playlistModel->setPlayList(m_playList);
+
+        emit youtubePlaylistLoaded();
+    });
 }
 
 int MpvObject::setProperty(const QString &name, const QVariant &value)

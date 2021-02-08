@@ -40,6 +40,7 @@ public:
     QUrl configFolderPath();
     Q_INVOKABLE QUrl parentUrl(const QString &path);
     Q_INVOKABLE QUrl pathToUrl(const QString &path);
+    Q_INVOKABLE static bool isYoutubePlaylist(const QString &path);
 
     int run();
 public slots:

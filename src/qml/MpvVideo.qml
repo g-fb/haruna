@@ -15,7 +15,6 @@ MpvObject {
 
     property int mx
     property int my
-    property string file
     property alias scrollPositionTimer: scrollPositionTimer
 
     signal setSubtitle(int id)
@@ -37,7 +36,7 @@ MpvObject {
         setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
         command(["loadfile", file])
 
-        if (!isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
+        if (!app.isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
             GeneralSettings.lastPlayedFile = file
         }
         GeneralSettings.lastPlaylistIndex = playlistModel.getPlayingVideo()
@@ -71,19 +70,19 @@ MpvObject {
         if (app.argument(0) !== "") {
             window.openFile(app.argument(0), true, PlaylistSettings.loadSiblings)
         } else {
-            // open last played file, paused and
-            // at the position when player was closed or last saved
-            if (isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
-                // if last file was a video from a youtube playlist, restore the
-                // cached playlist and load the last played video from that playlist
-                playlistModel.loadYouTubePlaylist()
-                mpv.command(["loadfile", playlistModel.getPath(GeneralSettings.lastPlaylistIndex)])
-                playlistModel.setPlayingVideo(GeneralSettings.lastPlaylistIndex)
+            // open last played file
+            if (app.isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
+                getYouTubePlaylist(GeneralSettings.lastPlayedFile);
             } else {
                 // file is local, open normally
                 window.openFile(GeneralSettings.lastPlayedFile, false, PlaylistSettings.loadSiblings)
             }
         }
+    }
+
+    onYoutubePlaylistLoaded: {
+        mpv.command(["loadfile", playlistModel.getPath(GeneralSettings.lastPlaylistIndex)])
+        playlistModel.setPlayingVideo(GeneralSettings.lastPlaylistIndex)
     }
 
     onFileLoaded: {
@@ -312,10 +311,6 @@ MpvObject {
 
     function setPlayListScrollPosition() {
         playList.playlistView.positionViewAtIndex(mpv.playlistModel.playingVideo, ListView.Beginning)
-    }
-
-    function isYoutubePlaylist(path) {
-        return path.includes("youtube.com/playlist?list")
     }
 
 }

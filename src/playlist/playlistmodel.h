@@ -46,8 +46,6 @@ public:
     Q_INVOKABLE int getPlayingVideo() const;
     Q_INVOKABLE void getVideos(QString path);
     Q_INVOKABLE void clear();
-    Q_INVOKABLE void saveYouTubePlaylist(QString content);
-    Q_INVOKABLE void loadYouTubePlaylist();
 
     Playlist getPlayList() const;
     void setPlayList(const Playlist &playList);
@@ -60,7 +58,7 @@ private:
     Playlist items() const;
     QString configFolder();
     Playlist m_playList;
-    int m_playingVideo = -1;
+    int m_playingVideo = 0;
     KSharedConfig::Ptr m_config;
 };
 

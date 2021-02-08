@@ -24,6 +24,11 @@ class MpvObject : public QQuickFramebufferObject
     Q_PROPERTY(TracksModel* audioTracksModel READ audioTracksModel NOTIFY audioTracksModelChanged)
     Q_PROPERTY(TracksModel* subtitleTracksModel READ subtitleTracksModel NOTIFY subtitleTracksModelChanged)
 
+    Q_PROPERTY(QString file
+               READ file
+               WRITE setFile
+               NOTIFY fileChanged)
+
     Q_PROPERTY(QString mediaTitle
                READ mediaTitle
                NOTIFY mediaTitleChanged)
@@ -110,6 +115,9 @@ class MpvObject : public QQuickFramebufferObject
     PlayListModel *playlistModel();
     void setPlaylistModel(PlayListModel *model);
 
+    QString file();
+    void setFile(const QString value);
+
     QString mediaTitle();
 
     double position();
@@ -164,6 +172,7 @@ public:
     virtual ~MpvObject();
     virtual Renderer *createRenderer() const;
 
+    Q_INVOKABLE void getYouTubePlaylist(const QString &path);
     Q_INVOKABLE QVariant getProperty(const QString &name);
     Q_INVOKABLE QVariant command(const QVariant &params);
 
@@ -173,6 +182,7 @@ public slots:
     int setProperty(const QString &name, const QVariant &value);
 
 signals:
+    void fileChanged();
     void mediaTitleChanged();
     void positionChanged();
     void durationChanged();
@@ -195,6 +205,7 @@ signals:
     void subtitleTracksModelChanged();
     void hwDecodingChanged();
     void playlistModelChanged();
+    void youtubePlaylistLoaded();
 
 private:
     TracksModel *audioTracksModel() const;
@@ -206,9 +217,9 @@ private:
     QList<int> m_secondsWatched;
     double m_watchPercentage;
     PlayListModel *m_playlistModel;
+    QString m_file;
 
     void loadTracks();
-    void getYouTubePlaylist();
 };
 
 class MpvRenderer : public QQuickFramebufferObject::Renderer
