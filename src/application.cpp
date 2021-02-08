@@ -76,6 +76,7 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
 
+    // used on the QML side to disable the checkbox for enabling Breeze style usage
     m_isBreezeStyleAvailable = QStyleFactory::keys().contains(QStringLiteral("Breeze"));
 
     if (GeneralSettings::useBreezeIconTheme()) {
@@ -85,12 +86,11 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
         QApplication::setStyle("Breeze");
     }
 
-    setupWorkerThread();
-
     // Qt sets the locale in the QGuiApplication constructor, but libmpv
     // requires the LC_NUMERIC category to be set to "C", so change it back.
     std::setlocale(LC_NUMERIC, "C");
 
+    setupWorkerThread();
     setupAboutData();
     setupCommandLineParser();
     registerQmlTypes();
@@ -133,6 +133,46 @@ void Application::setupWorkerThread()
     thread->start();
 }
 
+void Application::setupAboutData()
+{
+    m_aboutData = KAboutData(QStringLiteral("haruna"),
+                             i18n("Haruna Video Player"),
+                             Application::version());
+    m_aboutData.setShortDescription(i18n("A configurable video player."));
+    m_aboutData.setLicense(KAboutLicense::GPL_V3);
+    m_aboutData.setCopyrightStatement(i18n("(c) 2019-2021"));
+    m_aboutData.setHomepage(QStringLiteral("https://github.com/g-fb/haruna"));
+    m_aboutData.setBugAddress(QStringLiteral("https://github.com/g-fb/haruna/issues").toUtf8());
+
+    m_aboutData.addAuthor(i18n("George Florea Bănuș"),
+                        i18n("Developer"),
+                        QStringLiteral("georgefb899@gmail.com"),
+                        QStringLiteral("https://georgefb.com"));
+
+    KAboutData::setApplicationData(m_aboutData);
+}
+
+void Application::setupCommandLineParser()
+{
+    QCommandLineParser parser;
+    m_aboutData.setupCommandLine(&parser);
+    parser.addPositionalArgument(QStringLiteral("file"), i18n("File to open"));
+    parser.process(*m_app);
+    m_aboutData.processCommandLine(&parser);
+
+    for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
+        addArgument(i, parser.positionalArguments().at(i));
+    }
+}
+
+void Application::registerQmlTypes()
+{
+    qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
+    qRegisterMetaType<QAction*>();
+    qRegisterMetaType<TracksModel*>();
+    qRegisterMetaType<KFileMetaData::PropertyMap>("KFileMetaData::PropertyMap");
+}
+
 void Application::setupQmlSettingsTypes()
 {
     auto audioProvider = [](QQmlEngine *, QJSEngine *) -> QObject * { return AudioSettings::self(); };
@@ -155,6 +195,22 @@ void Application::setupQmlSettingsTypes()
 
     auto videoProvider = [](QQmlEngine *, QJSEngine *) -> QObject * { return VideoSettings::self(); };
     qmlRegisterSingletonType<VideoSettings>("com.georgefb.haruna", 1, 0, "VideoSettings", videoProvider);
+}
+
+void Application::setupQmlContextProperties()
+{
+    std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
+    std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("app"), this);
+    qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
+                                            QStringLiteral("Application should not be created in QML"));
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("lockManager"), lockManager.release());
+    qmlRegisterUncreatableType<LockManager>("LockManager", 1, 0, "LockManager",
+                                            QStringLiteral("LockManager should not be created in QML"));
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
 }
 
 QUrl Application::configFilePath()
@@ -215,32 +271,11 @@ bool Application::isYoutubePlaylist(const QString &path)
     return path.contains("youtube.com/playlist?list");
 }
 
-void Application::setupQmlContextProperties()
-{
-    std::unique_ptr<LockManager> lockManager = std::make_unique<LockManager>();
-    std::unique_ptr<SubtitlesFoldersModel> subsFoldersModel = std::make_unique<SubtitlesFoldersModel>();
-
-    m_engine->rootContext()->setContextProperty(QStringLiteral("app"), this);
-    qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
-                                            QStringLiteral("Application should not be created in QML"));
-
-    m_engine->rootContext()->setContextProperty(QStringLiteral("lockManager"), lockManager.release());
-    qmlRegisterUncreatableType<LockManager>("LockManager", 1, 0, "LockManager",
-                                            QStringLiteral("LockManager should not be created in QML"));
-
-    m_engine->rootContext()->setContextProperty(QStringLiteral("subsFoldersModel"), subsFoldersModel.release());
-}
-
 QString Application::formatTime(const double time)
 {
     QTime t(0, 0, 0);
     QString formattedTime = t.addSecs(static_cast<qint64>(time)).toString("hh:mm:ss");
     return formattedTime;
-}
-
-QUrl Application::getPathFromArg(const QString &arg)
-{
-    return QUrl::fromUserInput(arg, QDir::currentPath());
 }
 
 void Application::hideCursor()
@@ -289,15 +324,6 @@ QAbstractItemModel *Application::colorSchemesModel()
     return m_schemes->model();
 }
 
-void Application::registerQmlTypes()
-{
-    qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
-    qRegisterMetaType<QAction*>();
-    qRegisterMetaType<TracksModel*>();
-    qRegisterMetaType<KFileMetaData::PropertyMap>("KFileMetaData::PropertyMap");
-
-}
-
 void Application::activateColorScheme(const QString &name)
 {
     m_schemes->activateScheme(m_schemes->indexForScheme(name));
@@ -323,38 +349,6 @@ void Application::aboutApplication()
         dialog->setAttribute(Qt::WA_DeleteOnClose);
     }
     dialog->show();
-}
-
-void Application::setupAboutData()
-{
-    m_aboutData = KAboutData(QStringLiteral("haruna"),
-                             i18n("Haruna Video Player"),
-                             Application::version());
-    m_aboutData.setShortDescription(i18n("A configurable video player."));
-    m_aboutData.setLicense(KAboutLicense::GPL_V3);
-    m_aboutData.setCopyrightStatement(i18n("(c) 2019-2021"));
-    m_aboutData.setHomepage(QStringLiteral("https://github.com/g-fb/haruna"));
-    m_aboutData.setBugAddress(QStringLiteral("https://github.com/g-fb/haruna/issues").toUtf8());
-
-    m_aboutData.addAuthor(i18n("George Florea Bănuș"),
-                        i18n("Developer"),
-                        QStringLiteral("georgefb899@gmail.com"),
-                        QStringLiteral("https://georgefb.com"));
-
-    KAboutData::setApplicationData(m_aboutData);
-}
-
-void Application::setupCommandLineParser()
-{
-    QCommandLineParser parser;
-    m_aboutData.setupCommandLine(&parser);
-    parser.addPositionalArgument(QStringLiteral("file"), i18n("File to open"));
-    parser.process(*m_app);
-    m_aboutData.processCommandLine(&parser);
-
-    for (auto i = 0; i < parser.positionalArguments().size(); ++i) {
-        addArgument(i, parser.positionalArguments().at(i));
-    }
 }
 
 void Application::setupActions(const QString &actionName)

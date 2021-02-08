@@ -7,16 +7,16 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <QObject>
 #include <QAbstractItemModel>
 #include <QAction>
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QObject>
+
 #include <KAboutData>
 #include <KActionCollection>
 #include <KSharedConfig>
 
-class HarunaSettings;
 class KActionCollection;
 class KConfigDialog;
 class KColorSchemeManager;
@@ -34,34 +34,34 @@ public:
     explicit Application(int &argc, char **argv, const QString &applicationName);
     ~Application();
 
-    static QString version();
-    void setupQmlSettingsTypes();
+    int run();
     QUrl configFilePath();
     QUrl configFolderPath();
     Q_INVOKABLE QUrl parentUrl(const QString &path);
     Q_INVOKABLE QUrl pathToUrl(const QString &path);
-    Q_INVOKABLE static bool isYoutubePlaylist(const QString &path);
+    Q_INVOKABLE QString argument(int key);
+    Q_INVOKABLE void addArgument(int key, const QString &value);
+    Q_INVOKABLE QAction *action(const QString &name);
+    Q_INVOKABLE QString getFileContent(QString file);
+    Q_INVOKABLE void activateColorScheme(const QString &name);
+    Q_INVOKABLE void configureShortcuts();
 
-    int run();
-public slots:
-    static QString formatTime(const double time);
-    static QUrl getPathFromArg(const QString &arg);
-    static void hideCursor();
-    static void showCursor();
-    void addArgument(int key, const QString &value);
-    void configureShortcuts();
-    QString argument(int key);
-    QAction* action(const QString &name);
-    QString getFileContent(QString file);
-    void activateColorScheme(const QString &name);
+    static QString version();
+    Q_INVOKABLE static bool isYoutubePlaylist(const QString &path);
+    Q_INVOKABLE static QString formatTime(const double time);
+    Q_INVOKABLE static void hideCursor();
+    Q_INVOKABLE static void showCursor();
 
 private:
-    QAbstractItemModel *colorSchemesModel();
-    void registerQmlTypes();
-    void aboutApplication();
+    void setupWorkerThread();
     void setupAboutData();
     void setupCommandLineParser();
+    void registerQmlTypes();
+    void setupQmlSettingsTypes();
+    void setupQmlContextProperties();
+    void aboutApplication();
     void setupActions(const QString &actionName);
+    QAbstractItemModel *colorSchemesModel();
     QApplication *m_app;
     QQmlApplicationEngine *m_engine;
     KAboutData m_aboutData;
@@ -71,8 +71,6 @@ private:
     QMap<int, QString> m_args;
     KColorSchemeManager *m_schemes;
     bool m_isBreezeStyleAvailable {false};
-    void setupQmlContextProperties();
-    void setupWorkerThread();
 };
 
 #endif // APPLICATION_H
