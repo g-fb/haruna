@@ -914,7 +914,7 @@ QtObject {
         Component.onCompleted: list["toggleFullscreenAction"] = toggleFullscreenAction
 
         onTriggered: {
-            mpv.toggleFullScreen()
+            window.toggleFullScreen()
         }
     }
 

@@ -15,6 +15,7 @@ import com.georgefb.haruna 1.0
 Rectangle {
     id: root
 
+    property alias scrollPositionTimer: scrollPositionTimer
     property alias playlistView: playlistView
     property bool canToggleWithMouse: PlaylistSettings.canToggleWithMouse
     property string position: PlaylistSettings.position
@@ -79,6 +80,16 @@ Rectangle {
     Component {
         id: playListItemCompact
         PlayListItemCompact {}
+    }
+
+    Timer {
+        id: scrollPositionTimer
+        interval: 50; running: true; repeat: true
+
+        onTriggered: {
+            setPlayListScrollPosition()
+            scrollPositionTimer.stop()
+        }
     }
 
     ShaderEffectSource {
@@ -151,4 +162,9 @@ Rectangle {
             }
         }
     ]
+
+    function setPlayListScrollPosition() {
+        playlistView.positionViewAtIndex(playlistView.model.playingVideo, ListView.Beginning)
+    }
+
 }

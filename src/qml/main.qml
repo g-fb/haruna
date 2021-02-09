@@ -178,4 +178,21 @@ Kirigami.ApplicationWindow {
     function isFullScreen() {
         return window.visibility === Window.FullScreen
     }
+
+    function toggleFullScreen() {
+        if (!isFullScreen()) {
+            window.showFullScreen()
+        } else {
+            if (window.preFullScreenVisibility === Window.Windowed) {
+                window.showNormal()
+            }
+            if (window.preFullScreenVisibility === Window.Maximized) {
+                window.show()
+                window.showMaximized()
+            }
+        }
+        app.showCursor()
+        mpv.scrollPositionTimer.start()
+    }
+
 }

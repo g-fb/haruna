@@ -15,7 +15,6 @@ MpvObject {
 
     property int mx
     property int my
-    property alias scrollPositionTimer: scrollPositionTimer
 
     signal setSubtitle(int id)
     signal setSecondarySubtitle(int id)
@@ -134,16 +133,6 @@ MpvObject {
         } else {
             footer.playPauseButton.icon.name = "media-playback-pause"
             lockManager.setInhibitionOn()
-        }
-    }
-
-    Timer {
-        id: scrollPositionTimer
-        interval: 50; running: true; repeat: true
-
-        onTriggered: {
-            setPlayListScrollPosition()
-            scrollPositionTimer.stop()
         }
     }
 
@@ -293,26 +282,6 @@ MpvObject {
             GeneralSettings.lastPlaylistIndex = mpv.playlistModel.getPlayingVideo()
             GeneralSettings.save()
         }
-    }
-
-    function toggleFullScreen() {
-        if (!window.isFullScreen()) {
-            window.showFullScreen()
-        } else {
-            if (window.preFullScreenVisibility === Window.Windowed) {
-                window.showNormal()
-            }
-            if (window.preFullScreenVisibility === Window.Maximized) {
-                window.show()
-                window.showMaximized()
-            }
-        }
-        app.showCursor()
-        scrollPositionTimer.start()
-    }
-
-    function setPlayListScrollPosition() {
-        playList.playlistView.positionViewAtIndex(mpv.playlistModel.playingVideo, ListView.Beginning)
     }
 
 }
