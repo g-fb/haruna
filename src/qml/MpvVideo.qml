@@ -32,17 +32,6 @@ MpvObject {
     anchors.top: parent.top
     volume: GeneralSettings.volume
 
-    onFileChanged: {
-        setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
-        command(["loadfile", file])
-
-        if (!app.isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
-            GeneralSettings.lastPlayedFile = file
-        }
-        GeneralSettings.lastPlaylistIndex = playlistModel.getPlayingVideo()
-        GeneralSettings.save()
-    }
-
     onSetSubtitle: {
         setProperty("sid", id)
     }
@@ -72,7 +61,8 @@ MpvObject {
         } else {
             // open last played file
             if (app.isYoutubePlaylist(GeneralSettings.lastPlayedFile)) {
-                getYouTubePlaylist(GeneralSettings.lastPlayedFile);
+                getYouTubePlaylist(GeneralSettings.lastPlayedFile)
+                playList.isYouTubePlaylist = true
             } else {
                 // file is local, open normally
                 window.openFile(GeneralSettings.lastPlayedFile, false, PlaylistSettings.loadSiblings)
@@ -290,6 +280,18 @@ MpvObject {
 
         onDropped: {
             window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
+        }
+    }
+
+    function loadFile(file, updateLastPlayedFile = true) {
+        command(["loadfile", file])
+
+        if (updateLastPlayedFile) {
+            GeneralSettings.lastPlayedFile = file
+            GeneralSettings.save()
+        } else {
+            GeneralSettings.lastPlaylistIndex = mpv.playlistModel.getPlayingVideo()
+            GeneralSettings.save()
         }
     }
 

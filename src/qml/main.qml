@@ -132,11 +132,9 @@ Kirigami.ApplicationWindow {
                 Component.onCompleted: text = GeneralSettings.lastUrl
 
                 Keys.onPressed: {
-                    if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
-                        openFile(openUrlTextField.text, true, false)
-                        GeneralSettings.lastUrl = openUrlTextField.text
-                        openUrlPopup.close()
-                        openUrlTextField.clear()
+                    if (event.key === Qt.Key_Enter
+                            || event.key === Qt.Key_Return) {
+                        openUrlButton.clicked()
                     }
                     if (event.key === Qt.Key_Escape) {
                         openUrlPopup.close()
@@ -160,13 +158,21 @@ Kirigami.ApplicationWindow {
     Component.onCompleted: app.activateColorScheme(GeneralSettings.colorScheme)
 
     function openFile(path, startPlayback, loadSiblings) {
+
+        if (app.isYoutubePlaylist(path)) {
+            mpv.getYouTubePlaylist(path);
+            playList.isYouTubePlaylist = true
+        } else {
+            playList.isYouTubePlaylist = false
+        }
+
         mpv.playlistModel.clear()
-        mpv.file = path
         mpv.pause = !startPlayback
         if (loadSiblings) {
             // get video files from same folder as the opened file
             mpv.playlistModel.getVideos(path)
         }
+        mpv.loadFile(path)
     }
 
     function isFullScreen() {

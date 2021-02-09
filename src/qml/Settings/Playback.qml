@@ -119,6 +119,7 @@ SettingsBasePage {
                     }
                     PlaybackSettings.ytdlFormat = ytdlFormatField.text
                     PlaybackSettings.save()
+                    mpv.setProperty("ytdl-format", PlaybackSettings.ytdlFormat)
                 }
 
                 Component.onCompleted: {

@@ -24,11 +24,6 @@ class MpvObject : public QQuickFramebufferObject
     Q_PROPERTY(TracksModel* audioTracksModel READ audioTracksModel NOTIFY audioTracksModelChanged)
     Q_PROPERTY(TracksModel* subtitleTracksModel READ subtitleTracksModel NOTIFY subtitleTracksModelChanged)
 
-    Q_PROPERTY(QString file
-               READ file
-               WRITE setFile
-               NOTIFY fileChanged)
-
     Q_PROPERTY(QString mediaTitle
                READ mediaTitle
                NOTIFY mediaTitleChanged)
@@ -115,9 +110,6 @@ class MpvObject : public QQuickFramebufferObject
     PlayListModel *playlistModel();
     void setPlaylistModel(PlayListModel *model);
 
-    QString file();
-    void setFile(const QString value);
-
     QString mediaTitle();
 
     double position();
@@ -182,7 +174,6 @@ public slots:
     int setProperty(const QString &name, const QVariant &value);
 
 signals:
-    void fileChanged();
     void mediaTitleChanged();
     void positionChanged();
     void durationChanged();

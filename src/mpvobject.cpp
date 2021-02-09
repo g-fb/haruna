@@ -144,12 +144,6 @@ MpvObject::MpvObject(QQuickItem * parent)
     connect(this, &MpvObject::fileLoaded,
             this, &MpvObject::loadTracks);
 
-    connect(this, &MpvObject::fileChanged, this, [=]() {
-        if (Application::isYoutubePlaylist(file())) {
-            getYouTubePlaylist(file());
-        }
-    });
-
     connect(this, &MpvObject::positionChanged, this, [this]() {
         int pos = getProperty("time-pos").toInt();
         double duration = getProperty("duration").toDouble();
@@ -177,20 +171,6 @@ PlayListModel *MpvObject::playlistModel()
 void MpvObject::setPlaylistModel(PlayListModel *model)
 {
     m_playlistModel = model;
-}
-
-QString MpvObject::file()
-{
-    return m_file;
-}
-
-void MpvObject::setFile(const QString value)
-{
-    if (value == file()) {
-        return;
-    }
-    m_file = value;
-    emit fileChanged();
 }
 
 QString MpvObject::mediaTitle()

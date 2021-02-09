@@ -20,6 +20,7 @@ Rectangle {
     property string position: PlaylistSettings.position
     property int rowHeight: PlaylistSettings.rowHeight
     property int bigFont: PlaylistSettings.bigFontFullscreen
+    property bool isYouTubePlaylist: false
 
     height: mpv.height
     width: {
