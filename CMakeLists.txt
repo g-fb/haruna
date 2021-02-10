@@ -33,6 +33,11 @@ set_package_properties(Qt5Quick PROPERTIES TYPE REQUIRED)
 find_package(Qt5QuickControls2)
 set_package_properties(Qt5QuickControls2 PROPERTIES TYPE REQUIRED)
 
+find_package(Libmpv)
+set_package_properties(Libmpv PROPERTIES
+    TYPE REQUIRED
+    URL "https://mpv.io")
+
 find_package(Breeze)
 set_package_properties(Breeze PROPERTIES
     TYPE RECOMMENDED

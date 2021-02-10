@@ -58,7 +58,8 @@ target_link_libraries(haruna PRIVATE
     KF5::KIONTLM
     KF5::Kirigami2
     KF5::XmlGui
-    mpv
+
+    Libmpv::Libmpv
 )
 
 install(TARGETS haruna DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
