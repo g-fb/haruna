@@ -168,6 +168,7 @@ void Application::setupCommandLineParser()
 void Application::registerQmlTypes()
 {
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
+    qRegisterMetaType<PlayListModel*>();
     qRegisterMetaType<QAction*>();
     qRegisterMetaType<TracksModel*>();
     qRegisterMetaType<KFileMetaData::PropertyMap>("KFileMetaData::PropertyMap");
