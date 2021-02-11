@@ -12,6 +12,10 @@ import org.kde.kirigami 2.11 as Kirigami
 Kirigami.Page
 {
     padding: 0
+    leftPadding: 0
+    topPadding: 0
+    rightPadding: 0
+    bottomPadding: 0
 
     Component.onCompleted: applicationWindow().pageStack.columnView.columnWidth = 250
 
