@@ -34,53 +34,43 @@ find_package(Qt5QuickControls2)
 set_package_properties(Qt5QuickControls2 PROPERTIES TYPE REQUIRED)
 
 find_package(Libmpv)
-set_package_properties(Libmpv PROPERTIES
-    TYPE REQUIRED
+set_package_properties(Libmpv PROPERTIES TYPE REQUIRED
     URL "https://mpv.io")
 
 find_package(Breeze)
-set_package_properties(Breeze PROPERTIES
-    TYPE RECOMMENDED
+set_package_properties(Breeze PROPERTIES TYPE RECOMMENDED
     URL "https://api.kde.org/frameworks/breeze-icons/html/index.html")
 
 find_package(KF5Config)
-set_package_properties(KF5Config PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5Config PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kconfig/html/index.html")
 
 find_package(KF5CoreAddons)
-set_package_properties(KF5CoreAddons PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5CoreAddons PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kcoreaddons/html/index.html")
 
 find_package(KF5FileMetaData)
-set_package_properties(KF5FileMetaData PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5FileMetaData PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kfilemetadata/html/index.html")
 
 find_package(KF5I18n)
-set_package_properties(KF5I18n PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5I18n PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/ki18n/html/index.html")
 
 find_package(KF5IconThemes)
-set_package_properties(KF5IconThemes PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5IconThemes PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kiconthemes/html/index.html")
 
 find_package(KF5KIO)
-set_package_properties(KF5KIO PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5KIO PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kio/html/index.html")
 
 find_package(KF5Kirigami2)
-set_package_properties(KF5Kirigami2 PROPERTIES
-    TYPE RUNTIME
+set_package_properties(KF5Kirigami2 PROPERTIES TYPE RUNTIME
     URL "https://api.kde.org/frameworks/kirigami/html/index.html")
 
 find_package(KF5XmlGui)
-set_package_properties(KF5XmlGui PROPERTIES
-    TYPE REQUIRED
+set_package_properties(KF5XmlGui PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
 option(InstallColorSchemes "Installs breeze color schemes." OFF)
