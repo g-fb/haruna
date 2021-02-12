@@ -1,0 +1,122 @@
+# appimage-builder recipe file https://appimage-builder.readthedocs.io/en/latest/
+version: 1
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: com.georgefb.haruna
+    name: Haruna
+    icon: com.georgefb.haruna
+    version: 1.0.0
+    exec: usr/bin/haruna
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse'
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse'
+      - sourceline: 'deb http://archive.neon.kde.org/user focal main'
+        key_url: 'https://archive.neon.kde.org/public.key'
+        
+
+    include:
+      - qml-module-org-kde-kirigami2
+      - qml-module-qtquick-layouts
+      - qml-module-qt-labs-platform
+      - qml-module-qtquick-shapes
+      - libkf5configcore5
+      - libkf5configgui5
+      - libkf5configwidgets5
+      - libkf5coreaddons5
+      - libkf5filemetadata3
+      - libkf5i18n5
+      - libkf5kiocore5
+      - libkf5filemetadata-bin
+      - libkf5kiowidgets5
+      - libkf5xmlgui5
+      - libmpv1
+      - libqt5core5a
+      - libqt5dbus5
+      - libqt5gui5
+      - libqt5qml5
+      - libqt5quick5
+      - libqt5quickcontrols2-5
+      - libqt5widgets5
+      - libkf5i18n5
+ 
+    exclude:
+      - libkf5service-bin
+      - perl
+      - perl-base
+      - perl-modules
+      - libpam-runtime
+      - dpkg
+      - python3
+      - python3.8
+      - python3-minimal
+      - python3-talloc
+      - gpgv
+      - gpg
+      - gnupg
+      - sound-theme-freedesktop
+      - systemd
+      - systemd-timesyncd
+      - gpg-wks-server
+      - sensible-utils
+      - mime-support
+      - libpam-modules
+
+  files:
+    exclude:
+      - usr/lib/x86_64-linux-gnu/gconv
+      - usr/share/man
+      - usr/share/doc/*/README.*
+      - usr/share/doc/*/changelog.*
+      - usr/share/doc/*/NEWS.*
+      - usr/share/doc/*/TODO.*
+  after_bundle:
+    # workaround libcrypt.so.2 binary still name as libcrypt.so.1 in debian systems
+    - ln -s /usr/lib/libcrypt.so.2 AppDir/usr/lib/libcrypt.so.1
+
+  test:
+    debian:
+      image: appimagecrafters/tests-env:debian-stable
+      command: "./AppRun"
+      use_host_x: True
+      env:
+        QT_DEBUG_PLUGINS: 1
+    centos:
+      image: appimagecrafters/tests-env:centos-7
+      command: "./AppRun"
+      use_host_x: True
+      env:
+        QT_DEBUG_PLUGINS: 1
+    arch:
+      image: appimagecrafters/tests-env:archlinux-latest
+      command: "./AppRun"
+      use_host_x: True
+      env:
+        QT_DEBUG_PLUGINS: 1
+    fedora:
+      image: appimagecrafters/tests-env:fedora-30
+      command: "./AppRun"
+      use_host_x: True
+      env:
+        QT_DEBUG_PLUGINS: 1
+    ubuntu:
+      image: appimagecrafters/tests-env:ubuntu-xenial
+      command: "./AppRun"
+      use_host_x: True
+
+
+AppImage:
+  update-information: None
+  sign-key: None
+  arch: x86_64
+
+  
+
+
