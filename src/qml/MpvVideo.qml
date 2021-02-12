@@ -116,12 +116,12 @@ MpvObject {
         if (nextFileRow < playList.playlistView.count) {
             const nextFile = playlistModel.getPath(nextFileRow)
             playlistModel.setPlayingVideo(nextFileRow)
-            file = nextFile
+            loadFile(nextFile)
         } else {
             // Last file in playlist
             if (PlaylistSettings.repeat) {
                 playlistModel.setPlayingVideo(0)
-                file = playlistModel.getPath(0)
+                loadFile(playlistModel.getPath(0))
             }
         }
     }
