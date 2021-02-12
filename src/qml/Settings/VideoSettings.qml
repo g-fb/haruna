@@ -44,7 +44,6 @@ SettingsBasePage {
                 id: screenshotFormat
                 textRole: "key"
                 model: ListModel {
-                    id: leftButtonModel
                     ListElement { key: "PNG"; }
                     ListElement { key: "JPG"; }
                     ListElement { key: "WebP"; }
