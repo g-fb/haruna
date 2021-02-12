@@ -104,12 +104,8 @@ MpvObject::MpvObject(QQuickItem * parent)
 //    setProperty("terminal", "yes");
 //    setProperty("msg-level", "all=v");
 
-    if (PlaybackSettings::useHWDecoding()) {
-        setProperty("hwdec", "yes");
-    } else {
-        setProperty("hwdec", "no");
-    }
-
+    QString hwdec = PlaybackSettings::useHWDecoding() ? PlaybackSettings::hWDecoding() : "no";
+    setProperty("hwdec", hwdec);
     setProperty("screenshot-template", "%x/screenshots/%n");
     setProperty("sub-auto", "exact");
     setProperty("volume-max", "100");

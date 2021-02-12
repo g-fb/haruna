@@ -22,5 +22,8 @@
     <entry name="UseHWDecoding" type="bool">
       <default>false</default>
     </entry>
+    <entry name="HWDecoding" type="String">
+      <default>auto</default>
+    </entry>
   </group>
 </kcfg>

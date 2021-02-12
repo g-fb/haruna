@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
@@ -32,7 +32,54 @@ SettingsBasePage {
                 PlaybackSettings.useHWDecoding = checked
                 PlaybackSettings.save()
             }
-            Layout.columnSpan: 2
+        }
+
+        ComboBox {
+            id: hwDecodingComboBox
+
+            visible: hwDecodingCheckBox.checked
+            textRole: "key"
+            model: ListModel {
+                id: hwDecModel
+                ListElement { key: "auto"; }
+                ListElement { key: "auto-safe"; }
+                ListElement { key: "auto-copy"; }
+                ListElement { key: "vdpau"; }
+                ListElement { key: "vdpau-copy"; }
+                ListElement { key: "vaapi"; }
+                ListElement { key: "vaapi-copy"; }
+                ListElement { key: "videotoolbox"; }
+                ListElement { key: "videotoolbox-copy"; }
+                ListElement { key: "dxva2"; }
+                ListElement { key: "dxva2-copy"; }
+                ListElement { key: "d3d11va"; }
+                ListElement { key: "d3d11va-copy"; }
+                ListElement { key: "mediacodec"; }
+                ListElement { key: "mediacodec-copy"; }
+                ListElement { key: "mmal"; }
+                ListElement { key: "mmal-copy"; }
+                ListElement { key: "nvdec"; }
+                ListElement { key: "nvdec-copy"; }
+                ListElement { key: "cuda"; }
+                ListElement { key: "cuda-copy"; }
+                ListElement { key: "crystalhd"; }
+                ListElement { key: "rkmpp"; }
+            }
+
+            onActivated: {
+                PlaybackSettings.hWDecoding = model.get(index).key
+                PlaybackSettings.save()
+                mpv.setProperty("hwdec", PlaybackSettings.hWDecoding)
+            }
+
+            Component.onCompleted: {
+                for (let i = 0; i < hwDecModel.count; ++i) {
+                    if (hwDecModel.get(i).key === PlaybackSettings.hWDecoding) {
+                        currentIndex = i
+                        break
+                    }
+                }
+            }
         }
 
         CheckBox {
