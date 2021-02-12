@@ -112,6 +112,7 @@ MpvObject::MpvObject(QQuickItem * parent)
 
     setProperty("screenshot-template", "%x/screenshots/%n");
     setProperty("sub-auto", "exact");
+    setProperty("volume-max", "100");
 
     mpv_observe_property(mpv, 0, "media-title", MPV_FORMAT_STRING);
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);

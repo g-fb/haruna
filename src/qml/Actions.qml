@@ -54,16 +54,7 @@ QtObject {
         Component.onCompleted: list["volumeUpAction"] = volumeUpAction
 
         onTriggered: {
-            const currentVolume = parseInt(mpv.getProperty("volume"))
-            const volumeStep = parseInt(GeneralSettings.volumeStep)
-            const newVolume = currentVolume + volumeStep
-            if (currentVolume < 100) {
-                if (newVolume > 100) {
-                    mpv.setProperty("volume", 100)
-                } else {
-                    mpv.setProperty("volume", newVolume)
-                }
-            }
+            mpv.command(["add", "volume", GeneralSettings.volumeStep])
             osd.message(`Volume: ${parseInt(mpv.getProperty("volume"))}`)
         }
     }
@@ -78,16 +69,7 @@ QtObject {
         Component.onCompleted: list["volumeDownAction"] = volumeDownAction
 
         onTriggered: {
-            const currentVolume = parseInt(mpv.getProperty("volume"))
-            const volumeStep = parseInt(GeneralSettings.volumeStep)
-            const newVolume = currentVolume - volumeStep
-            if (currentVolume >= 0) {
-                if (newVolume < 0) {
-                    mpv.setProperty("volume", 0)
-                } else {
-                    mpv.setProperty("volume", newVolume)
-                }
-            }
+            mpv.command(["add", "volume", -GeneralSettings.volumeStep])
             osd.message(`Volume: ${parseInt(mpv.getProperty("volume"))}`)
         }
     }
@@ -376,7 +358,7 @@ QtObject {
         Component.onCompleted: list["increasePlayBackSpeedAction"] = increasePlayBackSpeedAction
 
         onTriggered: {
-            mpv.setProperty("speed", mpv.getProperty("speed") + 0.1)
+            mpv.command(["add", "speed", "0.1"])
             osd.message(`Speed: ${mpv.getProperty("speed").toFixed(2)}`)
         }
     }
@@ -391,7 +373,7 @@ QtObject {
         Component.onCompleted: list["decreasePlayBackSpeedAction"] = decreasePlayBackSpeedAction
 
         onTriggered: {
-            mpv.setProperty("speed", mpv.getProperty("speed") - 0.1)
+            mpv.command(["add", "speed", "-0.1"])
             osd.message(`Speed: ${mpv.getProperty("speed").toFixed(2)}`)
         }
     }
