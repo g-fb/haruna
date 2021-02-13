@@ -44,8 +44,8 @@
     <entry name="UseBreezeIconTheme" type="bool">
       <default>true</default>
     </entry>
-    <entry name="UseBreezeGuiStyle" type="bool">
-      <default>true</default>
+    <entry name="GuiStyle" type="String">
+        <default>System</default>
     </entry>
     <entry name="Volume" type="Int">
       <label>Volume</label>

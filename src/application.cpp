@@ -76,14 +76,12 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
 
-    // used on the QML side to disable the checkbox for enabling Breeze style usage
-    m_isBreezeStyleAvailable = QStyleFactory::keys().contains(QStringLiteral("Breeze"));
-
     if (GeneralSettings::useBreezeIconTheme()) {
         QIcon::setThemeName("breeze");
     }
-    if (GeneralSettings::useBreezeGuiStyle()) {
-        QApplication::setStyle("Breeze");
+
+    if (GeneralSettings::guiStyle() != QStringLiteral("System")) {
+        QApplication::setStyle(GeneralSettings::guiStyle());
     }
 
     // Qt sets the locale in the QGuiApplication constructor, but libmpv
@@ -318,6 +316,16 @@ QString Application::getFileContent(QString file)
     QString content = f.readAll();
     f.close();
     return content;
+}
+
+QStringList Application::availableGuiStyles()
+{
+    return QStyleFactory::keys();
+}
+
+void Application::setGuiStyle(const QString &style)
+{
+    QApplication::setStyle(style);
 }
 
 QAbstractItemModel *Application::colorSchemesModel()

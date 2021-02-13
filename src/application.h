@@ -26,7 +26,6 @@ class Application : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QAbstractItemModel* colorSchemesModel READ colorSchemesModel CONSTANT)
-    Q_PROPERTY(bool isBreezeStyleAvailable MEMBER m_isBreezeStyleAvailable CONSTANT)
     Q_PROPERTY(QUrl configFilePath READ configFilePath CONSTANT)
     Q_PROPERTY(QUrl configFolderPath READ configFolderPath CONSTANT)
 
@@ -43,6 +42,8 @@ public:
     Q_INVOKABLE void addArgument(int key, const QString &value);
     Q_INVOKABLE QAction *action(const QString &name);
     Q_INVOKABLE QString getFileContent(QString file);
+    Q_INVOKABLE QStringList availableGuiStyles();
+    Q_INVOKABLE void setGuiStyle(const QString &style);
     Q_INVOKABLE void activateColorScheme(const QString &name);
     Q_INVOKABLE void configureShortcuts();
 
@@ -70,7 +71,6 @@ private:
     KConfigGroup *m_shortcuts;
     QMap<int, QString> m_args;
     KColorSchemeManager *m_schemes;
-    bool m_isBreezeStyleAvailable {false};
 };
 
 #endif // APPLICATION_H

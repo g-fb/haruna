@@ -245,6 +245,55 @@ SettingsBasePage {
             Component.onCompleted: currentIndex = find(GeneralSettings.colorScheme)
         }
 
+        Label {
+            text: qsTr("GUI Style")
+            Layout.alignment: Qt.AlignRight
+        }
+
+        ComboBox {
+            id: guiStyleComboBox
+
+            textRole: "key"
+            model: ListModel {
+                id: stylesModel
+
+                ListElement { key: "system"; }
+            }
+
+            onActivated: {
+                GeneralSettings.guiStyle = model.get(index).key
+                app.setGuiStyle(GeneralSettings.guiStyle)
+                // some themes can cause a crash
+                // the timer prevents saving the crashing theme,
+                // which would cause the app to crash on startup
+                saveGuiStyleTimer.start()
+            }
+
+            Timer {
+                id: saveGuiStyleTimer
+
+                interval: 1000
+                running: false
+                repeat: false
+                onTriggered: GeneralSettings.save()
+            }
+
+            Component.onCompleted: {
+                // populate the model with the available styles
+                for (let i = 0; i < app.availableGuiStyles().length; ++i) {
+                    stylesModel.append({key: app.availableGuiStyles()[i]})
+                }
+
+                // set the saved style as the current item in the combo box
+                for (let j = 0; j < stylesModel.count; ++j) {
+                    if (stylesModel.get(j).key === GeneralSettings.guiStyle) {
+                        currentIndex = j
+                        break
+                    }
+                }
+            }
+        }
+
         CheckBox {
             text: qsTr("Use Breeze icon theme")
             checked: GeneralSettings.useBreezeIconTheme
@@ -257,21 +306,6 @@ SettingsBasePage {
 
             ToolTip {
                 text: qsTr("Sets the icon theme to breeze.\nRequires restart.")
-            }
-        }
-        CheckBox {
-            text: qsTr("Use Breeze GUI style")
-            checked: GeneralSettings.useBreezeGuiStyle
-            enabled: app.isBreezeStyleAvailable
-            onCheckedChanged: {
-                GeneralSettings.useBreezeGuiStyle = checked
-                GeneralSettings.save()
-            }
-            Layout.row: 15
-            Layout.column: 1
-
-            ToolTip {
-                text: qsTr("Sets the GUI style to breeze.\nRequires restart.")
             }
         }
 
