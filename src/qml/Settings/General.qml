@@ -220,7 +220,7 @@ SettingsBasePage {
             model: app.colorSchemesModel
             delegate: ItemDelegate {
                 Kirigami.Theme.colorSet: Kirigami.Theme.View
-                width: parent.width
+                width: colorThemeSwitcher.width
                 highlighted: model.display === GeneralSettings.colorScheme
                 contentItem: RowLayout {
                     Kirigami.Icon {
