@@ -309,25 +309,6 @@ SettingsBasePage {
             }
         }
 
-        TextArea {
-            text: qsTr("Breeze style is not installed.")
-            visible: !app.isBreezeStyleAvailable
-            width: parent.width
-            color: Kirigami.Theme.textColor
-            readOnly: true
-            textFormat: Text.RichText
-            wrapMode: Text.WordWrap
-            selectByMouse: true
-            rightPadding: scrollbar.width
-            onLinkActivated: Qt.openUrlExternally(link)
-            onHoveredLinkChanged: hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-            background: Rectangle {
-                color: "transparent"
-                border.color: "transparent"
-            }
-            Layout.columnSpan: 2
-        }
-
         Item {
             width: Kirigami.Units.gridUnit
             height: Kirigami.Units.gridUnit
