@@ -8,7 +8,7 @@ AppDir:
     id: com.georgefb.haruna
     name: Haruna
     icon: com.georgefb.haruna
-    version: 1.0.0
+    version: !ENV ${HARUNA_VERSION}
     exec: usr/bin/haruna
 
   apt:

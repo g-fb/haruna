@@ -1,4 +1,4 @@
-name: C/C++ AppImage
+name: Continuous AppImage build 
 
 on:
   push
@@ -13,11 +13,19 @@ jobs:
       - name: install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y qt5-default qtdeclarative5-dev gettext build-essential extra-cmake-modules kirigami2-dev mpv libmpv-dev libkf5xmlgui-dev qtquickcontrols2-5-dev libkf5kio-dev  libkf5iconthemes-dev  libkf5filemetadata-dev libkf5config-dev  breeze-dev qtquickcontrols2-5-dev cmake g++
+          sudo apt-get install -y qt5-default qtdeclarative5-dev gettext build-essential extra-cmake-modules \
+            kirigami2-dev mpv libmpv-dev libkf5xmlgui-dev qtquickcontrols2-5-dev libkf5kio-dev libkf5iconthemes-dev \
+            libkf5filemetadata-dev libkf5config-dev breeze-dev qtquickcontrols2-5-dev cmake g++
       - name: configure
         run: cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
       - name: build
         run: make -j`nproc`  install DESTDIR=AppDir
+      - name: Resolve package version
+        id: resolve_version
+        run: |
+          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+          GIT_BRACH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's/[\/]+/-/g')
+          echo "HARUNA_VERSION=${GIT_BRACH}-${GIT_HASH}" >> $GITHUB_ENV
       - name: pack
         uses: docker://appimagecrafters/appimage-builder
         with:
