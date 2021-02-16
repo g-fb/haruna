@@ -104,7 +104,7 @@ Kirigami.ApplicationWindow {
             openFile(fileDialog.file.toString(), true, PlaylistSettings.loadSiblings)
             // the timer scrolls the playlist to the playing file
             // once the table view rows are loaded
-            mpv.scrollPositionTimer.start()
+            playList.scrollPositionTimer.start()
             mpv.focus = true
 
             GeneralSettings.fileDialogLastLocation = app.parentUrl(fileDialog.file)
@@ -192,7 +192,7 @@ Kirigami.ApplicationWindow {
             }
         }
         app.showCursor()
-        mpv.scrollPositionTimer.start()
+        playList.scrollPositionTimer.start()
     }
 
 }
