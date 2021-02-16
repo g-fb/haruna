@@ -13,8 +13,8 @@ import com.georgefb.haruna 1.0
 MpvObject {
     id: root
 
-    property int mx
-    property int my
+    property int mouseX: mouseArea.mouseX
+    property int mouseY: mouseArea.mouseY
 
     signal setSubtitle(int id)
     signal setSecondarySubtitle(int id)
@@ -138,6 +138,7 @@ MpvObject {
 
     Timer {
         id: saveWatchLaterFileTimer
+
         interval: 1000
         running: !mpv.pause
         repeat: true
@@ -152,8 +153,8 @@ MpvObject {
     Timer {
         id: hideCursorTimer
 
-        property int tx: mx
-        property int ty: my
+        property int tx: mouseArea.mouseX
+        property int ty: mouseArea.mouseY
         property int timeNotMoved: 0
 
         interval: 50; running: true; repeat: true
@@ -162,7 +163,7 @@ MpvObject {
             if (!window.isFullScreen()) {
                 return;
             }
-            if (mx === tx && my === ty) {
+            if (mouseArea.mouseX === tx && mouseArea.mouseY === ty) {
                 if (timeNotMoved > 2000) {
                     app.hideCursor()
                 }
@@ -170,13 +171,15 @@ MpvObject {
                 app.showCursor()
                 timeNotMoved = 0
             }
-            tx = mx
-            ty = my
+            tx = mouseArea.mouseX
+            ty = mouseArea.mouseY
             timeNotMoved += interval
         }
     }
 
     MouseArea {
+        id: mouseArea
+
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         anchors.fill: parent
         hoverEnabled: true
@@ -185,8 +188,7 @@ MpvObject {
 
         onExited: hideCursorTimer.running = false
 
-        onMouseXChanged: {
-            mx = mouseX
+        onPositionChanged: {
             if (!playList.canToggleWithMouse || playList.playlistView.count <= 1) {
                 return
             }
@@ -205,10 +207,6 @@ MpvObject {
                     playList.state = "hidden"
                 }
             }
-        }
-
-        onMouseYChanged: {
-            my = mouseY
         }
 
         onWheel: {

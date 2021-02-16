@@ -27,7 +27,7 @@ ToolBar {
     padding: 5
     position: ToolBar.Footer
     hoverEnabled: true
-    visible: !window.isFullScreen() || mpv.my > window.height - footer.height
+    visible: !window.isFullScreen() || mpv.mouseY > window.height - footer.height
 
     Component {
         id: togglePlaylistButton
