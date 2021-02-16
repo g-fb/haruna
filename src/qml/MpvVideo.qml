@@ -187,27 +187,22 @@ MpvObject {
 
         onMouseXChanged: {
             mx = mouseX
+            if (!playList.canToggleWithMouse || playList.playlistView.count <= 1) {
+                return
+            }
             if (playList.position === "right") {
-                if (mouseX > width - 50 && playList.playlistView.count > 1) {
-                    if (playList.canToggleWithMouse) {
-                        playList.state = "visible"
-                    }
+                if (mouseX > width - 50) {
+                    playList.state = "visible"
                 }
-                if (mouseX < width - 50) {
-                    if (playList.canToggleWithMouse) {
-                        playList.state = "hidden"
-                    }
+                if (mouseX < width - playList.width - 20) {
+                    playList.state = "hidden"
                 }
             } else {
-                if (mouseX < 50 && playList.playlistView.count > 1) {
-                    if (playList.canToggleWithMouse) {
-                        playList.state = "visible"
-                    }
+                if (mouseX < 50) {
+                    playList.state = "visible"
                 }
-                if (mouseX > 50) {
-                    if (playList.canToggleWithMouse) {
-                        playList.state = "hidden"
-                    }
+                if (mouseX > playList.width + 20) {
+                    playList.state = "hidden"
                 }
             }
         }

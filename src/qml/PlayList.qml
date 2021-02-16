@@ -62,8 +62,6 @@ Rectangle {
                     break
                 }
             }
-
-            HoverHandler{}
         }
     }
 
