@@ -41,7 +41,7 @@ public:
     Q_INVOKABLE QString argument(int key);
     Q_INVOKABLE void addArgument(int key, const QString &value);
     Q_INVOKABLE QAction *action(const QString &name);
-    Q_INVOKABLE QString getFileContent(QString file);
+    Q_INVOKABLE QString getFileContent(const QString &file);
     Q_INVOKABLE QStringList availableGuiStyles();
     Q_INVOKABLE void setGuiStyle(const QString &style);
     Q_INVOKABLE void activateColorScheme(const QString &name);

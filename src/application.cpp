@@ -309,7 +309,7 @@ QAction *Application::action(const QString &name)
     return resultAction;
 }
 
-QString Application::getFileContent(QString file)
+QString Application::getFileContent(const QString &file)
 {
     QFile f(file);
     f.open(QIODevice::ReadOnly);
