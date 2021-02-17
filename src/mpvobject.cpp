@@ -7,6 +7,7 @@
 #include "_debug.h"
 #include "mpvobject.h"
 #include "application.h"
+#include "generalsettings.h"
 #include "playbacksettings.h"
 #include "playlistitem.h"
 #include "track.h"
@@ -376,6 +377,19 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
     window()->setPersistentOpenGLContext(true);
     window()->setPersistentSceneGraph(true);
     return new MpvRenderer(const_cast<MpvObject *>(this));
+}
+
+void MpvObject::loadFile(const QString &file, bool updateLastPlayedFile)
+{
+    command(QStringList() << "loadfile" << file);
+
+    if (updateLastPlayedFile) {
+        GeneralSettings::setLastPlayedFile(file);
+        GeneralSettings::self()->save();
+    } else {
+        GeneralSettings::setLastPlaylistIndex(m_playlistModel->getPlayingVideo());
+        GeneralSettings::self()->save();
+    }
 }
 
 void MpvObject::mpvEvents(void *ctx)

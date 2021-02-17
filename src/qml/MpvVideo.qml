@@ -259,17 +259,4 @@ MpvObject {
             window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
         }
     }
-
-    function loadFile(file, updateLastPlayedFile = true) {
-        command(["loadfile", file])
-
-        if (updateLastPlayedFile) {
-            GeneralSettings.lastPlayedFile = file
-            GeneralSettings.save()
-        } else {
-            GeneralSettings.lastPlaylistIndex = mpv.playlistModel.getPlayingVideo()
-            GeneralSettings.save()
-        }
-    }
-
 }

@@ -164,6 +164,7 @@ public:
     virtual ~MpvObject();
     virtual Renderer *createRenderer() const;
 
+    Q_INVOKABLE void loadFile(const QString &file, bool updateLastPlayedFile = true);
     Q_INVOKABLE void getYouTubePlaylist(const QString &path);
     Q_INVOKABLE QVariant getProperty(const QString &name);
     Q_INVOKABLE QVariant command(const QVariant &params);
