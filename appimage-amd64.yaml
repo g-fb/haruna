@@ -1,5 +1,7 @@
 # appimage-builder recipe file https://appimage-builder.readthedocs.io/en/latest/
 version: 1
+script:
+  - apt-get update && apt-get install -y python3.8
 
 AppDir:
   path: ./AppDir
@@ -23,6 +25,7 @@ AppDir:
         
 
     include:
+      - coreutils
       - qml-module-org-kde-kirigami2
       - qml-module-qtquick-layouts
       - qml-module-qt-labs-platform
@@ -46,6 +49,7 @@ AppDir:
       - libqt5quickcontrols2-5
       - libqt5widgets5
       - libkf5i18n5
+      - python3
  
     exclude:
       - libkf5service-bin
@@ -54,10 +58,6 @@ AppDir:
       - perl-modules
       - libpam-runtime
       - dpkg
-      - python3
-      - python3.8
-      - python3-minimal
-      - python3-talloc
       - gpgv
       - gpg
       - gnupg
@@ -79,7 +79,18 @@ AppDir:
       - usr/share/doc/*/TODO.*
   after_bundle:
     # workaround libcrypt.so.2 binary still name as libcrypt.so.1 in debian systems
-    - ln -s /usr/lib/libcrypt.so.2 AppDir/usr/lib/libcrypt.so.1
+    - ln -s /usr/lib/libcrypt.so.2 $APPDIR/usr/lib/libcrypt.so.1
+    # deploy the latest youtube-dl
+    - python3.8 -m pip install --ignore-installed --prefix=/usr --root=$APPDIR install youtube-dl
+
+  runtime:
+    env:
+      # Set python home
+      # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONHOME
+      PYTHONHOME: '${APPDIR}/usr'
+      # Path to the site-packages dir or other modules dirs
+      # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
 
   test:
     debian:
