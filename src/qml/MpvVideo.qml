@@ -260,7 +260,6 @@ MpvObject {
 
         onDropped: {
             if (acceptedSubtitleTypes.includes(app.mimeType(drop.urls[0]))) {
-                console.log(123)
                 const subFile = drop.urls[0].replace("file://", "")
                 command(["sub-add", drop.urls[0], "select"])
             }
