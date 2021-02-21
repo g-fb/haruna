@@ -454,13 +454,9 @@ void MpvObject::eventHandler()
             } else if (strcmp(prop->name, "sid") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     emit subtitleIdChanged();
-                } else {
-                    emit subtitleIdChanged();
                 }
             } else if (strcmp(prop->name, "secondary-sid") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
-                    emit secondarySubtitleIdChanged();
-                } else {
                     emit secondarySubtitleIdChanged();
                 }
             } else if (strcmp(prop->name, "contrast") == 0) {
