@@ -39,6 +39,7 @@
 #include <QStyleFactory>
 #include <QThread>
 #include <QQmlEngine>
+#include <QMimeDatabase>
 
 #include <KAboutApplicationDialog>
 #include <KAboutData>
@@ -316,6 +317,13 @@ QString Application::getFileContent(const QString &file)
     QString content = f.readAll();
     f.close();
     return content;
+}
+
+QString Application::mimeType(const QString &file)
+{
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForFile(file);
+    return mime.name();
 }
 
 QStringList Application::availableGuiStyles()

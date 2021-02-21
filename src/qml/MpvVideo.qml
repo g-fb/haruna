@@ -252,11 +252,22 @@ MpvObject {
 
     DropArea {
         id: dropArea
+
+        property var acceptedSubtitleTypes: ["application/x-subrip", "text/x-ssa"]
+
         anchors.fill: parent
         keys: ["text/uri-list"]
 
         onDropped: {
-            window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
+            if (acceptedSubtitleTypes.includes(app.mimeType(drop.urls[0]))) {
+                console.log(123)
+                const subFile = drop.urls[0].replace("file://", "")
+                command(["sub-add", drop.urls[0], "select"])
+            }
+
+            if (app.mimeType(drop.urls[0]).startsWith("video/")) {
+                window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
+            }
         }
     }
 }
