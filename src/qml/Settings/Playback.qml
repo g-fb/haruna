@@ -88,7 +88,6 @@ SettingsBasePage {
             text: qsTr("Save file position")
             checked: PlaybackSettings.saveFilePosition
             onCheckedChanged: {
-                mpv.hwDecoding = checked
                 PlaybackSettings.saveFilePosition = checked
                 PlaybackSettings.save()
             }
