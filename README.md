@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 George Florea Bănuș <georgefb899@gmail.com>
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-## Donate: [Liberapay](https://liberapay.com/gfb/) | [PayPal](https://paypal.me/georgefloreabanus) | [Patreon](https://www.patreon.com/georgefb)
+#### Donate: [GitHub Sponsors](https://github.com/sponsors/g-fb) | [Liberapay](https://liberapay.com/gfb/) | [PayPal](https://paypal.me/georgefloreabanus) | [Patreon](https://www.patreon.com/georgefb)
 
 # Haruna Video Player
 
