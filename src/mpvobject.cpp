@@ -9,6 +9,7 @@
 #include "application.h"
 #include "generalsettings.h"
 #include "playbacksettings.h"
+#include "videosettings.h"
 #include "playlistitem.h"
 #include "track.h"
 #include "tracksmodel.h"
@@ -108,7 +109,7 @@ MpvObject::MpvObject(QQuickItem * parent)
 
     QString hwdec = PlaybackSettings::useHWDecoding() ? PlaybackSettings::hWDecoding() : "no";
     setProperty("hwdec", hwdec);
-    setProperty("screenshot-template", "%x/screenshots/%n");
+    setProperty("screenshot-template", VideoSettings::screenshotTemplate());
     setProperty("sub-auto", "exact");
     setProperty("volume-max", "100");
 

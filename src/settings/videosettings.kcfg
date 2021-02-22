@@ -4,6 +4,7 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="georgefb/haruna.conf" />
+  <include>QStandardPaths</include>
   <group name="Video">
     <entry name="ScreenshotFormat" type="String">
       <label>Screenshot format</label>
@@ -11,7 +12,11 @@
     </entry>
     <entry name="ScreenshotTemplate" type="String">
       <label>Screenshot template</label>
-      <default>%x/screenshots/%n</default>
+      <code>
+        QString screenshotsFolder = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+        screenshotsFolder.append("/Haruna screenshots/%F-%n");
+      </code>
+      <default code="true">screenshotsFolder</default>
     </entry>
   </group>
 </kcfg>
