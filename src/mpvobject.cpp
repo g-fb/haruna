@@ -125,6 +125,7 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "brightness", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "saturation", MPV_FORMAT_INT64);
+    mpv_observe_property(mpv, 0, "track-list", MPV_FORMAT_NODE);
 
     QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     QString watchLaterPath = configPath.append("/georgefb/watch-later");
@@ -474,6 +475,10 @@ void MpvObject::eventHandler()
             } else if (strcmp(prop->name, "saturation") == 0) {
                 if (prop->format == MPV_FORMAT_INT64) {
                     emit saturationChanged();
+                }
+            } else if (strcmp(prop->name, "track-list") == 0) {
+                if (prop->format == MPV_FORMAT_NODE) {
+                    loadTracks();
                 }
             }
             break;
