@@ -6,6 +6,8 @@
 
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 import mpv 1.0
 
 import com.georgefb.haruna 1.0
@@ -84,6 +86,13 @@ MpvObject {
 
         setProperty("ab-loop-a", "no")
         setProperty("ab-loop-b", "no")
+
+        const savedPosition = loadFilePosition()
+        if (PlaybackSettings.saveFilePosition && parseInt(savedPosition) > 5) {
+            mpv.pause = true
+            resumePlaybackPopup.position = savedPosition
+            resumePlaybackPopup.open()
+        }
 
         position = loadFilePosition()
     }
@@ -268,6 +277,36 @@ MpvObject {
 
             if (app.mimeType(drop.urls[0]).startsWith("video/")) {
                 window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
+            }
+        }
+    }
+
+    Popup {
+        id: resumePlaybackPopup
+
+        property string position: "0"
+
+        x: 10
+        y: mpv.height - height - 10
+        focus: true
+
+        onClosed: mpv.pause = false
+
+        RowLayout {
+            Button {
+                text: qsTr("Resume from %1").arg(app.formatTime(resumePlaybackPopup.position))
+                focus: true
+                onClicked: {
+                    mpv.position = resumePlaybackPopup.position
+                    resumePlaybackPopup.close()
+                }
+            }
+            Button {
+                text: qsTr("Restart")
+                onClicked: {
+                    mpv.position = 0
+                    resumePlaybackPopup.close()
+                }
             }
         }
     }
