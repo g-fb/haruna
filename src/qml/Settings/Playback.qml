@@ -83,6 +83,22 @@ SettingsBasePage {
         }
 
         CheckBox {
+            id: saveFilePositionCheckBox
+
+            text: qsTr("Save file position")
+            checked: PlaybackSettings.saveFilePosition
+            onCheckedChanged: {
+                mpv.hwDecoding = checked
+                PlaybackSettings.saveFilePosition = checked
+                PlaybackSettings.save()
+            }
+
+            ToolTip {
+                text: qsTr("Saves the file position, opening the same file again will seek to the saved position.\nSaves every second, except for the last 10 seconds of the video.")
+            }
+        }
+
+        CheckBox {
             id: skipChaptersCheckBox
             text: qsTr("Skip chapters")
             checked: PlaybackSettings.skipChapters

@@ -5,6 +5,9 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="georgefb/haruna.conf" />
   <group name="Playback">
+    <entry name="SaveFilePosition" type="bool">
+      <default>true</default>
+    </entry>
     <entry name="SkipChapters" type="bool">
       <label>Skip chapters</label>
       <default>false</default>

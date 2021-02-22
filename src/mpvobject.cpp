@@ -616,6 +616,10 @@ QVariant MpvObject::command(const QVariant &params)
 
 void MpvObject::saveFilePosition()
 {
+    if (!PlaybackSettings::saveFilePosition()) {
+        return;
+    }
+
     auto hash = md5(getProperty("path").toString());
     auto timePosition = getProperty("time-pos");
     auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
@@ -626,10 +630,16 @@ void MpvObject::saveFilePosition()
 
 QString MpvObject::loadFilePosition()
 {
+    if (!PlaybackSettings::saveFilePosition()) {
+        return QString::number(0);
+    }
+
     auto hash = md5(getProperty("path").toString());
     auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     KConfig *config = new KConfig(configPath.append("/georgefb/watch-later/").append(hash));
-    return config->group("").readEntry("TimePosition", QString::number(0));
+    auto position = config->group("").readEntry("TimePosition", QString::number(0));
+
+    return position;
 }
 
 QString MpvObject::md5(const QString &str)
