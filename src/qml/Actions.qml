@@ -427,7 +427,7 @@ QtObject {
 
         onTriggered: {
             if (mpv.position < mpv.duration - 10) {
-                mpv.command(["quit-watch-later"])
+                mpv.saveFilePosition()
             }
             qaction.trigger()
         }

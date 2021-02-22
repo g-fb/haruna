@@ -13,6 +13,7 @@
 #include "track.h"
 #include "tracksmodel.h"
 
+#include <QCryptographicHash>
 #include <QDir>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -126,14 +127,6 @@ MpvObject::MpvObject(QQuickItem * parent)
     mpv_observe_property(mpv, 0, "gamma", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "saturation", MPV_FORMAT_INT64);
     mpv_observe_property(mpv, 0, "track-list", MPV_FORMAT_NODE);
-
-    QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    QString watchLaterPath = configPath.append("/georgefb/watch-later");
-    setProperty("watch-later-directory", watchLaterPath);
-    QDir watchLaterDir(watchLaterPath);
-    if (!watchLaterDir.exists()) {
-        QDir().mkdir(watchLaterPath);
-    }
 
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("could not initialize mpv context");
@@ -619,4 +612,29 @@ QVariant MpvObject::getProperty(const QString &name, bool debug)
 QVariant MpvObject::command(const QVariant &params)
 {
     return mpv::qt::command(mpv, params);
+}
+
+void MpvObject::saveFilePosition()
+{
+    auto hash = md5(getProperty("path").toString());
+    auto timePosition = getProperty("time-pos");
+    auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    KConfig *config = new KConfig(configPath.append("/georgefb/watch-later/").append(hash));
+    config->group("").writeEntry("TimePosition", timePosition);
+    config->sync();
+}
+
+QString MpvObject::loadFilePosition()
+{
+    auto hash = md5(getProperty("path").toString());
+    auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    KConfig *config = new KConfig(configPath.append("/georgefb/watch-later/").append(hash));
+    return config->group("").readEntry("TimePosition", QString::number(0));
+}
+
+QString MpvObject::md5(const QString &str)
+{
+    auto md5 = QCryptographicHash::hash((str.toUtf8()), QCryptographicHash::Md5);
+
+    return QString(md5.toHex());
 }

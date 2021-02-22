@@ -84,6 +84,8 @@ MpvObject {
 
         setProperty("ab-loop-a", "no")
         setProperty("ab-loop-b", "no")
+
+        position = loadFilePosition()
     }
 
     onChapterChanged: {
@@ -145,7 +147,7 @@ MpvObject {
 
         onTriggered: {
             if (mpv.position < mpv.duration - 10) {
-                command(["write-watch-later-config"])
+                saveFilePosition()
             }
         }
     }

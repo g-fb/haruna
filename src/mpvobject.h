@@ -169,6 +169,8 @@ public:
     Q_INVOKABLE QVariant command(const QVariant &params);
     Q_INVOKABLE QVariant getProperty(const QString &name, bool debug = false);
     Q_INVOKABLE int setProperty(const QString &name, const QVariant &value, bool debug = false);
+    Q_INVOKABLE void saveFilePosition();
+    Q_INVOKABLE QString loadFilePosition();
 
 public slots:
     static void mpvEvents(void *ctx);
@@ -212,6 +214,7 @@ private:
     QString m_file;
 
     void loadTracks();
+    QString md5(const QString &str);
 };
 
 class MpvRenderer : public QQuickFramebufferObject::Renderer
