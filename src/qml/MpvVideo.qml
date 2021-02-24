@@ -167,8 +167,8 @@ MpvObject {
     Timer {
         id: hideCursorTimer
 
-        property int tx: mouseArea.mouseX
-        property int ty: mouseArea.mouseY
+        property double tx: mouseArea.mouseX
+        property double ty: mouseArea.mouseY
         property int timeNotMoved: 0
 
         running: window.isFullScreen() && mouseArea.containsMouse
