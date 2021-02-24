@@ -643,6 +643,17 @@ QString MpvObject::loadFilePosition()
     return position;
 }
 
+void MpvObject::resetFilePosition()
+{
+    auto hash = md5(getProperty("path").toString());
+    auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    QFile f(configPath.append("/georgefb/watch-later/").append(hash));
+
+    if (f.exists()) {
+        f.remove();
+    }
+}
+
 QString MpvObject::md5(const QString &str)
 {
     auto md5 = QCryptographicHash::hash((str.toUtf8()), QCryptographicHash::Md5);

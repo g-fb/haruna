@@ -426,7 +426,7 @@ QtObject {
         Component.onCompleted: list["quitApplicationAction"] = quitApplicationAction
 
         onTriggered: {
-            if (mpv.position < mpv.duration - 10) {
+            if (mpv.position > 5 && mpv.position < mpv.duration - 10) {
                 mpv.saveFilePosition()
             }
             qaction.trigger()

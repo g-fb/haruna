@@ -155,8 +155,11 @@ MpvObject {
         repeat: true
 
         onTriggered: {
-            if (mpv.position < mpv.duration - 10) {
+            // only save when current position between the first 5 and last 10 seconds
+            if (mpv.position > 5 && mpv.position < mpv.duration - 10) {
                 saveFilePosition()
+            } else {
+                resetFilePosition()
             }
         }
     }
@@ -193,6 +196,7 @@ MpvObject {
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         anchors.fill: parent
         hoverEnabled: true
+        visible: !resumePlaybackPopup.visible
 
         onPositionChanged: {
             if (!playList.canToggleWithMouse || playList.playlistView.count <= 1) {
@@ -289,6 +293,7 @@ MpvObject {
         x: 10
         y: mpv.height - height - 10
         focus: true
+        closePolicy: Popup.NoAutoClose
 
         onClosed: mpv.pause = false
 
@@ -296,6 +301,8 @@ MpvObject {
             Button {
                 text: qsTr("Resume from %1").arg(app.formatTime(resumePlaybackPopup.position))
                 focus: true
+                Keys.onEnterPressed: clicked()
+                Keys.onReturnPressed: clicked()
                 onClicked: {
                     mpv.position = resumePlaybackPopup.position
                     resumePlaybackPopup.close()
@@ -303,6 +310,8 @@ MpvObject {
             }
             Button {
                 text: qsTr("Restart")
+                Keys.onEnterPressed: clicked()
+                Keys.onReturnPressed: clicked()
                 onClicked: {
                     mpv.position = 0
                     resumePlaybackPopup.close()

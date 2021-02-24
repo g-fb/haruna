@@ -171,6 +171,7 @@ public:
     Q_INVOKABLE int setProperty(const QString &name, const QVariant &value, bool debug = false);
     Q_INVOKABLE void saveFilePosition();
     Q_INVOKABLE QString loadFilePosition();
+    Q_INVOKABLE void resetFilePosition();
 
 public slots:
     static void mpvEvents(void *ctx);
