@@ -6,8 +6,24 @@ SPDX-License-Identifier: CC-BY-4.0
 
 <h2>Hardware decoding</h2>
 <div>
-    <p>It's recommended leave hardware decoding disabled.
+    <p>It's recommended leave hardware decoding disabled.</p>
     <p>If you want to enable it read <a href="https://mpv.io/manual/stable/#options-hwdec">https://mpv.io/manual/stable/#options-hwdec</a> to understand which option is best for you.</p>
+</div>
+
+<h2>Remember time position</h2>
+<div>
+    <p>Determines when to save and restore the position of previously played files.</p>
+    <ul>
+        <li>-1: feature is disabled</li>
+        <li>0: save for all files</li>
+        <li>1-9999: save for files longer than the set value, in minutes</li>
+    </ul>
+</div>
+
+<h2>Skip chapters</h2>
+<div>
+    <p>When enabled it automatically skips chapters containing certain words/characters.</p>
+    <p>The words/characters to skip are defined as a comma separated string. <br>The match is not exact, meaning <b><u>op</u></b> will match words containing it like <b><u>op</u>ening</b></p>
 </div>
 
 <h2>Youtube-dl Format Selection</h2>

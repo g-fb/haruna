@@ -111,7 +111,6 @@ SettingsBasePage {
                         return qsTr("For files longer than %1 minutes").arg(timePositionSaving.value)
                     }
                 }
-                toolTipText: text
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }
@@ -136,6 +135,7 @@ SettingsBasePage {
 
         TextField {
             text: PlaybackSettings.chaptersToSkip
+            placeholderText: "op, ed, chapter 1"
             enabled: skipChaptersCheckBox.checked
             Layout.fillWidth: true
             onEditingFinished: {
@@ -143,6 +143,10 @@ SettingsBasePage {
                 PlaybackSettings.save()
             }
             Layout.columnSpan: 2
+
+            ToolTip {
+                text: qsTr("Separate words with a comma")
+            }
         }
 
         CheckBox {
