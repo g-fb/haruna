@@ -169,9 +169,9 @@ public:
     Q_INVOKABLE QVariant command(const QVariant &params);
     Q_INVOKABLE QVariant getProperty(const QString &name, bool debug = false);
     Q_INVOKABLE int setProperty(const QString &name, const QVariant &value, bool debug = false);
-    Q_INVOKABLE void saveFilePosition();
-    Q_INVOKABLE QString loadFilePosition();
-    Q_INVOKABLE void resetFilePosition();
+    Q_INVOKABLE void saveTimePosition();
+    Q_INVOKABLE double loadTimePosition();
+    Q_INVOKABLE void resetTimePosition();
 
 public slots:
     static void mpvEvents(void *ctx);

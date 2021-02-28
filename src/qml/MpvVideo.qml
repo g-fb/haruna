@@ -87,14 +87,8 @@ MpvObject {
         setProperty("ab-loop-a", "no")
         setProperty("ab-loop-b", "no")
 
-        const savedPosition = loadFilePosition()
-        if (PlaybackSettings.saveFilePosition && parseInt(savedPosition) > 5) {
-            mpv.pause = true
-            resumePlaybackPopup.position = savedPosition
-            resumePlaybackPopup.open()
-        }
-
-        position = loadFilePosition()
+        mpv.pause = loadTimePosition() !== 0
+        position = loadTimePosition()
     }
 
     onChapterChanged: {
@@ -154,14 +148,7 @@ MpvObject {
         running: !mpv.pause
         repeat: true
 
-        onTriggered: {
-            // only save when current position between the first 5 and last 10 seconds
-            if (mpv.position > 5 && mpv.position < mpv.duration - 10) {
-                saveFilePosition()
-            } else {
-                resetFilePosition()
-            }
-        }
+        onTriggered: handleTimePosition()
     }
 
     Timer {
@@ -196,7 +183,6 @@ MpvObject {
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         anchors.fill: parent
         hoverEnabled: true
-        visible: !resumePlaybackPopup.visible
 
         onPositionChanged: {
             if (!playList.canToggleWithMouse || playList.playlistView.count <= 1) {
@@ -285,38 +271,11 @@ MpvObject {
         }
     }
 
-    Popup {
-        id: resumePlaybackPopup
-
-        property string position: "0"
-
-        x: 10
-        y: mpv.height - height - 10
-        focus: true
-        closePolicy: Popup.NoAutoClose
-
-        onClosed: mpv.pause = false
-
-        RowLayout {
-            Button {
-                text: qsTr("Resume from %1").arg(app.formatTime(resumePlaybackPopup.position))
-                focus: true
-                Keys.onEnterPressed: clicked()
-                Keys.onReturnPressed: clicked()
-                onClicked: {
-                    mpv.position = resumePlaybackPopup.position
-                    resumePlaybackPopup.close()
-                }
-            }
-            Button {
-                text: qsTr("Restart")
-                Keys.onEnterPressed: clicked()
-                Keys.onReturnPressed: clicked()
-                onClicked: {
-                    mpv.position = 0
-                    resumePlaybackPopup.close()
-                }
-            }
+    function handleTimePosition() {
+        if (mpv.position < mpv.duration - 10) {
+            saveTimePosition()
+        } else {
+            resetTimePosition()
         }
     }
 }

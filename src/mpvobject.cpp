@@ -615,9 +615,14 @@ QVariant MpvObject::command(const QVariant &params)
     return mpv::qt::command(mpv, params);
 }
 
-void MpvObject::saveFilePosition()
+void MpvObject::saveTimePosition()
 {
-    if (!PlaybackSettings::saveFilePosition()) {
+    // saving position is disabled
+    if (PlaybackSettings::minDurationToSavePosition() == -1) {
+        return;
+    }
+    // position is saved only for files longer than PlaybackSettings::minDurationToSavePosition()
+    if (getProperty("duration").toInt() < PlaybackSettings::minDurationToSavePosition() * 60) {
         return;
     }
 
@@ -629,21 +634,28 @@ void MpvObject::saveFilePosition()
     config->sync();
 }
 
-QString MpvObject::loadFilePosition()
+double MpvObject::loadTimePosition()
 {
-    if (!PlaybackSettings::saveFilePosition()) {
-        return QString::number(0);
+    // saving position is disabled
+    if (PlaybackSettings::minDurationToSavePosition() == -1) {
+        return 0;
+    }
+    // position is saved only for files longer than PlaybackSettings::minDurationToSavePosition()
+    // but there can be cases when there is a saved position for files lower than minDurationToSavePosition()
+    // when minDurationToSavePosition() was increased after position was already saved
+    if (getProperty("duration").toInt() < PlaybackSettings::minDurationToSavePosition() * 60) {
+        return 0;
     }
 
     auto hash = md5(getProperty("path").toString());
     auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     KConfig *config = new KConfig(configPath.append("/georgefb/watch-later/").append(hash));
-    auto position = config->group("").readEntry("TimePosition", QString::number(0));
+    int position = config->group("").readEntry("TimePosition", QString::number(0)).toDouble();
 
     return position;
 }
 
-void MpvObject::resetFilePosition()
+void MpvObject::resetTimePosition()
 {
     auto hash = md5(getProperty("path").toString());
     auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);

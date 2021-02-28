@@ -37,7 +37,7 @@ SettingsBasePage {
         ComboBox {
             id: hwDecodingComboBox
 
-            visible: hwDecodingCheckBox.checked
+            enabled: hwDecodingCheckBox.checked
             textRole: "key"
             model: ListModel {
                 id: hwDecModel
@@ -82,18 +82,38 @@ SettingsBasePage {
             }
         }
 
-        CheckBox {
-            id: saveFilePositionCheckBox
+        Label {
+            text: qsTr("Remember time position")
+        }
 
-            text: qsTr("Save file position")
-            checked: PlaybackSettings.saveFilePosition
-            onCheckedChanged: {
-                PlaybackSettings.saveFilePosition = checked
-                PlaybackSettings.save()
+        RowLayout {
+            SpinBox {
+                id: timePositionSaving
+                from: -1
+                to: 9999
+                value: PlaybackSettings.minDurationToSavePosition
+
+                onValueChanged: {
+                    PlaybackSettings.minDurationToSavePosition = value
+                    PlaybackSettings.save()
+                }
             }
 
-            ToolTip {
-                text: qsTr("Saves the file position, opening the same file again will seek to the saved position.\nSaves every second, except for the last 10 seconds of the video.")
+            LabelWithTooltip {
+                text: {
+                    if (timePositionSaving.value === -1) {
+                        return qsTr("Disabled")
+                    } else if (timePositionSaving.value === 0) {
+                        return qsTr("For all files")
+                    } else if (timePositionSaving.value === 1) {
+                        return qsTr("For files longer than %1 minute").arg(timePositionSaving.value)
+                    } else {
+                        return qsTr("For files longer than %1 minutes").arg(timePositionSaving.value)
+                    }
+                }
+                toolTipText: text
+                elide: Text.ElideRight
+                Layout.fillWidth: true
             }
         }
 
