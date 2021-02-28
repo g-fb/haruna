@@ -11,7 +11,7 @@ import QtGraphicalEffects 1.12
 
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
-import Haruna.Components 1.0 as HC
+import Haruna.Components 1.0
 
 Kirigami.BasicListItem {
     id: root
@@ -119,7 +119,7 @@ Kirigami.BasicListItem {
                 Layout.leftMargin: PlaylistSettings.showRowNumber ? 0 : Kirigami.Units.largeSpacing
             }
 
-            HC.LabelWithTooltip {
+            LabelWithTooltip {
                 id: label
 
                 toolTipFontSize: label.font.pointSize + 2
