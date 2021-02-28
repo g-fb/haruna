@@ -10,7 +10,7 @@ import QtQuick.Layouts 1.12
 
 import org.kde.kirigami 2.11 as Kirigami
 import com.georgefb.haruna 1.0
-import Haruna.Components 1.0 as HC
+import Haruna.Components 1.0
 
 ToolBar {
     id: root
@@ -101,7 +101,7 @@ ToolBar {
             Layout.fillWidth: true
         }
 
-        HC.Label {
+        LabelWithTooltip {
             id: timeInfo
 
             text: app.formatTime(mpv.position) + " / " + app.formatTime(mpv.duration)

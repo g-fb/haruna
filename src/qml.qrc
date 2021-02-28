@@ -30,7 +30,7 @@
         <file alias="VideoSettings.qml">qml/Settings/VideoSettings.qml</file>
         <file>qml/Menus/HelpMenu.qml</file>
         <file>qml/PlayListItemWithThumbnail.qml</file>
-        <file>qml/Haruna/Components/Label.qml</file>
+        <file>qml/Haruna/Components/LabelWithTooltip.qml</file>
         <file>qml/Haruna/Components/SettingsHeader.qml</file>
         <file>qml/Haruna/Components/SettingsBasePage.qml</file>
         <file>qml/Haruna/Components/qmldir</file>

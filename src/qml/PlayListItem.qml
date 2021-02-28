@@ -65,7 +65,7 @@ Kirigami.BasicListItem {
                 Layout.leftMargin: PlaylistSettings.showRowNumber ? 0 : Kirigami.Units.largeSpacing
             }
 
-            HC.Label {
+            HC.LabelWithTooltip {
                 id: label
 
                 toolTipFontSize: label.font.pointSize + 2
