@@ -106,14 +106,16 @@ QtObject {
 
         onTriggered: {
             const nextFileRow = mpv.playlistModel.getPlayingVideo() + 1
+            const updateLastPlayedFile = !playList.isYouTubePlaylist
             if (nextFileRow < playList.playlistView.count) {
                 const nextFile = mpv.playlistModel.getPath(nextFileRow)
-                mpv.command(["loadfile", nextFile])
+                mpv.loadFile(nextFile, updateLastPlayedFile)
                 mpv.playlistModel.setPlayingVideo(nextFileRow)
             } else {
                 // Last file in playlist
                 if (PlaylistSettings.repeat) {
                     mpv.command(["loadfile", mpv.playlistModel.getPath(0)])
+                    mpv.loadFile(mpv.playlistModel.getPath(0), updateLastPlayedFile)
                     mpv.playlistModel.setPlayingVideo(0)
                 }
             }
@@ -133,7 +135,8 @@ QtObject {
             if (mpv.playlistModel.getPlayingVideo() !== 0) {
                 const previousFileRow = mpv.playlistModel.getPlayingVideo() - 1
                 const previousFile = mpv.playlistModel.getPath(previousFileRow)
-                mpv.command(["loadfile", previousFile])
+                const updateLastPlayedFile = !playList.isYouTubePlaylist
+                mpv.loadFile(previousFile, updateLastPlayedFile)
                 mpv.playlistModel.setPlayingVideo(previousFileRow)
             }
         }
