@@ -119,18 +119,17 @@ Kirigami.BasicListItem {
             LabelWithTooltip {
                 id: label
 
+                text: PlaylistSettings.showMediaTitle ? model.title : model.name
                 toolTipFontSize: label.font.pointSize + 2
-
                 color: Kirigami.Theme.textColor
                 horizontalAlignment: Qt.AlignLeft
                 verticalAlignment: Qt.AlignVCenter
                 elide: Text.ElideRight
-                wrapMode: Text.WordWrap
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 font.pointSize: (window.isFullScreen() && playList.bigFont)
                                 ? Kirigami.Units.gridUnit
                                 : Kirigami.Units.gridUnit - 5
                 font.weight: isPlaying ? Font.ExtraBold : Font.Normal
-                text: PlaylistSettings.showMediaTitle ? model.title : model.name
                 layer.enabled: true
                 Layout.fillWidth: true
                 Layout.fillHeight: true
