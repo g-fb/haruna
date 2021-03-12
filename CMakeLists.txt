@@ -69,7 +69,7 @@ set_package_properties(KF5KIO PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kio/html/index.html")
 
 find_package(KF5Kirigami2)
-set_package_properties(KF5Kirigami2 PROPERTIES TYPE RUNTIME
+set_package_properties(KF5Kirigami2 PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kirigami/html/index.html")
 
 find_package(KF5XmlGui)
@@ -78,7 +78,7 @@ set_package_properties(KF5XmlGui PROPERTIES TYPE REQUIRED
 
 option(InstallColorSchemes "Installs breeze color schemes." OFF)
 
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
 add_subdirectory(data)
 add_subdirectory(src)
-
-feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
