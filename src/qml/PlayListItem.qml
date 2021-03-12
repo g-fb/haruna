@@ -86,6 +86,7 @@ Kirigami.BasicListItem {
 
             Label {
                 text: model.duration
+                visible: model.duration.length > 0
                 font.pointSize: (window.isFullScreen() && playList.bigFont)
                                 ? Kirigami.Units.gridUnit
                                 : Kirigami.Units.gridUnit - 6

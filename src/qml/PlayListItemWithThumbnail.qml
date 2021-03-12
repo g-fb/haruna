@@ -86,6 +86,7 @@ Kirigami.BasicListItem {
                     fillMode: Image.PreserveAspectFit
 
                     Rectangle {
+                        visible: model.duration.length > 0
                         height: 25
                         anchors.left: parent.left
                         anchors.bottom: parent.bottom
