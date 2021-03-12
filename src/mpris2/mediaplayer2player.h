@@ -35,7 +35,6 @@ public:
 
     void setupConnections();
     void propertiesChanged(const QString &property, const QVariant &value);
-    static MediaPlayer2Player *instance(QObject *obj);
 
 public Q_SLOTS:
     void Next();
@@ -78,7 +77,6 @@ private:
     MpvObject *mpv() const;
     void setMpv(MpvObject *mpv);
 
-    static MediaPlayer2Player *sm_instance;
     MpvObject *m_mpv;
 };
 

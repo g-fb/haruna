@@ -177,10 +177,6 @@ void Application::setupCommandLineParser()
 
 void Application::registerQmlTypes()
 {
-    // org.mpris.MediaPlayer2.Player mpris2 interface
-    auto mediaPlayer2Player = [=](QQmlEngine *, QJSEngine *) -> QObject * { return MediaPlayer2Player::instance(this); };
-    qmlRegisterSingletonType<MediaPlayer2Player>("org.mpris.MediaPlayer2Player", 1, 0, "MediaPlayer2Player", mediaPlayer2Player);
-
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
     qRegisterMetaType<PlayListModel*>();
     qRegisterMetaType<QAction*>();
@@ -220,6 +216,8 @@ void Application::setupQmlContextProperties()
     m_engine->rootContext()->setContextProperty(QStringLiteral("app"), this);
     qmlRegisterUncreatableType<Application>("Application", 1, 0, "Application",
                                             QStringLiteral("Application should not be created in QML"));
+
+    m_engine->rootContext()->setContextProperty(QStringLiteral("mediaPlayer2Player"), new MediaPlayer2Player(this));
 
     m_engine->rootContext()->setContextProperty(QStringLiteral("lockManager"), lockManager.release());
     qmlRegisterUncreatableType<LockManager>("LockManager", 1, 0, "LockManager",

@@ -11,7 +11,6 @@ import QtQuick.Layouts 1.12
 import mpv 1.0
 
 import com.georgefb.haruna 1.0
-import org.mpris.MediaPlayer2Player 1.0
 
 MpvObject {
     id: root
@@ -273,7 +272,7 @@ MpvObject {
     }
 
     Connections {
-        target: MediaPlayer2Player
+        target: mediaPlayer2Player
 
         onPlaypause: actions.playPauseAction.trigger()
         onPlay: root.pause = false
@@ -289,7 +288,7 @@ MpvObject {
     }
 
     Component.onCompleted: {
-        MediaPlayer2Player.mpv = root
+        mediaPlayer2Player.mpv = root
     }
 
     function handleTimePosition() {

@@ -12,8 +12,6 @@
 #include <QDBusMessage>
 #include <QDBusObjectPath>
 
-MediaPlayer2Player *MediaPlayer2Player::sm_instance = nullptr;
-
 MediaPlayer2Player::MediaPlayer2Player(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {
@@ -209,12 +207,4 @@ void MediaPlayer2Player::setMpv(MpvObject *mpv)
     }
     m_mpv = mpv;
     Q_EMIT mpvChanged();
-}
-
-MediaPlayer2Player *MediaPlayer2Player::instance(QObject *obj)
-{
-    if (!sm_instance) {
-        sm_instance = new MediaPlayer2Player(obj);
-    }
-    return sm_instance;
 }
