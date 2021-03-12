@@ -12,6 +12,8 @@
 #include "audiosettings.h"
 #include "generalsettings.h"
 #include "mousesettings.h"
+#include "mediaplayer2.h"
+#include "mediaplayer2player.h"
 #include "playbacksettings.h"
 #include "playlistsettings.h"
 #include "subtitlessettings.h"
@@ -28,6 +30,7 @@
 #include <QCoreApplication>
 #include <QGuiApplication>
 #include <QDir>
+#include <QDBusConnection>
 #include <QFileInfo>
 #include <QPointer>
 #include <QQmlApplicationEngine>
@@ -76,6 +79,13 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
+
+    // register mpris dbus service
+    QString mspris2Name(QStringLiteral("org.mpris.MediaPlayer2.haruna"));
+    QDBusConnection::sessionBus().registerService(mspris2Name);
+    QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
+    // org.mpris.MediaPlayer2 mpris2 interface
+    new MediaPlayer2(this);
 
     if (GeneralSettings::useBreezeIconTheme()) {
         QIcon::setThemeName("breeze");
@@ -142,6 +152,7 @@ void Application::setupAboutData()
     m_aboutData.setCopyrightStatement(i18n("(c) 2019-2021"));
     m_aboutData.setHomepage(QStringLiteral("https://github.com/g-fb/haruna"));
     m_aboutData.setBugAddress(QStringLiteral("https://github.com/g-fb/haruna/issues").toUtf8());
+    m_aboutData.setDesktopFileName("com.georgefb.haruna");
 
     m_aboutData.addAuthor(i18n("George Florea Bănuș"),
                         i18n("Developer"),
@@ -166,6 +177,10 @@ void Application::setupCommandLineParser()
 
 void Application::registerQmlTypes()
 {
+    // org.mpris.MediaPlayer2.Player mpris2 interface
+    auto mediaPlayer2Player = [=](QQmlEngine *, QJSEngine *) -> QObject * { return MediaPlayer2Player::instance(this); };
+    qmlRegisterSingletonType<MediaPlayer2Player>("org.mpris.MediaPlayer2Player", 1, 0, "MediaPlayer2Player", mediaPlayer2Player);
+
     qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
     qRegisterMetaType<PlayListModel*>();
     qRegisterMetaType<QAction*>();

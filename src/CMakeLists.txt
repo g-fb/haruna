@@ -14,6 +14,8 @@ target_sources(haruna
     haction.cpp
     lockmanager.cpp
     main.cpp
+    mpris2/mediaplayer2.cpp
+    mpris2/mediaplayer2player.cpp
     mpvobject.cpp
     qthelper.h
     playlist/playlistitem.cpp
@@ -36,12 +38,13 @@ kconfig_add_kcfg_files(haruna GENERATE_MOC settings/playlistsettings.kcfgc)
 kconfig_add_kcfg_files(haruna GENERATE_MOC settings/subtitlessettings.kcfgc)
 kconfig_add_kcfg_files(haruna GENERATE_MOC settings/videosettings.kcfgc)
 
-target_include_directories(haruna PRIVATE playlist)
+target_include_directories(haruna PRIVATE playlist mpris2)
 
 target_compile_definitions(haruna PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries(haruna PRIVATE
     Qt5::Core
+    Qt5::DBus
     Qt5::Qml
     Qt5::Quick
     Qt5::QuickControls2

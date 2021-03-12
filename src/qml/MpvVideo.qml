@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.12
 import mpv 1.0
 
 import com.georgefb.haruna 1.0
+import org.mpris.MediaPlayer2Player 1.0
 
 MpvObject {
     id: root
@@ -269,6 +270,26 @@ MpvObject {
                 window.openFile(drop.urls[0], true, PlaylistSettings.loadSiblings)
             }
         }
+    }
+
+    Connections {
+        target: MediaPlayer2Player
+
+        onPlaypause: actions.playPauseAction.trigger()
+        onPlay: root.pause = false
+        onPause: root.pause = true
+        onStop: {
+            root.position = 0
+            root.pause = true
+        }
+        onNext: actions.playNextAction.trigger()
+        onPrevious: actions.playPreviousAction.trigger()
+        onSeek: root.command(["add", "time-pos", offset])
+        onOpenUri: openFile(uri, false, false)
+    }
+
+    Component.onCompleted: {
+        MediaPlayer2Player.mpv = root
     }
 
     function handleTimePosition() {

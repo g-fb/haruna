@@ -24,6 +24,9 @@ include(FeatureSummary)
 find_package(Qt5Core)
 set_package_properties(Qt5Core PROPERTIES TYPE REQUIRED)
 
+find_package(Qt5DBus)
+set_package_properties(Qt5DBus PROPERTIES TYPE REQUIRED)
+
 find_package(Qt5Qml)
 set_package_properties(Qt5Qml PROPERTIES TYPE REQUIRED)
 
