@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Haruna Video Player
 
-Haruna is an open source video player built with Qt/QML on top of libmpv.
+Haruna is an open source video player built with Qt/QML and libmpv.
 
 # Install
 
@@ -47,3 +47,38 @@ Main Window
 ![Haruna main window](./data/screenshots/haruna-dark.png)
 
 #### [More Screenshots](./Screenshots.md)
+
+# Dependencies
+
+### Build time
+- Qt5Core
+- Qt5DBus
+- Qt5Qml
+- Qt5Quick
+- Qt5QuickControls2
+- Libmpv
+- ExtraCmakeModules
+- KF5Config
+- KF5CoreAddons
+- KF5FileMetaData
+- KF5I18n
+- KF5IconThemes
+- KF5KIO
+- KF5Kirigami2
+- KF5XmlGui
+
+### Runtime
+- Kio-extras
+- Breeze icons
+- Breeze widgets style
+- QQC2-Desktop-Style
+
+# Build
+
+```
+git clone https://github.com/g-fb/haruna
+cd haruna && mkdir build && cd build
+cmake ..
+cmake --build .
+./src/haruna
+```
