@@ -578,7 +578,9 @@ void MpvObject::getYouTubePlaylist(const QString &path)
             auto duration = entries[i]["duration"].toDouble();
 
             auto video = std::make_shared<PlayListItem>(url, i);
-            video->setMediaTitle(title);
+            video->setMediaTitle(!title.isEmpty() ? title : url);
+            video->setFileName(!title.isEmpty() ? title : url);
+
             video->setDuration(Application::formatTime(duration));
             m_playList.emplace(i, video);
 
