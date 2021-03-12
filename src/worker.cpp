@@ -30,6 +30,9 @@ void Worker::getMetaData(int index, const QString &path)
     QList<KFileMetaData::Extractor*> extractors = exCol.fetchExtractors(type.name());
     KFileMetaData::SimpleExtractionResult result(path, type.name(),
                                                  KFileMetaData::ExtractionResult::ExtractMetaData);
+    if (extractors.size() == 0) {
+        return;
+    }
     KFileMetaData::Extractor* ex = extractors.first();
     ex->extract(&result);
     auto properties = result.properties();
