@@ -127,7 +127,7 @@ Kirigami.ApplicationWindow {
             anchors.fill: parent
 
             Label {
-                text: qsTr("<a href=\"https://youtube-dl.org\">Youtube-dl</a> was not found")
+                text: qsTr("<a href=\"https://youtube-dl.org\">Youtube-dl</a> was not found.")
                 visible: !app.hasYoutubeDl()
                 onLinkActivated: Qt.openUrlExternally(link)
             }

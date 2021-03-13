@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.12
 import mpv 1.0
 
 import com.georgefb.haruna 1.0
+import org.kde.kirigami 2.10 as Kirigami
 
 MpvObject {
     id: root
@@ -76,7 +77,14 @@ MpvObject {
         playlistModel.setPlayingVideo(GeneralSettings.lastPlaylistIndex)
     }
 
+    onFileStarted: {
+        if (playList.isYouTubePlaylist) {
+            loadingIndicatorParent.visible = true
+        }
+    }
+
     onFileLoaded: {
+        loadingIndicatorParent.visible = false
         header.audioTracks = getProperty("track-list").filter(track => track["type"] === "audio")
         header.subtitleTracks = getProperty("track-list").filter(track => track["type"] === "sub")
 
@@ -285,6 +293,40 @@ MpvObject {
         onPrevious: actions.playPreviousAction.trigger()
         onSeek: root.command(["add", "time-pos", offset])
         onOpenUri: openFile(uri, false, false)
+    }
+
+    Rectangle {
+        id: loadingIndicatorParent
+
+        visible: false
+        anchors.centerIn: parent
+        color: {
+            let color = Kirigami.Theme.backgroundColor
+            Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.2)
+        }
+
+        Kirigami.Icon {
+            id: loadingIndicator
+
+            source: "view-refresh"
+            anchors.centerIn: parent
+            width: Kirigami.Units.iconSizes.large
+            height: Kirigami.Units.iconSizes.large
+
+            RotationAnimator {
+                target: loadingIndicator;
+                from: 0;
+                to: 360;
+                duration: 1500
+                loops: Animation.Infinite
+                running: true
+            }
+
+            Component.onCompleted: {
+                parent.width = width + 10
+                parent.height = height + 10
+            }
+        }
     }
 
     Component.onCompleted: {

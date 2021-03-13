@@ -192,6 +192,7 @@ signals:
     void brightnessChanged();
     void gammaChanged();
     void saturationChanged();
+    void fileStarted();
     void fileLoaded();
     void endOfFile();
     void watchPercentageChanged();

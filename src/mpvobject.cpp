@@ -400,6 +400,10 @@ void MpvObject::eventHandler()
             break;
         }
         switch (event->event_id) {
+        case MPV_EVENT_START_FILE: {
+            emit fileStarted();
+            break;
+        }
         case MPV_EVENT_FILE_LOADED: {
             emit fileLoaded();
             break;
