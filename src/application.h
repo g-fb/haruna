@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE void configureShortcuts();
 
     static QString version();
+    Q_INVOKABLE static bool hasYoutubeDl();
     Q_INVOKABLE static bool isYoutubePlaylist(const QString &path);
     Q_INVOKABLE static QString formatTime(const double time);
     Q_INVOKABLE static void hideCursor();

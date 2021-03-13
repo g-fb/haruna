@@ -115,7 +115,6 @@ Kirigami.ApplicationWindow {
 
     Popup {
         id: openUrlPopup
-        width: 500
         x: 10
         y: 10
 
@@ -126,8 +125,18 @@ Kirigami.ApplicationWindow {
 
         RowLayout {
             anchors.fill: parent
+
+            Label {
+                text: qsTr("<a href=\"https://youtube-dl.org\">Youtube-dl</a> was not found")
+                visible: !app.hasYoutubeDl()
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
             TextField {
                 id: openUrlTextField
+
+                visible: app.hasYoutubeDl()
+                Layout.preferredWidth: 400
                 Layout.fillWidth: true
                 Component.onCompleted: text = GeneralSettings.lastUrl
 
@@ -143,6 +152,8 @@ Kirigami.ApplicationWindow {
             }
             Button {
                 id: openUrlButton
+
+                visible: app.hasYoutubeDl()
                 text: qsTr("Open")
 
                 onClicked: {

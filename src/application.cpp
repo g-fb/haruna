@@ -250,6 +250,12 @@ QString Application::version()
     return QStringLiteral("0.5.0");
 }
 
+bool Application::hasYoutubeDl()
+{
+    return !QStandardPaths::findExecutable(QStringLiteral("youtube-dl")).isEmpty();
+
+}
+
 QUrl Application::parentUrl(const QString &path)
 {
     QUrl url(path);
