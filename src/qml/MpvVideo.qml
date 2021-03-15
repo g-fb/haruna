@@ -75,6 +75,8 @@ MpvObject {
     onYoutubePlaylistLoaded: {
         mpv.command(["loadfile", playlistModel.getPath(GeneralSettings.lastPlaylistIndex)])
         playlistModel.setPlayingVideo(GeneralSettings.lastPlaylistIndex)
+
+        playList.setPlayListScrollPosition()
     }
 
     onFileStarted: {
@@ -124,7 +126,11 @@ MpvObject {
         }
     }
 
-    onEndOfFile: {
+    onEndFile: {
+        if (reason === "error") {
+            const title = playlistModel.getItem(playlistModel.getPlayingVideo()).mediaTitle()
+            osd.message(qsTr("Could not play: %1").arg(title))
+        }
         const nextFileRow = playlistModel.getPlayingVideo() + 1
         if (nextFileRow < playList.playlistView.count) {
             const nextFile = playlistModel.getPath(nextFileRow)

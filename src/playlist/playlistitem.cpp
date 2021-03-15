@@ -10,7 +10,8 @@
 #include <QFileInfo>
 #include <QUrl>
 
-PlayListItem::PlayListItem(const QString &path, int i)
+PlayListItem::PlayListItem(const QString &path, int i, QObject *parent)
+    : QObject(parent)
 {
     QUrl url(path);
 

@@ -411,7 +411,9 @@ void MpvObject::eventHandler()
         case MPV_EVENT_END_FILE: {
             auto prop = (mpv_event_end_file *)event->data;
             if (prop->reason == MPV_END_FILE_REASON_EOF) {
-                emit endOfFile();
+                emit endFile("eof");
+            } else if(prop->reason == MPV_END_FILE_REASON_ERROR) {
+                emit endFile("error");
             }
             break;
         }
@@ -567,7 +569,7 @@ void MpvObject::getYouTubePlaylist(const QString &path)
     QObject::connect(ytdlProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished,
                      this, [=](int, QProcess::ExitStatus) {
         // use the json to populate the playlist model
-        using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
+        using Playlist = QList<PlayListItem*>;
         Playlist m_playList;
 
         QString json = ytdlProcess->readAllStandardOutput();
@@ -581,14 +583,14 @@ void MpvObject::getYouTubePlaylist(const QString &path)
             auto title = entries[i]["title"].toString();
             auto duration = entries[i]["duration"].toDouble();
 
-            auto video = std::make_shared<PlayListItem>(url, i);
+            auto video = new PlayListItem(url, i, m_playlistModel);
             video->setMediaTitle(!title.isEmpty() ? title : url);
             video->setFileName(!title.isEmpty() ? title : url);
 
             video->setDuration(Application::formatTime(duration));
-            m_playList.emplace(i, video);
+            m_playList.append(video);
 
-            playlistFileContent += QString("%1,%2,%3\n").arg(url).arg(title).arg(QString::number(duration));
+            playlistFileContent += QString("%1,%2,%3\n").arg(url, title, QString::number(duration));
         }
 
         // save playlist to disk

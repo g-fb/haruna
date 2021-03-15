@@ -7,32 +7,33 @@
 #ifndef PLAYLISTITEM_H
 #define PLAYLISTITEM_H
 
-#include <QString>
+#include <QObject>
 
-class PlayListItem
+class PlayListItem : public QObject
 {
+    Q_OBJECT
 public:
-    explicit PlayListItem(const QString &path, int i = 0);
+    explicit PlayListItem(const QString &path, int i = 0, QObject *parent = nullptr);
 
-    QString mediaTitle() const;
+    Q_INVOKABLE QString mediaTitle() const;
     void setMediaTitle(const QString &title);
 
-    QString filePath() const;
+    Q_INVOKABLE QString filePath() const;
     void setFilePath(const QString &filePath);
 
-    QString fileName() const;
+    Q_INVOKABLE QString fileName() const;
     void setFileName(const QString &fileName);
 
-    QString folderPath() const;
+    Q_INVOKABLE QString folderPath() const;
     void setFolderPath(const QString &folderPath);
 
-    QString duration() const;
+    Q_INVOKABLE QString duration() const;
     void setDuration(const QString &duration);
 
-    bool isPlaying() const;
+    Q_INVOKABLE bool isPlaying() const;
     void setIsPlaying(bool isPlaying);
 
-    int index() const;
+    Q_INVOKABLE int index() const;
     void setIndex(int index);
 
 private:

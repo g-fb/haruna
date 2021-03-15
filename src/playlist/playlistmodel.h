@@ -14,7 +14,7 @@
 
 class PlayListItem;
 
-using Playlist = std::map<int, std::shared_ptr<PlayListItem>>;
+using Playlist = QList<PlayListItem*>;
 
 class PlayListModel : public QAbstractListModel
 {
@@ -42,6 +42,7 @@ public:
     virtual QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE QString getPath(int i);
+    Q_INVOKABLE PlayListItem *getItem(int i);
     Q_INVOKABLE void setPlayingVideo(int playingVideo);
     Q_INVOKABLE int getPlayingVideo() const;
     Q_INVOKABLE void getVideos(QString path);

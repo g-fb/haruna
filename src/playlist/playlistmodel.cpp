@@ -48,7 +48,7 @@ QVariant PlayListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || m_playList.empty())
         return QVariant();
 
-    auto playListItem = m_playList.at(index.row()).get();
+    auto playListItem = m_playList.at(index.row());
     switch (role) {
     case NameRole:
         return QVariant(playListItem->fileName());
@@ -106,8 +106,8 @@ void PlayListModel::getVideos(QString path)
     beginInsertRows(QModelIndex(), 0, videoFiles.count() - 1);
 
     for (int i = 0; i < videoFiles.count(); ++i) {
-        auto video = std::make_shared<PlayListItem>(videoFiles.at(i), i);
-        m_playList.emplace(i, video);
+        auto video = new PlayListItem(videoFiles.at(i), i, this);
+        m_playList.append(video);
         if (path == videoFiles.at(i)) {
             setPlayingVideo(i);
         }
@@ -152,6 +152,7 @@ int PlayListModel::getPlayingVideo() const
 void PlayListModel::clear()
 {
     m_playingVideo = 0;
+    qDeleteAll(m_playList);
     beginResetModel();
     m_playList.clear();
     endResetModel();
@@ -160,6 +161,11 @@ void PlayListModel::clear()
 QString PlayListModel::getPath(int i)
 {
     return m_playList[i]->filePath();
+}
+
+PlayListItem *PlayListModel::getItem(int i)
+{
+    return m_playList[i];
 }
 
 void PlayListModel::setPlayingVideo(int playingVideo)

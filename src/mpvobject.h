@@ -194,7 +194,7 @@ signals:
     void saturationChanged();
     void fileStarted();
     void fileLoaded();
-    void endOfFile();
+    void endFile(QString reason);
     void watchPercentageChanged();
     void ready();
     void audioTracksModelChanged();
