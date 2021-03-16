@@ -160,6 +160,11 @@ void PlayListModel::clear()
 
 QString PlayListModel::getPath(int i)
 {
+    // when restoring a youtube playlist
+    // ensure the requested path is valid
+    if (m_playList.size() <= i) {
+        return m_playList[0]->filePath();
+    }
     return m_playList[i]->filePath();
 }
 
