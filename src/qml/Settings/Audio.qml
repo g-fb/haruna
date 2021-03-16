@@ -29,12 +29,16 @@ SettingsBasePage {
         }
         TextField {
             text: AudioSettings.preferredLanguage
-            placeholderText: "eng, ger etc."
+            placeholderText: "eng,ger etc."
             Layout.fillWidth: true
             onTextEdited: {
                 AudioSettings.preferredLanguage = text
                 AudioSettings.save()
                 mpv.setProperty("alang", text)
+            }
+
+            ToolTip {
+                text: qsTr("Do not use spaces.")
             }
         }
 

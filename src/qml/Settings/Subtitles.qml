@@ -36,12 +36,16 @@ SettingsBasePage {
         }
         TextField {
             text: SubtitlesSettings.preferredLanguage
-            placeholderText: "eng, ger etc."
+            placeholderText: "eng,ger etc."
             Layout.fillWidth: true
             onTextEdited: {
                 SubtitlesSettings.preferredLanguage = text
                 SubtitlesSettings.save()
                 mpv.setProperty("slang", text)
+            }
+
+            ToolTip {
+                text: qsTr("Do not use spaces.")
             }
         }
 
