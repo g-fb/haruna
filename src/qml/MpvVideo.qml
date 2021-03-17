@@ -128,6 +128,10 @@ MpvObject {
 
     onEndFile: {
         if (reason === "error") {
+            if (playlistModel.rowCount() === 0) {
+                return
+            }
+
             const title = playlistModel.getItem(playlistModel.getPlayingVideo()).mediaTitle()
             osd.message(qsTr("Could not play: %1").arg(title))
             // only skip to next video if it's a youtube playList

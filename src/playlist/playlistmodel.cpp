@@ -170,6 +170,9 @@ QString PlayListModel::getPath(int i)
 
 PlayListItem *PlayListModel::getItem(int i)
 {
+    if (m_playList.size() <= i) {
+        return m_playList[0];
+    }
     return m_playList[i];
 }
 
