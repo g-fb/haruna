@@ -42,13 +42,12 @@ Kirigami.ApplicationWindow {
     header: Header { id: header }
 
     menuBar: MenuBar {
-
         hoverEnabled: true
-        implicitHeight: 24
         visible: !window.isFullScreen() && GeneralSettings.showMenuBar
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
+        Kirigami.Theme.colorSet: Kirigami.Theme.Header
 
         FileMenu {}
         ViewMenu {}
