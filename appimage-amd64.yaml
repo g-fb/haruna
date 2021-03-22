@@ -1,4 +1,10 @@
+#
+# SPDX-FileCopyrightText: 2021 Alexis Lopez Zubieta <contact@azubieta.net>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 # appimage-builder recipe file https://appimage-builder.readthedocs.io/en/latest/
+
 version: 1
 script:
   - apt-get update && apt-get install -y python3.8
