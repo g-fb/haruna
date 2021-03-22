@@ -1,7 +1,10 @@
 #
+# SPDX-FileCopyrightText: 2006 Laurent Montel <montel@kde.org>
+# SPDX-FileCopyrightText: 2019 Heiko Becker <heirecka@exherbo.org>
+# SPDX-FileCopyrightText: 2020 Elvis Angelaccio <elvis.angelaccio@kde.org>
 # SPDX-FileCopyrightText: 2021 George Florea Bănuș <georgefb899@gmail.com>
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: BSD-3-Clause
 #
 #
 # FindLibmpv
