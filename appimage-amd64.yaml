@@ -56,6 +56,9 @@ AppDir:
       - libqt5widgets5
       - libkf5i18n5
       - python3
+      - breeze
+      - breeze-icon-theme 
+      - qml-module-org-kde-qqc2desktopstyle
  
     exclude:
       - libkf5service-bin
