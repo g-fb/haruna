@@ -72,6 +72,7 @@ Main Window
 - Breeze icons
 - Breeze widgets style
 - QQC2-Desktop-Style
+- Youtube-dl
 
 # Build
 
