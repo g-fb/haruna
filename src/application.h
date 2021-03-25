@@ -73,6 +73,7 @@ private:
     KConfigGroup *m_shortcuts;
     QMap<int, QString> m_args;
     KColorSchemeManager *m_schemes;
+    QString m_systemDefaultStyle;
 };
 
 #endif // APPLICATION_H

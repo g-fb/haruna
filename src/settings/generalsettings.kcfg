@@ -50,7 +50,7 @@
       <default>true</default>
     </entry>
     <entry name="GuiStyle" type="String">
-        <default>System</default>
+        <default>Default</default>
     </entry>
     <entry name="Volume" type="Int">
       <label>Volume</label>

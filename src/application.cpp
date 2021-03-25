@@ -40,6 +40,7 @@
 #include <QQuickView>
 #include <QStandardPaths>
 #include <QStyleFactory>
+#include <QStyle>
 #include <QThread>
 #include <QQmlEngine>
 #include <QMimeDatabase>
@@ -79,6 +80,7 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     m_config = KSharedConfig::openConfig("georgefb/haruna.conf");
     m_shortcuts = new KConfigGroup(m_config, "Shortcuts");
     m_schemes = new KColorSchemeManager(this);
+    m_systemDefaultStyle = m_app->style()->objectName();
 
     // register mpris dbus service
     QString mspris2Name(QStringLiteral("org.mpris.MediaPlayer2.haruna"));
@@ -353,6 +355,10 @@ QStringList Application::availableGuiStyles()
 
 void Application::setGuiStyle(const QString &style)
 {
+    if (style == "Default") {
+        QApplication::setStyle(m_systemDefaultStyle);
+        return;
+    }
     QApplication::setStyle(style);
 }
 

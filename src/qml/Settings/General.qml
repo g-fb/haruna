@@ -257,7 +257,7 @@ SettingsBasePage {
             model: ListModel {
                 id: stylesModel
 
-                ListElement { key: "system"; }
+                ListElement { key: "Default"; }
             }
 
             onActivated: {
