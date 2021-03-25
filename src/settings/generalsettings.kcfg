@@ -47,7 +47,7 @@
       <label>Color scheme</label>
     </entry>
     <entry name="UseBreezeIconTheme" type="bool">
-      <default>true</default>
+      <default>false</default>
     </entry>
     <entry name="GuiStyle" type="String">
         <default>Default</default>
