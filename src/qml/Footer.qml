@@ -79,9 +79,10 @@ ToolBar {
             action: actions.playPreviousAction
             text: ""
             focusPolicy: Qt.NoFocus
+            enabled: playList.playlistView.count > 1
 
             ToolTip {
-                text: qsTr("Play Previous File")
+                text: qsTr("Play previous file")
             }
         }
 
@@ -90,9 +91,10 @@ ToolBar {
             action: actions.playNextAction
             text: ""
             focusPolicy: Qt.NoFocus
+            enabled: playList.playlistView.count > 1
 
             ToolTip {
-                text: qsTr("Play Next File")
+                text: qsTr("Play next file")
             }
         }
 
