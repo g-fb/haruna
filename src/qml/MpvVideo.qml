@@ -80,9 +80,7 @@ MpvObject {
     }
 
     onFileStarted: {
-        if (playList.isYouTubePlaylist) {
-            loadingIndicatorParent.visible = true
-        }
+        loadingIndicatorParent.visible = true
     }
 
     onFileLoaded: {
