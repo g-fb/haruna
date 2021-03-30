@@ -12,13 +12,49 @@
     <project_license>GPL-3.0-or-later</project_license>
     <url type="homepage">https://github.com/g-fb/haruna</url>
     <url type="bugtracker">https://github.com/g-fb/haruna/issues</url>
-    <url type="donation">https://www.patreon.com/georgefb</url>
-    <summary>A Qt/QML video player built on top of libmpv.</summary>
+    <url type="donation">https://github.com/sponsors/g-fb</url>
+    <summary>Open source video player built with Qt/QML and libmpv.</summary>
     <developer_name>George Florea Bănuș</developer_name>
     <description>
-        <p>A Qt/QML video player built on top of libmpv.</p>
+        <p>Open source video player built with Qt/QML and libmpv.</p>
+        <p>Features</p>
+        <ul>
+            <li>play online videos, through youtube-dl</li>
+            <li>supports youtube playlists</li>
+            <li>toggle playlist with mouse-over, playlist overlays the video</li>
+            <li>auto skip chapter containing certain words</li>
+            <li>configurable shortcuts and mouse buttons</li>
+            <li>quick jump to next chapter by middle click on progress bar</li>
+        </ul>
     </description>
     <releases>
+        <release version="0.6.0" date="2021-03-30">
+            <description>
+                <p>Features:</p>
+                <ul>
+                    <li>Added support for youtube playlists.</li>
+                    <li>Added MPRIS2 support.</li>
+                    <li>Settings open in separate window and reorganize some settings.</li>
+                    <li>Playlist can overlay video or push it, Settings > Playlist > Overlay video.</li>
+                    <li>Playlist has another, more compact style, Settings > Playlist > Playlist style.</li>
+                    <li>When playlist toggle with mouse is disabled, a playlist toggle button will be added to the footer.</li>
+                    <li>Added option to select any installed GUI style.</li>
+                    <li>Added action to toggle deinterlacing (d key).</li>
+                    <li>Replaced the open url controls with a message when youtube-dl is not found.</li>
+                    <li>Can load ass, ssa and srt subtitles by drag and drop.</li>
+                    <li>Added option to control the saving of the playing file's position, Settings > Playback > Remember time position (click on the help button for more information).</li>
+                    <li>Changed default screenshots folder to `~/Pictures/Haruna screenshots`.</li>
+                    <li>Added loading indicator for videos.</li>
+                </ul>
+                <p>Bugfixes:</p>
+                <ul>
+                    <li>Fixed playlist closing when hovering space between items.</li>
+                    <li>Fixed crash when it can't read file metadata.</li>
+                    <li>Fixed menubar height being to small.</li>
+                </ul>
+            </description>
+
+        </release>
         <release version="0.5.0" date="2021-01-11">
             <description>
                 <p>Features:</p>
@@ -34,108 +70,6 @@
                     <li>Fixed button to open config file/folder.</li>
                 </ul>
             </description>
-
-        </release>
-        <release version="0.4.2" date="2020-12-09">
-            <description>
-                <ul>
-                    <li>0.4.2: Fixed mouse actions.</li>
-                    <li>0.4.1: Fixed last played file not saving.</li>
-                    <li>0.4.0: Added option to show thumbnails in playlist.</li>
-                    <li>0.4.0: Highlight playing video in playlist.</li>
-                    <li>0.4.0: Fixed a bug in the action responsible for playing previous file.</li>
-                </ul>
-            </description>
-        </release>
-        <release version="0.3.1" date="2020-12-01">
-            <description>
-                <ul>
-                    <li>Hide playlist horizontal scroll bar.</li>
-                </ul>
-            </description>
-        </release>
-        <release version="0.3.0" date="2020-11-30">
-            <description>
-                <ul>
-                    <li>Added option to repeat playlist.</li>
-                    <li>Added option to disable adding videos from same folder to playlist.</li>
-                    <li>Added option to show media title instead of file name in playlist.</li>
-                    <li>Added about window, can be opened from help menu or F1 key.</li>
-                    <li>Added option to hide chapter markers.</li>
-                    <li>Fixed menu bar and tool bar not hiding in fullscreen sometimes.</li>
-                </ul>
-            </description>
-        </release>
-        <release version="0.2.2" date="2020-10-10">
-            <description>
-                <p>Fix header and footer buttons triggering when pressing space key after they were clicked, resulting in both the button's action and the play/pause action (space key) being triggered.</p>
-                <p>Code refactoring to be compatible with qt 5.12.</p>
-            </description>
-        </release>
-        <release version="0.2.0" date="2020-10-10">
-            <description>
-                <p>Added option to change color scheme; Configure > General.</p>
-                <p>Added option to open config folder and file; Configure.</p>
-                <p>Added option to show row numbers in playlist; Configure > Playlist.</p>
-                <p>Improved theming on non KDE systems.</p>
-                <p>Removed playlist row spacing option.</p>
-                <p>Lots of code refactoring.</p>
-            </description>
-        </release>
-        <release version="0.1.8" date="2020-08-24">
-            <description>
-            <p>Fixed crash when opening mouse settings.</p>
-            </description>
-        </release>
-        <release version="0.1.7" date="2020-08-07">
-            <description>
-                <p>Fixed actions not working with non english languages.</p>
-            </description>
-        </release>
-        <release version="0.1.6" date="2020-07-29">
-            <description>
-                <p>Added setting to configure screenshots format and save rules.</p>
-                <p>Added help button to some settings pages explaining some of the more complex settings (screenshot template and youtube-dl format selection).</p>
-                <p>Changed settings navigation.</p>
-            </description>
-        </release>
-        <release version="0.1.5" date="2020-07-26">
-            <description>
-                <p>Added setting to configure the version selected when playing online videos.</p>
-                <p>By default the best version is selected, but some videos can be very big requiring lots of bandwith and CPU power.</p>
-                <p>This setting lets you select a smaller version. Setting is in the Playback page.</p>
-            </description>
-        </release>
-        <release version="0.1.4" date="2020-07-22">
-            <description>
-                <p>Added loop action (l key); first trigger sets loop start, second sets loop end, third clears the loop.</p>
-                <p>The loop section is highlighted in the progress bar.</p>
-                <p>Added actions to change subtitle size (ctrl+z and ctrl+x) and subtitle position (r and shift+r).</p>
-                <p>Fixed theme being broken sometimes.</p>
-            </description>
-        </release>
-        <release version="0.1.3" date="2020-05-17">
-            <description>
-                <p>Add action (s key) to take screenshots.</p>
-                <p>Screenshots are saved in a `screenshots` folder in the same folder as the video file.</p>
-            </description>
-        </release>
-        <release version="0.1.2" date="2020-05-13">
-            <description>
-                <p>Add audio tracks cycle up (Shift+3) and down (Shift+2) actions.</p>
-                <p>Add subtitle tracks cycle up (j) and down (Shift+j) actions.</p>
-                <p>Video title is now used as window title.</p>
-                <p>Fix volume not being remembered between sessions.</p>
-                <p>Fix volume slider background being the same as the footer background.</p>
-                <p>Fix playlist not being able to scroll sometimes.</p>
-                <p>Fix quit keyboard shortcut sometimes having to be triggered twice to work.</p>
-            </description>
-        </release>
-        <release version="0.1.1" date="2020-03-09">
-            <description>
-                <p>Fix changing audio track from meniu.</p>
-                <p>Fix icon.</p>
-            </description>
         </release>
         <release version="0.1.0" date="2020-02-28">
             <description>
@@ -145,8 +79,12 @@
     </releases>
     <screenshots>
         <screenshot type="default">
-            <caption>Haruna</caption>
-            <image>https://i.imgur.com/y1XUhs4.png</image>
+            <caption>Haruna main window</caption>
+            <image>https://i.imgur.com/s6HFz1k.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Haruna settings window</caption>
+            <image>https://i.imgur.com/z0AdnW6.png</image>
         </screenshot>
     </screenshots>
     <content_rating type="oars-1.0" />
