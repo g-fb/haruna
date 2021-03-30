@@ -76,7 +76,7 @@ find_package(KF5XmlGui)
 set_package_properties(KF5XmlGui PROPERTIES TYPE REQUIRED
     URL "https://api.kde.org/frameworks/kxmlgui/html/index.html")
 
-option(InstallColorSchemes "Installs breeze color schemes." OFF)
+#option(InstallColorSchemes "Installs breeze color schemes." OFF)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

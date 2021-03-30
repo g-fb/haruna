@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-add_subdirectory(color-schemes)
+#add_subdirectory(color-schemes)
 
 install(FILES com.georgefb.haruna.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES com.georgefb.haruna.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
