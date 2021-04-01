@@ -80,7 +80,9 @@ MpvObject {
     }
 
     onFileStarted: {
-        loadingIndicatorParent.visible = true
+        if (typeof getProperty("path") === "string" && getProperty("path").startsWith("http")) {
+            loadingIndicatorParent.visible = true
+        }
     }
 
     onFileLoaded: {
