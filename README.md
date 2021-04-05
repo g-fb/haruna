@@ -12,6 +12,7 @@ Haruna is an open source video player built with Qt/QML and libmpv.
 
 # Install
 
+https://flathub.org/apps/details/com.georgefb.haruna
 ### Stable
 ```
 flatpak install flathub com.georgefb.haruna
