@@ -28,6 +28,15 @@
         </ul>
     </description>
     <releases>
+        <release version="0.6.1" date="2021-04-06">
+            <description>
+                <p>Bugfixes:</p>
+                <ul>
+                    <li>Show loading indicator for online videos only.</li>
+                    <li>Fixed not opening recent file from panel/task manager context menu.</li>
+                </ul>
+            </description>
+        </release>
         <release version="0.6.0" date="2021-03-30">
             <description>
                 <p>Features:</p>
@@ -53,7 +62,6 @@
                     <li>Fixed menubar height being to small.</li>
                 </ul>
             </description>
-
         </release>
         <release version="0.5.0" date="2021-01-11">
             <description>
