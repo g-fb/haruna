@@ -6,7 +6,7 @@
 
 [Desktop Entry]
 Name=Haruna Video Player
-Exec=haruna
+Exec=haruna %u
 Icon=com.georgefb.haruna
 Type=Application
 Categories=Qt;KDE;AudioVideo;Player;Video;TV;
