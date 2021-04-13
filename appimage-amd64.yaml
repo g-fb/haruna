@@ -77,6 +77,7 @@ AppDir:
       - sensible-utils
       - mime-support
       - libpam-modules
+      - libssl1.1
 
   files:
     exclude:
