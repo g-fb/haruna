@@ -88,9 +88,9 @@ AppDir:
       - usr/share/doc/*/TODO.*
   after_bundle:
     # workaround libcrypt.so.2 binary still name as libcrypt.so.1 in debian systems
-    - ln -s /usr/lib/libcrypt.so.2 $APPDIR/usr/lib/libcrypt.so.1
+    - ln -fs /usr/lib/libcrypt.so.2 $APPDIR/usr/lib/libcrypt.so.1
     # deploy the latest youtube-dl
-    - python3.8 -m pip install --ignore-installed --prefix=/usr --root=$APPDIR install youtube-dl
+    - python3.8 -m pip install --ignore-installed --prefix=/usr --root=$APPDIR install youtube-dl certifi
 
   runtime:
     env:
@@ -100,6 +100,8 @@ AppDir:
       # Path to the site-packages dir or other modules dirs
       # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
       PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
+      # SSL Certificates are placed in a different location for every system therefore we ship our own copy
+      SSL_CERT_FILE: '${APPDIR}/usr/lib/python3.8/site-packages/certifi/cacert.pem'
 
   test:
     debian:
