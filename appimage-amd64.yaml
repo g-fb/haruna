@@ -78,15 +78,19 @@ AppDir:
       - mime-support
       - libpam-modules
       - libssl1.1
+      - libllvm11
 
   files:
     exclude:
-      - usr/lib/x86_64-linux-gnu/gconv
-      - usr/share/man
-      - usr/share/doc/*/README.*
-      - usr/share/doc/*/changelog.*
-      - usr/share/doc/*/NEWS.*
-      - usr/share/doc/*/TODO.*
+      - /usr/lib/x86_64-linux-gnu/gconv
+      - /usr/share/man
+      - /usr/share/doc/*/README.*
+      - /usr/share/doc/*/changelog.*
+      - /usr/share/doc/*/NEWS.*
+      - /usr/share/doc/*/TODO.*
+      - /usr/share/wallpapers
+      - /usr/share/locale
+      - /usr/share/perl
   after_bundle:
     # workaround libcrypt.so.2 binary still name as libcrypt.so.1 in debian systems
     - ln -s /usr/lib/libcrypt.so.2 $APPDIR/usr/lib/libcrypt.so.1
