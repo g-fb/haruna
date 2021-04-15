@@ -376,6 +376,7 @@ QQuickFramebufferObject::Renderer *MpvObject::createRenderer() const
 
 void MpvObject::loadFile(const QString &file, bool updateLastPlayedFile)
 {
+    setProperty("ytdl-format", PlaybackSettings::ytdlFormat());
     command(QStringList() << "loadfile" << file);
 
     if (updateLastPlayedFile) {
