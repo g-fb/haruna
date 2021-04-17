@@ -28,6 +28,14 @@
         </ul>
     </description>
     <releases>
+        <release version="0.6.2" date="2021-04-17">
+            <description>
+                <p>Bugfixes:</p>
+                <ul>
+                    <li>Fixed youtube-dl format selection not working.</li>
+                </ul>
+            </description>
+        </release>
         <release version="0.6.1" date="2021-04-06">
             <description>
                 <p>Bugfixes:</p>
