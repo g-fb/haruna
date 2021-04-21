@@ -28,6 +28,13 @@ flatpak run --branch=beta com.georgefb.haruna
 
 [Flatpak setup guide](https://flatpak.org/setup/)
 
+# AppImage
+
+* Download appimage from [Releases](https://github.com/g-fb/haruna/releases)
+  * make executable with `chmod +x Haruna*.AppImage`
+    * run as executable
+  * Alternatively, use [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) (optional)
+
 # Features
 
 these are just some features that set Haruna apart from others players
