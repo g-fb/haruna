@@ -38,7 +38,7 @@ jobs:
           package: haruna
           package_root: .debpkg
           maintainer: github_actions
-          version: ${HARUNA_VERSION}
+          version: ${{ github.ref }}
           arch: 'amd64'
           depends: 'qml-module-org-kde-kirigami2,  qml-module-qtquick-layouts,  qml-module-qt-labs-platform,  qml-module-qtquick-shapes,  libkf5configcore5,  libkf5configgui5,  libkf5configwidgets5,  libkf5coreaddons5,  libkf5filemetadata3,  libkf5i18n5,  libkf5kiocore5,  libkf5filemetadata-bin,  libkf5kiowidgets5,  libkf5xmlgui5,  libmpv1,  libqt5core5a,  libqt5dbus5,  libqt5gui5,  libqt5qml5,  libqt5quick5,  libqt5quickcontrols2-5,  libqt5widgets5,  libkf5i18n5,  python3,  breeze,  breeze-icon-theme, qml-module-org-kde-qqc2desktopstyle'
           desc: 'Open source video player built with Qt/QML and libmpv.'
