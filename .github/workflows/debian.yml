@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: install dependencies
         run: |
+          sudo apt-key adv --keyserver 'https://archive.neon.kde.org/public.key' --recv-key E6D4736255751E5D && \
+          sudo add-apt-repository http://archive.neon.kde.org/user && \
           sudo apt-get update
           sudo apt-get install -y qt5-default qtdeclarative5-dev gettext build-essential extra-cmake-modules \
             kirigami2-dev mpv libmpv-dev libkf5xmlgui-dev qtquickcontrols2-5-dev libkf5kio-dev libkf5iconthemes-dev \
