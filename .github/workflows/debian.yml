@@ -1,0 +1,53 @@
+#
+# SPDX-FileCopyrightText: 2021 Shriraj Hegde <shriraj.hegde@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+name: Build Debian Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-debian-release:
+
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt5-default qtdeclarative5-dev gettext build-essential extra-cmake-modules \
+            kirigami2-dev mpv libmpv-dev libkf5xmlgui-dev qtquickcontrols2-5-dev libkf5kio-dev libkf5iconthemes-dev \
+            libkf5filemetadata-dev libkf5config-dev breeze-dev qtquickcontrols2-5-dev cmake g++
+
+      - name: Resolve Version
+        run: |
+          echo "HARUNA_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Configure and Build
+        run: |
+          echo Version: $HARUNA_VERSION >> .debpkg/DEBIAN/control && \
+          cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr && \
+          make -j`nproc`  install DESTDIR=.debpkg
+
+      - uses: jiro4989/build-deb-action@v2
+        with:
+          package: haruna
+          package_root: .debpkg
+          maintainer: github_actions
+          version: !ENV ${HARUNA_VERSION}
+          arch: 'amd64'
+          depends: 'qml-module-org-kde-kirigami2,  qml-module-qtquick-layouts,  qml-module-qt-labs-platform,  qml-module-qtquick-shapes,  libkf5configcore5,  libkf5configgui5,  libkf5configwidgets5,  libkf5coreaddons5,  libkf5filemetadata3,  libkf5i18n5,  libkf5kiocore5,  libkf5filemetadata-bin,  libkf5kiowidgets5,  libkf5xmlgui5,  libmpv1,  libqt5core5a,  libqt5dbus5,  libqt5gui5,  libqt5qml5,  libqt5quick5,  libqt5quickcontrols2-5,  libqt5widgets5,  libkf5i18n5,  python3,  breeze,  breeze-icon-theme, qml-module-org-kde-qqc2desktopstyle'
+          desc: 'Open source video player built with Qt/QML and libmpv.'
+
+      - name: Upload debian package to Release 
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            /home/runner/work/haruna/haruna/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
