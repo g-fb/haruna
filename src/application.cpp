@@ -68,6 +68,9 @@ static QApplication *createApplication(int &argc, char **argv, const QString &ap
 
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
+    if (GeneralSettings::useBreezeIconTheme()) {
+        QIcon::setThemeName(QStringLiteral("breeze"));
+    }
 
     QApplication *app = new QApplication(argc, argv);
     return app;
@@ -88,10 +91,6 @@ Application::Application(int &argc, char **argv, const QString &applicationName)
     QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
     // org.mpris.MediaPlayer2 mpris2 interface
     new MediaPlayer2(this);
-
-    if (GeneralSettings::useBreezeIconTheme()) {
-        QIcon::setThemeName("breeze");
-    }
 
     if (GeneralSettings::guiStyle() != QStringLiteral("System")) {
         QApplication::setStyle(GeneralSettings::guiStyle());
