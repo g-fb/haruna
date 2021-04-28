@@ -28,6 +28,14 @@
         </ul>
     </description>
     <releases>
+        <release version="0.6.3" date="2021-04-28">
+            <description>
+                <p>Bugfixes:</p>
+                <ul>
+                    <li>Fixed forcing breeze icons not working on Plasma, when system icon theme is not breeze.</li>
+                </ul>
+            </description>
+        </release>
         <release version="0.6.2" date="2021-04-17">
             <description>
                 <p>Bugfixes:</p>

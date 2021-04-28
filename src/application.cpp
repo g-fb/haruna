@@ -249,7 +249,7 @@ QUrl Application::configFolderPath()
 
 QString Application::version()
 {
-    return QStringLiteral("0.6.2");
+    return QStringLiteral("0.6.3");
 }
 
 bool Application::hasYoutubeDl()
