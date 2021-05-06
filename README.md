@@ -28,6 +28,20 @@ flatpak run --branch=beta com.georgefb.haruna
 
 [Flatpak setup guide](https://flatpak.org/setup/)
 
+Alternatively, Haruna is available in the following package managers:
+
+<table>
+  <tr>
+    <td>Arch Linux AUR<br>
+        (<a href="https://aur.archlinux.org/packages/haruna">build from source</a>)</td>
+    <td><code>yay -S haruna</code>
+        <br>or<br>
+        <code>git clone https://aur.archlinux.org/haruna.git</code><br>
+        <code>cd haruna</code><br>
+        <code>makepkg -csri</code></td>
+  </tr>
+</table>
+
 # AppImage
 
 * Download appimage from [Releases](https://github.com/g-fb/haruna/releases)
